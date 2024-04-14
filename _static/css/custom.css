@@ -1,0 +1,18 @@
+div.nboutput.container div.output_area:not(.rendered_html) > img.no-scaled-link {
+    width: auto !important;
+    height: auto !important;
+    max-width: 100% !important;
+}
+
+img {
+    width: auto;
+    height: auto;
+    /* To ensure the image doesn't exceed its parent's width */
+    max-width: 100%;
+}
+
+img.no-scaled-link {
+    width: auto !important;
+    height: auto !important;
+    max-width: 100% !important;
+}

@@ -1,0 +1,1192 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Spatial domain identification on 10x Visium DLFPC data &#8212; STEP  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/DLFPC';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Performing integrative analysis on scRNA-seq data and 10x Visium data of Human Lymph Node with STEP" href="Human_Lymph_Node.html" />
+    <link rel="prev" title="Welcome to STEP’s documentation!" href="../index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">STEP  documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Welcome to STEP’s documentation!
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials:</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Spatial domain identification on 10x Visium DLFPC data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Human_Lymph_Node.html">Performing integrative analysis on scRNA-seq data and 10x Visium data of Human Lymph Node with STEP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MERFISH.html">Reveal multiple level of biological heterogeneities in Mouse Hypothalamus by MERFISH-seq</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scRNA-seq.html">Integrate Human Immune Cell datasets with STEP and generate batch-corrected embeddings and gene expressions.</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API:</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../step.html">step</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../step.functionality.html">functionality</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../step.functionality.comps.html">comps</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../step.functionality.comps.model_ops.html">model ops</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../step.functionality.comps.trainer.html">trainer</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../step.functionality.base.html">base</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../step.functionality.cross_funcmodel.html">cross-modality</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../step.functionality.sc_funcmodel.html">scRNA-seq</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../step.functionality.st_funcmodel.html">spatial transcriptomics</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../step.manager.html">manager</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../step.models.html">models</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../step.models.clust.html">clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../step.models.deconv.html">deconvolution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../step.models.distributions.html">distributions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../step.models.extension.html">extension</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../step.models.geneformer.html">geneformer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../step.models.knn_map.html">knn sc map</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../step.models.nnls.html">non-negative least squares deconvolution</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../step.modules.html">modules</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../step.modules.decoder.html">decoder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../step.modules.gnn.html">gnn</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../step.modules.transformer.html">transformer</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../step.utils.html">utils</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../step.utils.synthetics.html">synthetics</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../step.utils.dataset.html">dataset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../step.utils.gbolt.html">graph sampler</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../step.utils.metrics.html">metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../step.utils.misc.html">misc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../step.utils.plotting.html">plotting</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../step.functionality.html">functionality</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-9"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../step.functionality.comps.html">comps</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-10"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../step.functionality.comps.model_ops.html">model ops</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../step.functionality.comps.trainer.html">trainer</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../step.functionality.base.html">base</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../step.functionality.cross_funcmodel.html">cross-modality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../step.functionality.sc_funcmodel.html">scRNA-seq</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../step.functionality.st_funcmodel.html">spatial transcriptomics</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../step.manager.html">manager</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-11"><i class="fa-solid fa-chevron-down"></i></label><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../step.models.html">models</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-12"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../step.models.clust.html">clustering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../step.models.deconv.html">deconvolution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../step.models.distributions.html">distributions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../step.models.extension.html">extension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../step.models.geneformer.html">geneformer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../step.models.knn_map.html">knn sc map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../step.models.nnls.html">non-negative least squares deconvolution</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../step.modules.html">modules</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-13"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../step.modules.decoder.html">decoder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../step.modules.gnn.html">gnn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../step.modules.transformer.html">transformer</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../step.utils.html">utils</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-14"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../step.utils.synthetics.html">synthetics</a><input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-15"><i class="fa-solid fa-chevron-down"></i></label><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../step.utils.dataset.html">dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../step.utils.gbolt.html">graph sampler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../step.utils.metrics.html">metrics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../step.utils.misc.html">misc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../step.utils.plotting.html">plotting</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/SGGb0nd/step-dev" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/SGGb0nd/step-dev/edit/main/docs/notebooks/DLFPC.ipynb" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/SGGb0nd/step-dev/issues/new?title=Issue%20on%20page%20%2Fnotebooks/DLFPC.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/notebooks/DLFPC.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Spatial domain identification on 10x Visium DLFPC data</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#151673-single-section-without-using-variational">151673 single section without using variational</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#151673-single-section-with-using-variational">151673 single section with using variational</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#151673-to-151676-together">151673 to 151676 together</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#Spatial-plots-and-ARIs-without-NA-spots">Spatial plots and ARIs without NA spots</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <style>
+    .nbinput .prompt,
+    .nboutput .prompt {
+        display: none;
+    }
+</style><section id="Spatial-domain-identification-on-10x-Visium-DLFPC-data">
+<h1>Spatial domain identification on 10x Visium DLFPC data<a class="headerlink" href="#Spatial-domain-identification-on-10x-Visium-DLFPC-data" title="Link to this heading">#</a></h1>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import os
+import torch
+import scanpy as sc
+import seaborn as sns
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+
+from step import stModel
+from step.utils.misc import set_seed
+from sklearn.metrics import adjusted_rand_score
+import anndata as ad
+
+sc.settings.figdir = &#39;./results/DLPFC&#39;
+sc.set_figure_params(dpi_save=300, figsize=(6, 4.5))
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/projects/82505004-e7a0-445f-ab3c-80d03c91438f/.cache/pypoetry/virtualenvs/step-Ajq_Bw_i-py3.10/lib/python3.10/site-packages/tqdm/auto.py:21: TqdmWarning: IProgress not found. Please update jupyter and ipywidgets. See https://ipywidgets.readthedocs.io/en/stable/user_install.html
+  from .autonotebook import tqdm as notebook_tqdm
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>os.chdir(os.path.expanduser(&#39;~/case-studies&#39;))
+</pre></div>
+</div>
+</div>
+<section id="151673-single-section-without-using-variational">
+<h2>151673 single section without using variational<a class="headerlink" href="#151673-single-section-without-using-variational" title="Link to this heading">#</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>set_seed(42)
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>stepc = stModel(
+    file_path=&#39;./data/151673/151673_annotated.h5ad&#39;,
+    n_top_genes=2000,
+    layer_key=None,
+    module_dim=30,
+    hidden_dim=64,
+    n_modules=10,
+    decoder_type=&#39;zinb&#39;,
+    variational=False,
+    n_glayers=6
+)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+Trying seurat_v3 for hvgs
+not log_transformed
+Adding count data to layer &#39;counts&#39;
+Dataset Done
+================Dataset Info================
+Batch key: None
+Class key: None
+Number of Batches: 1
+Number of Classes: None
+Gene Expr: (3639, 2000)
+============================================
+Not using VAE
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>stepc.run(n_iterations=3000)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+Training with e2e pattern
+Training graph with single batch
+100%|██████████| 3000/3000 [01:19&lt;00:00, 37.96step/s, recon_loss=1622.729, contrast_loss=0.130, graph_ids=None]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>adata = stepc.adata
+adata
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+AnnData object with n_obs × n_vars = 3639 × 2000
+    obs: &#39;in_tissue&#39;, &#39;array_row&#39;, &#39;array_col&#39;, &#39;gd&#39;, &#39;n_genes&#39;
+    var: &#39;gene_ids&#39;, &#39;feature_types&#39;, &#39;genome&#39;, &#39;MT_gene&#39;, &#39;highly_variable&#39;, &#39;highly_variable_rank&#39;, &#39;means&#39;, &#39;variances&#39;, &#39;variances_norm&#39;
+    uns: &#39;spatial&#39;, &#39;hvg&#39;, &#39;log1p&#39;
+    obsm: &#39;spatial&#39;, &#39;MT&#39;, &#39;X_smoothed&#39;
+    layers: &#39;counts&#39;
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>stepc.cluster(adata, use_rep=&#39;X_smoothed&#39;, n_clusters=7, key_added=&#39;cluster_&#39;,)
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>sc.pp.neighbors(adata, use_rep=&quot;X_smoothed&quot;, n_neighbors=100)
+sc.tl.umap(adata)
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>sc.pl.umap(adata, color=[&#39;cluster_&#39;, &#39;gd&#39;])
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_DLFPC_10_0.png" class="no-scaled-link" src="../_images/notebooks_DLFPC_10_0.png" style="width: 959px; height: 330px;" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>sc.pl.spatial(adata, color=[&#39;cluster_&#39;, &#39;gd&#39;])
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_DLFPC_11_0.png" class="no-scaled-link" src="../_images/notebooks_DLFPC_11_0.png" style="width: 830px; height: 330px;" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>adata = adata[adata.obs[&#39;gd&#39;].cat.codes != -1]
+adjusted_rand_score(adata.obs[&#39;cluster_&#39;], adata.obs[&#39;gd&#39;].cat.codes)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0.6415591888519586
+</pre></div></div>
+</div>
+</section>
+<section id="151673-single-section-with-using-variational">
+<h2>151673 single section with using variational<a class="headerlink" href="#151673-single-section-with-using-variational" title="Link to this heading">#</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>set_seed(123456)
+stepc = stModel(
+    file_path=&#39;./data/151673/151673_annotated.h5ad&#39;,
+    n_top_genes=3000,
+    layer_key=None,
+    module_dim=30,
+    hidden_dim=64,
+    n_modules=16,
+    decoder_type=&#39;zinb&#39;,
+    n_glayers=3,
+)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+Trying seurat_v3 for hvgs
+not log_transformed
+Adding count data to layer &#39;counts&#39;
+Dataset Done
+================Dataset Info================
+Batch key: None
+Class key: None
+Number of Batches: 1
+Number of Classes: None
+Gene Expr: (3639, 3000)
+============================================
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>stepc.run(n_samples=2400,
+          n_iterations=3400,)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+Training with e2e pattern
+Training graph with single batch
+100%|██████████| 3400/3400 [03:01&lt;00:00, 18.71step/s, recon_loss=2270.652, kl_loss=0.142, contrast_loss=0.006, graph_ids=None]
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>adata = stepc.adata
+
+stepc.cluster(adata, use_rep=&#39;X_smoothed&#39;, n_clusters=7, key_added=&#39;cluster_&#39;)
+adata = adata[adata.obs[&#39;gd&#39;].cat.codes != -1]
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>sc.pp.neighbors(adata, use_rep=&#39;X_smoothed&#39;, n_neighbors=100)
+sc.tl.umap(adata)
+sc.pl.umap(adata, color=[&#39;cluster_&#39;, &#39;gd&#39;])
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_DLFPC_17_0.png" class="no-scaled-link" src="../_images/notebooks_DLFPC_17_0.png" style="width: 959px; height: 330px;" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>sc.pl.spatial(adata, color=[&#39;cluster_&#39;, &#39;gd&#39;])
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_DLFPC_18_0.png" class="no-scaled-link" src="../_images/notebooks_DLFPC_18_0.png" style="width: 841px; height: 330px;" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>ari = adjusted_rand_score(adata.obs[&#39;cluster_&#39;], adata.obs[&#39;gd&#39;].cat.codes)
+ari
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0.6854871224605329
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>stepc.save(&quot;./results/DLPFC/151673-config/&quot;)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+Saving model...
+Saving model config...
+Saving dataset config...
+</pre></div></div>
+</div>
+</section>
+<section id="151673-to-151676-together">
+<h2>151673 to 151676 together<a class="headerlink" href="#151673-to-151676-together" title="Link to this heading">#</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>paths = [f&#39;./data/{i}/{i}_annotated.h5ad&#39; for i in range(151673, 151677)]
+import os
+
+adatas = [sc.read_h5ad(path) for path in paths]
+adatas = {f&#39;{151673 + i}&#39;: adata for i, adata in enumerate(adatas)}
+adata = ad.concat(adatas, uns_merge=&#39;unique&#39;, label=&#39;batch&#39;)
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>adata.uns[&#39;spatial&#39;].keys()
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+dict_keys([&#39;151673&#39;, &#39;151674&#39;, &#39;151675&#39;, &#39;151676&#39;])
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>adata.obs[&#39;batch&#39;].value_counts()
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+batch
+151674    3673
+151673    3639
+151675    3592
+151676    3460
+Name: count, dtype: int64
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>stepc = stModel(
+    adata=adata,
+    n_top_genes=2000,
+    batch_key=&#39;batch&#39;,
+    n_modules=10,
+    decoder_type=&#39;zinb&#39;,
+    variational=True,
+    dec_norm=&#39;batch&#39;,
+    n_glayers=6,
+    dispersion=&quot;gene&quot;
+)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+Trying seurat_v3 for hvgs
+not log_transformed
+Adding count data to layer &#39;counts&#39;
+Dataset Done
+================Dataset Info================
+Batch key: batch
+Class key: None
+Number of Batches: 4
+Number of Classes: None
+Gene Expr: (14364, 2000)
+Batch Label: (14364,)
+============================================
+</pre></div></div>
+</div>
+<div class="admonition note">
+<p><strong>Note:</strong> The results in paper were obtained by setting <code class="docutils literal notranslate"><span class="pre">beta=1e-3</span></code></p>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>stepc.run(graph_batch_size=2,
+           n_iterations=2000,
+           beta=1e-5,)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+Training with e2e pattern
+Training graph with multiple batches
+Constructing graph for batch 151673
+Constructing graph for batch 151674
+Constructing graph for batch 151675
+Constructing graph for batch 151676
+100%|██████████| 2000/2000 [04:05&lt;00:00,  8.14step/s, recon_loss=1045.916, kl_loss=0.002, contrast_loss=0.579, graph_ids=[0, 1]]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>stepc.cluster(n_clusters=7, key_added=&#39;cluster_&#39;,)
+adata = stepc.adata
+aris = []
+for i in range(151673, 151677):
+    _adata = adata[adata.obs[&#39;batch&#39;] == str(i)]
+    ari = adjusted_rand_score(_adata.obs[&#39;cluster_&#39;], _adata.obs[&#39;gd&#39;].cat.codes)
+    aris.append(ari)
+print(aris)
+
+adata = stepc.adata
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[0.6859044700752418, 0.6737134878196837, 0.6574160363368401, 0.645033638093529]
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>sc.pp.neighbors(adata, use_rep=&quot;X_smoothed&quot;, n_neighbors=60)
+sc.tl.umap(adata)
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>for col in [&#39;gd&#39;, &#39;cluster_&#39;, &#39;batch&#39;]:
+    sc.pl.umap(adata, color=col)
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_DLFPC_30_0.png" class="no-scaled-link" src="../_images/notebooks_DLFPC_30_0.png" style="width: 497px; height: 326px;" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_DLFPC_30_1.png" class="no-scaled-link" src="../_images/notebooks_DLFPC_30_1.png" style="width: 449px; height: 326px;" />
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_DLFPC_30_2.png" class="no-scaled-link" src="../_images/notebooks_DLFPC_30_2.png" style="width: 495px; height: 326px;" />
+</div>
+</div>
+<section id="Spatial-plots-and-ARIs-without-NA-spots">
+<h3>Spatial plots and ARIs without NA spots<a class="headerlink" href="#Spatial-plots-and-ARIs-without-NA-spots" title="Link to this heading">#</a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>for i in range(151673, 151677):
+    _adata = adata[adata.obs[&#39;batch&#39;] == str(i)]
+    ari_kmeans = adjusted_rand_score(_adata.obs[&#39;cluster_&#39;], _adata.obs[&#39;gd&#39;].cat.codes)
+    sc.pl.spatial(_adata, color=&#39;cluster_&#39;, library_id=str(i),
+                  img_key=None,
+                  title=f&#39;{i}_ari_{ari_kmeans: .2f}&#39;,
+                 )
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_DLFPC_32_0.png" class="no-scaled-link" src="../_images/notebooks_DLFPC_32_0.png" style="width: 314px; height: 326px;" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_DLFPC_32_1.png" class="no-scaled-link" src="../_images/notebooks_DLFPC_32_1.png" style="width: 311px; height: 326px;" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_DLFPC_32_2.png" class="no-scaled-link" src="../_images/notebooks_DLFPC_32_2.png" style="width: 327px; height: 326px;" />
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_DLFPC_32_3.png" class="no-scaled-link" src="../_images/notebooks_DLFPC_32_3.png" style="width: 333px; height: 326px;" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>stepc.save(&quot;./reuslts/dlfpc-p3-together&quot;)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+Saving model...
+Saving model config...
+Saving dataset config...
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from sklearn.metrics import adjusted_rand_score
+
+adata = adata[adata.obs[&#39;gd&#39;].cat.codes != -1]
+for i in range(151673, 151677):
+    _adata = adata[adata.obs[&#39;batch&#39;] == str(i)]
+    ari_kmeans = adjusted_rand_score(_adata.obs[&#39;cluster_&#39;], _adata.obs[&#39;gd&#39;].cat.codes)
+    print(f&quot;{i}: {ari_kmeans}&quot;)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+151673: 0.693643745029269
+151674: 0.6823133597364682
+151675: 0.6644988100827957
+151676: 0.6493974579858672
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Welcome to STEP’s documentation!</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="Human_Lymph_Node.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Performing integrative analysis on scRNA-seq data and 10x Visium data of Human Lymph Node with STEP</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#151673-single-section-without-using-variational">151673 single section without using variational</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#151673-single-section-with-using-variational">151673 single section with using variational</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#151673-to-151676-together">151673 to 151676 together</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#Spatial-plots-and-ARIs-without-NA-spots">Spatial plots and ARIs without NA spots</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Lounan Li
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024, Lounan Li.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

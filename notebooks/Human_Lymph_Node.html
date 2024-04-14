@@ -1,0 +1,1198 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Performing integrative analysis on scRNA-seq data and 10x Visium data of Human Lymph Node with STEP &#8212; STEP  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/Human_Lymph_Node';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Reveal multiple level of biological heterogeneities in Mouse Hypothalamus by MERFISH-seq" href="MERFISH.html" />
+    <link rel="prev" title="Spatial domain identification on 10x Visium DLFPC data" href="DLFPC.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">STEP  documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Welcome to STEP’s documentation!
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials:</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DLFPC.html">Spatial domain identification on 10x Visium DLFPC data</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Performing integrative analysis on scRNA-seq data and 10x Visium data of Human Lymph Node with STEP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MERFISH.html">Reveal multiple level of biological heterogeneities in Mouse Hypothalamus by MERFISH-seq</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scRNA-seq.html">Integrate Human Immune Cell datasets with STEP and generate batch-corrected embeddings and gene expressions.</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API:</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../step.html">step</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../step.functionality.html">functionality</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../step.functionality.comps.html">comps</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../step.functionality.comps.model_ops.html">model ops</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../step.functionality.comps.trainer.html">trainer</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../step.functionality.base.html">base</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../step.functionality.cross_funcmodel.html">cross-modality</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../step.functionality.sc_funcmodel.html">scRNA-seq</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../step.functionality.st_funcmodel.html">spatial transcriptomics</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../step.manager.html">manager</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../step.models.html">models</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../step.models.clust.html">clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../step.models.deconv.html">deconvolution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../step.models.distributions.html">distributions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../step.models.extension.html">extension</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../step.models.geneformer.html">geneformer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../step.models.knn_map.html">knn sc map</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../step.models.nnls.html">non-negative least squares deconvolution</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../step.modules.html">modules</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../step.modules.decoder.html">decoder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../step.modules.gnn.html">gnn</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../step.modules.transformer.html">transformer</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../step.utils.html">utils</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../step.utils.synthetics.html">synthetics</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../step.utils.dataset.html">dataset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../step.utils.gbolt.html">graph sampler</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../step.utils.metrics.html">metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../step.utils.misc.html">misc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../step.utils.plotting.html">plotting</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../step.functionality.html">functionality</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-9"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../step.functionality.comps.html">comps</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-10"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../step.functionality.comps.model_ops.html">model ops</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../step.functionality.comps.trainer.html">trainer</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../step.functionality.base.html">base</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../step.functionality.cross_funcmodel.html">cross-modality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../step.functionality.sc_funcmodel.html">scRNA-seq</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../step.functionality.st_funcmodel.html">spatial transcriptomics</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../step.manager.html">manager</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-11"><i class="fa-solid fa-chevron-down"></i></label><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../step.models.html">models</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-12"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../step.models.clust.html">clustering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../step.models.deconv.html">deconvolution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../step.models.distributions.html">distributions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../step.models.extension.html">extension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../step.models.geneformer.html">geneformer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../step.models.knn_map.html">knn sc map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../step.models.nnls.html">non-negative least squares deconvolution</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../step.modules.html">modules</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-13"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../step.modules.decoder.html">decoder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../step.modules.gnn.html">gnn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../step.modules.transformer.html">transformer</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../step.utils.html">utils</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-14"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../step.utils.synthetics.html">synthetics</a><input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-15"><i class="fa-solid fa-chevron-down"></i></label><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../step.utils.dataset.html">dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../step.utils.gbolt.html">graph sampler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../step.utils.metrics.html">metrics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../step.utils.misc.html">misc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../step.utils.plotting.html">plotting</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/SGGb0nd/step-dev" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/SGGb0nd/step-dev/edit/main/docs/notebooks/Human_Lymph_Node.ipynb" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/SGGb0nd/step-dev/issues/new?title=Issue%20on%20page%20%2Fnotebooks/Human_Lymph_Node.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/notebooks/Human_Lymph_Node.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Performing integrative analysis on scRNA-seq data and 10x Visium data of Human Lymph Node with STEP</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Loading-packages">Loading packages</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Load-data">Load data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Initialize-the-STEP-instance">Initialize the STEP instance</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Co-embedding-two-modalities">Co-embedding two modalities</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#Get-and-check-the-co-embedding-results">Get and check the co-embedding results</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Zonation-after-integration">Zonation after integration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Cell-type-deconvolution-with-obtained-embedding">Cell-type deconvolution with obtained embedding</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#Visualize-the-inferred-cell-type-composition">Visualize the inferred cell-type composition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#Perform-spatially-DE-genes-anlaysis">Perform spatially DE genes anlaysis</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#Summarize-the-average-proportion-of-selected-cell-types-in-each-domain">Summarize the average proportion of selected cell-types in each domain</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <style>
+    .nbinput .prompt,
+    .nboutput .prompt {
+        display: none;
+    }
+</style><section id="Performing-integrative-analysis-on-scRNA-seq-data-and-10x-Visium-data-of-Human-Lymph-Node-with-STEP">
+<h1>Performing integrative analysis on scRNA-seq data and 10x Visium data of Human Lymph Node with STEP<a class="headerlink" href="#Performing-integrative-analysis-on-scRNA-seq-data-and-10x-Visium-data-of-Human-Lymph-Node-with-STEP" title="Link to this heading">#</a></h1>
+<p>This tutorial showcases the workflow of integrating two modalities with STEP where they are firstly co-embeded into a shared latent space; then the spatial domains(and subdomains) are identified based on the obtained embedding; subsequently, the cell-type composition of each spot is inferred based on the identified domains and according to the embedding in the shared latent space.</p>
+<section id="Loading-packages">
+<h2>Loading packages<a class="headerlink" href="#Loading-packages" title="Link to this heading">#</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import torch
+import scanpy as sc
+import numpy as np
+import seaborn as sns
+import pandas as pd
+import matplotlib.pyplot as plt
+import os
+
+from step import crossModel
+from step.utils.data import plot_posterior_mu_vs_data
+
+sc_file = &#39;./results/lymph/human_lymph_integrated.h5ad&#39;
+sc_pth = &#39;./results/lymph/human_lymph_integrated.pth&#39;
+st_pth = &#39;./results/lymph/human_lymph_st_decoder.pth&#39;
+st_file = &#39;./results/lymph/human_lymph_filtered.h5ad&#39;
+
+if not os.path.exists(&#39;./results/lymph&#39;):
+    os.makedirs(&#39;./results/lymph&#39;)
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Load-data">
+<h2>Load data<a class="headerlink" href="#Load-data" title="Link to this heading">#</a></h2>
+<p>This data loading part refers to the <a class="reference external" href="https://cell2location.readthedocs.io/en/latest/notebooks/cell2location_tutorial.html#Mapping-human-lymph-node-cell-types-to-10X-Visium-with-Cell2location">tutorial of cell2location</a></p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>adata_ref = sc.read(
+    f&#39;./data/lymph_sc.h5ad&#39;,
+    backup_url=&#39;https://cell2location.cog.sanger.ac.uk/paper/integrated_lymphoid_organ_scrna/RegressionNBV4Torch_57covariates_73260cells_10237genes/sc.h5ad&#39;
+)
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>adata_vis = sc.datasets.visium_sge(sample_id=&quot;V1_Human_Lymph_Node&quot;)
+adata_vis.var_names_make_unique()
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>adata_vis.var[&#39;SYMBOL&#39;] = adata_vis.var_names
+adata_vis.var.set_index(&#39;gene_ids&#39;, drop=True, inplace=True)
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>adata_ref.var[&#39;SYMBOL&#39;] = adata_ref.var.index
+# rename &#39;GeneID-2&#39; as necessary for your data
+adata_ref.var.set_index(&#39;GeneID-2&#39;, drop=True, inplace=True)
+
+# delete unnecessary raw slot (to be removed in a future version of the tutorial)
+del adata_ref.raw
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Initialize-the-STEP-instance">
+<h2>Initialize the STEP instance<a class="headerlink" href="#Initialize-the-STEP-instance" title="Link to this heading">#</a></h2>
+<p>Initialization of STEP instance requires set the following parameters: - <code class="docutils literal notranslate"><span class="pre">sc_adata</span></code>: Anndata of scRNA-seq data - <code class="docutils literal notranslate"><span class="pre">st_adata</span></code>: Anndata of spatial data - <code class="docutils literal notranslate"><span class="pre">n_top_genes</span></code> or <code class="docutils literal notranslate"><span class="pre">geneset</span></code>: using hvgs or specified geneset - <code class="docutils literal notranslate"><span class="pre">batch_key</span></code>: a column name of <code class="docutils literal notranslate"><span class="pre">sc_adata.obs</span></code> specifying the batches in scRNA-seq data - <code class="docutils literal notranslate"><span class="pre">class_key</span></code>: a column name of <code class="docutils literal notranslate"><span class="pre">sc_adata.obs</span></code> specifying the cell-type annoations in scRNA-seq data - <code class="docutils literal notranslate"><span class="pre">decoder_type</span></code>: distribution(zinb or nb, default zinb) to model gene expression
+data.</p>
+<p>Other parameters are about model settings: - <code class="docutils literal notranslate"><span class="pre">module_dim</span></code>: dimension of final embedding - <code class="docutils literal notranslate"><span class="pre">hidden_dim</span></code>: dimension of hidden layers - <code class="docutils literal notranslate"><span class="pre">n_moudles</span></code>: number of gene modules - <code class="docutils literal notranslate"><span class="pre">dec_norm</span></code>: normalization layer used in decoder, - ‘layer’: LayerNorm - ‘batch’: BatchNorm - None: not using any normalization layer - <code class="docutils literal notranslate"><span class="pre">n_dec_hid_layers</span></code>: number of hidden layers used in decoder.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>proc = crossModel(
+    sc_adata=adata_ref,
+    st_adata=adata_vis,
+    n_top_genes=2000,
+    layer_key=None,
+    batch_key=&#39;Sample&#39;,
+    class_key=&#39;Subset&#39;,
+    module_dim=30,
+    hidden_dim=64,
+    n_modules=32,
+    decoder_type=&#39;nb&#39;,
+    dec_norm=None,
+    n_dec_hid_layers=1,
+    # model_checkpoint=sc_pth,
+)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+not log_transformed
+Adding count data to layer &#39;counts&#39;
+Dataset Done
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>proc.adata.obs[&#39;Sample&#39;].value_counts()
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+BCP005_Total              13323
+BCP006_Total               4531
+4861STDY7462253            4286
+4861STDY7462255            4283
+V1_Human_Lymph_Node        4035
+4861STDY7528597            3888
+BCP009_Total               3867
+4861STDY7462256            3852
+4861STDY7528600            3594
+4861STDY7528599            3172
+4861STDY7135914            3126
+4861STDY7462254            3085
+4861STDY7528598            2961
+4861STDY7135913            2941
+BCP008_Total               2914
+Pan_T7935494               2876
+BCP003_Total               2083
+BCP002_Total               2002
+Human_colon_16S8000484     1308
+4861STDY7208413            1228
+4861STDY7208412            1130
+Human_colon_16S7255678     1125
+BCP004_Total                985
+Human_colon_16S7255677      700
+Name: Sample, dtype: int64
+</pre></div></div>
+</div>
+</section>
+<section id="Co-embedding-two-modalities">
+<h2>Co-embedding two modalities<a class="headerlink" href="#Co-embedding-two-modalities" title="Link to this heading">#</a></h2>
+<p>In this process, the goal is to extract the information from transcripts, also eliminate the technical/batch effects in the meantime, so the spatial data is not differentiated from scRNA-seq data by ignoring the spatial locations.</p>
+<p>The following running parameters</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>tune_epochs=200,
+need_anchors=False,
+beta1=1e-2
+</pre></div>
+</div>
+<p>are somewhat special: only when STEP is required to refine the model with cell-type annotations, where <code class="docutils literal notranslate"><span class="pre">need_anchors=True</span></code> is set, the <code class="docutils literal notranslate"><span class="pre">tune_epochs</span></code> is valid and control the number of iterations of the refine process. The <code class="docutils literal notranslate"><span class="pre">beta1</span></code> is the coefficient of KL-divergence, the adjustment of this parameter can result in the change of the degree of embedding’s “dispersion”: higher values result in the lower degree of “dispersion”.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>proc.integrate(epochs=400,
+               batch_size=2048,
+               split_rate=0.2,
+               tune_epochs=200,
+               need_anchors=False,
+               beta1=1e-2)
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Performing category random split
+Training size for 4861STDY7135913: 2352
+Training size for 4861STDY7135914: 2500
+Training size for 4861STDY7208412: 904
+Training size for 4861STDY7208413: 982
+Training size for 4861STDY7462253: 3428
+Training size for 4861STDY7462254: 2468
+Training size for 4861STDY7462255: 3426
+Training size for 4861STDY7462256: 3081
+Training size for 4861STDY7528597: 3110
+Training size for 4861STDY7528598: 2368
+Training size for 4861STDY7528599: 2537
+Training size for 4861STDY7528600: 2875
+Training size for BCP002_Total: 1601
+Training size for BCP003_Total: 1666
+Training size for BCP004_Total: 788
+Training size for BCP005_Total: 10658
+Training size for BCP006_Total: 3624
+Training size for BCP008_Total: 2331
+Training size for BCP009_Total: 3093
+Training size for Human_colon_16S7255677: 560
+Training size for Human_colon_16S7255678: 900
+Training size for Human_colon_16S8000484: 1046
+Training size for Pan_T7935494: 2300
+Training size for V1_Human_Lymph_Node: 3228
+train size: 61826
+valid size: 15469
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+ 86%|████████▌ | 344/400 [27:23&lt;04:27,  4.78s/epoch, kl_loss=1.198, recon_loss=1147.656, val_kl_loss=1.229/0.233, val_recon_loss=1147.362/1143.838]
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Early Stopping triggered
+EarlyStopping counter: 30 out of 30
+EarlyStopping counter: 344 out of 10
+</pre></div></div>
+</div>
+<p>Examine QC plots.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>proc.impute(layer_key=&#39;counts&#39;, qc=True)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_Human_Lymph_Node_19_0.png" class="no-scaled-link" src="../_images/notebooks_Human_Lymph_Node_19_0.png" style="width: 269px; height: 303px;" />
+</div>
+</div>
+<section id="Get-and-check-the-co-embedding-results">
+<h3>Get and check the co-embedding results<a class="headerlink" href="#Get-and-check-the-co-embedding-results" title="Link to this heading">#</a></h3>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>adata = proc.adata
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>sc.pp.neighbors(adata, use_rep=&#39;X_rep&#39;)
+sc.tl.umap(adata)
+</pre></div>
+</div>
+</div>
+<p>As we can see, two modalities manage to “mix” with each other in the left figure. Moreover, in the right figure, we can see that the structure of cell-types is totally preserved, indicating the integration(co-embedding) is biologically meaningful and the technical/batch effects are successfully eliminated.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>sc.pl.umap(adata, color=[&#39;modality&#39;, &#39;Subset&#39;], ncols=2)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_Human_Lymph_Node_24_0.png" class="no-scaled-link" src="../_images/notebooks_Human_Lymph_Node_24_0.png" style="width: 636px; height: 301px;" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>torch.save(proc._functional.model.state_dict(), sc_pth)
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+<section id="Zonation-after-integration">
+<h2>Zonation after integration<a class="headerlink" href="#Zonation-after-integration" title="Link to this heading">#</a></h2>
+<p>Zonation, i.e. identification of spatial domains, is then conducted on the obtained embedding in the previous co-embedding process.</p>
+<div class="admonition note">
+<p><strong>Note:</strong> This process required embedding produced in the previous process, so if the adata is not saved while the model(paramters) is saved, load the step instance <code class="docutils literal notranslate"><span class="pre">proc</span></code> and use <code class="docutils literal notranslate"><span class="pre">proc.add_embed(key_added='&lt;your</span> <span class="pre">desired</span> <span class="pre">key</span> <span class="pre">name&gt;')</span></code></p>
+</div>
+<p>Training a spatial smoother(GCN) to spatially smooth the embedding extracted solely from transcprits. This training stage only involves the spatial data and is achieved in two sub-stage: 1. (Optional) Traning a spatial-data-specific decoder for the concentration on spatial data. This sub-stage still doesn’t utilize the spatial context, and is controlled by the following parameters: - <code class="docutils literal notranslate"><span class="pre">epochs</span></code>: #epochs, - <code class="docutils literal notranslate"><span class="pre">batch_size</span></code>: batch size, - <code class="docutils literal notranslate"><span class="pre">n_dec_layers</span></code>: #layers in decoder, - <code class="docutils literal notranslate"><span class="pre">split_rate</span></code>: the
+proportion of data used as validation - <code class="docutils literal notranslate"><span class="pre">use_st_decoder</span></code>: whether to run this sub-stage, - <code class="docutils literal notranslate"><span class="pre">decoder_type</span></code>: the distribution to fit count data. 2. Training the spatial smoother to smooth the embedding of spatial data for zonation. This sub-stage is controlled by the following parameters: - <code class="docutils literal notranslate"><span class="pre">n_glayers</span></code>: #graph convolutional layers - <code class="docutils literal notranslate"><span class="pre">smooth_epochs</span></code>: #epochs in this sub-stage - <code class="docutils literal notranslate"><span class="pre">tune_lr</span></code>: learning rate to tune the st-decoder trained in the previous sub-stage, <code class="docutils literal notranslate"><span class="pre">None</span></code> means not tuning it.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>proc.generate_domains(epochs=800,
+                      batch_size=1024,
+                      n_dec_layers=1,
+                      n_glayers=1,
+                      split_rate=0.,
+                      tune_lr=None,
+                      smooth_epochs=800,
+                      use_st_decoder=True,
+                      decoder_type=&#39;nb&#39;)
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+==============Sub-Dataset Info==============
+Batch key: Sample
+Class key: Subset
+Number of Batches: 24
+Number of Classes: 34
+Gene Expr: (4035, 2000)
+Rep: (4035, 64)
+Batch Label: (4035,)
+============================================
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+100%|██████████| 800/800 [00:58&lt;00:00, 13.63epoch/s, recon_loss=4178.889, val_recon_loss=-]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+StDecoder trained
+Start training smoother
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+100%|██████████| 800/800 [00:47&lt;00:00, 16.79epoch/s, contrast_loss=5.846, recon_loss=4188.098, val_contrast_loss=-, val_recon_loss=-]
+</pre></div></div>
+</div>
+<p>In defualt, the smoothed embedding will be stored in <code class="docutils literal notranslate"><span class="pre">proc.st_adata.obsm['X_smoothed']</span></code>. Here, we use KMeans to cluster the smoothed embedding and obtain 8 spatial domains.</p>
+<p>Subdomains is identified by a further clustering based on spatial domains. We identifies 3 subdomains in each domain.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>proc.cluster(use_rep=&#39;X_smoothed&#39;, n_clusters=8)
+sc.pl.spatial(proc.st_adata, color=[&#39;domain&#39;], size=1.3,)
+
+proc.sub_cluster(proc.st_adata,
+                 pre_key=&#39;domain&#39;,
+                 use_rep=&#39;X_smoothed&#39;,
+                 n_clusters=3)
+sc.pl.spatial(proc.st_adata, color=[&#39;sub_domain&#39;], size=1.3,)
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_Human_Lymph_Node_33_0.png" class="no-scaled-link" src="../_images/notebooks_Human_Lymph_Node_33_0.png" style="width: 292px; height: 297px;" />
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_Human_Lymph_Node_33_1.png" class="no-scaled-link" src="../_images/notebooks_Human_Lymph_Node_33_1.png" style="width: 370px; height: 297px;" />
+</div>
+</div>
+<p>Examine the QC plots with original embedding and smoothed embedding through a same decoder(st-decoder if <code class="docutils literal notranslate"><span class="pre">use_st_decoder</span></code> is set previously)</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>proc.st_impute(qc=True, smooth=False)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_Human_Lymph_Node_35_0.png" class="no-scaled-link" src="../_images/notebooks_Human_Lymph_Node_35_0.png" style="width: 276px; height: 303px;" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>proc.st_impute(qc=True, smooth=True)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_Human_Lymph_Node_36_0.png" class="no-scaled-link" src="../_images/notebooks_Human_Lymph_Node_36_0.png" style="width: 287px; height: 304px;" />
+</div>
+</div>
+</section>
+<section id="Cell-type-deconvolution-with-obtained-embedding">
+<h2>Cell-type deconvolution with obtained embedding<a class="headerlink" href="#Cell-type-deconvolution-with-obtained-embedding" title="Link to this heading">#</a></h2>
+<p>STEP performs deconvolution at domain-wise since the spots in the same spatial domain share a similar cell-type composition. So this process requires two features: 1. Embedding of scRNA-seq and spatial data in the shared latent space obtained in the co-embedding process. 2. Spatial domains or subdomains stored in <code class="docutils literal notranslate"><span class="pre">proc.st_adata.obs[&lt;domain_key&gt;]</span></code>.</p>
+<p>The embedding is mainly used to infer the existance of a cell-type in a spot by evaluating the similarity in latent space between the corresponding embedding. Specifically, the embedding of scRNA-seq data is averaged by cell-types, denoted as <code class="docutils literal notranslate"><span class="pre">anchors</span></code>, and the similarity is measured by a <em>sparse attention mechanism</em> where “sparse” is to ensure the sparsity of cell-type occurence in a spot. To consider the individual effect in each spot, <code class="docutils literal notranslate"><span class="pre">anchors</span></code> are refined individually for each spot
+through several(default 2) transformer encoders(can be disabled by setting <code class="docutils literal notranslate"><span class="pre">hard_anchors=True</span></code>). And to bound the refined <code class="docutils literal notranslate"><span class="pre">anchors</span></code>, we add a contrastive loss between refined <code class="docutils literal notranslate"><span class="pre">anchors</span></code> and original <code class="docutils literal notranslate"><span class="pre">anchors</span></code> as a regularization where the parameter<code class="docutils literal notranslate"><span class="pre">T</span></code> is the temperature in the contrastive loss.</p>
+<p>The actual cell-type composition in a spot are inferred at transcript-wise by scaling the simlarity matrix inferred in the latent space. This is done by minimizing the negative log-likelihood with the “convolution” of estimated cell-type composition and cell-type signatures. Here the signatures can be obtained by averging the raw counts(set <code class="docutils literal notranslate"><span class="pre">use_raw=True</span></code>) or the decoder-imputed counts(set <code class="docutils literal notranslate"><span class="pre">use_raw=False</span></code>).</p>
+<p>For the balance between multiple losses, use parameter <code class="docutils literal notranslate"><span class="pre">rate</span></code> to scale the two majority reconstruction lossess.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>proc.st_adata.obs[&#39;sub_domain_codes&#39;] = proc.st_adata.obs[&#39;sub_domain&#39;].cat.codes
+
+proc.deconv(epochs=2000,
+            domain_key=&#39;sub_domain_codes&#39;,
+            domain_wise=True,
+            n_glayers=None,
+            use_raw=False,
+            hard_anchors=False,
+            T=0.1,
+            rate=0.01,)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+100%|██████████| 2000/2000 [05:14&lt;00:00,  6.36epoch/s, div=2.186, loss_ori=32.250, recon_loss=2080.224, sc_consistency=0.709, val_div=-, val_loss_ori=-, val_recon_loss=-, val_sc_consistency=-]
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>st_adata = proc.st_adata
+
+celltypes = proc.adata.obs[&#39;Subset&#39;].cat.categories
+prop_list = celltypes.to_list()
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>st_adata
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+AnnData object with n_obs × n_vars = 4035 × 2000
+    obs: &#39;in_tissue&#39;, &#39;array_row&#39;, &#39;array_col&#39;, &#39;batch_st&#39;, &#39;Sample&#39;, &#39;modality&#39;, &#39;n_genes&#39;, &#39;domain&#39;, &#39;sub_domain&#39;, &#39;sub_domain_codes&#39;, &#39;B_Cycling&#39;, &#39;B_GC_DZ&#39;, &#39;B_GC_LZ&#39;, &#39;B_GC_prePB&#39;, &#39;B_IFN&#39;, &#39;B_activated&#39;, &#39;B_mem&#39;, &#39;B_naive&#39;, &#39;B_plasma&#39;, &#39;B_preGC&#39;, &#39;DC_CCR7+&#39;, &#39;DC_cDC1&#39;, &#39;DC_cDC2&#39;, &#39;DC_pDC&#39;, &#39;Endo&#39;, &#39;FDC&#39;, &#39;ILC&#39;, &#39;Macrophages_M1&#39;, &#39;Macrophages_M2&#39;, &#39;Mast&#39;, &#39;Monocytes&#39;, &#39;NK&#39;, &#39;NKT&#39;, &#39;T_CD4+&#39;, &#39;T_CD4+_TfH&#39;, &#39;T_CD4+_TfH_GC&#39;, &#39;T_CD4+_naive&#39;, &#39;T_CD8+_CD161+&#39;, &#39;T_CD8+_cytotoxic&#39;, &#39;T_CD8+_naive&#39;, &#39;T_TIM3+&#39;, &#39;T_TfR&#39;, &#39;T_Treg&#39;, &#39;VSMC&#39;
+    var: &#39;feature_types&#39;, &#39;genome&#39;, &#39;SYMBOL&#39;, &#39;mt_gene&#39;
+    uns: &#39;spatial&#39;, &#39;domain_colors&#39;, &#39;sub_domain_colors&#39;
+    obsm: &#39;spatial&#39;, &#39;mt&#39;, &#39;X_rep_tsfmr&#39;, &#39;X_smoothed&#39;, &#39;deconv&#39;, &#39;deconv_abundance&#39;
+    layers: &#39;counts&#39;, &#39;st_expected_counts&#39;
+</pre></div></div>
+</div>
+<section id="Visualize-the-inferred-cell-type-composition">
+<h3>Visualize the inferred cell-type composition<a class="headerlink" href="#Visualize-the-inferred-cell-type-composition" title="Link to this heading">#</a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>st_adata.obs[prop_list] = st_adata.obsm[&#39;deconv&#39;]
+sc.pl.spatial(st_adata, size=1.3, color=prop_list,)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_Human_Lymph_Node_43_0.png" class="no-scaled-link" src="../_images/notebooks_Human_Lymph_Node_43_0.png" style="width: 1263px; height: 2528px;" />
+</div>
+</div>
+</section>
+<section id="Perform-spatially-DE-genes-anlaysis">
+<h3>Perform spatially DE genes anlaysis<a class="headerlink" href="#Perform-spatially-DE-genes-anlaysis" title="Link to this heading">#</a></h3>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>adata_vis.obs[&#39;domain&#39;] = st_adata.obs[&#39;domain&#39;].astype(str).astype(&#39;category&#39;)
+adata_vis.obsm[&#39;X_smoothed&#39;] = st_adata.obsm[&#39;X_smoothed&#39;]
+
+sc.tl.dendrogram(adata_vis, use_rep=&#39;X_smoothed&#39;, groupby=&#39;domain&#39;)
+sc.tl.rank_genes_groups(adata_vis, groupby=&#39;domain&#39;, method=&#39;wilcoxon&#39;, use_raw=False)
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>sc.pl.rank_genes_groups_matrixplot(adata_vis, groupby=&#39;domain&#39;, groups=[&#39;1&#39;, &#39;4&#39;, &#39;8&#39;], values_to_plot=&#39;logfoldchanges&#39;, cmap=&#39;RdBu_r&#39;, vmin=-2, vmax=2)
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+WARNING: Groups are not reordered because the `groupby` categories and the `var_group_labels` are different.
+categories: 1, 2, 3, etc.
+var_group_labels: 1, 4, 8
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{&#39;mainplot_ax&#39;: &lt;AxesSubplot:&gt;,
+ &#39;group_extra_ax&#39;: &lt;AxesSubplot:&gt;,
+ &#39;gene_group_ax&#39;: &lt;AxesSubplot:&gt;,
+ &#39;color_legend_ax&#39;: &lt;AxesSubplot:title={&#39;center&#39;:&#39;log fold change&#39;}&gt;}
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_Human_Lymph_Node_46_2.png" class="no-scaled-link" src="../_images/notebooks_Human_Lymph_Node_46_2.png" style="width: 875px; height: 324px;" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>sc.pl.rank_genes_groups_matrixplot(adata_vis, groupby=&#39;domain&#39;, groups=[&#39;2&#39;, &#39;5&#39;], values_to_plot=&#39;logfoldchanges&#39;, cmap=&#39;RdBu_r&#39;, vmin=-2, vmax=2)
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+WARNING: Groups are not reordered because the `groupby` categories and the `var_group_labels` are different.
+categories: 1, 2, 3, etc.
+var_group_labels: 2, 5
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_Human_Lymph_Node_47_1.png" class="no-scaled-link" src="../_images/notebooks_Human_Lymph_Node_47_1.png" style="width: 645px; height: 304px;" />
+</div>
+</div>
+</section>
+<section id="Summarize-the-average-proportion-of-selected-cell-types-in-each-domain">
+<h3>Summarize the average proportion of selected cell-types in each domain<a class="headerlink" href="#Summarize-the-average-proportion-of-selected-cell-types-in-each-domain" title="Link to this heading">#</a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>gc = [&#39;B_Cycling&#39;, &#39;B_naive&#39;, &#39;B_GC_DZ&#39;, &#39;B_GC_prePB&#39;, &#39;B_preGC&#39;, &#39;T_CD4+_TfH_GC&#39;]
+proc.summarize_domain(gc, adata=st_adata)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_Human_Lymph_Node_49_0.png" class="no-scaled-link" src="../_images/notebooks_Human_Lymph_Node_49_0.png" style="width: 1175px; height: 361px;" />
+</div>
+</div>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="DLFPC.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Spatial domain identification on 10x Visium DLFPC data</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="MERFISH.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Reveal multiple level of biological heterogeneities in Mouse Hypothalamus by MERFISH-seq</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Loading-packages">Loading packages</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Load-data">Load data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Initialize-the-STEP-instance">Initialize the STEP instance</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Co-embedding-two-modalities">Co-embedding two modalities</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#Get-and-check-the-co-embedding-results">Get and check the co-embedding results</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Zonation-after-integration">Zonation after integration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Cell-type-deconvolution-with-obtained-embedding">Cell-type deconvolution with obtained embedding</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#Visualize-the-inferred-cell-type-composition">Visualize the inferred cell-type composition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#Perform-spatially-DE-genes-anlaysis">Perform spatially DE genes anlaysis</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#Summarize-the-average-proportion-of-selected-cell-types-in-each-domain">Summarize the average proportion of selected cell-types in each domain</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Lounan Li
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024, Lounan Li.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

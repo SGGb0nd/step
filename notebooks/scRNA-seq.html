@@ -1,0 +1,853 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Integrate Human Immune Cell datasets with STEP and generate batch-corrected embeddings and gene expressions. &#8212; STEP  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/scRNA-seq';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="step" href="../step.html" />
+    <link rel="prev" title="Reveal multiple level of biological heterogeneities in Mouse Hypothalamus by MERFISH-seq" href="MERFISH.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">STEP  documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Welcome to STEP’s documentation!
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials:</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DLFPC.html">Spatial domain identification on 10x Visium DLFPC data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Human_Lymph_Node.html">Performing integrative analysis on scRNA-seq data and 10x Visium data of Human Lymph Node with STEP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MERFISH.html">Reveal multiple level of biological heterogeneities in Mouse Hypothalamus by MERFISH-seq</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Integrate Human Immune Cell datasets with STEP and generate batch-corrected embeddings and gene expressions.</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API:</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../step.html">step</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../step.functionality.html">functionality</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../step.functionality.comps.html">comps</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../step.functionality.comps.model_ops.html">model ops</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../step.functionality.comps.trainer.html">trainer</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../step.functionality.base.html">base</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../step.functionality.cross_funcmodel.html">cross-modality</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../step.functionality.sc_funcmodel.html">scRNA-seq</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../step.functionality.st_funcmodel.html">spatial transcriptomics</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../step.manager.html">manager</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../step.models.html">models</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../step.models.clust.html">clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../step.models.deconv.html">deconvolution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../step.models.distributions.html">distributions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../step.models.extension.html">extension</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../step.models.geneformer.html">geneformer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../step.models.knn_map.html">knn sc map</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../step.models.nnls.html">non-negative least squares deconvolution</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../step.modules.html">modules</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../step.modules.decoder.html">decoder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../step.modules.gnn.html">gnn</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../step.modules.transformer.html">transformer</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../step.utils.html">utils</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../step.utils.synthetics.html">synthetics</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../step.utils.dataset.html">dataset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../step.utils.gbolt.html">graph sampler</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../step.utils.metrics.html">metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../step.utils.misc.html">misc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../step.utils.plotting.html">plotting</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../step.functionality.html">functionality</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-9"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../step.functionality.comps.html">comps</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-10"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../step.functionality.comps.model_ops.html">model ops</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../step.functionality.comps.trainer.html">trainer</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../step.functionality.base.html">base</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../step.functionality.cross_funcmodel.html">cross-modality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../step.functionality.sc_funcmodel.html">scRNA-seq</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../step.functionality.st_funcmodel.html">spatial transcriptomics</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../step.manager.html">manager</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-11"><i class="fa-solid fa-chevron-down"></i></label><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../step.models.html">models</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-12"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../step.models.clust.html">clustering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../step.models.deconv.html">deconvolution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../step.models.distributions.html">distributions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../step.models.extension.html">extension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../step.models.geneformer.html">geneformer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../step.models.knn_map.html">knn sc map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../step.models.nnls.html">non-negative least squares deconvolution</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../step.modules.html">modules</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-13"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../step.modules.decoder.html">decoder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../step.modules.gnn.html">gnn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../step.modules.transformer.html">transformer</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../step.utils.html">utils</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-14"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../step.utils.synthetics.html">synthetics</a><input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-15"><i class="fa-solid fa-chevron-down"></i></label><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../step.utils.dataset.html">dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../step.utils.gbolt.html">graph sampler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../step.utils.metrics.html">metrics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../step.utils.misc.html">misc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../step.utils.plotting.html">plotting</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/SGGb0nd/step-dev" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/SGGb0nd/step-dev/edit/main/docs/notebooks/scRNA-seq.ipynb" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/SGGb0nd/step-dev/issues/new?title=Issue%20on%20page%20%2Fnotebooks/scRNA-seq.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/notebooks/scRNA-seq.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Integrate Human Immune Cell datasets with STEP and generate batch-corrected embeddings and gene expressions.</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <style>
+    .nbinput .prompt,
+    .nboutput .prompt {
+        display: none;
+    }
+</style><section id="Integrate-Human-Immune-Cell-datasets-with-STEP-and-generate-batch-corrected-embeddings-and-gene-expressions.">
+<h1>Integrate Human Immune Cell datasets with STEP and generate batch-corrected embeddings and gene expressions.<a class="headerlink" href="#Integrate-Human-Immune-Cell-datasets-with-STEP-and-generate-batch-corrected-embeddings-and-gene-expressions." title="Link to this heading">#</a></h1>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import scanpy as sc
+import scanpy.external as sce
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
+from scib_metrics.benchmark import Benchmarker, BioConservation, BatchCorrection
+import pandas as pd
+
+from step import scModel
+sc.set_figure_params(
+    dpi_save=300,
+    frameon=False,
+    dpi=100,
+)
+
+def get_umap(adata,
+                 batch_key,
+                 label_key,
+                 embed_key=&#39;X_rep&#39;,
+                 save=False,
+                 show=True,
+                 figdir=&#39;figures&#39;):
+    if embed_key not in adata.obsm.keys():
+        print(f&quot;{embed_key} not found in adata.obsm.keys()&quot;)
+        return
+    sc.pp.neighbors(adata, use_rep=embed_key)
+    sc.tl.umap(adata)
+    if not save:
+        sc.pl.umap(adata, color=[batch_key, label_key])
+    else:
+        sc.settings.figdir = figdir
+        for key in [batch_key, label_key]:
+            sc.pl.umap(adata, color=key, save=f&quot;_{embed_key}_{key}_umap.png&quot;, show=show)
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>file_path = &#39;/data/scib_benchmark/Immune_ALL_human.h5ad&#39;
+batch_key = &#39;batch&#39;
+cell_state_key = &#39;final_annotation&#39;
+
+adata = sc.read_h5ad(file_path)
+
+sc.pp.pca(adata, layer=&#39;counts&#39;, n_comps=50)
+sc.pp.neighbors(adata, use_rep=&#39;X_pca&#39;)
+sc.tl.umap(adata)
+sc.pl.umap(adata, color=[batch_key, cell_state_key])
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_scRNA-seq_2_0.png" class="no-scaled-link" src="../_images/notebooks_scRNA-seq_2_0.png" style="width: 1330px; height: 351px;" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>stepc = scModel(
+    file_path=file_path,
+    layer_key=&#39;counts&#39;,
+    batch_key=batch_key,
+    class_key=cell_state_key,
+    decoder_type=&#39;nb&#39;,
+    module_dim=30,
+    hidden_dim=64,
+    n_modules=32,
+)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+Checking layer key
+Trying seurat_v3 for hvgs
+not log_transformed
+================Dataset Info================
+Batch key: batch
+Class key: final_annotation
+Number of Batches: 10
+Number of Classes: 16
+Gene Expr: (33506, 2000)
+Batch Label: (33506,)
+============================================
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>stepc.run(epochs=400, batch_size=1024, split_rate=0.2, tune_epochs=100)
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+================Dataset Info================
+Batch key: batch
+Class key: final_annotation
+Number of Batches: 10
+Number of Classes: 16
+Gene Expr: (33506, 2000)
+Batch Label: (33506,)
+============================================
+Performing category random split
+Training size for 10X: 8581
+Training size for Freytag: 2677
+Training size for Oetjen_A: 2068
+Training size for Oetjen_P: 2612
+Training size for Oetjen_U: 2984
+Training size for Sun_sample1_CS: 1380
+Training size for Sun_sample2_KC: 1824
+Training size for Sun_sample3_TB: 1922
+Training size for Sun_sample4_TC: 1936
+Training size for Villani: 817
+train size: 26801
+valid size: 6705
+Current Mode: multi_batches: [&#39;gene_expr&#39;, &#39;batch_label&#39;]
+Current Mode: multi_batches: [&#39;gene_expr&#39;, &#39;batch_label&#39;]
+100%|██████████| 400/400 [15:08&lt;00:00,  2.27s/epoch, kl_loss=1.215, recon_loss=732.441, val_kl_loss=1.246/0.386, val_recon_loss=758.566/753.340]
+Current Mode: multi_batches: [&#39;gene_expr&#39;, &#39;batch_label&#39;]
+Current Mode: multi_batches: [&#39;gene_expr&#39;, &#39;batch_label&#39;]
+Current Mode: multi_batches_with_ct: [&#39;gene_expr&#39;, &#39;class_label&#39;, &#39;batch_label&#39;]
+================Dataset Info================
+Batch key: batch
+Class key: final_annotation
+Number of Batches: 10
+Number of Classes: 16
+Gene Expr: (33506, 2000)
+Class Label: (33506,)
+Batch Label: (33506,)
+============================================
+Performing category random split
+Training size for CD4+ T cells: 8808
+Training size for CD8+ T cells: 1746
+Training size for CD10+ B cells: 165
+Training size for CD14+ Monocytes: 5186
+Training size for CD16+ Monocytes: 797
+Training size for CD20+ B cells: 2298
+Training size for Erythrocytes: 1201
+Training size for Erythroid progenitors: 370
+Training size for HSPCs: 378
+Training size for Megakaryocyte progenitors: 216
+Training size for Monocyte progenitors: 342
+Training size for Monocyte-derived dendritic cells: 809
+Training size for NK cells: 1835
+Training size for NKT cells: 2196
+Training size for Plasma cells: 103
+Training size for Plasmacytoid dendritic cells: 348
+train size: 26798
+valid size: 6708
+Current Mode: multi_batches_with_ct: [&#39;gene_expr&#39;, &#39;class_label&#39;, &#39;batch_label&#39;]
+Current Mode: multi_batches_with_ct: [&#39;gene_expr&#39;, &#39;class_label&#39;, &#39;batch_label&#39;]
+ 24%|██▍       | 24/100 [00:56&lt;02:50,  2.25s/epoch, cl_loss=0.020, kl_loss=0.009, val_cl_loss=0.782/0.462, val_kl_loss=0.009/0.009]Early Stopping triggered
+ 24%|██▍       | 24/100 [00:56&lt;02:57,  2.34s/epoch, cl_loss=0.020, kl_loss=0.009, val_cl_loss=0.782/0.462, val_kl_loss=0.009/0.009]
+Current Mode: multi_batches: [&#39;gene_expr&#39;, &#39;batch_label&#39;]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+EarlyStopping counter: 20 out of 20
+EarlyStopping counter: 4 out of 1
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+Current Mode: multi_batches_with_ct: [&#39;gene_expr&#39;, &#39;class_label&#39;, &#39;batch_label&#39;]
+Current Mode: multi_batches: [&#39;gene_expr&#39;, &#39;batch_label&#39;]
+Current Mode: multi_batches: [&#39;gene_expr&#39;, &#39;batch_label&#39;]
+Current Mode: multi_batches: [&#39;gene_expr&#39;, &#39;batch_label&#39;]
+Current Mode: multi_batches: [&#39;gene_expr&#39;, &#39;batch_label&#39;]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>stepc.adata.obsm[&#39;X_pca_uncorrected&#39;] = adata.obsm[&#39;X_pca&#39;]
+adata = stepc.adata
+get_umap(adata, batch_key, cell_state_key,
+             save=False,)
+get_umap(adata, batch_key, cell_state_key,
+             embed_key=&#39;X_anchord&#39;,
+             save=False,)
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_scRNA-seq_5_0.png" class="no-scaled-link" src="../_images/notebooks_scRNA-seq_5_0.png" style="width: 1330px; height: 351px;" />
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_scRNA-seq_5_1.png" class="no-scaled-link" src="../_images/notebooks_scRNA-seq_5_1.png" style="width: 1330px; height: 351px;" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>stepc.regress_out(batch_used=&#39;all&#39;, library_size=1e5)
+
+sc.pp.pca(adata, layer=&#39;corrected_counts&#39;, n_comps=50)
+sc.pp.neighbors(adata, key_added=&quot;pca&quot;)
+sc.tl.umap(adata, neighbors_key=&quot;pca&quot;,)
+sc.pl.umap(adata, color=[batch_key, cell_state_key,])
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_scRNA-seq_6_0.png" class="no-scaled-link" src="../_images/notebooks_scRNA-seq_6_0.png" style="width: 1330px; height: 351px;" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>bioc = BioConservation(nmi_ari_cluster_labels_leiden=True)
+bm = Benchmarker(
+    adata,
+    batch_key=batch_key,
+    label_key=cell_state_key,
+    embedding_obsm_keys=[&quot;X_rep&quot;, &quot;X_anchord&quot;, &quot;X_pca&quot;, &quot;X_pca_uncorrected&quot;],
+    n_jobs=-1,
+    bio_conservation_metrics=bioc,
+)
+bm.benchmark()
+bm.plot_results_table(min_max_scale=False)
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+Computing neighbors:   0%|          | 0/4 [00:00&lt;?, ?it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+Computing neighbors: 100%|██████████| 4/4 [00:29&lt;00:00,  7.33s/it]
+Embeddings:   0%|<span class="ansi-green-fg">          </span>| 0/4 [00:00&lt;?, ?it/s]WARNING:jax._src.xla_bridge:An NVIDIA GPU may be present on this machine, but a CUDA-enabled jaxlib is not installed. Falling back to cpu.
+Embeddings: 100%|<span class="ansi-green-fg">██████████</span>| 4/4 [07:19&lt;00:00, 109.85s/it]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_scRNA-seq_7_2.png" class="no-scaled-link" src="../_images/notebooks_scRNA-seq_7_2.png" style="width: 1482px; height: 339px;" />
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;plottable.table.Table at 0x7fcaac525960&gt;
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="MERFISH.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Reveal multiple level of biological heterogeneities in Mouse Hypothalamus by MERFISH-seq</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../step.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">step</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Lounan Li
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024, Lounan Li.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
