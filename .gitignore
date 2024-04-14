@@ -47,3 +47,4 @@ requirements.txt
 keyringrc.cfg
 poetry.lock
 debug
+docs/autoapi/

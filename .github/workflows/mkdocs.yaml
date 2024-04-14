@@ -31,7 +31,7 @@ jobs:
       - name: Build the docs
         run: |
           cd docs
-          poetry run make html
+          poetry run make clean && poetry run make html
 
       - name: Setup SSH
         uses: webfactory/ssh-agent@v0.5.3
