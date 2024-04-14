@@ -25,10 +25,13 @@ sphinx-book-theme = { version = "*", optional = true }
 sphinx-autodoc-typehints = { version = "*", optional = true }
 sphinxcontrib-bibtex = { version = "*", optional = true }
 nbsphinx = { version = "*", optional = true }
+furo = { version = "*", optional = true }
+sphinx-copybutton = { version = "*", optional = true }
+sphinx-autoapi = { version = "*", optional = true }
 
 [tool.poetry.extras]
 ipykernel = ["ipykernel"]
-docs = ["sphinx", "sphinx-book-theme", "sphinx-autodoc-typehints", "sphinxcontrib-bibtex", "nbsphinx"]
+docs = ["sphinx", "sphinx-book-theme", "sphinx-autodoc-typehints", "sphinxcontrib-bibtex", "nbsphinx", "furo", "sphinx-copybutton", "sphinx-autoapi"]
 r = ["rpy2"]
 
 [[tool.poetry.source]]

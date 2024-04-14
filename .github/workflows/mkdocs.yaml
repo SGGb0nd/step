@@ -26,7 +26,7 @@ jobs:
             python3 -m pipx ensurepath
             pipx install poetry
           fi
-          poetry install
+          poetry install --extras docs
 
       - name: Build the docs
         run: |
