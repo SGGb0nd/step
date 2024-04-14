@@ -39,7 +39,7 @@ test/
 *.ipynb
 *script.py
 docs/_build/
-docs/notebooks/
+!docs/notebooks/
 docs/notebooks/*.ipynb
 dist/
 *venv/
