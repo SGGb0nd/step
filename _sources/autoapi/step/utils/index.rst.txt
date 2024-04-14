@@ -1,0 +1,28 @@
+:py:mod:`step.utils`
+====================
+
+.. py:module:: step.utils
+
+
+Subpackages
+-----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 3
+
+   synthetics/index.rst
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   dataset/index.rst
+   gbolt/index.rst
+   metrics/index.rst
+   misc/index.rst
+   plotting/index.rst
+
+

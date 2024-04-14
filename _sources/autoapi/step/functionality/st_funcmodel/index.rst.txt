@@ -1,0 +1,189 @@
+:py:mod:`step.functionality.st_funcmodel`
+=========================================
+
+.. py:module:: step.functionality.st_funcmodel
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   step.functionality.st_funcmodel.stSmoother
+
+
+
+
+.. py:class:: stSmoother(num_batches=1, beta=0.01, variational=False, dispersion='batch-gene', n_glayers=4, device=None, **kwargs)
+
+
+   Bases: :py:obj:`step.functionality.base.FunctionalBase`
+
+   A class for training the model for identifying spatial domains.
+
+   .. attribute:: model
+
+      The model to be trained.
+
+      :type: NrmlsBC
+
+   .. attribute:: use_earlystop
+
+      Whether to use early stopping.
+
+      :type: bool
+
+   .. attribute:: _factor
+
+      The beta value for training.
+
+      :type: float
+
+   .. attribute:: _num_batches
+
+      The number of batches.
+
+      :type: int
+
+   .. attribute:: _from_scmodel
+
+      Whether the model is from a scModel object.
+
+      :type: bool
+
+   .. attribute:: _gener_graph
+
+      A function for generating the graph.
+
+      :type: callable
+
+   .. py:method:: from_spatial_graph(adata: anndata.AnnData, dataset: step.utils.dataset.StDataset, batch_size: int = 1024, num_iters=1000, batch_key: Optional[str] = None, sample_rate: float = 1.0)
+
+      Convert spatial graph data into a dataloader for training.
+
+      :param adata: Annotated data object containing spatial graph information.
+      :type adata: AnnData
+      :param dataset: Spatial transcriptomics dataset object.
+      :type dataset: StDataset
+      :param batch_size: Number of samples per batch. Defaults to 1024.
+      :type batch_size: int, optional
+      :param num_iters: Number of iterations. Defaults to 1000.
+      :type num_iters: int, optional
+      :param batch_key: Key for batch information in `adata.obs`. Defaults to None.
+      :type batch_key: str, optional
+      :param \*\*kwargs: Additional keyword arguments.
+
+      :returns: A dataloader object for training.
+      :rtype: dataloader
+
+
+   .. py:method:: loss_gbatch(g, x_gd, batch_rep, step, ind=None)
+
+      Compute the loss for a batch of graphs.
+
+      :param g: The input graph.
+      :type g: dgl.DGLGraph
+      :param x_gd: The input graph features.
+      :type x_gd: torch.Tensor
+      :param batch_rep: The batch representation.
+      :type batch_rep: torch.Tensor
+      :param step: The current training step.
+      :type step: int
+      :param ind: The indices of the nodes to compute the loss for.
+      :type ind: torch.Tensor, optional
+
+      :returns: The loss dictionary.
+      :rtype: dict
+
+
+   .. py:method:: handle_input_tuple(input_tuple, ind=None, rep=None)
+
+      Handles the input tuple and computes the loss.
+
+      :param input_tuple: The input tuple containing the data and batch label.
+      :type input_tuple: tuple
+      :param ind: The index. Defaults to None.
+      :type ind: int, optional
+      :param rep: The representation. Defaults to None.
+      :type rep: int, optional
+
+      :returns: The loss dictionary.
+      :rtype: dict
+
+
+   .. py:method:: handle_ginput_tuple(input_tuple, ind, step=None)
+
+      Handles the input tuple for graph data and performs necessary operations.
+
+      :param input_tuple: The input tuple containing the graph data.
+      :type input_tuple: tuple
+      :param ind: The index.
+      :type ind: int
+      :param step: The step. Defaults to None.
+      :type step: int, optional
+
+      :returns: The loss dictionary.
+      :rtype: dict
+
+
+   .. py:method:: embed(dataset: step.utils.dataset.StDataset, tsfmr_out=False, as_numpy=True)
+
+      Embeds the given dataset using the model.
+
+      :param dataset: The dataset to be embedded.
+      :type dataset: StDataset
+      :param tsfmr_out: Whether to return the output of the transformer layer. Defaults to False.
+      :type tsfmr_out: bool, optional
+      :param as_numpy: Whether to return the embeddings as numpy arrays. Defaults to True.
+      :type as_numpy: bool, optional
+
+      :returns: The embeddings of the dataset.
+
+
+   .. py:method:: gembed(dataset: step.utils.dataset.StDataset, tsfmr_out=False, as_numpy=True)
+
+      Embeds the given dataset using the current model.
+
+      :param dataset: The dataset to be embedded.
+      :type dataset: StDataset
+      :param tsfmr_out: Whether to return the output of the transformer layer. Defaults to False.
+      :type tsfmr_out: bool, optional
+      :param as_numpy: Whether to return the embeddings as numpy arrays. Defaults to True.
+      :type as_numpy: bool, optional
+
+      :returns: The embeddings of the dataset.
+
+
+   .. py:method:: run(adata, dataset: step.utils.dataset.StDataset, epochs=1, batch_size=1024, graph_batch_size=1, smooth_epochs=1, n_samples=1024, n_iterations=2000, split_rate=0.0, sample_rate=1.0, beta=0.001, key_added='X_smoothed', lr=0.001, tune_lr=1e-05, kl_cutoff=None, e2e=True, contrast=True, kl_contrast=False, logging=False, reset=False)
+
+      Runs the training process for the model.
+
+      :param adata: The AnnData object containing the data.
+      :param dataset: The StDataset object containing the spatial data.
+      :param epochs: The number of training epochs (default: 1).
+      :param batch_size: The batch size for training (default: 1024).
+      :param graph_batch_size: The batch size for graph training (default: 1).
+      :param n_samples: The number of samples for training (default: 1024).
+      :param n_iterations: The number of iterations for training (default: 2000).
+      :param split_rate: The split rate for training (default: 0.).
+      :param beta: The beta value for training (default: 1e-3).
+      :param key_added: The key to add the smoothed data to the AnnData object (default: 'X_smoothed').
+      :param lr: The learning rate for training (default: 1e-3).
+      :param tune_lr: The learning rate for fine-tuning (default: 1e-5).
+      :param kl_cutoff: The KL cutoff value for training (default: None).
+      :param e2e: Whether to use end-to-end training (default: True).
+      :param contrast: Whether to use contrastive loss (default: True).
+      :param kl_contrast: Whether to use KL contrastive loss (default: False).
+      :param logging: Whether to enable logging (default: False).
+      :param kl_anneal: Whether to anneal the KL loss (default: False).
+
+
+   .. py:method:: reset_model()
+
+      Reset the model parameters.
+
+
+

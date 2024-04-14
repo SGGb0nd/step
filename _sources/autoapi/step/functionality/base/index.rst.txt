@@ -1,0 +1,87 @@
+:py:mod:`step.functionality.base`
+=================================
+
+.. py:module:: step.functionality.base
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   step.functionality.base.FunctionalBase
+
+
+
+
+.. py:class:: FunctionalBase(model: step.models.geneformer.Geneformer, use_earlystop=True, device=None)
+
+
+   Bases: :py:obj:`step.functionality.comps.model_ops.ModelOps`, :py:obj:`step.functionality.comps.trainer.Trainer`
+
+   FunctionalBase is a compound class that combines the ModelOps and Trainer classes.
+
+   .. attribute:: model
+
+      The model to be trained.
+
+      :type: Geneformer
+
+   .. attribute:: split_rate
+
+      The ratio of validation data to the total data.
+
+      :type: float
+
+   .. attribute:: use_earlystop
+
+      A flag indicating whether to use early stopping during training.
+
+      :type: bool
+
+   .. attribute:: device
+
+      The device to use for training. Defaults to "cuda" if a GPU is available, otherwise "cpu".
+
+      :type: str
+
+   .. py:method:: run(adata: anndata.AnnData, dataset: step.utils.dataset.BaseDataset | step.utils.dataset.MaskedDataset, epochs=1, batch_size: int | None = None, split_rate=0.2, key_added='X_rep', obs_key=None, call_func=None, kl_cutoff=None, reset=False, beta=0.01, lr=0.001)
+
+      Run the training and embedding process.
+
+      :param adata: Annotated data object.
+      :type adata: AnnData
+      :param dataset: Dataset object containing gene expression data.
+      :type dataset: Union[ScDataset, StDataset]
+      :param epochs: Number of training epochs. Defaults to 1.
+      :type epochs: int, optional
+      :param batch_size: Batch size for training. Defaults to None.
+      :type batch_size: int, optional
+      :param split_rate: Split rate for train-test split. Defaults to 0.2.
+      :type split_rate: float, optional
+      :param key_added: Key to store the embedding in `adata.obsm`. Defaults to 'X_rep'.
+      :type key_added: str, optional
+      :param obs_key: Key in `adata.obs` to use for train-test split. Defaults to None.
+      :type obs_key: str, optional
+      :param call_func: Callback function to be called after each epoch. Defaults to None.
+      :type call_func: callable, optional
+      :param kl_cutoff: KL divergence cutoff value. Defaults to None.
+      :type kl_cutoff: float, optional
+      :param lr: Learning rate for the optimizer. Defaults to 1e-3.
+      :type lr: float, optional
+
+
+   .. py:method:: load_checkpoint(checkpoint)
+
+      Loads a checkpoint file and updates the model's state dictionary.
+
+      :param checkpoint: The path to the checkpoint file.
+      :type checkpoint: str
+
+      :returns: None
+
+
+

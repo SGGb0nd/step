@@ -1,0 +1,55 @@
+:py:mod:`step.models.clust`
+===========================
+
+.. py:module:: step.models.clust
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   step.models.clust.ClusterGeneric
+
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   step.models.clust.mclust_R
+   step.models.clust.kmeans
+
+
+
+.. py:function:: mclust_R(data, num_cluster, modelNames='EEE', random_seed=2020)
+
+   Clustering using the mclust algorithm.
+   The parameters are the same as those in the R package mclust.
+
+
+.. py:function:: kmeans(n_clusters, data, seed=None)
+
+
+.. py:class:: ClusterGeneric(method='kmeans', seed=None)
+
+
+   A generic clustering class that supports different clustering methods.
+
+   .. attribute:: method
+
+      The clustering method to use.
+
+      :type: str
+
+   .. attribute:: seed
+
+      The random seed to use.
+
+      :type: int
+
+

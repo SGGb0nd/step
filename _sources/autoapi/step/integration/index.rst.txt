@@ -1,0 +1,158 @@
+:py:mod:`step.integration`
+==========================
+
+.. py:module:: step.integration
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   step.integration.crossModel
+
+
+
+
+.. py:class:: crossModel(sc_adata: str | anndata.AnnData | pathlib.Path, st_adata: str | anndata.AnnData | pathlib.Path, class_key: str, n_top_genes: Optional[int] = 2000, geneset_to_use: Optional[Sequence[str]] = None, st_sample_name: Optional[str] = None, batch_key: Optional[str] = None, layer_key: Optional[str] = None, coord_keys: Tuple[str, str] = ('array_row', 'array_col'), decoder_type: str = 'zinb', log_transformed=False, module_dim=30, decoder_input_dim=None, hidden_dim=64, n_modules=32, model_checkpoint: str | Dict[str, str] | None = None, edge_clip=2, st_batch_key=None, variational=True, logarithm_first=False, hvg_method='seurat_v3', filtered=False, dispersion='batch-gene', device=None, **kwargs)
+
+
+   CrossModalityNrmls is the main class for integrating single-cell RNA-seq and spatial transcriptomics data.
+
+   .. attribute:: adata
+
+      Single-cell RNA-seq data.
+
+   .. attribute:: st_adata
+
+      Spatial transcriptomics data.
+
+   .. attribute:: dataset
+
+      CrossDataset object.
+
+   .. attribute:: _functional
+
+      CrossModalityNrmls object.
+
+   .. py:property:: adata
+      :type: anndata.AnnData
+
+      Returns AnnData object of the single-cell RNA-seq data.
+
+   .. py:property:: st_adata
+      :type: anndata.AnnData
+
+      Returns AnnData object of the spatial transcriptomics data.
+
+   .. py:property:: model
+
+
+   .. py:method:: cluster(st_adata: Optional[anndata.AnnData] = None, n_clusters=3, use_rep='X_smoothed', key_added='domain', method='kmeans')
+
+      Cluster the embedding of spatial transcriptomics data.
+
+      :param st_adata: Spatial transcriptomics data. Default is None, which uses the spatial transcriptomics data provided during initialization.
+      :type st_adata: Optional[AnnData]
+      :param n_clusters: Number of clusters. Default is 3.
+      :type n_clusters: int
+      :param use_rep: Key of the embedding to use. Default is None.
+      :type use_rep: Optional[str]
+      :param key_added: Key to add to the obs attribute of the spatial transcriptomics data. Default is "domain".
+      :type key_added: str
+      :param method: Clustering method, either "kmeans" or "mclust". Default is "kmeans".
+      :type method: str
+
+
+   .. py:method:: sub_cluster(st_adata: Optional[anndata.AnnData] = None, n_clusters=3, use_rep='X_smoothed', pre_key='cluster', key_added='sub_domain', method='kmeans')
+
+      Sub-cluster the clusters of spatial transcriptomics data.
+
+      :param st_adata: Spatial transcriptomics data. Default is None, which uses the spatial transcriptomics data provided during initialization.
+      :type st_adata: Optional[AnnData]
+      :param n_clusters: Number of clusters. Default is 3.
+      :type n_clusters: int
+      :param use_rep: Key of the embedding to use. Default is None.
+      :type use_rep: Optional[str]
+      :param pre_key: Key in the obs attribute of the spatial transcriptomics data that specifies the clusters. Default is "cluster".
+      :type pre_key: str
+      :param key_added: Key to add to the obs attribute of the spatial transcriptomics data. Default is "sub_domain".
+      :type key_added: str
+      :param method: Clustering method, either "kmeans" or "mclust". Default is "kmeans".
+      :type method: str
+
+
+   .. py:method:: summarize_domain(cell_type_names, adata: Optional[anndata.AnnData] = None, domain_key='domain', obsm_key='deconv', figsize=(15, 5), show=True, save=True)
+
+      Summarize the average quantification of cell types in each domain.
+
+      :param cell_type_names: Names of the cell types.
+      :type cell_type_names: Sequence[str]
+      :param adata: Single-cell RNA-seq data. Default is None, which uses the single-cell RNA-seq data provided during initialization.
+      :type adata: Optional[AnnData]
+      :param domain_key: Key in the obs attribute of the spatial transcriptomics data that specifies the domain. Default is "domain".
+      :type domain_key: str
+      :param obsm_key: Key in the obsm attribute of the spatial transcriptomics data that specifies the cell type labels. Default is "deconv".
+      :type obsm_key: str
+      :param figsize: Figure size. Default is (15, 5).
+      :type figsize: Tuple[int, int]
+      :param show: Whether to show the plot. Default is True.
+      :type show: bool
+      :param save: Whether to save the plot. Default is True.
+      :type save: bool
+
+
+   .. py:method:: summarize_single_domain(cell_type_names, domain: int | str, adata: Optional[anndata.AnnData] = None, domain_key='domain', obsm_key='deconv', figsize=(15, 5), show=True, save=True)
+
+      Summarize the quantification of cell types in each domain.
+
+      :param cell_type_names: Names of the cell types.
+      :type cell_type_names: Sequence[str]
+      :param adata: Single-cell RNA-seq data. Default is None, which uses the single-cell RNA-seq data provided during initialization.
+      :type adata: Optional[AnnData]
+      :param domain_key: Key in the obs attribute of the spatial transcriptomics data that specifies the domain. Default is "domain".
+      :type domain_key: str
+      :param obsm_key: Key in the obsm attribute of the spatial transcriptomics data that specifies the cell type labels. Default is "deconv".
+      :type obsm_key: str
+      :param figsize: Figure size. Default is (15, 5).
+      :type figsize: Tuple[int, int]
+      :param show: Whether to show the plot. Default is True.
+      :type show: bool
+      :param save: Whether to save the plot. Default is True.
+      :type save: bool
+
+
+   .. py:method:: save(path: str = '.')
+
+
+   .. py:method:: load(path: str | pathlib.Path, sc_adata: str | anndata.AnnData | None | pathlib.Path = None, st_adata: str | anndata.AnnData | None | pathlib.Path = None, config_name: str = 'config.json', model_name: str = 'model.pth', st_decoder_name: str = 'st_decoder.pth', mixer_name: str = 'mixer.pth')
+      :classmethod:
+
+      Load the model and the data.
+
+      :param path: The path to load the model and the dataset.
+      :type path: str
+      :param adata: Annotated data object containing the gene expression data.
+      :type adata: Optional[AnnData]
+      :param filepath: Path to a file containing the gene expression data.
+      :type filepath: Optional[str]
+      :param config_name: The name of the config file.
+      :type config_name: str
+      :param model_name: The name of the backbone model file.
+      :type model_name: str
+      :param st_decoder_name: The name of the st_decoder file.
+      :type st_decoder_name: str
+      :param mixer_name: The name of the mixer file.
+      :type mixer_name: str
+
+      :returns: The scModel object.
+      :rtype: scModel
+
+
+   .. py:method:: spatial_plot(slide: str | int | None = None, with_images: bool = True, **kwargs)
+
+
+

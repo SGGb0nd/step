@@ -1,0 +1,348 @@
+:py:mod:`step.models.geneformer`
+================================
+
+.. py:module:: step.models.geneformer
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   step.models.geneformer.Linear2D
+   step.models.geneformer.Readout
+   step.models.geneformer.GeneModuler
+   step.models.geneformer.Geneformer
+
+
+
+
+Attributes
+~~~~~~~~~~
+
+.. autoapisummary::
+
+   step.models.geneformer.drop_edge
+
+
+.. py:data:: drop_edge
+
+   
+
+.. py:class:: Linear2D(input_dim, hidden_dim, n_modules, bias=False)
+
+
+   Bases: :py:obj:`torch.nn.Module`
+
+   Linear2D module consists of a linear layer with 3D weight matrix.
+
+   :param input_dim: The input dimension of the Linear2D module.
+   :type input_dim: int
+   :param hidden_dim: The hidden dimension of the Linear2D module.
+   :type hidden_dim: int
+   :param n_modules: The number of modules of the Linear2D module.
+   :type n_modules: int
+   :param bias: Whether to use bias. Defaults to False.
+   :type bias: bool, optional
+
+   .. py:method:: forward(x)
+
+
+
+.. py:class:: Readout(input_dim, output_dim, variational=True)
+
+
+   Bases: :py:obj:`torch.nn.Module`
+
+   Readout module for the Geneformer model.
+
+   .. attribute:: net
+
+      The sequential neural network.
+
+      :type: nn.Sequential
+
+   .. attribute:: variational
+
+      Whether to use variational encoding.
+
+      :type: bool
+
+   .. attribute:: out
+
+      The sequential neural network for the output.
+
+      :type: nn.Sequential
+
+   .. attribute:: mean
+
+      The linear layer for the mean.
+
+      :type: nn.Linear
+
+   .. attribute:: logvar
+
+      The linear layer for the logvar.
+
+      :type: nn.Linear
+
+   .. py:method:: forward(x)
+
+      Forward pass of the Readout module.
+
+      :param x: The input tensor.
+      :type x: torch.Tensor
+
+      :returns: The output tensor.
+      :rtype: torch.Tensor
+
+
+   .. py:method:: kl_loss()
+
+      Computes the KL divergence loss.
+
+      :returns: The KL divergence loss.
+      :rtype: torch.Tensor
+
+
+   .. py:method:: clear()
+
+
+
+.. py:class:: GeneModuler(input_dim=2000, hidden_dim=8, n_modules=16)
+
+
+   Bases: :py:obj:`torch.nn.Module`
+
+   GeneModuler takes gene expression as input and outputs gene modules.
+
+   .. attribute:: input_dim
+
+      The input dimension of the GeneModuler model.
+
+      :type: int
+
+   .. attribute:: hidden_dim
+
+      The hidden dimension of the GeneModuler model.
+
+      :type: int
+
+   .. attribute:: n_modules
+
+      The number of modules of the GeneModuler model.
+
+      :type: int
+
+   .. attribute:: layernorm
+
+      The layer normalization layer.
+
+      :type: nn.LayerNorm
+
+   .. attribute:: extractor
+
+      The Linear2D object.
+
+      :type: Linear2D
+
+   .. py:method:: forward(x, batch=None)
+
+
+   .. py:method:: demodule(x)
+
+
+   .. py:method:: random_permute(x)
+
+
+
+.. py:class:: Geneformer(decoder_type='zinb', use_pe=True, use_smooth=False, use_skip=False, input_dim=2000, module_dim=30, decoder_input_dim=None, hidden_dim=256, n_modules=16, nhead=8, n_enc_layer=3, dec_norm='batch', variational=True, smoother='GCN', n_glayers=3, dec_hidden_dim=None, n_dec_hid_layers: int = 1, edge_clip=2, use_l_scale: bool = False, num_batches: int = 1)
+
+
+   Bases: :py:obj:`torch.nn.Module`
+
+   Geneformer is a gene expression model based on the Transformer architecture.
+
+   .. attribute:: input_dim
+
+      The input dimension of the Geneformer model.
+
+      :type: int
+
+   .. attribute:: module_dim
+
+      The module dimension of the Geneformer model.
+
+      :type: int
+
+   .. attribute:: hidden_dim
+
+      The hidden dimension of the Geneformer model.
+
+      :type: int
+
+   .. attribute:: n_modules
+
+      The number of modules of the Geneformer model.
+
+      :type: int
+
+   .. attribute:: moduler
+
+      The GeneModuler object.
+
+      :type: GeneModuler
+
+   .. attribute:: expand
+
+      The linear layer for expanding the module.
+
+      :type: nn.Linear
+
+   .. attribute:: readout
+
+      The Readout object.
+
+      :type: Readout
+
+   .. attribute:: module
+
+      The TransformerEncoder object.
+
+      :type: nn.TransformerEncoder
+
+   .. attribute:: cls_token
+
+      The classification token.
+
+      :type: nn.Parameter
+
+   .. attribute:: px_r
+
+      The parameter for the zero-inflated negative binomial distribution.
+
+      :type: torch.nn.Parameter
+
+   .. attribute:: decoder
+
+      The ProbDecoder object.
+
+      :type: ProbDecoder
+
+   .. attribute:: decoder_type
+
+      The type of the decoder.
+
+      :type: str
+
+   .. attribute:: _smooth
+
+      Whether to use smoothing.
+
+      :type: bool
+
+   .. attribute:: smoother
+
+      The GCN object for smoothing.
+
+      :type: GCN
+
+   .. attribute:: smoother_type
+
+      The type of the smoother.
+
+      :type: str
+
+   .. attribute:: args
+
+      The arguments for the Geneformer model.
+
+      :type: dict
+
+   .. attribute:: gargs
+
+      The arguments for the GCN object.
+
+      :type: dict
+
+   .. py:method:: get_px_r(batch_label)
+
+
+   .. py:method:: init_smoother_with_builtin()
+
+
+   .. py:method:: init_smoother(n_glayers=None)
+
+
+   .. py:method:: local_smooth(h, g: Optional[dgl.DGLGraph] = None)
+
+      Local smoothing function.
+
+      :param h: The input tensor.
+      :type h: torch.Tensor
+      :param g: The graph. Defaults to None.
+      :type g: Optional[dgl.DGLGraph], optional
+
+
+   .. py:method:: encode_ts(x, batch_rep=None) -> torch.Tensor
+
+      Encode the input tensor with only the transformer.
+
+      :param x: The input tensor.
+      :type x: torch.Tensor
+      :param batch_rep: representation tensor of the batch indicator. Defaults to None.
+      :type batch_rep: [type], optional
+
+      :returns: The encoded tensor, denoted as non-standardized representation.
+      :rtype: torch.Tensor
+
+
+   .. py:method:: readout_(cls_rep) -> torch.Tensor
+
+      Readout function.
+
+      :param cls_rep: The input tensor.
+      :type cls_rep: torch.Tensor
+
+      :returns: The output tensor.
+      :rtype: torch.Tensor
+
+
+   .. py:method:: encode(x, bacth_rep=None) -> torch.Tensor
+
+      Encode the input tensor with the transformer and the readout function.
+
+      :param x: The input tensor.
+      :type x: torch.Tensor
+      :param batch_rep: representation tensor of the batch indicator. Defaults to None.
+      :type batch_rep: [type], optional
+
+      :returns: The encoded tensor, denoted as standardized representation.
+      :rtype: torch.Tensor
+
+
+   .. py:method:: decode_ts(rep_ts, x_gd, batch_rep=None)
+
+      Decoding process starting from the non-standardized representation.
+
+      :param rep_ts: The input tensor.
+      :type rep_ts: torch.Tensor
+      :param x_gd: The input tensor.
+      :type x_gd: torch.Tensor
+      :param batch_rep: representation tensor of the batch indicator. Defaults to None.
+      :type batch_rep: [type], optional
+
+
+   .. py:method:: decode(cls_rep, x_gd, batch_rep=None)
+
+
+   .. py:method:: forward(x)
+
+
+   .. py:method:: copy(with_state=True)
+
+
+

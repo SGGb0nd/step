@@ -1,0 +1,125 @@
+:py:mod:`step.utils.synthetics.pseudo_st`
+=========================================
+
+.. py:module:: step.utils.synthetics.pseudo_st
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   step.utils.synthetics.pseudo_st.PseudoST
+
+
+
+
+.. py:class:: PseudoST(adata_sc: anndata.AnnData, adata_st: anndata.AnnData, layer_key='counts', batch_key=None, k_hop=3, downsapmle_size=200, cell_type_key='cell_type', sub_type_key=None, coords_key='spatial', info_key='spatial')
+
+
+   Pseudo spatial transcriptomics data.
+
+   .. attribute:: adata_sc
+
+      Single cell data.
+
+      :type: AnnData
+
+   .. attribute:: adata_st
+
+      Spatial transcriptomics data.
+
+      :type: AnnData
+
+   .. attribute:: layer_key
+
+      Layer key for single cell data.
+
+      :type: str
+
+   .. attribute:: batch_key
+
+      Batch key for single cell data.
+
+      :type: str
+
+   .. attribute:: k_hop
+
+      Number of hops for spatial smoothing.
+
+      :type: int
+
+   .. attribute:: downsapmle_size
+
+      Downsample size for single cell data.
+
+      :type: int
+
+   .. attribute:: cell_type_key
+
+      Cell type key for single cell data.
+
+      :type: str
+
+   .. attribute:: sub_type_key
+
+      Sub type key for single cell data.
+
+      :type: str
+
+   .. attribute:: coords_key
+
+      Coords key for spatial transcriptomics data.
+
+      :type: str
+
+   .. attribute:: info_key
+
+      Info key for spatial transcriptomics data.
+
+      :type: str
+
+   .. py:method:: simulate(domain_key: str, mean_prop=0.75, min_cells: int = 2, max_cells: int = 7, max_num_major_types: int = 2, max_rank: Union[int, float] = 0.5, prop_key='ct_composition', abund_key='ct_abundance', sub_domain_key=None, max_num_major_subtypes=4)
+
+      Simulate spatial transcriptomics data.
+
+      :param domain_key: Domain key for spatial transcriptomics data.
+      :type domain_key: str
+      :param mean_prop: Mean proportion of major cell types.
+      :type mean_prop: float
+      :param min_cells: Minimum number of cells.
+      :type min_cells: int
+      :param max_cells: Maximum number of cells.
+      :type max_cells: int
+      :param max_num_major_types: Maximum number of major cell types.
+      :type max_num_major_types: int
+      :param max_rank: Maximum rank for minor cell types.
+      :type max_rank: Union[int, float]
+      :param prop_key: Key for cell type composition.
+      :type prop_key: str
+      :param abund_key: Key for cell type abundance.
+      :type abund_key: str
+      :param sub_domain_key: Sub domain key for spatial transcriptomics data.
+      :type sub_domain_key: str
+      :param max_num_major_subtypes: Maximum number of major sub cell types.
+      :type max_num_major_subtypes: int
+
+      :returns: Simulated spatial transcriptomics data.
+      :rtype: AnnData
+
+
+   .. py:method:: save(file, st_only=True, **kwargs)
+
+      Save simulated spatial transcriptomics data.
+
+      :param file: File to save.
+      :type file: str
+      :param st_only: Save only spatial transcriptomics data.
+      :type st_only: bool
+      :param \*\*kwargs: Additional arguments.
+
+
+

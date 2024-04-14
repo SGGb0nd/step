@@ -1,0 +1,54 @@
+:py:mod:`step.utils.metrics`
+============================
+
+.. py:module:: step.utils.metrics
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   step.utils.metrics.moran_i
+   step.utils.metrics.geary_c
+
+
+
+.. py:function:: moran_i(adata, coord_keys, obs_key, k=1)
+
+   Calculate Moran's I for a given spatially distributed variable.
+
+   :param adata: Annotated data matrix.
+   :type adata: anndata.AnnData
+   :param coord_keys: List of keys in adata.obsm containing spatial coordinates.
+   :type coord_keys: list
+   :param obs_key: Key in adata.obs containing the variable of interest.
+   :type obs_key: str
+   :param k: Number of nearest neighbors to consider.
+   :type k: int
+
+   :returns: Moran's I value.
+   :rtype: float
+
+
+.. py:function:: geary_c(adata, coord_keys, obs_key, k=1)
+
+   Calculate Geary's C for a given spatially distributed variable.
+
+   :param adata: Annotated data matrix.
+   :type adata: anndata.AnnData
+   :param coord_keys: List of keys in adata.obsm containing spatial coordinates.
+   :type coord_keys: list
+   :param obs_key: Key in adata.obs containing the variable of interest.
+   :type obs_key: str
+   :param k: Number of nearest neighbors to consider.
+   :type k: int
+
+   :returns: Geary's C value.
+   :rtype: float
+
+

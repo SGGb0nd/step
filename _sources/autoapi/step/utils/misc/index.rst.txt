@@ -1,0 +1,72 @@
+:py:mod:`step.utils.misc`
+=========================
+
+.. py:module:: step.utils.misc
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   step.utils.misc.set_seed
+   step.utils.misc.get_de_genes
+   step.utils.misc.compute_selfattention
+   step.utils.misc.extract_selfattention_maps
+   step.utils.misc.generate_adj
+   step.utils.misc.aver_items_by_ct
+
+
+
+.. py:function:: set_seed(seed)
+
+
+.. py:function:: get_de_genes(adata, cell_type_key, de_key='rank_genes_groups_filtered', n_genes=10, log2fc_cutoff=0.5, hvg_intersection=True) -> numpy.ndarray
+
+
+.. py:function:: compute_selfattention(transformer_encoder, x, mask, src_key_padding_mask, i_layer, d_model, num_heads)
+
+
+.. py:function:: extract_selfattention_maps(transformer_encoder, x, mask, src_key_padding_mask)
+
+
+.. py:function:: generate_adj(adata, edge_clip: Optional[int] = 2, max_neighbors=6, batch_key=None) -> dgl.DGLHeteroGraph
+
+   Generate a graph from spatial coordinates.
+
+   :param adata: Annotated data matrix.
+   :type adata: anndata.AnnData
+   :param edge_clip: Clip edges at this distance.
+   :type edge_clip: int
+   :param max_neighbors: Maximum number of neighbors.
+   :type max_neighbors: int
+   :param batch_key: Key in adata.obs containing batch information.
+   :type batch_key: str
+
+   :returns: Graph.
+   :rtype: dgl.DGLHeteroGraph
+
+
+.. py:function:: aver_items_by_ct(adata: anndata.AnnData, cell_type_key: str, items: torch.Tensor | numpy.ndarray, weight: Optional[torch.Tensor] = None, return_cts=False)
+
+   Generate anchors for each cell type based on the given data and transformation output.
+
+   :param adata: Annotated data object.
+   :type adata: AnnData
+   :param cell_type_key: Key for the cell type column in the adata object.
+   :type cell_type_key: str
+   :param tsfmr_out: Transformation output tensor.
+   :type tsfmr_out: torch.Tensor
+   :param weight: Weight tensor for aggregation. Default is None.
+   :type weight: Optional[torch.Tensor]
+   :param return_cts: Whether to return the cell types along with the anchors. Default is False.
+   :type return_cts: bool
+
+   :returns: Anchors tensor or tuple of anchors tensor and list of cell types.
+   :rtype: torch.Tensor or Tuple[torch.Tensor, List[str]]
+
+

@@ -1,0 +1,58 @@
+:py:mod:`step.manager`
+======================
+
+.. py:module:: step.manager
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   save/index.rst
+
+
+Package Contents
+----------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   step.manager.set_verbosity
+
+
+
+Attributes
+~~~~~~~~~~
+
+.. autoapisummary::
+
+   step.manager.logger
+   step.manager.ch
+   step.manager.formatter
+
+
+.. py:data:: logger
+
+   
+
+.. py:data:: ch
+
+   
+
+.. py:data:: formatter
+
+   
+
+.. py:function:: set_verbosity(level=3)
+
+   Set the verbosity level of the logger.
+
+   :param level: The verbosity level. 0 is warnings and errors, 1 is info, 2 is debug.
+   :type level: int
+
+

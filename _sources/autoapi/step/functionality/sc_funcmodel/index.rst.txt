@@ -1,0 +1,251 @@
+:py:mod:`step.functionality.sc_funcmodel`
+=========================================
+
+.. py:module:: step.functionality.sc_funcmodel
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   step.functionality.sc_funcmodel.scSingleBatch
+   step.functionality.sc_funcmodel.scMultiBatchNrmls
+
+
+
+
+.. py:class:: scSingleBatch(device=None, **kwargs)
+
+
+   Bases: :py:obj:`step.functionality.base.FunctionalBase`
+
+   scSingleBatch model for scRNA-seq data.
+
+   .. attribute:: model
+
+      The model used for training.
+
+      :type: Geneformer
+
+
+.. py:class:: scMultiBatchNrmls(num_batches=2, device=None, **kwargs)
+
+
+   Bases: :py:obj:`step.functionality.base.FunctionalBase`
+
+   scMultiBatchNrmls model for multi-batch scRNA-seq data.
+
+   This class provides an interface for training and using the extension of the backbone model for multi-batch scRNA-seq data.
+
+   .. attribute:: model
+
+      The model used for training.
+
+      :type: NrmlsBC
+
+   .. attribute:: _factor
+
+      The beta factor for tuning the kl loss.
+
+      :type: float
+
+   .. py:method:: loss(x, batch_rep, class_label=None)
+
+      Calculates the loss function for the model.
+      The internal loss function is selected based on the availability of class labels, for semi-supervised and unsupervised settings.
+
+      :param x: The input data.
+      :type x: Tensor
+      :param batch_rep: The batch representation.
+      :type batch_rep: Tensor
+      :param class_label: The class label (default: None).
+      :type class_label: Tensor, optional
+      :param beta: The beta parameter for tuning the loss (default: 1e-2).
+      :type beta: float, optional
+
+      :returns: The calculated loss value.
+      :rtype: Tensor
+
+
+   .. py:method:: train()
+
+      Train the model using the provided data.
+
+      :param state: The state dictionary containing training parameters.
+      :type state: dict
+      :param X: The input data.
+      :type X: torch.Tensor
+      :param train_ind: The indices of the training data.
+      :type train_ind: Optional[List[int]]
+      :param valid_ind: The indices of the validation data.
+      :type valid_ind: Optional[List[int]]
+      :param call_func: The function to calculate the loss.
+      :type call_func: Optional[Callable]
+      :param \*\*kwargs: Additional keyword arguments to be passed to the loss function.
+
+      :returns: True if early stopping condition is met, False otherwise.
+      :rtype: bool
+
+
+   .. py:method:: handle_input_tuple(input_tuple)
+
+      Handles the input tuple and calculates the loss.
+      This method is implemented to handle the input tuple and calculate the loss for `train_batch` method, see `train_batch` in parent class `FunctionalBase`.
+
+      :param input_tuple: The input tuple containing the data and labels.
+      :type input_tuple: tuple
+      :param beta: The beta value for the loss calculation. Defaults to 1e-2.
+      :type beta: float, optional
+
+      :returns: A dictionary containing the loss values.
+      :rtype: dict
+
+
+   .. py:method:: embed(dataset, tsfmr_out=False, as_numpy=True)
+
+      Embeds the given dataset using the model.
+
+      :param dataset: The dataset to be embedded.
+      :param tsfmr_out: Whether to return the output of the transformer layer. Defaults to False.
+      :param as_numpy: Whether to return the embeddings as numpy arrays. Defaults to True.
+
+      :returns: The embeddings of the dataset.
+
+
+   .. py:method:: get_anchors()
+
+      Returns the anchors used by the model.
+
+      :returns: An array of anchors.
+      :rtype: numpy.ndarray
+
+
+   .. py:method:: run(adata: anndata.AnnData, dataset: step.utils.dataset.BaseDataset | step.utils.dataset.MaskedDataset, epochs=400, batch_size: Optional[int] = 512, lr=0.001, split_rate=0.2, tune_epochs=100, tune_lr=0.0001, need_anchors=True, unlabeled_key=None, groupby=None, key_added='X_rep', kl_cutoff=None, beta1=0.01, beta2=0.001, reset=False)
+
+      Run the function model.
+
+      :param adata: The annotated data matrix.
+      :type adata: AnnData
+      :param dataset: The dataset object.
+      :type dataset: BaseDataset
+      :param epochs: The number of training epochs. Default is 1.
+      :type epochs: int
+      :param batch_size: The batch size. Default is None.
+      :type batch_size: Optional[int]
+      :param lr: The learning rate. Default is 1e-3.
+      :type lr: float
+      :param split_rate: The split rate for train-test split. Default is 0.2.
+      :type split_rate: float
+      :param tune_epochs: The number of finetuning epochs. Default is 20.
+      :type tune_epochs: int
+      :param tune_lr: The learning rate for finetuning. Default is 1e-4.
+      :type tune_lr: float
+      :param need_anchors: Whether to use anchors. Default is True.
+      :type need_anchors: bool
+      :param unlabeled_key: The key for unlabeled batch. Default is None.
+      :type unlabeled_key: Optional[str]
+      :param groupby: The key for grouping. Default is None.
+      :type groupby: Optional[str]
+      :param key_added: The key for the added data. Default is 'X_rep'.
+      :type key_added: str
+      :param kl_cutoff: The cutoff for KL loss. Default is None.
+      :type kl_cutoff: Optional[float]
+      :param beta: The beta value for KL loss. Default is 1e-2.
+      :type beta: float
+
+
+   .. py:method:: refine(adata: anndata.AnnData, dataset: step.utils.dataset.BaseDataset | step.utils.dataset.MaskedDataset, epochs=1, batch_size: Optional[int] = None, lr=0.001, split_rate=0.2, tune_lr=0.0001, unlabeled_key=None, groupby=None, key_added='X_anchord', kl_cutoff=None, beta=0.01)
+
+      Refine the model when class labels are available.
+      Using the class labels, i.e. the cell type information, the model is refined to improve the classification performance and the quality of the embeddings.
+
+      :param adata: The annotated data matrix.
+      :type adata: AnnData
+      :param dataset: The dataset object.
+      :type dataset: BaseDataset
+      :param epochs: The number of training epochs. Default is 1.
+      :type epochs: int
+      :param batch_size: The batch size. Default is None.
+      :type batch_size: Optional[int]
+      :param lr: The learning rate. Default is 1e-3.
+      :type lr: float
+      :param split_rate: The split rate for train-test split. Default is 0.2.
+      :type split_rate: float
+      :param tune_lr: The learning rate for finetuning. Default is 1e-4.
+      :type tune_lr: float
+      :param unlabeled_key: The key for unlabeled batch. Default is None.
+      :type unlabeled_key: Optional[str]
+      :param groupby: The key for grouping. Default is None.
+      :type groupby: Optional[str]
+      :param key_added: The key for the added data. Default is 'X_anchord'.
+      :type key_added: str
+      :param kl_cutoff: The cutoff for KL loss. Default is None.
+      :type kl_cutoff: Optional[float]
+      :param beta: The beta value for KL loss. Default is 1e-2.
+      :type beta: float
+
+
+   .. py:method:: clsf(adata, use_rep, out: Literal[hard, soft] = 'soft', key_added='pred_celltype', as_numpy=True)
+
+      Perform cell type classification on the input data.
+
+      :param adata: Annotated data object.
+      :type adata: AnnData
+      :param use_rep: Key of the representation in `adata.obsm` to be used for classification.
+      :type use_rep: str
+      :param out: Type of output. Either 'hard' for hard classification or 'soft' for soft classification. Default is 'soft'.
+      :type out: str, optional
+      :param key_added: Key to add to `adata.obs` for storing the predicted cell types. Default is 'pred_celltype'.
+      :type key_added: str, optional
+      :param as_numpy: Whether to return the predicted cell types as a numpy array. Default is True.
+      :type as_numpy: bool, optional
+
+      :returns: Predicted cell types. If `as_numpy` is True, returns a numpy array. Otherwise, returns a torch.Tensor.
+      :rtype: pred (numpy.ndarray or torch.Tensor)
+
+
+   .. py:method:: clsf_(rep)
+
+      Perform classification using the given representation.
+
+      :param rep: The input representation.
+
+      :returns: The softmax output of the classification head.
+
+
+   .. py:method:: impute(adata: anndata.AnnData | None, dataset: step.utils.dataset.ScDataset, decode_dict=None, key_added: str | None = 'expected_counts', rep_key: str | None = None, layer_key=None, rep: torch.Tensor | None = None, qc=False, **kwargs)
+
+      Imputes missing values in the given dataset using the trained model.
+
+      :param adata: Annotated data object containing the dataset.
+      :type adata: AnnData
+      :param dataset: Dataset object containing the gene expression data.
+      :type dataset: BaseDataset
+      :param decode_dict: Dictionary containing the decoding information. If not provided, it will be generated using the trained model.
+      :type decode_dict: dict, optional
+      :param key_added: Key to store the imputed values in the `adata.layers` attribute. Default is 'expected_counts'.
+      :type key_added: str, optional
+      :param rep_key: Key to retrieve the representation matrix from `adata.obsm` attribute. If not provided, it will be inferred from the `adata.obsm` keys.
+      :type rep_key: str, optional
+      :param layer_key: Key to retrieve the layer-specific gene expression data from `adata.layers` attribute.
+      :type layer_key: str, optional
+      :param rep: Representation matrix. If not provided, it will be generated using the `_embed` method.
+      :type rep: torch.Tensor, optional
+      :param qc: Flag indicating whether to perform quality control on the imputed values. Default is False.
+      :type qc: bool, optional
+      :param \*\*kwargs: Additional keyword arguments to be passed to the `super().impute` method.
+
+      :returns: The result of the `super().impute` method.
+      :rtype: res
+
+
+   .. py:method:: reset_model()
+
+      Reset the model parameters.
+
+
+

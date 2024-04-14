@@ -1,0 +1,17 @@
+:py:mod:`step.modules`
+======================
+
+.. py:module:: step.modules
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   decoder/index.rst
+   gnn/index.rst
+   transformer/index.rst
+
+

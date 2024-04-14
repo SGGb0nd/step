@@ -1,0 +1,345 @@
+:py:mod:`step.functionality.comps.trainer`
+==========================================
+
+.. py:module:: step.functionality.comps.trainer
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   step.functionality.comps.trainer.EarlyStopping
+   step.functionality.comps.trainer.Trainer
+
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   step.functionality.comps.trainer.train_loop_formatter
+   step.functionality.comps.trainer.category_random_split
+
+
+
+.. py:function:: train_loop_formatter(train_func)
+
+   A decorator function that formats the training loop.
+
+   :param train_func: The training function to be decorated.
+   :type train_func: function
+
+   :returns: The decorated training function.
+   :rtype: function
+
+
+.. py:class:: EarlyStopping(patience=7, verbose=False, delta=0, path='checkpoint.pt', trace_func=print)
+
+
+   Early stops the training if validation loss doesn't improve after a given patience.
+
+
+.. py:class:: Trainer(model: step.models.geneformer.Geneformer)
+
+
+   Bases: :py:obj:`object`
+
+   The Trainer class is responsible for training the Geneformer model.
+
+   .. attribute:: model
+
+      The Geneformer model being trained.
+
+      :type: Geneformer
+
+   .. attribute:: optimizer
+
+      The optimizer used for model parameter updates.
+
+      :type: torch.optim.Adam
+
+   .. attribute:: lr_scheduler
+
+      The learning rate scheduler.
+
+      :type: torch.optim.lr_scheduler.MultiStepLR
+
+   .. attribute:: early_stopping
+
+      A dictionary of EarlyStopping objects for each loss type.
+
+      :type: Dict[str, EarlyStopping]
+
+   .. attribute:: lossconfig
+
+      A dictionary containing the configuration for different loss types.
+
+      :type: dict
+
+   .. attribute:: defualt_lcfg
+
+      The default configuration for loss types.
+
+      :type: dict
+
+   .. py:method:: mode_switch_to_train()
+
+
+   .. py:method:: init_optimizer(lr=0.001, tune_lr=0.0001, stage=1, tune_batch_embedding=True)
+
+      Initializes the optimizer for model parameter updates.
+
+      :param lr: The learning rate for the base model parameters.
+      :type lr: float
+      :param tune_lr: The learning rate for the fine-tuned model parameters.
+      :type tune_lr: float
+      :param stage: The training stage.
+      :type stage: int
+      :param tune_batch_embedding: Whether to tune the batch embedding.
+      :type tune_batch_embedding: bool
+
+
+   .. py:method:: set_lr_scheduler(lr_scheduler=None)
+
+      Sets the learning rate scheduler.
+
+      :param lr_scheduler: The learning rate scheduler.
+      :type lr_scheduler: torch.optim.lr_scheduler._LRScheduler
+      :param gamma: The multiplicative factor of learning rate decay.
+      :type gamma: float
+      :param \*milestones: The list of epoch indices at which to decay the learning rate.
+
+
+   .. py:method:: update_model_params(loss_dict, epoch)
+
+      Updates the model parameters based on the loss.
+
+      :param loss_dict: A dictionary containing the loss values.
+      :type loss_dict: dict
+
+
+   .. py:method:: setup_early_stopping(loss_dict: dict)
+
+      Sets up the EarlyStopping objects for each loss type.
+
+      :param loss_dict: A dictionary containing the loss values.
+      :type loss_dict: dict
+
+
+   .. py:method:: cum_loss(loss_dict: dict, total_loss_dict: dict, use_earlystop=False, n_batch: int = -1, n_epoch: int = -1)
+
+      Computes the cumulative loss.
+
+      :param loss_dict: A dictionary containing the loss values.
+      :type loss_dict: dict
+      :param total_loss_dict: A dictionary containing the cumulative loss values.
+      :type total_loss_dict: dict
+      :param use_earlystop: Whether to use early stopping.
+      :type use_earlystop: bool
+      :param n_batch: The current batch number.
+      :type n_batch: int
+      :param n_epoch: The current epoch number.
+      :type n_epoch: int
+
+      :returns: The updated total_loss_dict.
+      :rtype: dict
+
+
+   .. py:method:: check_early_stop(total_loss_dict: dict)
+
+      Checks if early stopping criteria are met.
+
+      :param total_loss_dict: A dictionary containing the cumulative loss values.
+      :type total_loss_dict: dict
+
+      :returns: True if early stopping criteria are met, False otherwise.
+      :rtype: bool
+
+
+   .. py:method:: format_loss_dict(loss_dict: dict, state: dict, valid_loss_dict: Optional[dict] = None, endepoch: bool = False)
+
+      Formats the loss dictionary for display.
+
+      :param loss_dict: A dictionary containing the loss values.
+      :type loss_dict: dict
+      :param state: A dictionary containing the current state.
+      :type state: dict
+      :param valid_loss_dict: A dictionary containing the validation loss values.
+      :type valid_loss_dict: dict, optional
+      :param endepoch: Whether it is the end of an epoch.
+      :type endepoch: bool, optional
+
+
+   .. py:method:: split_X(X, split_rate)
+
+      Splits the input data into training and validation sets based on the given split rate.
+
+      :param X: The input data to be split.
+      :type X: array-like
+      :param split_rate: The ratio of validation data to the total data.
+      :type split_rate: float
+
+      :returns: A tuple containing the training data and validation data.
+      :rtype: tuple
+
+
+   .. py:method:: handle_input_tuple(input_tuple)
+
+      Handles the input tuple and calculates the loss.
+
+      :param input_tuple: A tuple containing the input data and the target data.
+      :type input_tuple: tuple
+
+      :returns: A dictionary containing the loss values.
+      :rtype: dict
+
+
+   .. py:method:: handle_ginput_tuple(input_tuple, ind, step)
+
+
+   .. py:method:: train_batch(state, loaders, call_func: Optional[Callable] = None)
+
+      Trains the model on a batch of data.
+
+      :param state: The state dictionary containing training parameters.
+      :type state: dict
+      :param loaders: A tuple containing the train and validation loaders.
+      :type loaders: tuple
+      :param call_func: The function to call on the input tuple. Defaults to None.
+      :type call_func: Callable, optional
+
+      :returns: A flag indicating whether to stop training early.
+      :rtype: bool
+
+
+   .. py:method:: train(state, X, train_ind=None, valid_ind=None, call_func: Optional[Callable] = None, **kwargs)
+
+      Train the model using the provided data.
+
+      :param state: The state dictionary containing training parameters.
+      :type state: dict
+      :param X: The input data.
+      :type X: torch.Tensor
+      :param train_ind: The indices of the training data.
+      :type train_ind: Optional[List[int]]
+      :param valid_ind: The indices of the validation data.
+      :type valid_ind: Optional[List[int]]
+      :param call_func: The function to calculate the loss.
+      :type call_func: Optional[Callable]
+      :param \*\*kwargs: Additional keyword arguments to be passed to the loss function.
+
+      :returns: True if early stopping condition is met, False otherwise.
+      :rtype: bool
+
+
+   .. py:method:: train_node_sampler(state, gloader, train_ind=None, valid_ind=None)
+
+      Trains the model with node sampler.
+
+      :param state: The state dictionary containing training parameters.
+      :type state: dict
+      :param gloader: The data loader for the training data.
+      :type gloader: DataLoader
+      :param train_ind: The indices of the training data. Defaults to None.
+      :type train_ind: list, optional
+      :param valid_ind: The indices of the validation data. Defaults to None.
+      :type valid_ind: list, optional
+
+
+   .. py:method:: train_graph_batch(state, gloader, train_ind=None, valid_ind=None)
+
+      Trains the model on a batch of graph inputs.
+
+      :param state: The state dictionary containing training parameters.
+      :type state: dict
+      :param gloader: The data loader for loading graph inputs.
+      :type gloader: DataLoader
+      :param train_ind: The indices of the training samples. Defaults to None.
+      :type train_ind: list, optional
+      :param valid_ind: The indices of the validation samples. Defaults to None.
+      :type valid_ind: list, optional
+
+      :returns: True if early stopping condition is met, False otherwise.
+      :rtype: bool
+
+
+   .. py:method:: validate_loader(loader, call_func: Optional[Callable] = None)
+
+      Validates the given loader by evaluating the model on the input data.
+
+      :param loader: The data loader containing the input data.
+      :type loader: Iterable
+      :param call_func: The function to be called for processing each input tuple.
+                        If not provided, self.handle_input_tuple will be used.
+      :type call_func: Callable, optional
+
+      :returns:
+
+                A dictionary containing the cumulative loss values for each metric.
+                    The keys are in the format 'val_{metric_name}'.
+      :rtype: dict
+
+
+   .. py:method:: validate_X(X, ind=None, call_func: Optional[Callable] = None)
+
+      Validates the input data X using the specified call_func.
+
+      :param X: The input data to be validated.
+      :param ind: The index of the data.
+      :param call_func: The function used to calculate the loss. If not provided, self.loss will be used.
+
+      :returns: A dictionary containing the validation loss values.
+
+
+   .. py:method:: validate_gloader(gloader)
+
+      Validates the given data loader by evaluating the model on the input data.
+
+      :param gloader: The data loader containing the input data.
+      :type gloader: DataLoader
+
+      :returns: A dictionary containing the cumulative loss values for each metric.
+      :rtype: dict
+
+
+   .. py:method:: make_loaders(dataset: step.utils.dataset.BaseDataset | step.utils.dataset.MaskedDataset, batch_size: int, split_rate: float = 0.2, shuffle: bool = True, obs_key: Optional[str] = None, **kwargs)
+      :staticmethod:
+
+      Create data loaders for training and validation datasets.
+
+      :param dataset: The dataset to create loaders for.
+      :type dataset: Union[ScDataset, StDataset]
+      :param batch_size: The batch size for the loaders.
+      :type batch_size: int
+      :param split_rate: The ratio to split the dataset into training and validation sets. Defaults to 0.2.
+      :type split_rate: float, optional
+      :param shuffle: Whether to shuffle the data. Defaults to True.
+      :type shuffle: bool, optional
+      :param obs_key: The key for the column in `adata.obs`. Defaults to None.
+      :type obs_key: Optional[str], optional
+
+      :returns: The training and validation data loaders.
+      :rtype: Tuple[DataLoader, DataLoader]
+
+
+
+.. py:function:: category_random_split(dataset: Union[step.utils.dataset.BaseDataset, step.utils.dataset.MaskedDataset], split_rate: float = 0.2, obs_key: Optional[str] = None) -> Tuple[step.utils.dataset.MaskedDataset, step.utils.dataset.MaskedDataset]
+
+   Splits the given dataset into training and validation datasets based on categories.
+
+   :param dataset: The input dataset to be split.
+   :type dataset: ScDataset
+   :param split_rate: The ratio of validation data to total data. Defaults to 0.2.
+   :type split_rate: float, optional
+   :param obs_key: The key of the column in `adata.obs` containing categories. Defaults to None.
+   :type obs_key: str, optional
+
+   :returns: A tuple containing the training dataset and validation dataset.
+   :rtype: Tuple[ScDataset, ScDataset]
+
+

@@ -1,0 +1,794 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../../../../">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="../../../../genindex.html" /><link rel="search" title="Search" href="../../../../search.html" /><link rel="next" title="step.functionality.sc_funcmodel" href="../sc_funcmodel/index.html" /><link rel="prev" title="step.functionality.base" href="../base/index.html" />
+
+    <!-- Generated with Sphinx 7.2.6 and Furo 2024.01.29 -->
+        <title>step.functionality.cross_funcmodel - STEP documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?v=135e06be" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css?v=eafc0fe6" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo-extensions.css?v=36a5483c" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/css/custom.css?v=f8d6e08a" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../../../index.html"><div class="brand">STEP  documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../../../index.html">
+  
+  
+  <span class="sidebar-brand-text">STEP  documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../../../../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../index.html">Tutorials</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Tutorials</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/DLFPC.html">Spatial domain identification on 10x Visium DLFPC data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/Human_Lymph_Node.html">Performing integrative analysis on scRNA-seq data and 10x Visium data of Human Lymph Node with STEP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/MERFISH.html">Reveal multiple level of biological heterogeneities in Mouse Hypothalamus by MERFISH-seq</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/scRNA-seq.html">Integrate Human Immune Cell datasets with STEP and generate batch-corrected embeddings and gene expressions.</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="../../../index.html#api-reference">API Reference</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2 current has-children"><a class="reference internal" href="../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step</span></code></a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of step</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l3 current has-children"><a class="reference internal" href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.functionality</span></code></a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of step.functionality</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l4 has-children"><a class="reference internal" href="../comps/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.functionality.comps</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle navigation of step.functionality.comps</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../comps/model_ops/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.functionality.comps.model_ops</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../comps/trainer/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.functionality.comps.trainer</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../base/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.functionality.base</span></code></a></li>
+<li class="toctree-l4 current current-page"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.functionality.cross_funcmodel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../sc_funcmodel/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.functionality.sc_funcmodel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../st_funcmodel/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.functionality.st_funcmodel</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../manager/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.manager</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle navigation of step.manager</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../manager/save/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.manager.save</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../models/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.models</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle navigation of step.models</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../models/clust/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.models.clust</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../models/deconv/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.models.deconv</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../models/distributions/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.models.distributions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../models/extension/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.models.extension</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../models/geneformer/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.models.geneformer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../models/knn_map/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.models.knn_map</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../models/nnls/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.models.nnls</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../modules/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.modules</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle navigation of step.modules</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../modules/decoder/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.modules.decoder</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../modules/gnn/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.modules.gnn</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../modules/transformer/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.modules.transformer</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../utils/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.utils</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle navigation of step.utils</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../../utils/synthetics/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.utils.synthetics</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle navigation of step.utils.synthetics</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../utils/synthetics/pseudo_st/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.utils.synthetics.pseudo_st</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../utils/dataset/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.utils.dataset</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../utils/gbolt/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.utils.gbolt</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../utils/metrics/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.utils.metrics</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../utils/misc/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.utils.misc</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../utils/plotting/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.utils.plotting</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.integration</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../scmodel/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.scmodel</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../stmodel/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.stmodel</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="edit-this-page">
+  <a class="muted-link" href="https://github.com/SGGb0nd/step/edit/main/docs/autoapi/step/functionality/cross_funcmodel/index.rst" title="Edit this page">
+    <svg aria-hidden="true" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" />
+      <line x1="13.5" y1="6.5" x2="17.5" y2="10.5" />
+    </svg>
+    <span class="visually-hidden">Edit this page</span>
+  </a>
+</div><div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <section id="module-step.functionality.cross_funcmodel">
+<span id="step-functionality-cross-funcmodel"></span><h1><a class="reference internal" href="#module-step.functionality.cross_funcmodel" title="step.functionality.cross_funcmodel"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.functionality.cross_funcmodel</span></code></a><a class="headerlink" href="#module-step.functionality.cross_funcmodel" title="Link to this heading">#</a></h1>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">#</a></h2>
+<section id="classes">
+<h3>Classes<a class="headerlink" href="#classes" title="Link to this heading">#</a></h3>
+<div class="table-wrapper autosummary longtable docutils container">
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#step.functionality.cross_funcmodel.CrossModalityNrmls" title="step.functionality.cross_funcmodel.CrossModalityNrmls"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CrossModalityNrmls</span></code></a></p></td>
+<td><p>CrossModalityNrmls is a class for training and integrating cross-modality data: scRNA-seq and spatial transcriptomics.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<dl class="py class">
+<dt class="sig sig-object py" id="step.functionality.cross_funcmodel.CrossModalityNrmls">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">CrossModalityNrmls</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.functionality.cross_funcmodel.CrossModalityNrmls" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../sc_funcmodel/index.html#step.functionality.sc_funcmodel.scMultiBatchNrmls" title="step.functionality.sc_funcmodel.scMultiBatchNrmls"><code class="xref py py-obj docutils literal notranslate"><span class="pre">step.functionality.sc_funcmodel.scMultiBatchNrmls</span></code></a></p>
+<p>CrossModalityNrmls is a class for training and integrating cross-modality data: scRNA-seq and spatial transcriptomics.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="step.functionality.cross_funcmodel.CrossModalityNrmls.need_anchor">
+<span class="sig-name descname"><span class="pre">need_anchor</span></span><a class="headerlink" href="#step.functionality.cross_funcmodel.CrossModalityNrmls.need_anchor" title="Link to this definition">#</a></dt>
+<dd><p>Whether to use anchors for integration.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="step.functionality.cross_funcmodel.CrossModalityNrmls.mixer">
+<span class="sig-name descname"><span class="pre">mixer</span></span><a class="headerlink" href="#step.functionality.cross_funcmodel.CrossModalityNrmls.mixer" title="Link to this definition">#</a></dt>
+<dd><p>The mixer module for integration.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../../models/deconv/index.html#step.models.deconv.Mixer" title="step.models.deconv.Mixer">Mixer</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="step.functionality.cross_funcmodel.CrossModalityNrmls.single_st">
+<span class="sig-name descname"><span class="pre">single_st</span></span><a class="headerlink" href="#step.functionality.cross_funcmodel.CrossModalityNrmls.single_st" title="Link to this definition">#</a></dt>
+<dd><p>Whether the dataset contains only single section.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="step.functionality.cross_funcmodel.CrossModalityNrmls.st_decoder">
+<span class="sig-name descname"><span class="pre">st_decoder</span></span><a class="headerlink" href="#step.functionality.cross_funcmodel.CrossModalityNrmls.st_decoder" title="Link to this definition">#</a></dt>
+<dd><p>The self</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>StDecoder</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="step.functionality.cross_funcmodel.CrossModalityNrmls.max_neighs">
+<span class="sig-name descname"><span class="pre">max_neighs</span></span><a class="headerlink" href="#step.functionality.cross_funcmodel.CrossModalityNrmls.max_neighs" title="Link to this definition">#</a></dt>
+<dd><p>The maximum number of neighbors.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="step.functionality.cross_funcmodel.CrossModalityNrmls.edge_clip">
+<span class="sig-name descname"><span class="pre">edge_clip</span></span><a class="headerlink" href="#step.functionality.cross_funcmodel.CrossModalityNrmls.edge_clip" title="Link to this definition">#</a></dt>
+<dd><p>The edge clipping value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[float]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="step.functionality.cross_funcmodel.CrossModalityNrmls._num_batches">
+<span class="sig-name descname"><span class="pre">_num_batches</span></span><a class="headerlink" href="#step.functionality.cross_funcmodel.CrossModalityNrmls._num_batches" title="Link to this definition">#</a></dt>
+<dd><p>The number of batches.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="step.functionality.cross_funcmodel.CrossModalityNrmls._gener_graph">
+<span class="sig-name descname"><span class="pre">_gener_graph</span></span><a class="headerlink" href="#step.functionality.cross_funcmodel.CrossModalityNrmls._gener_graph" title="Link to this definition">#</a></dt>
+<dd><p>The function for generating the graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Callable</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="step.functionality.cross_funcmodel.CrossModalityNrmls._rout">
+<span class="sig-name descname"><span class="pre">_rout</span></span><a class="headerlink" href="#step.functionality.cross_funcmodel.CrossModalityNrmls._rout" title="Link to this definition">#</a></dt>
+<dd><p>The readout module.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>nn.Module</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="step.functionality.cross_funcmodel.CrossModalityNrmls.handle_ginput_tuple">
+<span class="sig-name descname"><span class="pre">handle_ginput_tuple</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_tuple</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ind</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.functionality.cross_funcmodel.CrossModalityNrmls.handle_ginput_tuple" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="step.functionality.cross_funcmodel.CrossModalityNrmls.from_spatial_graph">
+<span class="sig-name descname"><span class="pre">from_spatial_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">adata</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">anndata.AnnData</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1024</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_iters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_rep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.functionality.cross_funcmodel.CrossModalityNrmls.from_spatial_graph" title="Link to this definition">#</a></dt>
+<dd><p>Convert spatial graph data into a dataloader for training.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>adata</strong> (<em>AnnData</em>) – Annotated data object containing spatial graph information.</p></li>
+<li><p><strong>dataset</strong> (<a class="reference internal" href="../../utils/dataset/index.html#step.utils.dataset.StDataset" title="step.utils.dataset.StDataset"><em>StDataset</em></a>) – Spatial transcriptomics dataset object.</p></li>
+<li><p><strong>batch_size</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of samples per batch. Defaults to 1024.</p></li>
+<li><p><strong>num_iters</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of iterations. Defaults to 1000.</p></li>
+<li><p><strong>use_rep</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to use the representation data. Defaults to False.</p></li>
+<li><p><strong>batch_key</strong> (<em>str</em><em>, </em><em>optional</em>) – Key for batch information in <cite>adata.obs</cite>. Defaults to None.</p></li>
+<li><p><strong>**kwargs</strong> – Additional keyword arguments.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A dataloader object for training.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dataloader</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="step.functionality.cross_funcmodel.CrossModalityNrmls.add_embed_st">
+<span class="sig-name descname"><span class="pre">add_embed_st</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">st_dataset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key_added</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'X_smoothed'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">readout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.functionality.cross_funcmodel.CrossModalityNrmls.add_embed_st" title="Link to this definition">#</a></dt>
+<dd><p>Add the smoothed representation to the spatial transcriptomics dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>adata</strong> (<em>AnnData</em>) – The annotated data object.</p></li>
+<li><p><strong>dataset</strong> (<a class="reference internal" href="../../utils/dataset/index.html#step.utils.dataset.CrossDataset" title="step.utils.dataset.CrossDataset"><em>CrossDataset</em></a>) – The cross dataset object.</p></li>
+<li><p><strong>key_added</strong> (<em>str</em><em>, </em><em>optional</em>) – The key to store the smoothed representation. Defaults to ‘X_smoothed’.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="step.functionality.cross_funcmodel.CrossModalityNrmls.integrate">
+<span class="sig-name descname"><span class="pre">integrate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">adata</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">anndata.AnnData</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../utils/dataset/index.html#step.utils.dataset.CrossDataset" title="step.utils.dataset.CrossDataset"><span class="pre">step.utils.dataset.CrossDataset</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">epochs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split_rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tune_epochs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tune_lr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">need_anchors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key_added</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'X_rep'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kl_cutoff</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.functionality.cross_funcmodel.CrossModalityNrmls.integrate" title="Link to this definition">#</a></dt>
+<dd><p>Integrate the input data using the cross-function model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>adata</strong> (<em>AnnData</em>) – The input AnnData object.</p></li>
+<li><p><strong>dataset</strong> (<a class="reference internal" href="../../utils/dataset/index.html#step.utils.dataset.CrossDataset" title="step.utils.dataset.CrossDataset"><em>CrossDataset</em></a>) – The CrossDataset object containing the dataset information.</p></li>
+<li><p><strong>epochs</strong> (<em>int</em>) – The number of training epochs (default: 1).</p></li>
+<li><p><strong>batch_size</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – The batch size for training (default: None).</p></li>
+<li><p><strong>lr</strong> (<em>float</em>) – The learning rate for training (default: 1e-3).</p></li>
+<li><p><strong>split_rate</strong> (<em>float</em>) – The rate for splitting the data into training and validation sets (default: 0.2).</p></li>
+<li><p><strong>tune_epochs</strong> (<em>int</em>) – The number of epochs for fine-tuning (default: 20).</p></li>
+<li><p><strong>tune_lr</strong> (<em>float</em>) – The learning rate for fine-tuning (default: 1e-4).</p></li>
+<li><p><strong>need_anchors</strong> (<em>bool</em>) – Whether to use anchors for integration (default: True).</p></li>
+<li><p><strong>anchors_only</strong> (<em>bool</em>) – Whether to use only anchors for integration (default: False).</p></li>
+<li><p><strong>key_added</strong> (<em>str</em>) – The key to store the integrated representation in the AnnData object (default: ‘X_rep’).</p></li>
+<li><p><strong>beta1</strong> (<em>float</em>) – The value of beta1 for the cross-function model (default: 1e-2).</p></li>
+<li><p><strong>beta2</strong> (<em>float</em>) – The value of beta2 for the cross-function model (default: 1e-3).</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="step.functionality.cross_funcmodel.CrossModalityNrmls.generate_domains">
+<span class="sig-name descname"><span class="pre">generate_domains</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">adata</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">anndata.AnnData</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../utils/dataset/index.html#step.utils.dataset.CrossDataset" title="step.utils.dataset.CrossDataset"><span class="pre">step.utils.dataset.CrossDataset</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">decoder_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'zinb'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_rep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split_rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epochs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smooth_epochs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_dec_layers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tune_lr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_glayers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec_norm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'batch'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key_added</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'X_smoothed'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_st_decoder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">graph_batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kl_cutoff</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logging</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.functionality.cross_funcmodel.CrossModalityNrmls.generate_domains" title="Link to this definition">#</a></dt>
+<dd><p>Generates domains for the given dataset using the specified parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>adata</strong> (<em>AnnData</em>) – The annotated data object.</p></li>
+<li><p><strong>dataset</strong> (<a class="reference internal" href="../../utils/dataset/index.html#step.utils.dataset.CrossDataset" title="step.utils.dataset.CrossDataset"><em>CrossDataset</em></a>) – The cross dataset object.</p></li>
+<li><p><strong>decoder_type</strong> (<em>str</em>) – The type of decoder to use. Default is ‘zinb’.</p></li>
+<li><p><strong>use_rep</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – The representation to use. Default is None.</p></li>
+<li><p><strong>split_rate</strong> (<em>float</em>) – The split rate for train-test split. Default is 0.2.</p></li>
+<li><p><strong>epochs</strong> (<em>int</em>) – The number of epochs for training. Default is 1.</p></li>
+<li><p><strong>smooth_epochs</strong> (<em>int</em>) – The number of epochs for smoothing. Default is 200.</p></li>
+<li><p><strong>batch_size</strong> (<em>int</em>) – The batch size for training. Default is 1.</p></li>
+<li><p><strong>beta</strong> (<em>Optional</em><em>[</em><em>float</em><em>]</em>) – The beta value for training. Default is None.</p></li>
+<li><p><strong>n_dec_layers</strong> (<em>int</em>) – The number of decoder layers. Default is 2.</p></li>
+<li><p><strong>lr</strong> (<em>float</em>) – The learning rate for training. Default is 1e-3.</p></li>
+<li><p><strong>tune_lr</strong> (<em>Optional</em><em>[</em><em>float</em><em>]</em>) – The learning rate for fine-tuning. Default is None.</p></li>
+<li><p><strong>n_glayers</strong> (<em>int</em>) – The number of graph layers. Default is 2.</p></li>
+<li><p><strong>dec_norm</strong> (<em>str</em>) – The normalization method for decoder. Default is ‘batch’.</p></li>
+<li><p><strong>key_added</strong> (<em>str</em>) – The key to add to the dataset. Default is ‘X_smoothed’.</p></li>
+<li><p><strong>use_st_decoder</strong> (<em>bool</em>) – Whether to use the ST decoder. Default is False.</p></li>
+<li><p><strong>logging</strong> (<em>bool</em>) – Whether to enable logging. Default is False.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="step.functionality.cross_funcmodel.CrossModalityNrmls.deconv">
+<span class="sig-name descname"><span class="pre">deconv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">adata</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">anndata.AnnData</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../utils/dataset/index.html#step.utils.dataset.CrossDataset" title="step.utils.dataset.CrossDataset"><span class="pre">step.utils.dataset.CrossDataset</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">cell_type_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">domain_wise</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">domain_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'domain'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">library_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">100000.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solver</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'attn'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rep_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epochs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_ct_per_spot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_glayers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hard_anchors</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sc_consist</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_raw</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="pre">st</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'st'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_used</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logging</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.functionality.cross_funcmodel.CrossModalityNrmls.deconv" title="Link to this definition">#</a></dt>
+<dd><p>Perform cell-type deconvolution on spatial transcriptomics data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>adata</strong> (<em>AnnData</em>) – Annotated data matrix.</p></li>
+<li><p><strong>dataset</strong> (<a class="reference internal" href="../../utils/dataset/index.html#step.utils.dataset.CrossDataset" title="step.utils.dataset.CrossDataset"><em>CrossDataset</em></a>) – CrossDataset object containing spatial transcriptomics data.</p></li>
+<li><p><strong>cell_type_key</strong> (<em>str</em><em>, </em><em>optional</em>) – Key for cell type annotation in the dataset. Default is None.</p></li>
+<li><p><strong>domain_wise</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to perform domain-wise deconvolution. Default is True.</p></li>
+<li><p><strong>domain_key</strong> (<em>str</em><em>, </em><em>optional</em>) – Key for domain information in the dataset. Default is ‘domain’.</p></li>
+<li><p><strong>library_size</strong> (<em>int</em><em>, </em><em>optional</em>) – Library size. Default is 1e5.</p></li>
+<li><p><strong>solver</strong> (<em>str</em><em>, </em><em>optional</em>) – Solver type. Default is ‘attn’.</p></li>
+<li><p><strong>rep_key</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – The key for the representation. Default is None.</p></li>
+<li><p><strong>epochs</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of training epochs. Default is 1.</p></li>
+<li><p><strong>batch_size</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – The batch size for training. Default is None.</p></li>
+<li><p><strong>lr</strong> (<em>float</em><em>, </em><em>optional</em>) – Learning rate. Default is 1e-3.</p></li>
+<li><p><strong>max_ct_per_spot</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – Maximum count per spot. Default is None.</p></li>
+<li><p><strong>n_glayers</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – Number of graph layers. Default is None.</p></li>
+<li><p><strong>hard_anchors</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to use hard anchors. Default is False.</p></li>
+<li><p><strong>sc_consist</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to use self-consistency. Default is True.</p></li>
+<li><p><strong>alpha</strong> (<em>bool</em><em>, </em><em>optional</em>) – Alpha value. Default is None.</p></li>
+<li><p><strong>use_raw</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to use raw data. Default is True.</p></li>
+<li><p><strong>batch_used</strong> (<em>str</em><em>, </em><em>int</em><em>, </em><em>optional</em>) – The batch used for deconvolution. Default is 0.</p></li>
+<li><p><strong>T</strong> (<em>float</em><em>, </em><em>optional</em>) – Temperature value. Default is 0.07.</p></li>
+<li><p><strong>logging</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to enable logging. Default is False.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="step.functionality.cross_funcmodel.CrossModalityNrmls.nnls_deconv">
+<span class="sig-name descname"><span class="pre">nnls_deconv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">adata</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">anndata.AnnData</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../utils/dataset/index.html#step.utils.dataset.CrossDataset" title="step.utils.dataset.CrossDataset"><span class="pre">step.utils.dataset.CrossDataset</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">cell_type_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_used</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_jobs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.functionality.cross_funcmodel.CrossModalityNrmls.nnls_deconv" title="Link to this definition">#</a></dt>
+<dd><p>Perform cell-type deconvolution on spatial transcriptomics data using non-negative least squares (NNLS).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>adata</strong> (<em>AnnData</em>) – Annotated data matrix.</p></li>
+<li><p><strong>dataset</strong> (<a class="reference internal" href="../../utils/dataset/index.html#step.utils.dataset.CrossDataset" title="step.utils.dataset.CrossDataset"><em>CrossDataset</em></a>) – CrossDataset object containing spatial transcriptomics data.</p></li>
+<li><p><strong>cell_type_key</strong> (<em>str</em><em>, </em><em>optional</em>) – Key for cell type annotation in the dataset. Default is None.</p></li>
+<li><p><strong>batch_used</strong> (<em>Optional</em><em>[</em><em>str</em><em> | </em><em>int</em><em>]</em>) – The batch used for deconvolution. Default is 0.</p></li>
+<li><p><strong>n_jobs</strong> (<em>int</em>) – Number of jobs to run in parallel. Default is 1.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="step.functionality.cross_funcmodel.CrossModalityNrmls.reference_map">
+<span class="sig-name descname"><span class="pre">reference_map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">adata</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">6</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_rep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'X_rep'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">library_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.functionality.cross_funcmodel.CrossModalityNrmls.reference_map" title="Link to this definition">#</a></dt>
+<dd><p>Maps the reference dataset to the target dataset using k-nearest neighbors (KNN) algorithm.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>adata</strong> (<em>AnnData</em>) – The target dataset.</p></li>
+<li><p><strong>dataset</strong> (<em>Dataset</em>) – The reference dataset.</p></li>
+<li><p><strong>k</strong> (<em>int</em><em>, </em><em>optional</em>) – The number of nearest neighbors to consider. Defaults to 6.</p></li>
+<li><p><strong>use_rep</strong> (<em>str</em><em>, </em><em>optional</em>) – The representation to use for KNN. Defaults to ‘X_rep’.</p></li>
+<li><p><strong>library_id</strong> (<em>str</em><em>, </em><em>optional</em>) – The library ID of the reference dataset. Defaults to None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The target dataset with KNN information added.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>AnnData</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="step.functionality.cross_funcmodel.CrossModalityNrmls.run">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.functionality.cross_funcmodel.CrossModalityNrmls.run" title="Link to this definition">#</a></dt>
+<dd><p>Run the function model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>adata</strong> (<em>AnnData</em>) – The annotated data matrix.</p></li>
+<li><p><strong>dataset</strong> (<a class="reference internal" href="../../utils/dataset/index.html#step.utils.dataset.BaseDataset" title="step.utils.dataset.BaseDataset"><em>BaseDataset</em></a>) – The dataset object.</p></li>
+<li><p><strong>epochs</strong> (<em>int</em>) – The number of training epochs. Default is 1.</p></li>
+<li><p><strong>batch_size</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – The batch size. Default is None.</p></li>
+<li><p><strong>lr</strong> (<em>float</em>) – The learning rate. Default is 1e-3.</p></li>
+<li><p><strong>split_rate</strong> (<em>float</em>) – The split rate for train-test split. Default is 0.2.</p></li>
+<li><p><strong>tune_epochs</strong> (<em>int</em>) – The number of finetuning epochs. Default is 20.</p></li>
+<li><p><strong>tune_lr</strong> (<em>float</em>) – The learning rate for finetuning. Default is 1e-4.</p></li>
+<li><p><strong>need_anchors</strong> (<em>bool</em>) – Whether to use anchors. Default is True.</p></li>
+<li><p><strong>unlabeled_key</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – The key for unlabeled batch. Default is None.</p></li>
+<li><p><strong>groupby</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – The key for grouping. Default is None.</p></li>
+<li><p><strong>key_added</strong> (<em>str</em>) – The key for the added data. Default is ‘X_rep’.</p></li>
+<li><p><strong>kl_cutoff</strong> (<em>Optional</em><em>[</em><em>float</em><em>]</em>) – The cutoff for KL loss. Default is None.</p></li>
+<li><p><strong>beta</strong> (<em>float</em>) – The beta value for KL loss. Default is 1e-2.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="step.functionality.cross_funcmodel.CrossModalityNrmls.get_pz">
+<span class="sig-name descname"><span class="pre">get_pz</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rep</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colnames</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.functionality.cross_funcmodel.CrossModalityNrmls.get_pz" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="step.functionality.cross_funcmodel.CrossModalityNrmls.get_prop">
+<span class="sig-name descname"><span class="pre">get_prop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rep</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colnames</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rownames</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phat</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ct_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.functionality.cross_funcmodel.CrossModalityNrmls.get_prop" title="Link to this definition">#</a></dt>
+<dd><p>Get the proportions of the given representation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rep</strong> (<em>torch.Tensor</em>) – The input representation.</p></li>
+<li><p><strong>colnames</strong> (<em>list</em>) – The column names for the resulting DataFrame.</p></li>
+<li><p><strong>rownames</strong> (<em>list</em>) – The row names for the resulting DataFrame.</p></li>
+<li><p><strong>phat</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to use the estimated proportions. Defaults to True.</p></li>
+<li><p><strong>norm</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to normalize the proportions. Defaults to True.</p></li>
+<li><p><strong>ct_scale</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to scale the proportions by the cell type scaling factors. Defaults to True.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The DataFrame containing the proportions.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="step.functionality.cross_funcmodel.CrossModalityNrmls.get_scores">
+<span class="sig-name descname"><span class="pre">get_scores</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rep</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colnames</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rownames</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.functionality.cross_funcmodel.CrossModalityNrmls.get_scores" title="Link to this definition">#</a></dt>
+<dd><p>Get the scores for the given representation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rep</strong> (<em>torch.Tensor</em>) – The representation tensor.</p></li>
+<li><p><strong>colnames</strong> (<em>list</em>) – The column names for the resulting DataFrame.</p></li>
+<li><p><strong>rownames</strong> (<em>list</em>) – The row names for the resulting DataFrame.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A DataFrame containing the scores with the specified column and row names.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pandas.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="step.functionality.cross_funcmodel.CrossModalityNrmls.st_impute">
+<span class="sig-name descname"><span class="pre">st_impute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../utils/dataset/index.html#step.utils.dataset.CrossDataset" title="step.utils.dataset.CrossDataset"><span class="pre">step.utils.dataset.CrossDataset</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">key_added</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'st_expected_counts'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smooth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.functionality.cross_funcmodel.CrossModalityNrmls.st_impute" title="Link to this definition">#</a></dt>
+<dd><p>Perform imputation on spatial transcriptomics data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataset</strong> (<a class="reference internal" href="../../utils/dataset/index.html#step.utils.dataset.CrossDataset" title="step.utils.dataset.CrossDataset"><em>CrossDataset</em></a>) – The dataset containing spatial transcriptomics data.</p></li>
+<li><p><strong>key_added</strong> (<em>str</em><em>, </em><em>optional</em>) – The key to store the imputed counts in the dataset. Defaults to ‘st_expected_counts’.</p></li>
+<li><p><strong>smooth</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to apply smoothing during imputation. Defaults to False.</p></li>
+<li><p><strong>qc</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to perform quality control during imputation. Defaults to False.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="step.functionality.cross_funcmodel.CrossModalityNrmls.get_signatures">
+<span class="sig-name descname"><span class="pre">get_signatures</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../utils/dataset/index.html#step.utils.dataset.CrossDataset" title="step.utils.dataset.CrossDataset"><span class="pre">step.utils.dataset.CrossDataset</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_used</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">torch.Tensor</span></span></span><a class="headerlink" href="#step.functionality.cross_funcmodel.CrossModalityNrmls.get_signatures" title="Link to this definition">#</a></dt>
+<dd><p>Get the signatures for the given dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataset</strong> (<a class="reference internal" href="../../utils/dataset/index.html#step.utils.dataset.CrossDataset" title="step.utils.dataset.CrossDataset"><em>CrossDataset</em></a>) – The dataset containing the signatures.</p></li>
+<li><p><strong>batch_used</strong> (<em>str</em><em>, </em><em>int</em><em>, </em><em>optional</em>) – The batch used for obtaining the signatures. Defaults to 0.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The signatures for the given dataset.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>torch.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="step.functionality.cross_funcmodel.CrossModalityNrmls.load_checkpoint">
+<span class="sig-name descname"><span class="pre">load_checkpoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">checkpoint</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">pathlib.Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.functionality.cross_funcmodel.CrossModalityNrmls.load_checkpoint" title="Link to this definition">#</a></dt>
+<dd><p>Loads a checkpoint file and updates the model’s state dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>checkpoint</strong> (<em>str</em>) – The path to the checkpoint file.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="../sc_funcmodel/index.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.functionality.sc_funcmodel</span></code></div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="../base/index.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.functionality.base</span></code></div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2024, Lounan Li
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.functionality.cross_funcmodel</span></code></a><ul>
+<li><a class="reference internal" href="#module-contents">Module Contents</a><ul>
+<li><a class="reference internal" href="#classes">Classes</a><ul>
+<li><a class="reference internal" href="#step.functionality.cross_funcmodel.CrossModalityNrmls"><code class="docutils literal notranslate"><span class="pre">CrossModalityNrmls</span></code></a><ul>
+<li><a class="reference internal" href="#step.functionality.cross_funcmodel.CrossModalityNrmls.need_anchor"><code class="docutils literal notranslate"><span class="pre">CrossModalityNrmls.need_anchor</span></code></a></li>
+<li><a class="reference internal" href="#step.functionality.cross_funcmodel.CrossModalityNrmls.mixer"><code class="docutils literal notranslate"><span class="pre">CrossModalityNrmls.mixer</span></code></a></li>
+<li><a class="reference internal" href="#step.functionality.cross_funcmodel.CrossModalityNrmls.single_st"><code class="docutils literal notranslate"><span class="pre">CrossModalityNrmls.single_st</span></code></a></li>
+<li><a class="reference internal" href="#step.functionality.cross_funcmodel.CrossModalityNrmls.st_decoder"><code class="docutils literal notranslate"><span class="pre">CrossModalityNrmls.st_decoder</span></code></a></li>
+<li><a class="reference internal" href="#step.functionality.cross_funcmodel.CrossModalityNrmls.max_neighs"><code class="docutils literal notranslate"><span class="pre">CrossModalityNrmls.max_neighs</span></code></a></li>
+<li><a class="reference internal" href="#step.functionality.cross_funcmodel.CrossModalityNrmls.edge_clip"><code class="docutils literal notranslate"><span class="pre">CrossModalityNrmls.edge_clip</span></code></a></li>
+<li><a class="reference internal" href="#step.functionality.cross_funcmodel.CrossModalityNrmls._num_batches"><code class="docutils literal notranslate"><span class="pre">CrossModalityNrmls._num_batches</span></code></a></li>
+<li><a class="reference internal" href="#step.functionality.cross_funcmodel.CrossModalityNrmls._gener_graph"><code class="docutils literal notranslate"><span class="pre">CrossModalityNrmls._gener_graph</span></code></a></li>
+<li><a class="reference internal" href="#step.functionality.cross_funcmodel.CrossModalityNrmls._rout"><code class="docutils literal notranslate"><span class="pre">CrossModalityNrmls._rout</span></code></a></li>
+<li><a class="reference internal" href="#step.functionality.cross_funcmodel.CrossModalityNrmls.handle_ginput_tuple"><code class="docutils literal notranslate"><span class="pre">CrossModalityNrmls.handle_ginput_tuple()</span></code></a></li>
+<li><a class="reference internal" href="#step.functionality.cross_funcmodel.CrossModalityNrmls.from_spatial_graph"><code class="docutils literal notranslate"><span class="pre">CrossModalityNrmls.from_spatial_graph()</span></code></a></li>
+<li><a class="reference internal" href="#step.functionality.cross_funcmodel.CrossModalityNrmls.add_embed_st"><code class="docutils literal notranslate"><span class="pre">CrossModalityNrmls.add_embed_st()</span></code></a></li>
+<li><a class="reference internal" href="#step.functionality.cross_funcmodel.CrossModalityNrmls.integrate"><code class="docutils literal notranslate"><span class="pre">CrossModalityNrmls.integrate()</span></code></a></li>
+<li><a class="reference internal" href="#step.functionality.cross_funcmodel.CrossModalityNrmls.generate_domains"><code class="docutils literal notranslate"><span class="pre">CrossModalityNrmls.generate_domains()</span></code></a></li>
+<li><a class="reference internal" href="#step.functionality.cross_funcmodel.CrossModalityNrmls.deconv"><code class="docutils literal notranslate"><span class="pre">CrossModalityNrmls.deconv()</span></code></a></li>
+<li><a class="reference internal" href="#step.functionality.cross_funcmodel.CrossModalityNrmls.nnls_deconv"><code class="docutils literal notranslate"><span class="pre">CrossModalityNrmls.nnls_deconv()</span></code></a></li>
+<li><a class="reference internal" href="#step.functionality.cross_funcmodel.CrossModalityNrmls.reference_map"><code class="docutils literal notranslate"><span class="pre">CrossModalityNrmls.reference_map()</span></code></a></li>
+<li><a class="reference internal" href="#step.functionality.cross_funcmodel.CrossModalityNrmls.run"><code class="docutils literal notranslate"><span class="pre">CrossModalityNrmls.run()</span></code></a></li>
+<li><a class="reference internal" href="#step.functionality.cross_funcmodel.CrossModalityNrmls.get_pz"><code class="docutils literal notranslate"><span class="pre">CrossModalityNrmls.get_pz()</span></code></a></li>
+<li><a class="reference internal" href="#step.functionality.cross_funcmodel.CrossModalityNrmls.get_prop"><code class="docutils literal notranslate"><span class="pre">CrossModalityNrmls.get_prop()</span></code></a></li>
+<li><a class="reference internal" href="#step.functionality.cross_funcmodel.CrossModalityNrmls.get_scores"><code class="docutils literal notranslate"><span class="pre">CrossModalityNrmls.get_scores()</span></code></a></li>
+<li><a class="reference internal" href="#step.functionality.cross_funcmodel.CrossModalityNrmls.st_impute"><code class="docutils literal notranslate"><span class="pre">CrossModalityNrmls.st_impute()</span></code></a></li>
+<li><a class="reference internal" href="#step.functionality.cross_funcmodel.CrossModalityNrmls.get_signatures"><code class="docutils literal notranslate"><span class="pre">CrossModalityNrmls.get_signatures()</span></code></a></li>
+<li><a class="reference internal" href="#step.functionality.cross_funcmodel.CrossModalityNrmls.load_checkpoint"><code class="docutils literal notranslate"><span class="pre">CrossModalityNrmls.load_checkpoint()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../../../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/scripts/furo.js?v=32e29ea5"></script>
+    <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../../_static/copybutton.js?v=0b406e39"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    </body>
+</html>

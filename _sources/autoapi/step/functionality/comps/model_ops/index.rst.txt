@@ -1,0 +1,265 @@
+:py:mod:`step.functionality.comps.model_ops`
+============================================
+
+.. py:module:: step.functionality.comps.model_ops
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   step.functionality.comps.model_ops.ModelOps
+
+
+
+
+.. py:class:: ModelOps(model: step.models.geneformer.Geneformer, device: str | None)
+
+
+   Bases: :py:obj:`object`
+
+   A class for wrapping a Geneformer model with useful methods.
+
+   .. attribute:: model
+
+      The Geneformer model.
+
+      :type: Geneformer
+
+   .. py:method:: set_kl_cutoff(kl_cutoff)
+
+      Sets the KL cutoff value for the model.
+
+      :param kl_cutoff: The cutoff value for the KL loss.
+      :type kl_cutoff: float
+
+      :returns: None
+
+
+   .. py:method:: loss(x, ind=None)
+
+      loss function for a single batch
+
+      :param x: gene expression matrix
+      :type x: torch.Tensor
+
+      :returns: a dictionary of loss values
+      :rtype: loss_dict (dict)
+
+
+   .. py:method:: loss_gbatch()
+
+      Loss function for a graph batch
+
+      Should be implemented in the derived class.
+
+      :returns: a dictionary of loss values
+      :rtype: loss_dict (dict)
+
+
+   .. py:method:: get_px(decode_dict)
+
+      Get the probability distribution for the observed data.
+
+      :param decode_dict: A dictionary containing the decoding parameters.
+      :type decode_dict: dict
+
+      :returns: The probability distribution for the observed data.
+      :rtype: px
+
+
+   .. py:method:: get_batch_ohenc(batch_label: Optional[torch.Tensor], average=False, device=None)
+
+      Converts the batch labels/indicators into one-hot encoded format.
+
+      :param batch_label: The batch labels.
+      :type batch_label: Tensor
+
+      :returns: The one-hot encoded batch labels.
+      :rtype: batch_oh (Tensor)
+
+
+   .. py:method:: embed(dataset: step.utils.dataset.BaseDataset, tsfmr_out=False, as_numpy=True)
+
+      get the representation of the dataset
+
+      :param dataset: ScDataset object for scRNA-seq data
+      :type dataset: ScDataset
+      :param as_numpy: whether to return the representation as a numpy array. Defaults to True.
+      :type as_numpy: bool, optional
+
+      :returns: the representation of the dataset
+      :rtype: rep (torch.Tensor)
+
+
+   .. py:method:: add_embed(adata: anndata.AnnData, dataset: step.utils.dataset.BaseDataset, tsfmr_out=False, key_added='X_rep')
+
+      add the representation of the dataset to the adata object
+
+      :param adata: an AnnData object
+      :type adata: AnnData
+      :param dataset: _description_
+      :type dataset: _type_
+      :param key_added: _description_. Defaults to 'X_rep'.
+      :type key_added: str, optional
+
+
+   .. py:method:: get_signatures(dataset, batch_used) -> torch.Tensor
+
+      Retrieves the signatures from the model for the given dataset.
+
+      :param dataset: The dataset for which to retrieve the signatures.
+      :param batch_label: The batch label to use for signature retrieval. If None, the batch label from the dataset will be used.
+      :param use_batch_rep: Whether to use batch representation for signature retrieval.
+
+      :returns: The retrieved signatures.
+
+
+   .. py:method:: set_kl_start(n_iterations: int)
+
+
+   .. py:method:: impute(adata: Optional[anndata.AnnData] = None, dataset: Optional[step.utils.dataset.BaseDataset] = None, batch_label: Optional[int] = None, decode_dict=None, key_added: str | None = 'expected_counts', rep_key: str | None = 'X_rep', layer_key: Optional[str] = None, rep: torch.Tensor | None = None, x=None, qc=False, return_counts=False, log10=True) -> numpy.ndarray | None
+
+      Imputes missing values in the gene expression data.
+
+      This process involves using the trained model to predict the gene expression values for the missing data by using the mean of the distribution of the gene expression values.
+
+      :param adata: Annotated data object containing the gene expression data.
+      :type adata: AnnData
+      :param dataset: Single-cell dataset object containing the gene expression data.
+      :type dataset: ScDataset
+      :param batch_label: The batch label to use for signature retrieval. If None, the batch label from the dataset will be used.
+      :type batch_label: int
+      :param decode_dict: Dictionary containing the decoded gene expression values.
+      :type decode_dict: dict
+      :param key_added: Key to add the imputed gene expression values to in the adata object.
+      :type key_added: str
+      :param rep_key: Key to access the representation data in the adata object.
+      :type rep_key: str
+      :param layer_key: Key to access the layer data in the dataset object.
+      :type layer_key: str
+      :param rep: Representation data.
+      :type rep: ndarray
+      :param x: Gene expression data, only used for library size or sequencing depth normalization.
+      :type x: ndarray
+      :param qc: Flag indicating whether to perform quality control.
+      :type qc: bool
+      :param return_counts: Flag indicating whether to return the imputed gene expression counts.
+      :type return_counts: bool
+      :param log10: Flag indicating whether to perform log10 transformation in the quality control plot.
+      :type log10: bool
+
+      :returns: Imputed gene expression data.
+      :rtype: ndarray
+
+
+   .. py:method:: generate(adata: Optional[anndata.AnnData] = None, dataset: Optional[step.utils.dataset.BaseDataset] = None, key_added='generated_counts', rep_key='X_rep', rep=None, x=None)
+
+      Generate synthetic data using the trained model.
+
+      This process involves using the trained model(distribution) to generate synthetic gene expression data.
+
+      :param adata: Annotated data object containing the representation matrix.
+      :type adata: AnnData
+      :param dataset: Single-cell dataset object containing the gene expression data.
+      :type dataset: ScDataset
+      :param key_added: Key to store the generated counts in the `adata.layers` attribute.
+      :type key_added: str
+      :param rep_key: Key to access the representation matrix in `adata.obsm`.
+      :type rep_key: str
+      :param rep: Representation matrix. If not provided, it will be retrieved from `adata.obsm`.
+      :type rep: ndarray
+      :param x: Gene expression data. If not provided, it will be retrieved from `dataset.gene_expr`.
+      :type x: ndarray
+
+      :returns: Generated synthetic data as a numpy array.
+      :rtype: ndarray
+
+
+   .. py:method:: regress_out(adata: anndata.AnnData, dataset: step.utils.dataset.BaseDataset, batch_used: Optional[Union[str, int]] = None, library_size: float = 100000.0, key_added: str | None = 'corrected_counts', rep_key='X_rep', rep=None) -> torch.Tensor | None
+
+      Regress out the unwanted sources of variation from the gene expression data.
+
+      This process involves using the trained model to predict the gene expression values for the unwanted sources of variation and then subtracting these values from the original gene expression data.
+
+      :param adata: Annotated data object containing the gene expression data.
+      :type adata: AnnData
+      :param dataset: Single-cell dataset object containing the gene expression data.
+      :type dataset: ScDataset
+      :param batch_used: The batch label to use for signature retrieval. If None, the batch label from the dataset will be used.
+      :type batch_used: int
+      :param library_size: The library size or sequencing depth to use for normalization.
+      :type library_size: int
+      :param key_added: Key to add the corrected gene expression values to in the adata object.
+      :type key_added: str
+      :param rep_key: Key to access the representation data in the adata object.
+      :type rep_key: str
+      :param rep: Representation data.
+      :type rep: ndarray
+
+      :returns: Regressed out gene expression data.
+      :rtype: ndarray
+
+
+   .. py:method:: show_attn_maps()
+      :abstractmethod:
+
+
+   .. py:method:: get_gene_modules(adata)
+
+      get the gene modules from the model
+
+      :param adata: _description_
+      :type adata: _type_
+
+
+   .. py:method:: loss_fn(x: torch.Tensor, decoder_type: str, px_r: torch.Tensor, px_rate: torch.Tensor | None = None, px_dropout: torch.Tensor | None = None, px_scale: torch.Tensor | None = None, module: step.models.geneformer.Readout | None = None, nokl=False, reduction='mean', **kwargs)
+
+      Loss function for a basic objective: reconstruction + KL divergence.
+
+      This method computes the basic objective function for the model, which is the sum of the reconstruction loss and the KL divergence.
+      The reconstruction loss is the negative log-likelihood of the observed data given the model's parameters, while the KL divergence is the Kullback-Leibler divergence between the approximate posterior and the prior.
+
+      :param px_rate: estimated mean of observations.
+      :type px_rate: torch.Tensor
+      :param px_dropout: logit of dropout rate.
+      :type px_dropout: torch.Tensor
+      :param px_scale: normalized estimated mean of observations.
+      :type px_scale: torch.Tensor
+      :param px_r: over-dispersion parameter.
+      :type px_r: torch.Tensor
+      :param x: gene expression matrix.
+      :type x: torch.Tensor
+      :param decoder_type: decoder type. Defaults to None.
+      :type decoder_type: str, optional
+      :param nokl: no kl loss. Defaults to False.
+      :type nokl: bool, optional
+      :param reduction: reduction method. Defaults to 'mean'.
+      :type reduction: str, optional
+
+      :returns:
+
+                A dictionary of loss values.
+                    recon_loss (torch.Tensor): Reconstruction loss.
+                    kl_loss (torch.Tensor): Scaled KL-divergence.
+      :rtype: dict
+
+
+   .. py:method:: set_beta(beta: float)
+
+      Set the factor to scale the kl loss.
+
+      :param beta: The factor to scale the loss.
+      :type beta: float
+
+
+   .. py:method:: reset_model()
+
+      Reset the model parameters.
+
+
+

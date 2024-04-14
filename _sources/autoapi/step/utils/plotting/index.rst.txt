@@ -1,0 +1,108 @@
+:py:mod:`step.utils.plotting`
+=============================
+
+.. py:module:: step.utils.plotting
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   step.utils.plotting.spatial_plot
+   step.utils.plotting.plot_spatial_pie_charts
+   step.utils.plotting.plot_posterior_mu_vs_data
+   step.utils.plotting.plot_domain_summary
+   step.utils.plotting.plot_domain_summary_single_ct
+   step.utils.plotting.plot_single_domain_summary
+   step.utils.plotting.set_cmap
+   step.utils.plotting.plot_trajectory
+   step.utils.plotting.plot_trajectory_curve
+
+
+
+.. py:function:: spatial_plot(adata: anndata.AnnData, obsm_key: str = 'spatial', batch_key: str = 'batch', slide: str | None = None, with_images: bool = True, title_prefix: bool = True, axes: Sequence[matplotlib.pyplot.Axes] | None = None, **kwargs)
+
+   Spatial feature plot wrapping scanpy.pl.spatial for multiple batches/sections.
+
+   :param adata: Annotated data matrix.
+   :type adata: anndata.AnnData
+   :param obsm_key: Key in adata.obsm containing spatial coordinates.
+   :type obsm_key: str
+   :param bacth_key: Key in adata.obs containing batch information.
+   :type bacth_key: str
+   :param library_id: Library id.
+   :type library_id: str
+   :param \*\*kwargs: Additional arguments for scanpy.pl.spatial.
+
+   :returns: Figure.
+   :rtype: matplotlib.figure.Figure
+
+
+.. py:function:: plot_spatial_pie_charts(adata, spatial_key='spatial', library_id=None, deconv_key='deconv', size=1.0)
+
+   Plot spatial pie charts of cell type proportions
+
+   :param adata: Annotated data matrix.
+   :type adata: anndata.AnnData
+   :param spatial_key: Key in adata.obsm containing spatial coordinates.
+   :type spatial_key: str
+   :param library_id: Library id.
+   :type library_id: str
+   :param deconv_key: Key in adata.obsm containing deconvolution results.
+   :type deconv_key: str
+   :param size: Size of the pie chart.
+   :type size: float
+
+
+.. py:function:: plot_posterior_mu_vs_data(mu, data, log10=True)
+
+   (from cell2location.utils_plot.plot_posterior_mu_vs_data)
+   Plot the posterior expected value against the data.
+
+   :param mu: Posterior expected value.
+   :type mu: np.ndarray
+   :param data: Data.
+   :type data: np.ndarray
+   :param log10: Whether to plot in log10 scale.
+   :type log10: bool
+
+
+.. py:function:: plot_domain_summary(adata, domain_key, cell_type_names, figsize, show=True)
+
+   Plot domain summary.
+
+   :param adata: Annotated data matrix.
+   :type adata: anndata.AnnData
+   :param domain_key: Key in adata.obs containing domain information.
+   :type domain_key: str
+   :param cell_type_names: List of cell type names.
+   :type cell_type_names: list
+   :param figsize: Figure size.
+   :type figsize: tuple
+   :param show: Whether to show the plot.
+   :type show: bool
+
+   :returns: Figure.
+   :rtype: matplotlib.figure.Figure
+
+
+.. py:function:: plot_domain_summary_single_ct(adata, domain_key, cell_type_name, figsize, show=True, plot_func=sc.pl.spatial, **kwargs)
+
+
+.. py:function:: plot_single_domain_summary(adata, domain, domain_key, cell_type_names, figsize, show=True)
+
+
+.. py:function:: set_cmap(adata, obs_key, color_map, reverse=False)
+
+
+.. py:function:: plot_trajectory(adata, pseudotime, library_id=None, location='spatial', clusterlabels='domain', gridnum=10, pointsize=5, arrowlength=0.2, arrow_color='red', save_endpoints=False, **kwargs)
+
+
+.. py:function:: plot_trajectory_curve(adata, pseudotime, library_id=None, location='spatial', clusterlabels='domain', gridnum=10, arrow_color='red', save_endpoints=False, arrowlength=0.2, n_quantiles=4, order=3, num_t=10, **kwargs)
+
+

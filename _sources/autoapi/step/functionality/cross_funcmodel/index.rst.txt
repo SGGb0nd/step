@@ -1,0 +1,382 @@
+:py:mod:`step.functionality.cross_funcmodel`
+============================================
+
+.. py:module:: step.functionality.cross_funcmodel
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   step.functionality.cross_funcmodel.CrossModalityNrmls
+
+
+
+
+.. py:class:: CrossModalityNrmls(device=None, **kwargs)
+
+
+   Bases: :py:obj:`step.functionality.sc_funcmodel.scMultiBatchNrmls`
+
+   CrossModalityNrmls is a class for training and integrating cross-modality data: scRNA-seq and spatial transcriptomics.
+
+   .. attribute:: need_anchor
+
+      Whether to use anchors for integration.
+
+      :type: bool
+
+   .. attribute:: mixer
+
+      The mixer module for integration.
+
+      :type: Mixer
+
+   .. attribute:: single_st
+
+      Whether the dataset contains only single section.
+
+      :type: bool
+
+   .. attribute:: st_decoder
+
+      The self
+
+      :type: StDecoder
+
+   .. attribute:: max_neighs
+
+      The maximum number of neighbors.
+
+      :type: int
+
+   .. attribute:: edge_clip
+
+      The edge clipping value.
+
+      :type: Optional[float]
+
+   .. attribute:: _num_batches
+
+      The number of batches.
+
+      :type: int
+
+   .. attribute:: _gener_graph
+
+      The function for generating the graph.
+
+      :type: Callable
+
+   .. attribute:: _rout
+
+      The readout module.
+
+      :type: nn.Module
+
+   .. py:method:: handle_ginput_tuple(input_tuple, ind=None, step=None)
+
+
+   .. py:method:: from_spatial_graph(adata: anndata.AnnData, dataset, batch_size: int = 1024, num_iters=1000, use_rep=True, batch_key: Optional[str] = None, **kwargs)
+
+      Convert spatial graph data into a dataloader for training.
+
+      :param adata: Annotated data object containing spatial graph information.
+      :type adata: AnnData
+      :param dataset: Spatial transcriptomics dataset object.
+      :type dataset: StDataset
+      :param batch_size: Number of samples per batch. Defaults to 1024.
+      :type batch_size: int, optional
+      :param num_iters: Number of iterations. Defaults to 1000.
+      :type num_iters: int, optional
+      :param use_rep: Whether to use the representation data. Defaults to False.
+      :type use_rep: bool, optional
+      :param batch_key: Key for batch information in `adata.obs`. Defaults to None.
+      :type batch_key: str, optional
+      :param \*\*kwargs: Additional keyword arguments.
+
+      :returns: A dataloader object for training.
+      :rtype: dataloader
+
+
+   .. py:method:: add_embed_st(dataset, st_dataset=None, key_added='X_smoothed', readout=False)
+
+      Add the smoothed representation to the spatial transcriptomics dataset.
+
+      :param adata: The annotated data object.
+      :type adata: AnnData
+      :param dataset: The cross dataset object.
+      :type dataset: CrossDataset
+      :param key_added: The key to store the smoothed representation. Defaults to 'X_smoothed'.
+      :type key_added: str, optional
+
+
+   .. py:method:: integrate(adata: anndata.AnnData, dataset: step.utils.dataset.CrossDataset, epochs=1, batch_size: Optional[int] = None, lr=0.001, split_rate=0.2, tune_epochs=20, tune_lr=0.0001, need_anchors=True, key_added='X_rep', beta1=0.01, beta2=0.001, reset=False, kl_cutoff=None)
+
+      Integrate the input data using the cross-function model.
+
+      :param adata: The input AnnData object.
+      :type adata: AnnData
+      :param dataset: The CrossDataset object containing the dataset information.
+      :type dataset: CrossDataset
+      :param epochs: The number of training epochs (default: 1).
+      :type epochs: int
+      :param batch_size: The batch size for training (default: None).
+      :type batch_size: Optional[int]
+      :param lr: The learning rate for training (default: 1e-3).
+      :type lr: float
+      :param split_rate: The rate for splitting the data into training and validation sets (default: 0.2).
+      :type split_rate: float
+      :param tune_epochs: The number of epochs for fine-tuning (default: 20).
+      :type tune_epochs: int
+      :param tune_lr: The learning rate for fine-tuning (default: 1e-4).
+      :type tune_lr: float
+      :param need_anchors: Whether to use anchors for integration (default: True).
+      :type need_anchors: bool
+      :param anchors_only: Whether to use only anchors for integration (default: False).
+      :type anchors_only: bool
+      :param key_added: The key to store the integrated representation in the AnnData object (default: 'X_rep').
+      :type key_added: str
+      :param beta1: The value of beta1 for the cross-function model (default: 1e-2).
+      :type beta1: float
+      :param beta2: The value of beta2 for the cross-function model (default: 1e-3).
+      :type beta2: float
+
+
+   .. py:method:: generate_domains(adata: anndata.AnnData, dataset: step.utils.dataset.CrossDataset, decoder_type='zinb', use_rep=None, split_rate=0.2, epochs: int = 1, smooth_epochs=200, batch_size: int = 1, beta: Optional[float] = None, n_dec_layers: int = 2, lr=0.001, tune_lr: Optional[float] = None, n_glayers=2, dec_norm='batch', key_added: str = 'X_smoothed', use_st_decoder=False, graph_batch_size=2, kl_cutoff=None, logging=False)
+
+      Generates domains for the given dataset using the specified parameters.
+
+      :param adata: The annotated data object.
+      :type adata: AnnData
+      :param dataset: The cross dataset object.
+      :type dataset: CrossDataset
+      :param decoder_type: The type of decoder to use. Default is 'zinb'.
+      :type decoder_type: str
+      :param use_rep: The representation to use. Default is None.
+      :type use_rep: Optional[str]
+      :param split_rate: The split rate for train-test split. Default is 0.2.
+      :type split_rate: float
+      :param epochs: The number of epochs for training. Default is 1.
+      :type epochs: int
+      :param smooth_epochs: The number of epochs for smoothing. Default is 200.
+      :type smooth_epochs: int
+      :param batch_size: The batch size for training. Default is 1.
+      :type batch_size: int
+      :param beta: The beta value for training. Default is None.
+      :type beta: Optional[float]
+      :param n_dec_layers: The number of decoder layers. Default is 2.
+      :type n_dec_layers: int
+      :param lr: The learning rate for training. Default is 1e-3.
+      :type lr: float
+      :param tune_lr: The learning rate for fine-tuning. Default is None.
+      :type tune_lr: Optional[float]
+      :param n_glayers: The number of graph layers. Default is 2.
+      :type n_glayers: int
+      :param dec_norm: The normalization method for decoder. Default is 'batch'.
+      :type dec_norm: str
+      :param key_added: The key to add to the dataset. Default is 'X_smoothed'.
+      :type key_added: str
+      :param use_st_decoder: Whether to use the ST decoder. Default is False.
+      :type use_st_decoder: bool
+      :param logging: Whether to enable logging. Default is False.
+      :type logging: bool
+
+
+   .. py:method:: deconv(adata: anndata.AnnData, dataset: step.utils.dataset.CrossDataset, cell_type_key: Optional[str] = None, domain_wise: bool = True, domain_key: str | None = 'domain', library_size: float = 100000.0, solver='attn', rep_key: Optional[str] = None, epochs: int = 1, batch_size: int | None = None, lr: float = 0.001, max_ct_per_spot: Optional[int] = None, n_glayers: int | None = None, hard_anchors: bool = False, sc_consist: bool = True, alpha: float | None = None, use_raw: bool | Literal[st] = 'st', batch_used: str | int | None = 0, logging=False, **kwargs)
+
+      Perform cell-type deconvolution on spatial transcriptomics data.
+
+      :param adata: Annotated data matrix.
+      :type adata: AnnData
+      :param dataset: CrossDataset object containing spatial transcriptomics data.
+      :type dataset: CrossDataset
+      :param cell_type_key: Key for cell type annotation in the dataset. Default is None.
+      :type cell_type_key: str, optional
+      :param domain_wise: Whether to perform domain-wise deconvolution. Default is True.
+      :type domain_wise: bool, optional
+      :param domain_key: Key for domain information in the dataset. Default is 'domain'.
+      :type domain_key: str, optional
+      :param library_size: Library size. Default is 1e5.
+      :type library_size: int, optional
+      :param solver: Solver type. Default is 'attn'.
+      :type solver: str, optional
+      :param rep_key: The key for the representation. Default is None.
+      :type rep_key: Optional[str]
+      :param epochs: Number of training epochs. Default is 1.
+      :type epochs: int, optional
+      :param batch_size: The batch size for training. Default is None.
+      :type batch_size: Optional[int]
+      :param lr: Learning rate. Default is 1e-3.
+      :type lr: float, optional
+      :param max_ct_per_spot: Maximum count per spot. Default is None.
+      :type max_ct_per_spot: Optional[int]
+      :param n_glayers: Number of graph layers. Default is None.
+      :type n_glayers: Optional[int]
+      :param hard_anchors: Whether to use hard anchors. Default is False.
+      :type hard_anchors: bool, optional
+      :param sc_consist: Whether to use self-consistency. Default is True.
+      :type sc_consist: bool, optional
+      :param alpha: Alpha value. Default is None.
+      :type alpha: bool, optional
+      :param use_raw: Whether to use raw data. Default is True.
+      :type use_raw: bool, optional
+      :param batch_used: The batch used for deconvolution. Default is 0.
+      :type batch_used: str, int, optional
+      :param T: Temperature value. Default is 0.07.
+      :type T: float, optional
+      :param logging: Whether to enable logging. Default is False.
+      :type logging: bool, optional
+
+
+   .. py:method:: nnls_deconv(adata: anndata.AnnData, dataset: step.utils.dataset.CrossDataset, cell_type_key: Optional[str] = None, batch_used: Optional[str | int] = 0, n_jobs: int = 1)
+
+      Perform cell-type deconvolution on spatial transcriptomics data using non-negative least squares (NNLS).
+
+      :param adata: Annotated data matrix.
+      :type adata: AnnData
+      :param dataset: CrossDataset object containing spatial transcriptomics data.
+      :type dataset: CrossDataset
+      :param cell_type_key: Key for cell type annotation in the dataset. Default is None.
+      :type cell_type_key: str, optional
+      :param batch_used: The batch used for deconvolution. Default is 0.
+      :type batch_used: Optional[str | int]
+      :param n_jobs: Number of jobs to run in parallel. Default is 1.
+      :type n_jobs: int
+
+
+   .. py:method:: reference_map(adata, dataset, k=6, use_rep='X_rep', library_id=None)
+
+      Maps the reference dataset to the target dataset using k-nearest neighbors (KNN) algorithm.
+
+      :param adata: The target dataset.
+      :type adata: AnnData
+      :param dataset: The reference dataset.
+      :type dataset: Dataset
+      :param k: The number of nearest neighbors to consider. Defaults to 6.
+      :type k: int, optional
+      :param use_rep: The representation to use for KNN. Defaults to 'X_rep'.
+      :type use_rep: str, optional
+      :param library_id: The library ID of the reference dataset. Defaults to None.
+      :type library_id: str, optional
+
+      :returns: The target dataset with KNN information added.
+      :rtype: AnnData
+
+
+   .. py:method:: run(**kwargs)
+      :abstractmethod:
+
+      Run the function model.
+
+      :param adata: The annotated data matrix.
+      :type adata: AnnData
+      :param dataset: The dataset object.
+      :type dataset: BaseDataset
+      :param epochs: The number of training epochs. Default is 1.
+      :type epochs: int
+      :param batch_size: The batch size. Default is None.
+      :type batch_size: Optional[int]
+      :param lr: The learning rate. Default is 1e-3.
+      :type lr: float
+      :param split_rate: The split rate for train-test split. Default is 0.2.
+      :type split_rate: float
+      :param tune_epochs: The number of finetuning epochs. Default is 20.
+      :type tune_epochs: int
+      :param tune_lr: The learning rate for finetuning. Default is 1e-4.
+      :type tune_lr: float
+      :param need_anchors: Whether to use anchors. Default is True.
+      :type need_anchors: bool
+      :param unlabeled_key: The key for unlabeled batch. Default is None.
+      :type unlabeled_key: Optional[str]
+      :param groupby: The key for grouping. Default is None.
+      :type groupby: Optional[str]
+      :param key_added: The key for the added data. Default is 'X_rep'.
+      :type key_added: str
+      :param kl_cutoff: The cutoff for KL loss. Default is None.
+      :type kl_cutoff: Optional[float]
+      :param beta: The beta value for KL loss. Default is 1e-2.
+      :type beta: float
+
+
+   .. py:method:: get_pz(rep, colnames)
+
+
+   .. py:method:: get_prop(rep, colnames, rownames, phat=True, norm=True, ct_scale=True)
+
+      Get the proportions of the given representation.
+
+      :param rep: The input representation.
+      :type rep: torch.Tensor
+      :param colnames: The column names for the resulting DataFrame.
+      :type colnames: list
+      :param rownames: The row names for the resulting DataFrame.
+      :type rownames: list
+      :param phat: Whether to use the estimated proportions. Defaults to True.
+      :type phat: bool, optional
+      :param norm: Whether to normalize the proportions. Defaults to True.
+      :type norm: bool, optional
+      :param ct_scale: Whether to scale the proportions by the cell type scaling factors. Defaults to True.
+      :type ct_scale: bool, optional
+
+      :returns: The DataFrame containing the proportions.
+      :rtype: pd.DataFrame
+
+
+   .. py:method:: get_scores(rep, colnames, rownames)
+
+      Get the scores for the given representation.
+
+      :param rep: The representation tensor.
+      :type rep: torch.Tensor
+      :param colnames: The column names for the resulting DataFrame.
+      :type colnames: list
+      :param rownames: The row names for the resulting DataFrame.
+      :type rownames: list
+
+      :returns: A DataFrame containing the scores with the specified column and row names.
+      :rtype: pandas.DataFrame
+
+
+   .. py:method:: st_impute(dataset: step.utils.dataset.CrossDataset, key_added='st_expected_counts', smooth=False, qc=False)
+
+      Perform imputation on spatial transcriptomics data.
+
+      :param dataset: The dataset containing spatial transcriptomics data.
+      :type dataset: CrossDataset
+      :param key_added: The key to store the imputed counts in the dataset. Defaults to 'st_expected_counts'.
+      :type key_added: str, optional
+      :param smooth: Whether to apply smoothing during imputation. Defaults to False.
+      :type smooth: bool, optional
+      :param qc: Whether to perform quality control during imputation. Defaults to False.
+      :type qc: bool, optional
+
+
+   .. py:method:: get_signatures(dataset: step.utils.dataset.CrossDataset, batch_used: str | int | None = 0) -> torch.Tensor
+
+      Get the signatures for the given dataset.
+
+      :param dataset: The dataset containing the signatures.
+      :type dataset: CrossDataset
+      :param batch_used: The batch used for obtaining the signatures. Defaults to 0.
+      :type batch_used: str, int, optional
+
+      :returns: The signatures for the given dataset.
+      :rtype: torch.Tensor
+
+
+   .. py:method:: load_checkpoint(checkpoint: str | pathlib.Path | dict)
+
+      Loads a checkpoint file and updates the model's state dictionary.
+
+      :param checkpoint: The path to the checkpoint file.
+      :type checkpoint: str
+
+      :returns: None
+
+
+

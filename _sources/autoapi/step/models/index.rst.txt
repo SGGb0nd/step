@@ -1,0 +1,21 @@
+:py:mod:`step.models`
+=====================
+
+.. py:module:: step.models
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   clust/index.rst
+   deconv/index.rst
+   distributions/index.rst
+   extension/index.rst
+   geneformer/index.rst
+   knn_map/index.rst
+   nnls/index.rst
+
+

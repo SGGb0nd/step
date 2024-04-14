@@ -1,0 +1,30 @@
+:py:mod:`step`
+==============
+
+.. py:module:: step
+
+
+Subpackages
+-----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 3
+
+   functionality/index.rst
+   manager/index.rst
+   models/index.rst
+   modules/index.rst
+   utils/index.rst
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   integration/index.rst
+   scmodel/index.rst
+   stmodel/index.rst
+
+

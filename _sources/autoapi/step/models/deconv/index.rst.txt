@@ -1,0 +1,285 @@
+:py:mod:`step.models.deconv`
+============================
+
+.. py:module:: step.models.deconv
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   step.models.deconv.TopNAttention
+   step.models.deconv.Mixer
+
+
+
+
+.. py:class:: TopNAttention(top_n, num_heads, embed_dim, activation='relu')
+
+
+   Bases: :py:obj:`torch.nn.Module`
+
+   TopNAttention is a class that implements the top-n sparse attention mechanism.
+
+   .. attribute:: top_n
+
+      The number of top values to select.
+
+      :type: int
+
+   .. attribute:: num_heads
+
+      The number of attention heads.
+
+      :type: int
+
+   .. attribute:: embed_dim
+
+      The dimension of the input embeddings.
+
+      :type: int
+
+   .. attribute:: q
+
+      The linear layer for the query.
+
+      :type: nn.Linear
+
+   .. attribute:: kv
+
+      The linear layer for the key and value.
+
+      :type: nn.Linear
+
+   .. attribute:: out
+
+      The linear layer for the output.
+
+      :type: nn.Linear
+
+   .. attribute:: act
+
+      The activation function to use. Defaults to F.relu.
+
+      :type: Any
+
+   .. attribute:: T
+
+      The temperature parameter used in the calculation of the attention.
+
+      :type: float
+
+   .. py:method:: forward(q, k, v)
+
+
+
+.. py:class:: Mixer(anchors, signatures, hidden_dim, solver='attn', n_spots=None, smoother=None, use_smoother=False, n_glayers=2, g=None, max_ct_per_spot: Optional[int] = 8, hard_anchors: Optional[bool] = False, domain_wise=True, **kwargs)
+
+
+   Bases: :py:obj:`torch.nn.Module`
+
+   Mixer is a model that uses a transformer and sparse attention to predict the cell type distribution for each spot.
+
+   .. attribute:: anchors
+
+      The anchor tensor.
+
+      :type: torch.Tensor
+
+   .. attribute:: signatures
+
+      The signature tensor.
+
+      :type: torch.Tensor
+
+   .. attribute:: hidden_dim
+
+      The hidden dimension.
+
+      :type: int
+
+   .. attribute:: solver
+
+      The solver type. Defaults to 'attn'.
+
+      :type: str, optional
+
+   .. attribute:: n_spots
+
+      The number of spots. Defaults to None.
+
+      :type: int, optional
+
+   .. attribute:: smoother
+
+      The smoother module. Defaults to None.
+
+      :type: nn.Module, optional
+
+   .. attribute:: use_smoother
+
+      Whether to use the smoother. Defaults to False.
+
+      :type: bool, optional
+
+   .. attribute:: n_layers
+
+      The number of layers. Defaults to 2.
+
+      :type: int, optional
+
+   .. attribute:: g
+
+      The spatial graph. Defaults to None.
+
+      :type: Any, optional
+
+   .. attribute:: T
+
+      The temperature parameter used in contrastive loss. Defaults to 0.07.
+
+      :type: float, optional
+
+   .. attribute:: max_ct_per_spot
+
+      The maximum count per spot. Defaults to 8.
+
+      :type: int, optional
+
+   .. attribute:: hard_anchors
+
+      Whether to use hard anchors, otherwise use anchors adjusted by the attention and spot logits. Defaults to False.
+
+      :type: bool, optional
+
+   .. attribute:: alpha
+
+      The alpha parameter used to control the sparsity of the attention. Defaults to None.
+
+      :type: Any, optional
+
+   .. attribute:: rate
+
+      The rate parameter used to scale the final loss. Defaults to 0.08.
+
+      :type: float, optional
+
+   .. attribute:: domain_wise
+
+      Whether to infer the cell type distribution domain-wise. Defaults to True.
+
+      :type: bool, optional
+
+   .. attribute:: \*\*kwargs
+
+      Additional keyword arguments.
+
+   .. py:property:: anchors_
+
+
+   .. py:method:: forward(h, g=None)
+
+      Forward pass for the Mixer model.
+
+      :param h: The input tensor.
+      :type h: torch.Tensor
+      :param g: The spatial graph. Defaults to None.
+      :type g: torch.Tensor, optional
+
+      :returns: The similarity matrix, spot logits, anchor logits, and top-n indices.
+      :rtype: Tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor]
+
+
+   .. py:method:: ts_forward(h, g=None, return_anchors=False)
+
+
+   .. py:method:: inf_pz(spot_logits, anchors_logits)
+
+      Calculate the inference similarity (pz) based on spot logits and anchors logits.
+
+      :param spot_logits: Logits for spot.
+      :type spot_logits: Tensor
+      :param anchors_logits: Logits for anchors.
+      :type anchors_logits: Tensor
+
+      :returns: Inference probability (pz).
+      :rtype: Tensor
+
+
+   .. py:method:: get_prop(h, g=None, phat=True, ct_scale=True)
+
+      Calculate the probability distribution for the given input.
+
+      :param h: The input tensor.
+      :type h: torch.Tensor
+      :param g: The g tensor. Defaults to None.
+      :type g: torch.Tensor, optional
+      :param phat: Whether to calculate p_hat. Defaults to True.
+      :type phat: bool, optional
+      :param ct_scale: Whether to apply ct scaling. Defaults to True.
+      :type ct_scale: bool, optional
+
+      :returns: The probability distribution.
+      :rtype: torch.Tensor
+
+
+   .. py:method:: get_scores(h, g=None)
+
+      Calculate the scores between the input features and the anchor features.
+
+      :param h: The input features.
+      :type h: torch.Tensor
+      :param g: The anchor features. Defaults to None.
+      :type g: torch.Tensor, optional
+
+      :returns: The scores between the input features and the anchor features.
+      :rtype: torch.Tensor
+
+
+   .. py:method:: mask_prop(prop)
+
+      Masks the given property tensor by selecting the top `ct_per_spot` values for each spot.
+
+      :param prop: The input property tensor.
+      :type prop: torch.Tensor
+
+      :returns: The masked property tensor.
+      :rtype: torch.Tensor
+
+
+   .. py:method:: sc_consistency(top_n_anchors, anchors, indices)
+
+      Calculate the consistency loss for self-contrasting.
+
+      :param top_n_anchors: Tensor of shape (batch_size, num_anchors, embedding_dim) representing the top-n anchors.
+      :type top_n_anchors: torch.Tensor
+      :param anchors: Tensor of shape (batch_size, num_anchors, embedding_dim) representing the anchors.
+      :type anchors: torch.Tensor
+      :param indices: Tensor of shape (batch_size,) representing the indices of the positive anchors.
+      :type indices: torch.Tensor
+
+      :returns: The consistency loss.
+      :rtype: torch.Tensor
+
+
+   .. py:method:: p_hat(coef, logits)
+
+
+   .. py:method:: params()
+
+      Returns an iterator over the parameters of the model.
+
+      :returns: An iterator over the parameters.
+      :rtype: iterator
+
+
+   .. py:method:: phat_params()
+
+      Returns an iterator over the parameters of the `st_scale` and `ct_scale` models.
+
+
+

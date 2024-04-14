@@ -1,0 +1,757 @@
+:py:mod:`step.utils.dataset`
+============================
+
+.. py:module:: step.utils.dataset
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   step.utils.dataset.ScMode
+   step.utils.dataset.StMode
+   step.utils.dataset.MaskedDataset
+   step.utils.dataset.BaseDataset
+   step.utils.dataset.ScDataset
+   step.utils.dataset.StDataset
+   step.utils.dataset.CrossDataset
+
+
+
+
+Attributes
+~~~~~~~~~~
+
+.. autoapisummary::
+
+   step.utils.dataset.PROCESS_FIELDS
+   step.utils.dataset.READ_FIELDS
+   step.utils.dataset.RECIEVE_FIELDS
+
+
+.. py:data:: PROCESS_FIELDS
+   :value: ('adata', 'is_human', 'layer_key', 'batch_key', 'geneset', 'log_transformed', 'logarithm_first',...
+
+   
+
+.. py:data:: READ_FIELDS
+   :value: ('adata', 'log_transformed', 'logarithm_first', 'geneset', 'n_top_genes', 'layer_key', 'batch_key')
+
+   
+
+.. py:data:: RECIEVE_FIELDS
+   :value: ('gene_expr', 'adata', 'batch_label', '_batch_codes', 'layer_key')
+
+   
+
+.. py:class:: ScMode
+
+
+   Bases: :py:obj:`enum.Enum`
+
+   Enum class for single-cell dataset output modes.
+
+   .. attribute:: single_batch
+
+      List of fields for single-batch mode.
+
+      :type: list
+
+   .. attribute:: multi_batches
+
+      List of fields for multi-batch mode.
+
+      :type: list
+
+   .. attribute:: multi_batches_with_ct
+
+      List of fields for multi-batch mode with class labels.
+
+      :type: list
+
+   .. py:attribute:: single_batch
+      :value: ['gene_expr']
+
+      
+
+   .. py:attribute:: multi_batches
+      :value: ['gene_expr', 'batch_label']
+
+      
+
+   .. py:attribute:: multi_batches_with_ct
+      :value: ['gene_expr', 'class_label', 'batch_label']
+
+      
+
+
+.. py:class:: StMode
+
+
+   Bases: :py:obj:`enum.Enum`
+
+   Enum class for spatial transcriptomics dataset output modes.
+
+   .. attribute:: single_batch
+
+      List of fields for single-batch mode.
+
+      :type: list
+
+   .. attribute:: multi_batches
+
+      List of fields for multi-batch mode.
+
+      :type: list
+
+   .. attribute:: with_rep
+
+      List of fields for mode with representation.
+
+      :type: list
+
+   .. attribute:: with_domains
+
+      List of fields for mode with domains.
+
+      :type: list
+
+   .. py:attribute:: single_batch
+      :value: ['gene_expr']
+
+      
+
+   .. py:attribute:: multi_batches
+      :value: ['gene_expr', 'batch_label']
+
+      
+
+   .. py:attribute:: with_rep
+      :value: ['gene_expr', 'rep', 'batch_label']
+
+      
+
+   .. py:attribute:: with_domains
+      :value: ['gene_expr', 'rep', 'domains', 'batch_label']
+
+      
+
+
+.. py:class:: MaskedDataset(original_dataset, mask)
+
+
+   Bases: :py:obj:`torch.utils.data.Dataset`
+
+   A dataset class that represents a masked subset of an original dataset.
+
+   .. attribute:: original_dataset
+
+      The original dataset.
+
+      :type: BaseDataset
+
+   .. attribute:: _indices
+
+      The indices of the samples in the subset.
+
+      :type: ndarray
+
+   .. attribute:: _mask
+
+      The mask indicating which samples to include in the subset.
+
+      :type: ndarray
+
+   .. py:property:: mode
+
+      The mode of the original dataset.
+
+      :returns: The mode of the original dataset.
+      :rtype: str
+
+   .. py:property:: adata
+
+
+   .. py:property:: masked_num_batches
+
+
+   .. py:property:: masked_num_classes
+
+
+   .. py:method:: set_mode(mode=None)
+
+      Sets the mode of the original dataset.
+
+      :param mode: The mode to set. If not provided, the mode will be set to the default mode.
+      :type mode: str, optional
+
+      :returns: The previous mode of the original dataset.
+      :rtype: str
+
+
+   .. py:method:: subset(key=True, col=None, exclude=True)
+
+      Returns a new MaskedDataset object representing a subset of the current subset.
+
+      :param key: The key or keys to filter the subset. If not provided, all samples are included.
+      :type key: str or Iterable, optional
+      :param col: The column name to use for filtering. If not provided, the batch key of the original dataset is used.
+      :type col: str, optional
+      :param exclude: If True, the subset will exclude the samples matching the key(s). If False, the subset will include only the samples matching the key(s).
+      :type exclude: bool, optional
+
+      :returns: A new MaskedDataset object representing the subset.
+      :rtype: MaskedDataset
+
+
+
+.. py:class:: BaseDataset(adata: anndata.AnnData, filtered=False, log_transformed=False, logarithm_first=False, hvg_method='seurat_v3', geneset=None, n_top_genes: Optional[int] = 2000, layer_key: Optional[str] = None, batch_key: Optional[str] = None, **kwargs)
+
+
+   Bases: :py:obj:`torch.utils.data.Dataset`
+
+   Base dataset class for single-cell and spatial datasets.
+
+   .. attribute:: read_fields
+
+      Tuple of fields to be read.
+
+      :type: tuple
+
+   .. attribute:: process_fields
+
+      Tuple of fields to be processed.
+
+      :type: tuple
+
+   .. attribute:: recieve_fields
+
+      Tuple of fields to be received.
+
+      :type: tuple
+
+   .. attribute:: read_folder
+
+      Function to read the dataset from a folder.
+
+      :type: function
+
+   .. attribute:: is_human
+
+      Flag indicating if the dataset is from human.
+
+      :type: bool
+
+   .. attribute:: n_top_genes
+
+      Number of top genes to be selected.
+
+      :type: int
+
+   .. attribute:: geneset
+
+      Geneset to be used.
+
+      :type: str
+
+   .. attribute:: num_batches
+
+      Number of batches in the dataset.
+
+      :type: int
+
+   .. attribute:: num_classes
+
+      Number of classes in the dataset.
+
+      :type: int
+
+   .. attribute:: layer_key
+
+      Key for the layer in the data.
+
+      :type: str
+
+   .. attribute:: batch_key
+
+      Key for the batch in the data.
+
+      :type: str
+
+   .. attribute:: logarithm_first
+
+      Flag indicating if logarithm transformation is applied first.
+
+      :type: bool
+
+   .. attribute:: hvg_method
+
+      The method for selecting highly variable genes.
+
+      :type: str
+
+   .. attribute:: filtered
+
+      Flag indicating if the dataset is filtered.
+
+      :type: bool
+
+   .. attribute:: log_transformed
+
+      Flag indicating if the dataset is log-transformed.
+
+      :type: bool
+
+   .. attribute:: adata
+
+      The annotated data matrix.
+
+      :type: AnnData
+
+   .. attribute:: mode
+
+      Mode of the dataset for output fields.
+
+      :type: ScMode or StMode
+
+   .. py:property:: batch_codes
+      :type: Optional[pandas.DataFrame]
+
+      Get the batch codes.
+
+      :returns: The batch codes.
+      :rtype: Optional[pd.DataFrame]
+
+   .. py:property:: batch_names
+      :type: pandas.Index | None
+
+      Get the batch names.
+
+      :returns: The batch names.
+      :rtype: Optional[pd.DataFrame]
+
+   .. py:property:: class_codes
+      :type: Optional[pandas.DataFrame]
+
+      Get the class codes.
+
+      :returns: The class codes.
+      :rtype: Optional[pd.DataFrame]
+
+   .. py:property:: n_genes
+
+      Get the number of genes.
+
+      :returns: The number of genes.
+      :rtype: int
+
+   .. py:attribute:: read_fields
+
+      
+
+   .. py:attribute:: process_fields
+
+      
+
+   .. py:attribute:: recieve_fields
+
+      
+
+   .. py:method:: read_folder()
+
+
+   .. py:method:: read(path: str, log_transformed=False, logarithm_first=False, filtered=False, geneset=None, batch_key: Optional[str] = None, n_top_genes: Optional[int] = 2000, layer_key: Optional[str] = None, **kwargs)
+      :classmethod:
+
+      Read the dataset from a file or folder.
+
+      :param path: The path to the file or folder.
+      :type path: str
+      :param log_transformed: Whether the data is log-transformed. Defaults to False.
+      :type log_transformed: bool, optional
+      :param logarithm_first: Whether to apply logarithm transformation first. Defaults to False.
+      :type logarithm_first: bool, optional
+      :param filtered: Whether the data is filtered. Defaults to False.
+      :type filtered: bool, optional
+      :param geneset: The geneset to be used. Defaults to None.
+      :type geneset: Optional[str], optional
+      :param batch_key: The key for the batch in the data. Defaults to None.
+      :type batch_key: Optional[str], optional
+      :param n_top_genes: The number of top genes to be selected. Defaults to 2000.
+      :type n_top_genes: Optional[int], optional
+      :param layer_key: The key for the layer in the data. Defaults to None.
+      :type layer_key: Optional[str], optional
+      :param \*\*kwargs: Additional keyword arguments.
+
+      :raises Exception: If no valid path is provided.
+
+      :returns: The dataset object.
+      :rtype: BaseDataset
+
+
+   .. py:method:: process(**process_config)
+
+      Process the dataset.
+
+      :param \*\*process_config: Keyword arguments for the processing configuration.
+
+
+   .. py:method:: get(batch, attr: Optional[str] = 'gene_expr')
+
+      Get the data for a specific batch.
+
+      :param batch: The batch identifier.
+      :param attr: The attribute to be retrieved. Defaults to 'gene_expr'.
+      :type attr: Optional[str], optional
+
+      :returns: The data for the specified batch.
+      :rtype: Union[np.ndarray, None]
+
+
+   .. py:method:: switch_layer(layer_key)
+
+
+   .. py:method:: subset(key=True, col=None, exclude=True)
+
+      Create a subset of the dataset based on a condition.
+
+      :param key: The condition for selecting the subset.
+      :param col: The column to be used for the condition. Defaults to None.
+      :type col: Optional[str], optional
+      :param exclude: Whether to exclude the selected subset. Defaults to True.
+      :type exclude: bool, optional
+
+      :returns: The subset of the dataset.
+      :rtype: MaskedDataset
+
+
+
+.. py:class:: ScDataset(class_key=None, **kwargs)
+
+
+   Bases: :py:obj:`BaseDataset`
+
+   Single-cell dataset class.
+
+   .. attribute:: class_key
+
+      Key for the class labels in the data.
+
+      :type: str
+
+   .. attribute:: read_fields
+
+      Tuple of fields to be read.
+
+      :type: tuple
+
+   .. attribute:: recieve_fields
+
+      Tuple of fields to be received.
+
+      :type: tuple
+
+   .. attribute:: process_fields
+
+      Tuple of fields to be processed.
+
+      :type: tuple
+
+   .. attribute:: read_folder
+
+      Function to read the dataset from a folder.
+
+      :type: function
+
+   .. attribute:: num_classes
+
+      Number of classes in the data.
+
+      :type: int
+
+   .. attribute:: mode
+
+      Mode of the dataset.
+
+      :type: ScMode
+
+   .. py:attribute:: read_fields
+      :value: ()
+
+      
+
+   .. py:attribute:: recieve_fields
+      :value: ()
+
+      
+
+   .. py:attribute:: process_fields
+      :value: ()
+
+      
+
+   .. py:attribute:: read_folder
+
+      
+
+   .. py:method:: set_mode(mode=ScMode.multi_batches_with_ct)
+
+      Set the mode of the dataset.
+
+      :param mode: The mode to be set. Defaults to ScMode.multi_batches_with_ct.
+      :type mode: Union[str, ScMode], optional
+
+      :returns: The previous mode.
+      :rtype: ScMode
+
+
+
+.. py:class:: StDataset(coord_keys: Tuple[str, str] = ('array_row', 'array_col'), rep=None, domains=None, **kwargs)
+
+
+   Bases: :py:obj:`BaseDataset`
+
+   Spatial dataset class.
+
+   .. attribute:: coord_keys
+
+      List of keys for the spatial coordinates in the data.
+
+      :type: list
+
+   .. attribute:: read_fields
+
+      Tuple of fields to be read.
+
+      :type: tuple
+
+   .. attribute:: recieve_fields
+
+      Tuple of fields to be received.
+
+      :type: tuple
+
+   .. attribute:: process_fields
+
+      Tuple of fields to be processed.
+
+      :type: tuple
+
+   .. attribute:: read_folder
+
+      Function to read the dataset from a folder.
+
+      :type: function
+
+   .. attribute:: rep
+
+      Representation object.
+
+      :type: object
+
+   .. attribute:: domains
+
+      Domains object.
+
+      :type: object
+
+   .. attribute:: mode
+
+      Mode of the dataset.
+
+      :type: StMode
+
+   .. py:attribute:: read_folder
+
+      
+
+   .. py:attribute:: read_fields
+      :value: ()
+
+      
+
+   .. py:method:: set_domains(domains)
+
+
+   .. py:method:: set_prior_coef(prior_coef)
+
+
+   .. py:method:: set_mode(mode=StMode.multi_batches)
+
+
+
+.. py:class:: CrossDataset(sc_adata: str | anndata.AnnData, st_adata: str | anndata.AnnData, class_key: str, coord_keys: Tuple[str, str] | str = ('array_row', 'array_col'), batch_key=None, st_sample_names=None, st_batch_key=None, **kwargs)
+
+
+   Bases: :py:obj:`BaseDataset`
+
+   A dataset class for cross-modal single-cell and spatial transcriptomics data.
+
+   .. attribute:: process_fields
+
+      Tuple of fields to be processed.
+
+      :type: tuple
+
+   .. attribute:: recieve_fields
+
+      Tuple of fields to be received.
+
+      :type: tuple
+
+   .. attribute:: class_key
+
+      Key for the class labels in the single-cell data.
+
+      :type: str
+
+   .. attribute:: coord_keys
+
+      List of keys for the spatial coordinates in the spatial transcriptomics data.
+
+      :type: list
+
+   .. attribute:: st_sample_names
+
+      List of sample names in the spatial transcriptomics data.
+
+      :type: list
+
+   .. attribute:: batch_key
+
+      Key for the batch information in the single-cell data.
+
+      :type: str
+
+   .. attribute:: num_classes
+
+      Number of classes in the single-cell data.
+
+      :type: int
+
+   .. attribute:: st_adata
+
+      Spatial transcriptomics AnnData object.
+
+      :type: AnnData
+
+   .. attribute:: rep
+
+      Representation object.
+
+      :type: object
+
+   .. attribute:: _integrated
+
+      Flag indicating if the dataset is integrated.
+
+      :type: bool
+
+   .. attribute:: mode
+
+      Mode of the dataset.
+
+      :type: ScMode or StMode
+
+   .. py:property:: st_batch_codes
+      :type: pandas.Series
+
+      Get the batch codes for the spatial transcriptomics dataset.
+
+      :returns: The batch codes for the spatial transcriptomics dataset.
+      :rtype: np.ndarray
+
+   .. py:property:: st_sample_list
+
+      Get the sample list for the spatial transcriptomics dataset.
+
+      :returns: The sample list for the spatial transcriptomics dataset.
+      :rtype: list
+
+   .. py:property:: num_st_batches
+
+      Get the number of batches for the spatial transcriptomics dataset.
+
+      :returns: The number of batches for the spatial transcriptomics dataset.
+      :rtype: int
+
+   .. py:attribute:: process_fields
+      :value: ()
+
+      
+
+   .. py:attribute:: recieve_fields
+      :value: ()
+
+      
+
+   .. py:method:: set_rep(rep)
+
+      Set the representation for the dataset.
+
+      :param rep: The representation to be set.
+
+      :returns: None
+
+
+   .. py:method:: set_mode(mode=ScMode.multi_batches_with_ct)
+
+      Sets the mode of the dataset.
+
+      :param mode: The mode to set. If a string is provided, it will be converted to the corresponding ScMode enum value.
+      :type mode: ScMode or str
+
+      :returns: The previous mode before setting the new mode.
+      :rtype: ScMode
+
+
+   .. py:method:: read()
+      :classmethod:
+      :abstractmethod:
+
+      Read the dataset from a file or folder.
+
+      :param path: The path to the file or folder.
+      :type path: str
+      :param log_transformed: Whether the data is log-transformed. Defaults to False.
+      :type log_transformed: bool, optional
+      :param logarithm_first: Whether to apply logarithm transformation first. Defaults to False.
+      :type logarithm_first: bool, optional
+      :param filtered: Whether the data is filtered. Defaults to False.
+      :type filtered: bool, optional
+      :param geneset: The geneset to be used. Defaults to None.
+      :type geneset: Optional[str], optional
+      :param batch_key: The key for the batch in the data. Defaults to None.
+      :type batch_key: Optional[str], optional
+      :param n_top_genes: The number of top genes to be selected. Defaults to 2000.
+      :type n_top_genes: Optional[int], optional
+      :param layer_key: The key for the layer in the data. Defaults to None.
+      :type layer_key: Optional[str], optional
+      :param \*\*kwargs: Additional keyword arguments.
+
+      :raises Exception: If no valid path is provided.
+
+      :returns: The dataset object.
+      :rtype: BaseDataset
+
+
+   .. py:method:: subset_st(adata=None, domains=None) -> MaskedDataset
+
+      Creates a subset specific to the spatial transcriptomics dataset.
+
+      :param rep: The representation to be used. Defaults to None.
+      :type rep: Optional[str], optional
+      :param adata: The annotated data matrix. Defaults to None.
+      :type adata: Optional[AnnData], optional
+      :param domains: The domains to be used. Defaults to None.
+      :type domains: Optional[np.ndarray], optional
+
+      :returns: The sole spatial transcriptomics dataset.
+      :rtype: MaskedDataset
+
+
+

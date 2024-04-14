@@ -1,0 +1,36 @@
+:py:mod:`step.utils.gbolt`
+==========================
+
+.. py:module:: step.utils.gbolt
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   step.utils.gbolt.MultiGraphsAllNodesSampler
+
+
+
+
+.. py:class:: MultiGraphsAllNodesSampler(mode, budget, n_graphs=2, ratio=1.0)
+
+
+   Bases: :py:obj:`dgl.dataloading.SAINTSampler`
+
+   A custom sampler that samples all nodes from sampled graphs.
+
+   .. attribute:: n_graphs
+
+      int   Number of graphs to sample from
+
+   .. py:method:: node_sampler(g)
+
+      Node ID sampler for random node sampler
+
+
+

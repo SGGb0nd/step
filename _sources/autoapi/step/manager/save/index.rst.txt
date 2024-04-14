@@ -1,0 +1,50 @@
+:py:mod:`step.manager.save`
+===========================
+
+.. py:module:: step.manager.save
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   step.manager.save.Saver
+
+
+
+
+.. py:class:: Saver(class_name, path='.')
+
+
+   Save the model and the dataset.
+
+   .. attribute:: funcmodel
+
+      The functional model.
+
+      :type: FunctionalBase
+
+   .. attribute:: adata
+
+      The AnnData object.
+
+      :type: AnnData
+
+   .. attribute:: dataset
+
+      The dataset object.
+
+      :type: BaseDataset
+
+   .. py:method:: save(funcmodel: step.functionality.base.FunctionalBase, adata: anndata.AnnData, dataset: step.utils.dataset.BaseDataset)
+
+
+   .. py:method:: get_instance(class_name, path='.')
+      :classmethod:
+
+
+

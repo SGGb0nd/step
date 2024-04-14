@@ -1,0 +1,141 @@
+:py:mod:`step.stmodel`
+======================
+
+.. py:module:: step.stmodel
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   step.stmodel.stModel
+
+
+
+
+.. py:class:: stModel(adata: Optional[anndata.AnnData] = None, file_path: Optional[str] = None, n_top_genes: Optional[int] = 2000, geneset_to_use: Optional[Sequence[str]] = None, batch_key: Optional[str] = None, layer_key: Optional[str] = None, coord_keys: Tuple[str, str] = ('array_row', 'array_col'), log_transformed=False, module_dim=30, decoder_input_dim=None, hidden_dim=64, n_modules=32, model_checkpoint=None, edge_clip=2, logarithm_first=False, variational=True, n_glayers=4, hvg_method='seurat_v3', filtered=False, dispersion='gene', device=None, **kwargs)
+
+
+   stModel is the main class for spatial transcriptomics data.
+
+   .. attribute:: adata
+
+      Annotated data object containing the gene expression data.
+
+   .. attribute:: dataset
+
+      StDataset object.
+
+   .. attribute:: _functional
+
+      stSmoother object.
+
+   .. py:property:: adata
+
+
+   .. py:property:: model
+
+
+   .. py:method:: cluster(adata: anndata.AnnData | None = None, n_clusters=3, use_rep='X_smoothed', key_added='domain', method='kmeans', seed=None)
+
+      Cluster the embedding of spatial transcriptomics.
+
+      :param adata: Annotated data matrix with shape (n_obs, n_vars). If provided, it will be used to perform clustering, and the result will be added to adata.obs; otherwise, it will use the adata in the stModel object.
+      :type adata: Optional[AnnData]
+      :param n_clusters: Number of clusters. Default is 3.
+      :type n_clusters: int
+      :param use_rep: Key for the representation to use. If None, it will use the default representation.
+      :type use_rep: Optional[str]
+      :param key_added: Key to add to adata.obs. Default is "domain".
+      :type key_added: str
+      :param method: Clustering method. Default is "kmeans".
+      :type method: str
+      :param seed: Random seed. Default is None.
+      :type seed: Optional[int]
+
+
+   .. py:method:: sub_cluster(adata: Optional[anndata.AnnData], n_clusters=3, use_rep='X_smoothed', pre_key='domain', key_added='sub_domain')
+
+      Sub-cluster the clusters of spatial transcriptomics.
+
+      :param adata: Annotated data matrix with shape (n_obs, n_vars). If provided, it will be used to perform sub-clustering, and the result will be added to adata.obs; otherwise, it will use the adata in the stModel object.
+      :type adata: Optional[AnnData]
+      :param n_clusters: Number of clusters. Default is 3.
+      :type n_clusters: int
+      :param use_rep: Key for the representation to use. If None, it will use the default representation.
+      :type use_rep: Optional[str]
+      :param pre_key: Key for the pre-clustered clusters in adata.obs. Default is "domain".
+      :type pre_key: str
+      :param key_added: Key to add to adata.obs. Default is "sub_domain".
+      :type key_added: str
+
+
+   .. py:method:: summarize_domain(cell_type_names, adata: Optional[anndata.AnnData] = None, domain_key='domain', average=True, obsm_key='deconv', figsize=(15, 5), show=True, save=False)
+
+      Summarize the domain of spatial transcriptomics.
+
+      :param cell_type_names: List of cell type names.
+      :type cell_type_names: Sequence[str]
+      :param adata: Annotated data matrix with shape (n_obs, n_vars). If provided, it will be used to perform sub-clustering, and the result will be added to adata.obs; otherwise, it will use the adata in the stModel object.
+      :type adata: Optional[AnnData]
+      :param domain_key: Key for the domain information in adata.obs. Default is "domain".
+      :type domain_key: str
+      :param average: Whether to average the domain information. Default is True.
+      :type average: bool
+      :param obsm_key: Key for the deconvolution information in adata.obsm. Default is "deconv".
+      :type obsm_key: str
+      :param figsize: Figure size. Default is (15, 5).
+      :type figsize: Tuple[int, int]
+      :param show: Whether to show the plot. Default is True.
+      :type show: bool
+      :param save: Whether to save the plot. Default is False.
+      :type save: bool
+
+
+   .. py:method:: summarize_single_domain(cell_type_names, adata: Optional[anndata.AnnData] = None, domain_key='domain', obsm_key='deconv', figsize=(15, 5), show=True, save=True)
+      :abstractmethod:
+
+
+   .. py:method:: save(path: Optional[str] = None)
+
+
+   .. py:method:: load(path: str, adata: Optional[anndata.AnnData] = None, filepath: Optional[str] = None, config_name: str = 'config.json', model_name: str = 'model.pth')
+      :classmethod:
+
+      Load the model and the data.
+
+      :param path: The path to load the model and the dataset.
+      :type path: str
+      :param adata: Annotated data object containing the gene expression data.
+      :type adata: Optional[AnnData]
+      :param filepath: Path to a file containing the gene expression data.
+      :type filepath: Optional[str]
+      :param config_name: The name of the config file.
+      :type config_name: str
+      :param model_name: The name of the model file.
+      :type model_name: str
+
+      :returns: The scModel object.
+      :rtype: scModel
+
+
+   .. py:method:: spatial_plot(slide: str | int | None = None, with_images: bool = True, **kwargs)
+
+      Wrapper for plotting spatial feature plot with self-contained data.
+
+      :param slide: Slide name or index. Default is 0.
+      :type slide: str | int | None
+      :param with_images: Whether to plot based on images which uses scanpy.pl.spatial. Default is True.
+      :type with_images: bool
+      :param \*\*kwargs: Additional keyword arguments for scanpy.pl.spatial or scanpy,pl.embedding
+      :type \*\*kwargs: Any
+
+      :returns: Figure.
+      :rtype: matplotlib.figure.Figure
+
+
+

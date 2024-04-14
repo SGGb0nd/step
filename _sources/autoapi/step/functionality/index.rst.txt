@@ -1,0 +1,27 @@
+:py:mod:`step.functionality`
+============================
+
+.. py:module:: step.functionality
+
+
+Subpackages
+-----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 3
+
+   comps/index.rst
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   base/index.rst
+   cross_funcmodel/index.rst
+   sc_funcmodel/index.rst
+   st_funcmodel/index.rst
+
+

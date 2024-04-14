@@ -1,0 +1,34 @@
+:py:mod:`step.models.nnls`
+==========================
+
+.. py:module:: step.models.nnls
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   step.models.nnls.nnls_deconv
+
+
+
+.. py:function:: nnls_deconv(signatures, observations, n_jobs: int = 1)
+
+   Perform non-negative least squares (NNLS) deconvolution.
+
+   :param signatures: The signature matrix.
+   :type signatures: np.ndarray
+   :param observations: The observation matrix.
+   :type observations: np.ndarray
+   :param n_jobs: Number of jobs. Defaults to 1.
+   :type n_jobs: int, optional
+
+   :returns: The deconvoluted matrix.
+   :rtype: np.ndarray
+
+

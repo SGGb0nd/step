@@ -1,0 +1,259 @@
+:py:mod:`step.models.extension`
+===============================
+
+.. py:module:: step.models.extension
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   step.models.extension.BatchAwareScale
+   step.models.extension.BatchAwareLayerNorm
+   step.models.extension.NrmlsBC
+
+
+
+
+.. py:class:: BatchAwareScale(input_dim, output_dim, act=None)
+
+
+   Bases: :py:obj:`torch.nn.Module`
+
+   BatchAwareScale is a module that performs BatchAwareScale introduced in the paper.
+
+   .. attribute:: net
+
+      The neural network.
+
+      :type: nn.Sequential
+
+   .. attribute:: act
+
+      The activation function.
+
+      :type: nn.Module
+
+   .. py:method:: forward(x, batch)
+
+
+
+.. py:class:: BatchAwareLayerNorm(input_dim, output_dim, act='relu')
+
+
+   Bases: :py:obj:`torch.nn.Module`
+
+   BatchAwareLayerNorm is a module that performs BatchAwareLayerNorm introduced in the paper.
+
+   .. attribute:: mean
+
+      The mean layer.
+
+      :type: nn.Linear
+
+   .. attribute:: scale
+
+      The scale layer.
+
+      :type: nn.Linear
+
+   .. attribute:: layernorm
+
+      The layer normalization layer.
+
+      :type: nn.LayerNorm
+
+   .. attribute:: act
+
+      The activation function.
+
+      :type: nn.Module
+
+   .. py:method:: forward(x, batch)
+
+
+
+.. py:class:: NrmlsBC(num_batches: int, num_classes: int = 1, dispersion: Literal[gene, batch-gene] = 'batch-gene', use_l_scale=False, **kwargs)
+
+
+   Bases: :py:obj:`step.models.geneformer.Geneformer`
+
+   NrmlsBC is an extension of the Geneformer model that supports batch-aware normalization and scaling to eliminate batch effects.
+
+   .. attribute:: num_batches
+
+      The number of batches.
+
+      :type: int
+
+   .. attribute:: batch_emb_dim
+
+      The batch embedding dimension.
+
+      :type: int
+
+   .. attribute:: smoother
+
+      The smoother module.
+
+      :type: Optional[nn.Module]
+
+   .. attribute:: batch_embedding
+
+      The batch embedding parameter.
+
+      :type: nn.Parameter
+
+   .. attribute:: moduler
+
+      The moduler module.
+
+      :type: Geneformer
+
+   .. attribute:: batch_readout
+
+      The batch readout module.
+
+      :type: BatchAwareScale
+
+   .. attribute:: args
+
+      The arguments of the model.
+
+      :type: Dict[str, Any]
+
+   .. py:property:: non_decoder_param
+
+      Returns an iterator over the non-decoder parameters of the model.
+
+      This includes the parameters of the `moduler`, `expand`, `module`, and `readout` modules.
+
+   .. py:method:: encode_ts(x, batch_rep)
+
+      Encodes the output of transformer encoders using the transformer model.
+
+      :param x: The output of transformer encoders.
+      :type x: Tensor
+      :param batch_rep: Whether to return the representation for each time step in the batch.
+      :type batch_rep: bool
+
+      :returns: The encoded representation of the output of transformer encoders.
+      :rtype: Tensor
+
+
+   .. py:method:: readout_(tsfmr_out)
+
+      Apply smoothing to the transformer output if enabled, and then perform readout.
+
+      :param tsfmr_out: The transformer output.
+
+      :returns: The result of the readout operation.
+
+
+   .. py:method:: readout_batch(rep_ts, batch_rep)
+
+      Readout the representation with batch representation.
+
+      :param rep_ts: The representation tensor.
+      :param batch_rep: The batch representation.
+
+      :returns: The class representation.
+
+
+   .. py:method:: encode(x, batch_rep)
+
+      Encodes the input data `x` using the specified batch representation `batch_rep`.
+
+      :param x: The input data to be encoded.
+      :param batch_rep: The batch representation to be used for encoding.
+
+      :returns: The encoded representation of the input data.
+
+
+   .. py:method:: decode(cls_rep, x_gd, batch_rep, rep_ts=None)
+
+      Decodes the given input representation into output representation.
+
+      :param cls_rep: The class representation.
+      :param x_gd: The input representation.
+      :param batch_rep: The batch representation (optional).
+
+      :returns: The decoded output representation.
+
+
+   .. py:method:: decode_ts(rep_ts, x_gd, batch_rep=None)
+
+      Decode the given representation tensor `rep_ts` into a prediction tensor.
+
+      :param rep_ts: The representation tensor.
+      :type rep_ts: torch.Tensor
+      :param x_gd: The input tensor.
+      :type x_gd: torch.Tensor
+      :param batch_rep: The batch representation tensor. Defaults to None.
+      :type batch_rep: torch.Tensor, optional
+
+       Returns:
+          torch.Tensor: The prediction tensor.
+
+
+   .. py:method:: decode_skip(cls_rep, rep_ts, x_gd, batch_rep)
+
+      Decodes the input data using the skip model.
+
+      :param cls_rep: The class representation.
+      :param rep_ts: The representation time series.
+      :param x_gd: The input data.
+      :param batch_rep: The batch representation.
+
+      :returns:
+
+                - px_rate: The rate of the decoded values.
+                - px_dropout: The dropout of the decoded values.
+                - px_scale: The scale of the decoded values.
+                - px_r: The px_r value.
+                - decoder_type: The type of decoder.
+                - x: The input data.
+      :rtype: A dictionary containing the decoded values
+
+
+   .. py:method:: decode_(cls_rep, x_gd, batch_rep=None)
+
+
+   .. py:method:: forward(x, batch_rep, return_exp=True)
+
+
+   .. py:method:: init_anchor(num_classes: Optional[int] = None, new_anchors=True)
+
+      Initializes the anchor module.
+
+      :param num_classes: The number of classes. If provided and greater than 0,
+                          the class classification head and anchors will be initialized accordingly.
+      :type num_classes: Optional[int]
+      :param new_anchors: Whether to initialize new anchors.
+      :type new_anchors: bool
+
+      :returns: True if the anchor module is successfully initialized, False otherwise.
+      :rtype: bool
+
+
+   .. py:method:: copy(with_state=True)
+
+      Creates a copy of the current object.
+
+      Returns:
+      A new instance of the NrmlsBC class with the same arguments and state.
+
+
+   .. py:method:: copy_dec()
+
+      Creates a copy of the model with the specified parameters.
+
+      :returns: A copy of the model with the registered parameters.
+      :rtype: nn.ModuleDict
+
+
+
