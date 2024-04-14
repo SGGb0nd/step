@@ -16,3 +16,17 @@ img.no-scaled-link {
     height: auto !important;
     max-width: 100% !important;
 }
+
+.highlight button.copybtn {
+    align-items: center;
+    background-color: var(--color-code-background);
+    border: none;
+    color: var(--color-background-item);
+    cursor: pointer;
+    height: 1.25em;
+    opacity: 1;
+    right: 0.5%;
+    top: 1.5%;
+    transition: color .3s,opacity .3s;
+    width: 1.25em;
+}

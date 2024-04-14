@@ -15,32 +15,9 @@ Furthermore, step conducts integrative analysis across different modalities like
    :maxdepth: 4
    :caption: Contents:
 
-.. automodule:: step
-   :members:
+.. .. automodule:: step
+..    :members:
 
-.. nbgallery::
-   :maxdepth: 1
-   :caption: Tutorials:
-
-   notebooks/DLFPC
-   notebooks/Human_Lymph_Node
-   notebooks/MERFISH
-   notebooks/scRNA-seq
-
-.. toctree::
-   :maxdepth: 2
-   :caption: API:
-
-   step
-   step.functionality
-   step.manager
-   step.models
-   step.modules
-   step.utils
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+.. * :ref:`genindex`
+.. * :ref:`modindex`
+.. * :ref:`search`
