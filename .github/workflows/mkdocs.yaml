@@ -33,10 +33,15 @@ jobs:
           cd docs
           poetry run make html
 
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.DEPLOY_KEY }}
+
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          deploy_key: ${{ secrets.DEPLOY_KEY }}
           publish_dir: ./docs/_build/html
           keep_files: false
           target_branch: 'gh-pages'
