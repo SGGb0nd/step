@@ -1,0 +1,60 @@
+name: Deploy Docs
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+    - name: Check out the repository
+      uses: actions/checkout@v4.1.1
+      with:
+        ref: ${{ github.event.pull_request.head.sha }}
+    
+    - name: Pull submodules
+      run: git submodule update --init --recursive
+
+    - name: Set up Poetry
+      run: |
+        poetry --version
+        if [ $? -ne 0 ]; then
+          echo "Poetry not found, setting up..."
+          python3 -m pip install --upgrade pip
+          python3 -m pip install pipx --user
+          python3 -m pipx ensurepath
+          pipx install poetry
+        fi
+        make && make docs
+
+  deploy:
+    runs-on: self-hosted
+    needs: build
+    steps:
+    - name: Check out the repository
+      uses: actions/checkout@v4.1.1
+      with:
+        ref: ${{ github.event.pull_request.head.sha }}
+
+    - name: Build the docs
+      run: |
+        cd docs
+        poetry run make html
+
+    - name: Create tarball
+      run: |
+        cd docs
+        tar -czvf docs.tar.gz _build/html/* 
+        mv docs.tar.gz ~/step-docs
+
+    - name: Deploy  
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SERVER_HOST }}
+        username: ${{ secrets.SERVER_USERNAME }}
+        key: ${{ secrets.SERVER_KEY }}
+        script: |
+          cd ~/step-docs
+          rm -rf _build/
+          tar -xzvf docs.tar.gz  # Untar the docs

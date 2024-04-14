@@ -1,0 +1,3 @@
+[submodule "docs/notebooks"]
+	path = docs/notebooks
+	url = git@github.com:SGGb0nd/step-tutorial.git

@@ -1,0 +1,44 @@
+[tool.poetry]
+name = "step-kit"
+version = "0.1.0"
+description = "STEP, an acronym for Spatial Transcriptomics Embedding Procedure, is a deep learning-based tool for the analysis of single-cell RNA (scRNA-seq) and spatially resolved transcriptomics (SRT) data. STEP introduces a unified approach to process and analyze multiple samples of scRNA-seq data as well as align several sections of SRT data, disregarding location relationships. Furthermore, STEP conducts integrative analysis across different modalities like scRNA-seq and SRT."
+authors = ["SGGb0nd <lilounan1997@gmail.com>"]
+license = "Apache-2.0"
+readme = "README.md"
+packages = [
+    {include = "step"}
+]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+torch = "1.13.0"
+scanpy = "^1.10.0rc2"
+einops = "^0.6.0"
+leidenalg = "^0.9.0"
+libpysal = "4.8.1"
+esda = "2.5.1"
+seaborn = "*"
+scikit-misc = "*"
+rpy2 = { version = "*", optional = true }
+ipykernel = { version = "*", optional = true }
+sphinx = { version = "*", optional = true }
+sphinx-book-theme = { version = "*", optional = true }
+sphinx-autodoc-typehints = { version = "*", optional = true }
+sphinxcontrib-bibtex = { version = "*", optional = true }
+nbsphinx = { version = "*", optional = true }
+
+[tool.poetry.extras]
+ipykernel = ["ipykernel"]
+docs = ["sphinx", "sphinx-book-theme", "sphinx-autodoc-typehints", "sphinxcontrib-bibtex", "nbsphinx"]
+r = ["rpy2"]
+
+[[tool.poetry.source]]
+name = "pypi"
+priority = "primary"
+
+[tool.flake8]
+ignore = "E501, W503"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
