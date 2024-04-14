@@ -8,33 +8,36 @@ jobs:
   build:
     runs-on: self-hosted
     steps:
-    - name: Check out the repository
-      uses: actions/checkout@v4.1.1
-      with:
-        ref: ${{ github.event.pull_request.head.sha }}
-    
-    - name: Pull submodules
-      run: git submodule update --init --recursive
+      - name: Check out the repository
+        uses: actions/checkout@v4.1.1
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
 
-    - name: Set up Poetry
-      run: |
-        poetry --version
-        if [ $? -ne 0 ]; then
-          echo "Poetry not found, setting up..."
-          python3 -m pip install --upgrade pip
-          python3 -m pip install pipx --user
-          python3 -m pipx ensurepath
-          pipx install poetry
-        fi
-        make && make docs
+      - name: Pull submodules
+        run: git submodule update --init --recursive
 
-    - name: Build the docs
-      run: |
-        cd docs
-        poetry run make html
+      - name: Set up Poetry
+        run: |
+          poetry --version
+          if [ $? -ne 0 ]; then
+            echo "Poetry not found, setting up..."
+            python3 -m pip install --upgrade pip
+            python3 -m pip install pipx --user
+            python3 -m pipx ensurepath
+            pipx install poetry
+          fi
+          poetry install
 
-    - name: Deploy  
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./docs/_build/html
+      - name: Build the docs
+        run: |
+          cd docs
+          poetry run make html
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs/_build/html
+          keep_files: false
+          target_branch: 'gh-pages'
+          commit_message: 'Update documentation'
