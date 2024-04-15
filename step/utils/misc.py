@@ -264,7 +264,7 @@ def read_visium_hd(
     source_image_path: Path | str | None = None,
 ) -> AnnData:
     """\
-    Read 10x-Genomics-formatted visum-hd dataset.
+    Read 10x-Genomics-formatted visum-hd dataset modified from scanpy.read_visium.
 
     In addition to reading regular 10x output,
     this looks for the `spatial` folder and loads images,
