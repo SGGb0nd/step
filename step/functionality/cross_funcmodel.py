@@ -125,6 +125,8 @@ class CrossModalityNrmls(scMultiBatchNrmls):
         dec_norm="batch",
         use_st_decoder=False,
         st_batches=None,
+        activation: Literal["softmax", "softplus"] = "softplus",
+        use_l_scale=True,
     ):
         """
         Initialize the st specific decoder.
@@ -146,6 +148,8 @@ class CrossModalityNrmls(scMultiBatchNrmls):
             args["n_hidden_layers"] = n_dec_layers
             args["norm"] = dec_norm
             args["dist"] = decoder_type
+            args["activation"] = activation
+            args["use_l_scale"] = use_l_scale
             self.st_decoder = ProbDecoder(**args,)
             setattr(self, "st_decoder_type", decoder_type)
             setattr(self, "single_st", single_st)
@@ -156,6 +160,8 @@ class CrossModalityNrmls(scMultiBatchNrmls):
                 "dec_norm": dec_norm,
                 "use_st_decoder": use_st_decoder,
                 "st_batches": st_batches,
+                "activation": activation,
+                "use_l_scale": use_l_scale,
             }
         else:
             self.st_decoder = self.model.decoder
