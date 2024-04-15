@@ -73,7 +73,7 @@ Functions
 
 .. py:function:: read_visium_hd(path: pathlib.Path | str, genome: str | None = None, *, count_file: str = 'filtered_feature_bc_matrix.h5', library_id: str | None = None, load_images: bool | None = True, source_image_path: pathlib.Path | str | None = None) -> anndata.AnnData
 
-   Read 10x-Genomics-formatted visum-hd dataset.
+   Read 10x-Genomics-formatted visum-hd dataset modified from scanpy.read_visium.
 
    In addition to reading regular 10x output,
    this looks for the `spatial` folder and loads images,
