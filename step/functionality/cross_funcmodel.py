@@ -730,8 +730,6 @@ class CrossModalityNrmls(scMultiBatchNrmls):
 
         self.optimizer = torch.optim.Adam(self.mixer.parameters(), lr=lr)
 
-        self._fix_params()
-
         batched = batch_size is not None and n_glayers is None
         loaders = self.make_loaders(
             st_dataset,
@@ -743,6 +741,8 @@ class CrossModalityNrmls(scMultiBatchNrmls):
             ),
         )
         logger.info(st_dataset)
+
+        self._fix_params()
         self.train_batch(
             epochs=epochs, loaders=loaders, call_func=self._loss_mixer, writer=writer
         )  # type:ignore
