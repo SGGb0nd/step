@@ -159,7 +159,7 @@ Attributes
 
 
 
-.. py:class:: Geneformer(decoder_type='zinb', use_pe=True, use_smooth=False, use_skip=False, input_dim=2000, module_dim=30, decoder_input_dim=None, hidden_dim=256, n_modules=16, nhead=8, n_enc_layer=3, dec_norm='batch', variational=True, smoother='GCN', n_glayers=3, dec_hidden_dim=None, n_dec_hid_layers: int = 1, edge_clip=2, use_l_scale: bool = False, num_batches: int = 1)
+.. py:class:: Geneformer(decoder_type='zinb', use_pe=True, use_smooth=False, use_skip=False, input_dim=2000, module_dim=30, decoder_input_dim=None, hidden_dim=256, n_modules=16, nhead=8, n_enc_layer=3, dec_norm='batch', variational=True, smoother='GCN', n_glayers=3, dec_hidden_dim=None, n_dec_hid_layers: int = 1, edge_clip=2, use_l_scale: bool = False, num_batches: int = 1, activation: Literal[softplus, softmax] | None = None)
 
 
    Bases: :py:obj:`torch.nn.Module`

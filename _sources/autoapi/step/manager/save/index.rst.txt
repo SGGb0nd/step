@@ -17,7 +17,7 @@ Classes
 
 
 
-.. py:class:: Saver(class_name, path='.')
+.. py:class:: Saver(class_name, path: str | pathlib.Path = '.')
 
 
    Save the model and the dataset.

@@ -237,7 +237,7 @@ Functions
       :rtype: bool
 
 
-   .. py:method:: train_node_sampler(state, gloader, train_ind=None, valid_ind=None)
+   .. py:method:: train_node_sampler(state, gloader, dataset, train_ind=None, valid_ind=None)
 
       Trains the model with node sampler.
 
@@ -307,7 +307,7 @@ Functions
       :rtype: dict
 
 
-   .. py:method:: make_loaders(dataset: step.utils.dataset.BaseDataset | step.utils.dataset.MaskedDataset, batch_size: int, split_rate: float = 0.2, shuffle: bool = True, obs_key: Optional[str] = None, **kwargs)
+   .. py:method:: make_loaders(dataset: step.utils.dataset.BaseDataset | step.utils.dataset.MaskedDataset, batch_size: int, split_rate: float = 0.2, shuffle: bool = True, obs_key: str | None = None, **kwargs)
       :staticmethod:
 
       Create data loaders for training and validation datasets.

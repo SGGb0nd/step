@@ -31,6 +31,17 @@ Classes
 
       :type: Geneformer
 
+   .. py:method:: handle_input_tuple(input_tuple)
+
+      Handles the input tuple and calculates the loss.
+
+      :param input_tuple: A tuple containing the input data and the target data.
+      :type input_tuple: tuple
+
+      :returns: A dictionary containing the loss values.
+      :rtype: dict
+
+
 
 .. py:class:: scMultiBatchNrmls(num_batches=2, device=None, **kwargs)
 

@@ -19,6 +19,7 @@ Functions
    step.utils.misc.extract_selfattention_maps
    step.utils.misc.generate_adj
    step.utils.misc.aver_items_by_ct
+   step.utils.misc.read_visium_hd
 
 
 
@@ -68,5 +69,42 @@ Functions
 
    :returns: Anchors tensor or tuple of anchors tensor and list of cell types.
    :rtype: torch.Tensor or Tuple[torch.Tensor, List[str]]
+
+
+.. py:function:: read_visium_hd(path: pathlib.Path | str, genome: str | None = None, *, count_file: str = 'filtered_feature_bc_matrix.h5', library_id: str | None = None, load_images: bool | None = True, source_image_path: pathlib.Path | str | None = None) -> anndata.AnnData
+
+   Read 10x-Genomics-formatted visum-hd dataset.
+
+   In addition to reading regular 10x output,
+   this looks for the `spatial` folder and loads images,
+   coordinates and scale factors.
+   Based on the `Space Ranger output docs`_.
+
+   See :func:`~scanpy.pl.spatial` for a compatible plotting function.
+
+   .. _Space Ranger output docs: https://support.10xgenomics.com/spatial-gene-expression/software/pipelines/latest/output/overview
+
+   :param path: Path to directory for visium datafiles.
+   :param genome: Filter expression to genes within this genome.
+   :param count_file: Which file in the passed directory to use as the count file. Typically would be one of:
+                      'filtered_feature_bc_matrix.h5' or 'raw_feature_bc_matrix.h5'.
+   :param library_id: Identifier for the visium library. Can be modified when concatenating multiple adata objects.
+   :param source_image_path: Path to the high-resolution tissue image. Path will be included in
+                             `.uns["spatial"][library_id]["metadata"]["source_image_path"]`.
+
+   :returns: * *Annotated data matrix, where observations/cells are named by their*
+             * *barcode and variables/genes by gene name. Stores the following information*
+             * :attr:`~anndata.AnnData.X` -- The data matrix is stored
+             * :attr:`~anndata.AnnData.obs_names` -- Cell names
+             * :attr:`~anndata.AnnData.var_names` -- Gene names for a feature barcode matrix, probe names for a probe bc matrix
+             * :attr:`~anndata.AnnData.var`\ `['gene_ids']` -- Gene IDs
+             * :attr:`~anndata.AnnData.var`\ `['feature_types']` -- Feature types
+             * :attr:`~anndata.AnnData.obs`\ `[filtered_barcodes]` -- filtered barcodes if present in the matrix
+             * :attr:`~anndata.AnnData.var` -- Any additional metadata present in /matrix/features is read in.
+             * :attr:`~anndata.AnnData.uns`\ `['spatial']` -- Dict of spaceranger output files with 'library_id' as key
+             * :attr:`~anndata.AnnData.uns`\ `['spatial'][library_id]['images']` -- Dict of images (`'hires'` and `'lowres'`)
+             * :attr:`~anndata.AnnData.uns`\ `['spatial'][library_id]['scalefactors']` -- Scale factors for the spots
+             * :attr:`~anndata.AnnData.uns`\ `['spatial'][library_id]['metadata']` -- Files metadata: 'chemistry_description', 'software_version', 'source_image_path'
+             * :attr:`~anndata.AnnData.obsm`\ `['spatial']` -- Spatial spot coordinates, usable as `basis` by :func:`~scanpy.pl.embedding`.
 
 

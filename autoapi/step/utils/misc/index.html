@@ -288,6 +288,9 @@
 <tr class="row-even"><td><p><a class="reference internal" href="#step.utils.misc.aver_items_by_ct" title="step.utils.misc.aver_items_by_ct"><code class="xref py py-obj docutils literal notranslate"><span class="pre">aver_items_by_ct</span></code></a>(adata, cell_type_key, items[, ...])</p></td>
 <td><p>Generate anchors for each cell type based on the given data and transformation output.</p></td>
 </tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#step.utils.misc.read_visium_hd" title="step.utils.misc.read_visium_hd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read_visium_hd</span></code></a>(→ anndata.AnnData)</p></td>
+<td><p>Read 10x-Genomics-formatted visum-hd dataset.</p></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -352,6 +355,49 @@
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>torch.Tensor or Tuple[torch.Tensor, List[str]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="step.utils.misc.read_visium_hd">
+<span class="sig-name descname"><span class="pre">read_visium_hd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pathlib.Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">genome</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">count_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'filtered_feature_bc_matrix.h5'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">library_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load_images</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_image_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pathlib.Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">anndata.AnnData</span></span></span><a class="headerlink" href="#step.utils.misc.read_visium_hd" title="Link to this definition">#</a></dt>
+<dd><p>Read 10x-Genomics-formatted visum-hd dataset.</p>
+<p>In addition to reading regular 10x output,
+this looks for the <cite>spatial</cite> folder and loads images,
+coordinates and scale factors.
+Based on the <a class="reference external" href="https://support.10xgenomics.com/spatial-gene-expression/software/pipelines/latest/output/overview">Space Ranger output docs</a>.</p>
+<p>See <code class="xref py py-func docutils literal notranslate"><span class="pre">spatial()</span></code> for a compatible plotting function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> – Path to directory for visium datafiles.</p></li>
+<li><p><strong>genome</strong> – Filter expression to genes within this genome.</p></li>
+<li><p><strong>count_file</strong> – Which file in the passed directory to use as the count file. Typically would be one of:
+‘filtered_feature_bc_matrix.h5’ or ‘raw_feature_bc_matrix.h5’.</p></li>
+<li><p><strong>library_id</strong> – Identifier for the visium library. Can be modified when concatenating multiple adata objects.</p></li>
+<li><p><strong>source_image_path</strong> – Path to the high-resolution tissue image. Path will be included in
+<cite>.uns[“spatial”][library_id][“metadata”][“source_image_path”]</cite>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><em>Annotated data matrix, where observations/cells are named by their</em></p></li>
+<li><p><em>barcode and variables/genes by gene name. Stores the following information</em></p></li>
+<li><p><code class="xref py py-attr docutils literal notranslate"><span class="pre">X</span></code> – The data matrix is stored</p></li>
+<li><p><code class="xref py py-attr docutils literal notranslate"><span class="pre">obs_names</span></code> – Cell names</p></li>
+<li><p><code class="xref py py-attr docutils literal notranslate"><span class="pre">var_names</span></code> – Gene names for a feature barcode matrix, probe names for a probe bc matrix</p></li>
+<li><p><code class="xref py py-attr docutils literal notranslate"><span class="pre">var</span></code><cite>[‘gene_ids’]</cite> – Gene IDs</p></li>
+<li><p><code class="xref py py-attr docutils literal notranslate"><span class="pre">var</span></code><cite>[‘feature_types’]</cite> – Feature types</p></li>
+<li><p><code class="xref py py-attr docutils literal notranslate"><span class="pre">obs</span></code><cite>[filtered_barcodes]</cite> – filtered barcodes if present in the matrix</p></li>
+<li><p><code class="xref py py-attr docutils literal notranslate"><span class="pre">var</span></code> – Any additional metadata present in /matrix/features is read in.</p></li>
+<li><p><code class="xref py py-attr docutils literal notranslate"><span class="pre">uns</span></code><cite>[‘spatial’]</cite> – Dict of spaceranger output files with ‘library_id’ as key</p></li>
+<li><p><code class="xref py py-attr docutils literal notranslate"><span class="pre">uns</span></code><cite>[‘spatial’][library_id][‘images’]</cite> – Dict of images (<cite>‘hires’</cite> and <cite>‘lowres’</cite>)</p></li>
+<li><p><code class="xref py py-attr docutils literal notranslate"><span class="pre">uns</span></code><cite>[‘spatial’][library_id][‘scalefactors’]</cite> – Scale factors for the spots</p></li>
+<li><p><code class="xref py py-attr docutils literal notranslate"><span class="pre">uns</span></code><cite>[‘spatial’][library_id][‘metadata’]</cite> – Files metadata: ‘chemistry_description’, ‘software_version’, ‘source_image_path’</p></li>
+<li><p><code class="xref py py-attr docutils literal notranslate"><span class="pre">obsm</span></code><cite>[‘spatial’]</cite> – Spatial spot coordinates, usable as <cite>basis</cite> by <code class="xref py py-func docutils literal notranslate"><span class="pre">embedding()</span></code>.</p></li>
+</ul>
+</p>
 </dd>
 </dl>
 </dd></dl>
@@ -424,6 +470,7 @@
 <li><a class="reference internal" href="#step.utils.misc.extract_selfattention_maps"><code class="docutils literal notranslate"><span class="pre">extract_selfattention_maps()</span></code></a></li>
 <li><a class="reference internal" href="#step.utils.misc.generate_adj"><code class="docutils literal notranslate"><span class="pre">generate_adj()</span></code></a></li>
 <li><a class="reference internal" href="#step.utils.misc.aver_items_by_ct"><code class="docutils literal notranslate"><span class="pre">aver_items_by_ct()</span></code></a></li>
+<li><a class="reference internal" href="#step.utils.misc.read_visium_hd"><code class="docutils literal notranslate"><span class="pre">read_visium_hd()</span></code></a></li>
 </ul>
 </li>
 </ul>

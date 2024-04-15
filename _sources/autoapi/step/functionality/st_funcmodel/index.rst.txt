@@ -114,7 +114,7 @@ Classes
       :rtype: dict
 
 
-   .. py:method:: handle_ginput_tuple(input_tuple, ind, step=None)
+   .. py:method:: handle_ginput_tuple(input_tuple, dataset, ind, step=None)
 
       Handles the input tuple for graph data and performs necessary operations.
 
