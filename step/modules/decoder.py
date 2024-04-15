@@ -114,11 +114,14 @@ class ProbDecoder(nn.Module):
         else:
             self.get_px_r = lambda _: self.px_r
 
-        if use_l_scale and num_batches > 1:
+        if use_l_scale:
             self.l_scale = nn.Parameter(torch.randn(num_batches, 1))
-            self.get_l_scale = lambda batch_label: 1 + F.sigmoid(
-                self.l_scale[batch_label]
-            )
+            if num_batches > 1:
+                self.get_l_scale = lambda batch_label: 1 + F.sigmoid(
+                    self.l_scale[batch_label]
+                )
+            else:
+                self.get_l_scale = lambda _: 1 + F.sigmoid(self.l_scale)
         else:
             self.get_l_scale = lambda _: 1
 
