@@ -109,7 +109,6 @@ class NrmlsBC(Geneformer):
         super().__init__(num_batches=num_model_batches, use_l_scale=use_l_scale, **kwargs)
         self.num_batches = num_batches
         self.batch_emb_dim = batch_emb_dim
-        self.smoother = None
         self.batch_embedding = nn.Parameter(
             torch.randn(num_batches, self.batch_emb_dim)
         )  # type:ignore
@@ -328,8 +327,8 @@ class NrmlsBC(Geneformer):
             state_dict = self.state_dict()
             if 'anchors' in state_dict:
                 self.init_anchor(state_dict['anchors'].shape[0])
-            if hasattr(self, 'smoother'):
-                self.init_smoother_with_builtin()
+            # if hasattr(self, 'smoother'):
+            #     self.init_smoother_with_builtin()
             copied_model.load_state_dict(state_dict)
         return copied_model
 

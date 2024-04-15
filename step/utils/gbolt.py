@@ -56,10 +56,13 @@ class MultiGraphsAllNodesSampler(dgl.dataloading.SAINTSampler):
             if self.split_ratio < 1.0:
                 n_nodes = int(graph.number_of_nodes() * self.split_ratio)
                 sampled_nodes = self._single_graph_node_sampler(graph, n_nodes)
-            else:
+            elif self.split_ratio == 1.0:
                 sampled_nodes = torch.arange(
                     graph.number_of_nodes(), dtype=torch.long
                 )
+            else:
+                assert isinstance(self.split_ratio, int), "Get integer split ratio, deemed as number of nodes"
+                sampled_nodes = self._single_graph_node_sampler(graph, self.split_ratio)
             sampled_node_ids.append(
                 sampled_nodes + offset
             )  # Adjust node IDs based on offset

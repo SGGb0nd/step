@@ -196,7 +196,6 @@ class Trainer(object):
                     {"params": self.model.readout.parameters(), "lr": tune_lr},
                     {"params": self.model.decoder.parameters(), "lr": tune_lr},
                     {"params": self.model.cls_token, "lr": tune_lr},
-                    {"params": self.model.px_r, "lr": tune_lr},
                 ]
             )
             if getattr(self, "_num_batches", 1) > 1 and tune_batch_embedding:
@@ -503,7 +502,7 @@ class Trainer(object):
         del loss_dict
 
     @train_loop_formatter
-    def train_node_sampler(self, state, gloader, train_ind=None, valid_ind=None):
+    def train_node_sampler(self, state, gloader, dataset, train_ind=None, valid_ind=None):
         """Trains the model with node sampler.
 
         Args:
@@ -520,7 +519,7 @@ class Trainer(object):
             for i, ginput_tuple in tgloader:
                 cur_step = i + 1
                 loss_dict = self.handle_ginput_tuple(
-                    ginput_tuple, train_ind, step=cur_step
+                    ginput_tuple, dataset, train_ind, step=cur_step
                 )
                 graph_ids = loss_dict.pop("graph_ids", None)
                 self.update_model_params(loss_dict, i)
@@ -641,7 +640,7 @@ class Trainer(object):
         self.model.eval()
         if call_func is None:
             call_func = self.loss
-        total_loss_dict = call_func(X.cuda(), ind=ind)
+        total_loss_dict = call_func(X.to(self.device), ind=ind)
         total_loss_dict = {f"val_{k}": v for k, v in total_loss_dict.items()}
         return total_loss_dict
 
@@ -673,7 +672,7 @@ class Trainer(object):
         batch_size: int,
         split_rate: float = 0.2,
         shuffle: bool = True,
-        obs_key: Optional[str] = None,
+        obs_key: str | None = None,
         **kwargs,
     ):
         """Create data loaders for training and validation datasets.
@@ -691,7 +690,8 @@ class Trainer(object):
 
         train_loader, valid_loader = None, None
         train_ds = dataset
-        if obs_key == getattr(dataset, "class_key", -1):
+        if (class_key := getattr(dataset, "class_key", None)) is not None and class_key == obs_key:
+            logger.info(f"Found class key: {class_key}, setting mode to multi_batches_with_ct")
             mode = "multi_batches_with_ct"
         else:
             mode = dataset.mode

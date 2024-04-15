@@ -15,7 +15,16 @@ ch = logging.StreamHandler()
 ch.setLevel(logging.INFO)
 
 # Create formatter and add it to the handlers
-formatter = logging.Formatter('%(message)s')
+
+
+class CustomFormatter(logging.Formatter):
+    def format(self, record):
+        if record.levelno != logging.INFO:
+            record.msg = f"{record.levelname}: {record.msg}"
+        return super().format(record)
+
+
+formatter = CustomFormatter("%(message)s")
 ch.setFormatter(formatter)
 
 # Add the handlers to the logger

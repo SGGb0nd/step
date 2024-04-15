@@ -1,4 +1,5 @@
 import math
+from typing import Literal
 
 import torch
 import torch.nn.functional as F
@@ -31,6 +32,7 @@ class ProbDecoder(nn.Module):
         use_skip=False,
         num_batches: int = 1,
         use_l_scale: bool = False,
+        activation: Literal["softplus", "softmax"] | None = None,
     ):
         """Initialize the ProbDecoder.
 
@@ -58,6 +60,7 @@ class ProbDecoder(nn.Module):
             use_skip=use_skip,
             use_l_scale=use_l_scale,
             num_batches=num_batches,
+            activation=activation,
         )
         skip_dim = 0 if not use_skip else skip_dim
 
@@ -98,7 +101,7 @@ class ProbDecoder(nn.Module):
             hidden_dim = hidden_dim * (2 ** (n_hidden_layers - 1))
         self.px_scale_decoder = nn.Sequential(
             nn.Linear(hidden_dim, output_dim),
-            nn.Softplus() if norm != "batch" else nn.Softmax(dim=-1),
+            _get_activation(activation, norm),
         )
         self.px_dropout_decoder = (
             nn.Linear(
@@ -195,3 +198,14 @@ def _get_norm_layer(norm, dim):
     else:
         norm_layer = nn.Identity()
     return norm_layer
+
+
+def _get_activation(activation, norm):
+    if activation == "softplus":
+        return nn.Softplus()
+    elif activation == "softmax":
+        return nn.Softmax(dim=-1)
+    else:
+        if norm == "batch":
+            return nn.Softmax(dim=-1)
+        return nn.Softplus()

@@ -108,16 +108,17 @@ class stSmoother(FunctionalBase):
             if batch_key is None:
                 batch_key = dataset.batch_key
             for batch in adata.obs[batch_key].cat.categories:
+                logger.info(f"Constructing graph for batch {batch}")
                 index = indcies[adata.obs[batch_key] == batch]
                 _adata = adata[index]
                 g = self._gener_graph(_adata)
-                g.ndata["feat"] = dataset.get(batch, "gene_expr")
-                g.ndata["batch_label"] = dataset.get(batch, "batch_label")
+                g.ndata["node_ids"] = torch.from_numpy(dataset.get(batch, attr=None))
                 graphs.append(g)
             batched_graph = dgl.batch(graphs)
         else:
+            logger.info("Constructing graph for batch")
             batched_graph = self._gener_graph(adata)
-            batched_graph.ndata["feat"] = dataset.gene_expr
+            batched_graph.ndata["node_ids"] = torch.arange(adata.n_obs)
 
         if self._num_batches > 1:
             if not self.e2e:
@@ -251,6 +252,7 @@ class stSmoother(FunctionalBase):
         else:
             X = input_tuple
             batch_label = None
+
         batch_rep = self.get_batch_ohenc(batch_label, device=self.device)
         loss_dict = self._loss_no_g(
             X.to(self.device),
@@ -260,7 +262,7 @@ class stSmoother(FunctionalBase):
         )
         return loss_dict
 
-    def handle_ginput_tuple(self, input_tuple, ind, step=None):
+    def handle_ginput_tuple(self, input_tuple, dataset, ind, step=None):
         """
         Handles the input tuple for graph data and performs necessary operations.
 
@@ -274,29 +276,27 @@ class stSmoother(FunctionalBase):
         """
 
         g = input_tuple
+        node_ids = g.ndata.pop("node_ids")
         g = g.to(self.device)
-        x_gd = g.ndata["feat"]
-        ind = g.ndata.get("ind", None)
-        pos_enc = g.ndata.get("pos_enc", None)
-        if pos_enc is not None:
-            g.ndata["pos_enc"] = pos_enc.to(self.device)
-        batch_label = g.ndata.get("batch_label", None)
+        x_gd = dataset.gene_expr[node_ids].to(self.device)
+
+        batch_label = None
         batch_rep = None
         if self._num_batches > 1:
-            batch_rep = F.one_hot(
-                batch_label, num_classes=self._num_batches).float()
-            batch_rep = batch_rep.to(self.device)
+            batch_label = dataset.batch_label[node_ids]
+            batch_rep = self.get_batch_ohenc(batch_label, device=self.device)
         loss_dict = self.loss_gbatch(
             g=g,
             x_gd=x_gd.to(self.device),
             batch_rep=batch_rep,
-            ind=ind,
+            ind=None,
             step=step,
         )
         loss_dict["graph_ids"] = torch.unique(
             batch_label
         ).cpu().numpy().tolist() if batch_label is not None else None
         self.model.g = self.model.g.to("cpu")
+        g = g.to("cpu")
         return loss_dict
 
     @torch.no_grad()
@@ -315,8 +315,7 @@ class stSmoother(FunctionalBase):
         """
 
         self.model.eval()
-        if getattr(self.model, "device", None) != self.device:
-            self.model.to(self.device)
+        self.model.to(self.device)
         self.model._smooth = smooth
         adata = dataset.adata
         if self._num_batches > 1:
@@ -339,6 +338,7 @@ class stSmoother(FunctionalBase):
                 ).cpu()
             if smooth:
                 self.model.g = self.model.g.to("cpu")
+                g = g.to("cpu")
             if as_numpy:
                 return rep.numpy()
             return rep
@@ -349,6 +349,13 @@ class stSmoother(FunctionalBase):
         rep = super().embed(dataset, tsfmr_out=tsfmr_out, as_numpy=as_numpy)
         if smooth:
             self.model.g = self.model.g.to("cpu")
+            g = g.to("cpu")
+
+        for k, v in locals().items():
+            if isinstance(v, torch.Tensor) and k != "rep":
+                locals()[k] = None
+        self.model.to("cpu")
+        torch.cuda.empty_cache()
         return rep
 
     @torch.no_grad()
@@ -443,14 +450,15 @@ class stSmoother(FunctionalBase):
         setattr(self, "_kl_contrast", kl_contrast)
         self.set_kl_cutoff(kl_cutoff)
         setattr(self, "contrast", contrast)
-        if getattr(self.model, "device", None) != self.device:
-            self.model.to(self.device)
+        self.model.to(self.device)
         if not e2e:
             logger.info("Training with 2 stages pattern: 1/2")
             self.model._smooth = False
             batch_size = len(dataset) if batch_size is None else batch_size
             loaders = self.make_loaders(dataset, batch_size, split_rate)
             self.train_batch(epochs=epochs, loaders=loaders)  # type:ignore
+            unsmoothed_rep = self.embed(dataset)
+            adata.obsm["X_unsmoothed"] = unsmoothed_rep
 
             self.init_optimizer(
                 stage=2,
@@ -478,6 +486,7 @@ class stSmoother(FunctionalBase):
                 self.train_node_sampler(
                     epochs=1,  # type:ignore
                     gloader=gloader,
+                    dataset=dataset,
                     writer=writer_gcn,
                 )
                 rep = self.gembed(dataset)
@@ -490,7 +499,10 @@ class stSmoother(FunctionalBase):
                 )
                 rep = self.gembed(dataset)
         else:
-            logger.info("Training graph with single batch")
+            if e2e:
+                logger.info("Training graph with single batch")
+            else:
+                logger.info("Training with 2 stages pattern: 2/2")
             if n_samples is not None:
                 gloader = self.from_spatial_graph(
                     adata=adata,
@@ -503,9 +515,9 @@ class stSmoother(FunctionalBase):
                     epochs=1,  # type:ignore
                     gloader=gloader,
                     writer=writer_gcn,
+                    dataset=dataset,
                 )
             else:
-                logger.info("Training with 2 stages pattern: 2/2")
                 self.train(
                     epochs=smooth_epochs,  # type:ignore
                     X=dataset.gene_expr,
@@ -514,10 +526,7 @@ class stSmoother(FunctionalBase):
             rep = self.gembed(dataset)
         if key_added is not None:
             adata.obsm[key_added] = rep
-            if not e2e:
-                unsmoothed_rep = self.embed(dataset)
-                adata.obsm["X_unsmoothed"] = unsmoothed_rep
-        self.model.cpu()
+        self.model.to("cpu")
 
     def reset_model(self):
         super().reset_model()

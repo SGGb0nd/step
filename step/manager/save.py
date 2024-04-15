@@ -1,5 +1,6 @@
 import json
 import os
+from pathlib import Path
 
 import torch
 from anndata import AnnData
@@ -19,11 +20,11 @@ class Saver:
         dataset (BaseDataset): The dataset object.
     """
 
-    def __init__(self, class_name, path='.'):
+    def __init__(self, class_name, path: str | Path = '.'):
         """Initialize the Saver.
 
         Args:
-            path (str): The path to save the model and the dataset.
+            path (str | Path): The path to save the model and the dataset.
 
         """
         self.class_name = class_name

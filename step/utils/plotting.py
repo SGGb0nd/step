@@ -1,3 +1,4 @@
+from pathlib import Path
 from typing import Sequence
 
 import matplotlib as mpl
@@ -44,7 +45,8 @@ def spatial_plot(
         axes = [None] * len(batches)  # type:ignore
 
     save = kwargs.pop("save", False)
-    is_save_path = isinstance(save, str)
+    is_save_path = isinstance(save, str) or isinstance(save, Path)
+    is_save_list = isinstance(save, list)
     if is_save_path:
         save = save.lstrip("_")
     else:
@@ -56,6 +58,7 @@ def spatial_plot(
         title = kwargs.pop("title", [])
         if title and len(title) == len(batches) * len(feats_to_plot):  # type:ignore
             title_prefix = False
+            title = np.asarray(title).reshape(len(batches), len(feats_to_plot))  # type:ignore
         else:
             logger.warning("Title not provided, or length does not match the number of batches. Using feature names as title.")
             title = feats_to_plot
@@ -65,15 +68,19 @@ def spatial_plot(
             _adata = adata[adata.obs[batch_key] == batch]
             if is_save_path:
                 kwargs["save"] = f"_{batch}_{save}"
+            elif is_save_list:
+                kwargs["save"] = save[i]
 
             if title_prefix:
-                title = [f"{batch} " + _title for _title in feats_to_plot]  # type:ignore
+                title_ = [f"{batch} " + _title for _title in feats_to_plot]  # type:ignore
+            else:
+                title_ = title[i]
 
             kwargs['ax'] = axes[i]
             if with_images:
-                ax = sc.pl.spatial(_adata, library_id=batch, title=title, **kwargs)  # type:ignore
+                ax = sc.pl.spatial(_adata, library_id=batch, title=title_, **kwargs)  # type:ignore
             else:
-                ax = sc.pl.embedding(_adata, basis=obsm_key, title=title, **kwargs)
+                ax = sc.pl.embedding(_adata, basis=obsm_key, title=title_, **kwargs)
             return_axes.append(ax)
         return return_axes
     else:

@@ -23,6 +23,10 @@ class scSingleBatch(FunctionalBase):
         model = Geneformer(**kwargs)
         super().__init__(model, device=device)
 
+    def handle_input_tuple(self, input_tuple):
+        X = input_tuple
+        return self.loss(X.to(self.device))
+
 
 class scMultiBatchNrmls(FunctionalBase):
     """scMultiBatchNrmls model for multi-batch scRNA-seq data.

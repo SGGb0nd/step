@@ -161,7 +161,7 @@ class CrossModalityNrmls(scMultiBatchNrmls):
             self.st_decoder = self.model.decoder
             setattr(self, "st_decoder_type", self.model.decoder.args["dist"])
             setattr(self, "single_st", single_st)
-        self._get_px_r = self.st_decoder.get_px_r
+        self._get_px_r = self.model.get_px_r
 
     def _st_decode(self, cls_rep, x_gd, batch_rep):
         """
@@ -730,6 +730,8 @@ class CrossModalityNrmls(scMultiBatchNrmls):
 
         self.optimizer = torch.optim.Adam(self.mixer.parameters(), lr=lr)
 
+        self._fix_params()
+
         batched = batch_size is not None and n_glayers is None
         loaders = self.make_loaders(
             st_dataset,
@@ -741,8 +743,6 @@ class CrossModalityNrmls(scMultiBatchNrmls):
             ),
         )
         logger.info(st_dataset)
-
-        self._fix_params()
         self.train_batch(
             epochs=epochs, loaders=loaders, call_func=self._loss_mixer, writer=writer
         )  # type:ignore

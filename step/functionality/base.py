@@ -112,5 +112,9 @@ class FunctionalBase(ModelOps, Trainer):
         smoother_keys = [key for key in state_dict.keys() if re.match(r'^smoother', key)]
         if smoother_keys:
             self.model.init_smoother(n_glayers=self.model.gargs['n_layers'])
+        if 'px_r' in state_dict:
+            state_dict["decoder.px_r"] = state_dict.pop("px_r")
+        if 'l_scale' in state_dict:
+            state_dict["decoder.l_scale"] = state_dict.pop("l_scale")
         self.model.load_state_dict(state_dict)
         logger.info("Backbone model loaded.")

@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Literal, Optional
 
 import dgl
 import torch
@@ -230,6 +230,7 @@ class Geneformer(nn.Module):
         edge_clip=2,
         use_l_scale: bool = False,
         num_batches: int = 1,
+        activation: Literal["softplus", "softmax"] | None = None,
     ):
         """Initializes the Geneformer model.
 
@@ -298,6 +299,14 @@ class Geneformer(nn.Module):
         assert decoder_type in ["nb", "zinb", "poisson"]
         dec_hidden_dim = hidden_dim if dec_hidden_dim is None else dec_hidden_dim
 
+        # if n_glayers is not None:
+        #     self.smoother = GCN(
+        #         in_feats=hidden_dim,
+        #         h_feats=hidden_dim,
+        #         with_edge=False,
+        #         n_layers=n_glayers,
+        #     )
+
         self.decoder = ProbDecoder(
             input_dim=decoder_input_dim,
             hidden_dim=dec_hidden_dim,
@@ -309,6 +318,7 @@ class Geneformer(nn.Module):
             dist=decoder_type,
             use_l_scale=use_l_scale,
             num_batches=num_batches,
+            activation=activation,
         )
         self.decoder_type = decoder_type
         self._smooth = use_smooth
@@ -329,6 +339,7 @@ class Geneformer(nn.Module):
             dec_norm=dec_norm,
             decoder_input_dim=decoder_input_dim,
             use_skip=use_skip,
+            n_glayers=n_glayers,
         )
         self.gargs = dict(
             in_feats=hidden_dim,
@@ -341,8 +352,7 @@ class Geneformer(nn.Module):
         return self.decoder.get_px_r(batch_label)
 
     def init_smoother_with_builtin(self):
-        if self.smoother_type == "GCN":
-            self.smoother = GCN(**self.gargs)
+        self.smoother = GCN(**self.gargs)
         return True
 
     def init_smoother(

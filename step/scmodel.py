@@ -141,6 +141,7 @@ class scModel:
                 n_modules=n_modules,
                 decoder_type=decoder_type,
                 device=device,
+                n_glayers=None,
                 **kwargs,
             )
         else:
@@ -153,6 +154,7 @@ class scModel:
                 n_modules=n_modules,
                 decoder_type=decoder_type,
                 dispersion=dispersion,
+                n_glayers=None,
                 device=device,
                 **kwargs,
             )
