@@ -125,7 +125,14 @@ Classes
       :type save: bool
 
 
-   .. py:method:: save(path: str = '.')
+   .. py:method:: save(path: str = '.', save_adata: bool = False)
+
+      Save the model and the data.
+
+      :param path: The path to save the model and the dataset.
+      :type path: str
+      :param save_adata: Whether to save the adata object. Default is False.
+      :type save_adata: bool
 
 
    .. py:method:: load(path: str | pathlib.Path, sc_adata: str | anndata.AnnData | None | pathlib.Path = None, st_adata: str | anndata.AnnData | None | pathlib.Path = None, config_name: str = 'config.json', model_name: str = 'model.pth', st_decoder_name: str = 'st_decoder.pth', mixer_name: str = 'mixer.pth')

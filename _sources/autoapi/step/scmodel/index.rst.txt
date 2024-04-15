@@ -43,7 +43,7 @@ Classes
    .. py:method:: load_checkpoint(model_checkpoint, functional: Union[step.functionality.sc_funcmodel.scSingleBatch, step.functionality.sc_funcmodel.scMultiBatchNrmls])
 
 
-   .. py:method:: save(path: Optional[str] = None)
+   .. py:method:: save(path: str | pathlib.Path = '.')
 
 
    .. py:method:: load(path: str, adata: Optional[anndata.AnnData] = None, filepath: Optional[str] = None, config_name: str = 'config.json', model_name: str = 'model.pth')
