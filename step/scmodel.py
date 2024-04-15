@@ -1,4 +1,5 @@
 import inspect
+from pathlib import Path
 from typing import Optional, Sequence, Union
 
 from anndata import AnnData
@@ -206,7 +207,7 @@ class scModel:
     def adata(self):
         return self.dataset.adata
 
-    def save(self, path: Optional[str] = None):
+    def save(self, path: str | Path = "."):
         from step.manager.save import Saver
         saver = Saver.get_instance(self.__class__.__name__)
         """Save the model and the data.

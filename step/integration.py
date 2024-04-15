@@ -307,19 +307,25 @@ class crossModel:
         if save:
             fig.savefig(f"{obsm_key}_single_domain_summary.pdf", bbox_inches="tight")
 
-    def save(self, path: str = '.'):
-        from step.manager.save import Saver
-        saver = Saver.get_instance(self.__class__.__name__)
+    def save(self, path: str = '.', save_adata: bool = False):
         """Save the model and the data.
 
         Args:
             path (str): The path to save the model and the dataset.
+            save_adata (bool): Whether to save the adata object. Default is False.
         """
+        from step.manager.save import Saver
+        saver = Saver.get_instance(self.__class__.__name__)
         saver.path = path
-        config = saver.save(self._functional, self.adata, self.dataset)
+        saver.save_adata = save_adata
+        config = saver.save(self._functional, 
+                            self.adata[self.adata.obs['modality'] == 'SC'], 
+                            self.dataset)
         if saver.save_adata:
             self.dataset.st_adata.write_h5ad(f"{path}/st_adata.h5ad")
             config["st_adata_path"] = f"{path}/st_adata.h5ad"
+            with json.open(f"{path}/config.json", "w") as f:
+                json.dump(config, f)
 
     @classmethod
     def load(
