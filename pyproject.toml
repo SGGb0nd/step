@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "step-kit"
-version = "0.2.0"
+version = "0.2.1"
 description = "STEP, an acronym for Spatial Transcriptomics Embedding Procedure, is a deep learning-based tool for the analysis of single-cell RNA (scRNA-seq) and spatially resolved transcriptomics (SRT) data. STEP introduces a unified approach to process and analyze multiple samples of scRNA-seq data as well as align several sections of SRT data, disregarding location relationships. Furthermore, STEP conducts integrative analysis across different modalities like scRNA-seq and SRT."
 authors = ["SGGb0nd <lilounan1997@gmail.com>"]
 license = "Apache-2.0"
