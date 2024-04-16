@@ -14,7 +14,12 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha }}
 
       - name: Pull submodules
-        run: git submodule update --init --recursive
+        run: |
+          git submodule update --init --recursive
+          cd docs/notebooks
+          git checkout main
+          git pull origin main
+          cd ../..
 
       - name: Set up Poetry
         run: |
