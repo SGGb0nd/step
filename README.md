@@ -1,5 +1,6 @@
 # STEP: Spatial Transcriptomics Embedding Procedure
 [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/SGGb0nd/step-dev/CI)](https://github.com/SGGb0nd/step-dev/actions)
+[![PyPI version](https://badge.fury.io/py/step-kit.svg)](https://badge.fury.io/py/step-kit)
 
 ![image](http://docs.3s540lab.cloud/images/STEP_fig_1a.webp)
 ![image](http://docs.3s540lab.cloud/images/STEP_fig_1b.webp)
