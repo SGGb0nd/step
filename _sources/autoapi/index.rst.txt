@@ -1,3 +1,10 @@
+Installation
+============
+
+.. code-block:: bash
+
+    pip install step-kit
+
 Tutorials
 =========
 This page contains tutorials on how to use the STEP.
@@ -15,7 +22,7 @@ This page contains tutorials on how to use the STEP.
 API Reference
 =============
 
-This page contains auto-generated API reference documentation [#f1]_.
+This page contains auto-generated API reference documentation.
 
 .. toctree::
    :titlesonly:
