@@ -147,7 +147,7 @@ Classes
       :type beta2: float
 
 
-   .. py:method:: generate_domains(adata: anndata.AnnData, dataset: step.utils.dataset.CrossDataset, decoder_type='zinb', use_rep=None, split_rate=0.2, epochs: int = 1, smooth_epochs=200, batch_size: int = 1, beta: Optional[float] = None, n_dec_layers: int = 2, lr=0.001, tune_lr: Optional[float] = None, n_glayers=2, dec_norm='batch', key_added: str = 'X_smoothed', use_st_decoder=False, graph_batch_size=2, kl_cutoff=None, logging=False)
+   .. py:method:: generate_domains(adata: anndata.AnnData, dataset: step.utils.dataset.CrossDataset, decoder_type='zinb', use_rep=None, split_rate=0.2, epochs: int = 1, smooth_epochs=200, batch_size: int = 1, beta: Optional[float] = None, n_dec_layers: int = 2, lr=0.001, tune_lr: Optional[float] = None, n_glayers=2, dec_norm='batch', key_added: str = 'X_smoothed', use_st_decoder=False, graph_batch_size=2, kl_cutoff=None, logging=False, **kwargs)
 
       Generates domains for the given dataset using the specified parameters.
 
