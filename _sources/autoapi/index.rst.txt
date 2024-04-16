@@ -17,7 +17,8 @@ This page contains tutorials on how to use the STEP.
    ../../notebooks/Human_Lymph_Node
    ../../notebooks/MERFISH
    ../../notebooks/scRNA-seq
-
+   ../../notebooks/human_colorectal_cancer
+   ../../notebooks/mouse_small_intestine
 
 API Reference
 =============
