@@ -5,6 +5,9 @@ description = "STEP, an acronym for Spatial Transcriptomics Embedding Procedure,
 authors = ["SGGb0nd <lilounan1997@gmail.com>"]
 license = "Apache-2.0"
 readme = "README.md"
+repository = "https://github.com/SGGb0nd/step"
+documentation = "https://sggb0nd.github.io/step/"
+keywords = ["spatial transcriptomics", "single-cell RNA-seq", "deep learning", "scRNA-seq", "SRT", "step", "STEP"]
 packages = [
     {include = "step"}
 ]
