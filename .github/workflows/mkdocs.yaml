@@ -16,10 +16,7 @@ jobs:
       - name: Pull submodules
         run: |
           git submodule update --init --recursive
-          cd docs/notebooks
-          git checkout main
-          git pull origin main
-          cd ../..
+          git submodule update --remote
 
       - name: Set up Poetry
         run: |
