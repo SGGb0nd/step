@@ -125,7 +125,7 @@ class CrossModalityNrmls(scMultiBatchNrmls):
         dec_norm="batch",
         use_st_decoder=False,
         st_batches=None,
-        activation: Literal["softmax", "softplus"] = "softplus",
+        activation: Literal['softmax', 'softplus'] = 'softplus',
         use_l_scale=True,
     ):
         """
@@ -143,13 +143,14 @@ class CrossModalityNrmls(scMultiBatchNrmls):
         """
 
         if use_st_decoder:
-            args: dict = self.model.decoder.args  # type:ignore
+            args: dict = dict(**self.model.decoder.args)  # type:ignore
             args["use_skip"] = False
             args["n_hidden_layers"] = n_dec_layers
             args["norm"] = dec_norm
             args["dist"] = decoder_type
             args["activation"] = activation
             args["use_l_scale"] = use_l_scale
+            args["num_batches"] = len(st_batches) if st_batches is not None else 1
             self.st_decoder = ProbDecoder(**args,)
             setattr(self, "st_decoder_type", decoder_type)
             setattr(self, "single_st", single_st)
@@ -501,6 +502,7 @@ class CrossModalityNrmls(scMultiBatchNrmls):
         graph_batch_size=2,
         kl_cutoff=None,
         logging=False,
+        **kwargs,
     ):
         """Generates domains for the given dataset using the specified parameters.
 
@@ -559,6 +561,7 @@ class CrossModalityNrmls(scMultiBatchNrmls):
             single_st=single_st,
             dec_norm=dec_norm,
             st_batches=st_batches,
+            **kwargs,
         )
 
         self.model.to(self.device)
@@ -711,7 +714,7 @@ class CrossModalityNrmls(scMultiBatchNrmls):
                 single_st=single_st,
             )
 
-        _get_px_r, st_decoder = self._set_st_counts(adata, dataset, library_size, use_raw, batch_used)
+        _get_px_r, st_decoder, st_decoder_type = self._set_st_counts(adata, dataset, library_size, use_raw, batch_used)
 
         if cell_type_key is None:
             cell_type_key = dataset.class_key
@@ -768,6 +771,7 @@ class CrossModalityNrmls(scMultiBatchNrmls):
         dataset.switch_layer(dataset.layer_key)
         self._get_px_r = _get_px_r
         self.st_decoder = st_decoder
+        self.st_decoder_type = st_decoder_type
         self.model.to('cpu')
         self.st_decoder.to('cpu')
         self.mixer.to('cpu')
@@ -832,14 +836,16 @@ class CrossModalityNrmls(scMultiBatchNrmls):
     def _set_st_counts(self, adata, dataset, library_size, use_raw, batch_used):
         _get_px_r = self._get_px_r
         st_decoder = self.st_decoder
+        st_decoder_type = self.st_decoder_type
         if use_raw is False:
             logger.info("Using corrected counts for ST data")
             self.regress_out(adata, dataset, library_size=library_size, batch_used=batch_used)
             self.st_decoder = self.model.decoder
+            self.st_decoder_type = self.model.decoder_type
             dataset.switch_layer("corrected_counts")
         else:
             logger.info("Using raw counts for ST data")
-        return _get_px_r, st_decoder
+        return _get_px_r, st_decoder, st_decoder_type
 
     def nnls_deconv(
         self,

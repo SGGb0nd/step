@@ -105,7 +105,7 @@ class ProbDecoder(nn.Module):
         )
         self.px_dropout_decoder = (
             nn.Linear(
-                hidden_dim, output_dim) if dist == "zinb" else lambda _: None
+                hidden_dim, output_dim) if dist == "zinb" else (lambda _: None)
         )
         self.px_r = nn.Parameter(torch.randn(num_batches, output_dim).squeeze(0))
 
@@ -115,13 +115,13 @@ class ProbDecoder(nn.Module):
             self.get_px_r = lambda _: self.px_r
 
         if use_l_scale:
-            self.l_scale = nn.Parameter(torch.randn(num_batches, 1))
+            self.l_scale = nn.Parameter(torch.randn(num_batches, 1).squeeze(0))
             if num_batches > 1:
                 self.get_l_scale = lambda batch_label: 1 + F.sigmoid(
                     self.l_scale[batch_label]
                 )
             else:
-                self.get_l_scale = lambda _: 1 + F.sigmoid(self.l_scale)
+                self.get_l_scale = (lambda _: 1 + F.sigmoid(self.l_scale))
         else:
             self.get_l_scale = lambda _: 1
 

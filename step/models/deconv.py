@@ -192,6 +192,7 @@ class Mixer(nn.Module):
 
         self.domain_wise = domain_wise
         self.hyperparams = kwargs
+        self.T = kwargs.get("T", math.sqrt(input_dim))
         self.args = dict(
             hidden_dim=hidden_dim,
             solver=solver,
@@ -358,10 +359,8 @@ class Mixer(nn.Module):
             torch.Tensor: The consistency loss.
 
         """
-        # top_n_anchors = F.normalize(top_n_anchors, dim=-1)
-        # anchors = F.normalize(anchors, dim=-1)
         logits = torch.einsum("bd,nd->bn", top_n_anchors, anchors)
-        logits = logits / math.sqrt(anchors.shape[-1])
+        logits = logits / self.T
         labels = indices
         loss = F.cross_entropy(logits, labels)
         return loss
