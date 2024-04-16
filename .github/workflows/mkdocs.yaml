@@ -13,6 +13,11 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.sha }}
 
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.SUB_MODULE_KEY }}
+
       - name: Pull submodules
         run: |
           git submodule update --init --recursive
