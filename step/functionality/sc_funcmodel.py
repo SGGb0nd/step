@@ -16,7 +16,7 @@ class scSingleBatch(FunctionalBase):
     """scSingleBatch model for scRNA-seq data.
 
     Attributes:
-        model (Geneformer): The model used for training.
+        model (TranscriptFormer): The model used for training.
     """
 
     def __init__(self, device=None, **kwargs):

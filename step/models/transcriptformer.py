@@ -60,7 +60,7 @@ class Linear2D(nn.Module):
 
 
 class Readout(nn.Module):
-    """Readout module for the Geneformer model.
+    """Readout module for the TranscriptFormer model.
 
     Attributes:
         net (nn.Sequential): The sequential neural network.
@@ -186,13 +186,13 @@ class GeneModuler(nn.Module):
 
 
 class TranscriptFormer(nn.Module):
-    """Geneformer is a gene expression model based on the Transformer architecture.
+    """TranscriptFormer is a gene expression model based on the Transformer architecture.
 
     Attributes:
-        input_dim (int): The input dimension of the Geneformer model.
-        module_dim (int): The module dimension of the Geneformer model.
-        hidden_dim (int): The hidden dimension of the Geneformer model.
-        n_modules (int): The number of modules of the Geneformer model.
+        input_dim (int): The input dimension of the TranscriptFormer model.
+        module_dim (int): The module dimension of the TranscriptFormer model.
+        hidden_dim (int): The hidden dimension of the TranscriptFormer model.
+        n_modules (int): The number of modules of the TranscriptFormer model.
         moduler (GeneModuler): The GeneModuler object.
         expand (nn.Linear): The linear layer for expanding the module.
         readout (Readout): The Readout object.
@@ -204,7 +204,7 @@ class TranscriptFormer(nn.Module):
         _smooth (bool): Whether to use smoothing.
         smoother (GCN): The GCN object for smoothing.
         smoother_type (str): The type of the smoother.
-        args (dict): The arguments for the Geneformer model.
+        args (dict): The arguments for the TranscriptFormer model.
         gargs (dict): The arguments for the GCN object.
     """
 
@@ -232,7 +232,7 @@ class TranscriptFormer(nn.Module):
         num_batches: int = 1,
         activation: Literal["softplus", "softmax"] | None = None,
     ):
-        """Initializes the Geneformer model.
+        """Initializes the TranscriptFormer model.
 
         Args:
             grids (None, optional): Grids. Defaults to None.

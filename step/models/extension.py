@@ -75,14 +75,14 @@ class BatchAwareLayerNorm(nn.Module):
 
 
 class NrmlsBC(TranscriptFormer):
-    """NrmlsBC is an extension of the Geneformer model that supports batch-aware normalization and scaling to eliminate batch effects.
+    """NrmlsBC is an extension of the TranscriptFormer model that supports batch-aware normalization and scaling to eliminate batch effects.
 
     Attributes:
         num_batches (int): The number of batches.
         batch_emb_dim (int): The batch embedding dimension.
         smoother (Optional[nn.Module]): The smoother module.
         batch_embedding (nn.Parameter): The batch embedding parameter.
-        moduler (Geneformer): The moduler module.
+        moduler (TranscriptFormer): The moduler module.
         batch_readout (BatchAwareScale): The batch readout module.
         args (Dict[str, Any]): The arguments of the model.
     """

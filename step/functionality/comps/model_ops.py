@@ -14,10 +14,10 @@ from step.utils.dataset import BaseDataset
 
 
 class ModelOps(object):
-    """A class for wrapping a Geneformer model with useful methods.
+    """A class for wrapping a TranscriptFormer model with useful methods.
 
     Attributes:
-        model (Geneformer): The Geneformer model.
+        model (TranscriptFormer): The TranscriptFormer model.
 
     """
 
@@ -27,10 +27,10 @@ class ModelOps(object):
         device: str | None,
     ):
         """
-        Take a Geneformer model and wrap it with some useful methods.
+        Take a TranscriptFormer model and wrap it with some useful methods.
 
         Args:
-            model (Geneformer): a Geneformer model
+            model (TranscriptFormer): a TranscriptFormer model
             _factor (float): a factor to scale the loss
             kl_cutoff (float): a cutoff value for the KL loss
         """

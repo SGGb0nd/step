@@ -15,7 +15,7 @@ class FunctionalBase(ModelOps, Trainer):
     FunctionalBase is a compound class that combines the ModelOps and Trainer classes.
 
     Attributes:
-        model (Geneformer): The model to be trained.
+        model (TranscriptFormer): The model to be trained.
         split_rate (float): The ratio of validation data to the total data.
         use_earlystop (bool): A flag indicating whether to use early stopping during training.
         device (str): The device to use for training. Defaults to "cuda" if a GPU is available, otherwise "cpu".
@@ -25,7 +25,7 @@ class FunctionalBase(ModelOps, Trainer):
         """Initialize the FunctionalBase.
 
         Args:
-            model (Geneformer): The model to be wrapped.
+            model (TranscriptFormer): The model to be wrapped.
             use_earlystop (bool, optional): A flag indicating whether to use early stopping during training. Defaults to True.
         """
         ModelOps.__init__(self, model=model, device=device)

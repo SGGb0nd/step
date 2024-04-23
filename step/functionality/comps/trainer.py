@@ -116,10 +116,10 @@ class EarlyStopping:
 
 class Trainer(object):
     """
-    The Trainer class is responsible for training the Geneformer model.
+    The Trainer class is responsible for training the TranscriptFormer model.
 
     Attributes:
-        model (Geneformer): The Geneformer model being trained.
+        model (TranscriptFormer): The TranscriptFormer model being trained.
         optimizer (torch.optim.Adam): The optimizer used for model parameter updates.
         lr_scheduler (torch.optim.lr_scheduler.MultiStepLR): The learning rate scheduler.
         early_stopping (Dict[str, EarlyStopping]): A dictionary of EarlyStopping objects for each loss type.
@@ -133,7 +133,7 @@ class Trainer(object):
         Initializes the Trainer object.
 
         Args:
-            model (Geneformer): The Geneformer model being trained.
+            model (TranscriptFormer): The TranscriptFormer model being trained.
         """
         self.model = model
         self.init_optimizer()
