@@ -1,7 +1,7 @@
-:py:mod:`step.models.geneformer`
-================================
+:py:mod:`step.models.transcriptformer`
+======================================
 
-.. py:module:: step.models.geneformer
+.. py:module:: step.models.transcriptformer
 
 
 Module Contents
@@ -12,10 +12,10 @@ Classes
 
 .. autoapisummary::
 
-   step.models.geneformer.Linear2D
-   step.models.geneformer.Readout
-   step.models.geneformer.GeneModuler
-   step.models.geneformer.Geneformer
+   step.models.transcriptformer.Linear2D
+   step.models.transcriptformer.Readout
+   step.models.transcriptformer.GeneModuler
+   step.models.transcriptformer.TranscriptFormer
 
 
 
@@ -25,7 +25,7 @@ Attributes
 
 .. autoapisummary::
 
-   step.models.geneformer.drop_edge
+   step.models.transcriptformer.drop_edge
 
 
 .. py:data:: drop_edge
@@ -57,7 +57,7 @@ Attributes
 
    Bases: :py:obj:`torch.nn.Module`
 
-   Readout module for the Geneformer model.
+   Readout module for the TranscriptFormer model.
 
    .. attribute:: net
 
@@ -159,34 +159,34 @@ Attributes
 
 
 
-.. py:class:: Geneformer(decoder_type='zinb', use_pe=True, use_smooth=False, use_skip=False, input_dim=2000, module_dim=30, decoder_input_dim=None, hidden_dim=256, n_modules=16, nhead=8, n_enc_layer=3, dec_norm='batch', variational=True, smoother='GCN', n_glayers=3, dec_hidden_dim=None, n_dec_hid_layers: int = 1, edge_clip=2, use_l_scale: bool = False, num_batches: int = 1, activation: Literal[softplus, softmax] | None = None)
+.. py:class:: TranscriptFormer(decoder_type='zinb', use_pe=True, use_smooth=False, use_skip=False, input_dim=2000, module_dim=30, decoder_input_dim=None, hidden_dim=256, n_modules=16, nhead=8, n_enc_layer=3, dec_norm='batch', variational=True, smoother='GCN', n_glayers=3, dec_hidden_dim=None, n_dec_hid_layers: int = 1, edge_clip=2, use_l_scale: bool = False, num_batches: int = 1, activation: Literal[softplus, softmax] | None = None)
 
 
    Bases: :py:obj:`torch.nn.Module`
 
-   Geneformer is a gene expression model based on the Transformer architecture.
+   TranscriptFormer is a gene expression model based on the Transformer architecture.
 
    .. attribute:: input_dim
 
-      The input dimension of the Geneformer model.
+      The input dimension of the TranscriptFormer model.
 
       :type: int
 
    .. attribute:: module_dim
 
-      The module dimension of the Geneformer model.
+      The module dimension of the TranscriptFormer model.
 
       :type: int
 
    .. attribute:: hidden_dim
 
-      The hidden dimension of the Geneformer model.
+      The hidden dimension of the TranscriptFormer model.
 
       :type: int
 
    .. attribute:: n_modules
 
-      The number of modules of the Geneformer model.
+      The number of modules of the TranscriptFormer model.
 
       :type: int
 
@@ -258,7 +258,7 @@ Attributes
 
    .. attribute:: args
 
-      The arguments for the Geneformer model.
+      The arguments for the TranscriptFormer model.
 
       :type: dict
 

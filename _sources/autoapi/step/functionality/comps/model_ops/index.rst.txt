@@ -17,18 +17,18 @@ Classes
 
 
 
-.. py:class:: ModelOps(model: step.models.geneformer.Geneformer, device: str | None)
+.. py:class:: ModelOps(model: step.models.transcriptformer.TranscriptFormer, device: str | None)
 
 
    Bases: :py:obj:`object`
 
-   A class for wrapping a Geneformer model with useful methods.
+   A class for wrapping a TranscriptFormer model with useful methods.
 
    .. attribute:: model
 
-      The Geneformer model.
+      The TranscriptFormer model.
 
-      :type: Geneformer
+      :type: TranscriptFormer
 
    .. py:method:: set_kl_cutoff(kl_cutoff)
 
@@ -217,7 +217,7 @@ Classes
       :type adata: _type_
 
 
-   .. py:method:: loss_fn(x: torch.Tensor, decoder_type: str, px_r: torch.Tensor, px_rate: torch.Tensor | None = None, px_dropout: torch.Tensor | None = None, px_scale: torch.Tensor | None = None, module: step.models.geneformer.Readout | None = None, nokl=False, reduction='mean', **kwargs)
+   .. py:method:: loss_fn(x: torch.Tensor, decoder_type: str, px_r: torch.Tensor, px_rate: torch.Tensor | None = None, px_dropout: torch.Tensor | None = None, px_scale: torch.Tensor | None = None, module: step.models.transcriptformer.Readout | None = None, nokl=False, reduction='mean', **kwargs)
 
       Loss function for a basic objective: reconstruction + KL divergence.
 

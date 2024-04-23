@@ -5,11 +5,11 @@
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Performing integrative analysis on scRNA-seq data and 10x Visium data of Human Lymph Node with STEP" href="Human_Lymph_Node.html" /><link rel="prev" title="Installation" href="../autoapi/index.html" />
 
-    <!-- Generated with Sphinx 7.2.6 and Furo 2024.01.29 -->
+    <!-- Generated with Sphinx 7.3.7 and Furo 2024.01.29 -->
         <title>Spatial domain identification on 10x Visium DLFPC data - STEP documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
-    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=eafc0fe6" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=36a5483c" />
@@ -193,9 +193,9 @@
 <li class="toctree-l4"><a class="reference internal" href="../autoapi/step/models/deconv/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.models.deconv</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../autoapi/step/models/distributions/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.models.distributions</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../autoapi/step/models/extension/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.models.extension</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../autoapi/step/models/geneformer/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.models.geneformer</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../autoapi/step/models/knn_map/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.models.knn_map</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../autoapi/step/models/nnls/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.models.nnls</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/step/models/transcriptformer/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.models.transcriptformer</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../autoapi/step/modules/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.modules</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle navigation of step.modules</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -271,7 +271,7 @@
         display: none;
     }
 </style><section id="Spatial-domain-identification-on-10x-Visium-DLFPC-data">
-<h1>Spatial domain identification on 10x Visium DLFPC data<a class="headerlink" href="#Spatial-domain-identification-on-10x-Visium-DLFPC-data" title="Link to this heading">#</a></h1>
+<h1>Spatial domain identification on 10x Visium DLFPC data<a class="headerlink" href="#Spatial-domain-identification-on-10x-Visium-DLFPC-data" title="Link to this heading">¶</a></h1>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
@@ -312,7 +312,7 @@ sc.set_figure_params(dpi_save=300, figsize=(6, 4.5))
 </div>
 </div>
 <section id="151673-single-section-without-using-variational">
-<h2>151673 single section without using variational<a class="headerlink" href="#151673-single-section-without-using-variational" title="Link to this heading">#</a></h2>
+<h2>151673 single section without using variational<a class="headerlink" href="#151673-single-section-without-using-variational" title="Link to this heading">¶</a></h2>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
@@ -466,7 +466,7 @@ adjusted_rand_score(adata.obs[&#39;cluster_&#39;], adata.obs[&#39;gd&#39;].cat.c
 </div>
 </section>
 <section id="151673-single-section-with-using-variational">
-<h2>151673 single section with using variational<a class="headerlink" href="#151673-single-section-with-using-variational" title="Link to this heading">#</a></h2>
+<h2>151673 single section with using variational<a class="headerlink" href="#151673-single-section-with-using-variational" title="Link to this heading">¶</a></h2>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
@@ -603,7 +603,7 @@ Saving dataset config...
 </div>
 </section>
 <section id="151673-to-151676-together">
-<h2>151673 to 151676 together<a class="headerlink" href="#151673-to-151676-together" title="Link to this heading">#</a></h2>
+<h2>151673 to 151676 together<a class="headerlink" href="#151673-to-151676-together" title="Link to this heading">¶</a></h2>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
@@ -785,7 +785,7 @@ sc.tl.umap(adata)
 </div>
 </div>
 <section id="Spatial-plots-and-ARIs-without-NA-spots">
-<h3>Spatial plots and ARIs without NA spots<a class="headerlink" href="#Spatial-plots-and-ARIs-without-NA-spots" title="Link to this heading">#</a></h3>
+<h3>Spatial plots and ARIs without NA spots<a class="headerlink" href="#Spatial-plots-and-ARIs-without-NA-spots" title="Link to this heading">¶</a></h3>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
@@ -957,7 +957,7 @@ for i in range(151673, 151677):
     </aside>
   </div>
 </div><script src="../_static/documentation_options.js?v=5929fcd5"></script>
-    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=32e29ea5"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>

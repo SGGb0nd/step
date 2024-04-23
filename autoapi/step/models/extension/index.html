@@ -3,13 +3,13 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../../../../genindex.html" /><link rel="search" title="Search" href="../../../../search.html" /><link rel="next" title="step.models.geneformer" href="../geneformer/index.html" /><link rel="prev" title="step.models.distributions" href="../distributions/index.html" />
+<link rel="index" title="Index" href="../../../../genindex.html" /><link rel="search" title="Search" href="../../../../search.html" /><link rel="next" title="step.models.knn_map" href="../knn_map/index.html" /><link rel="prev" title="step.models.distributions" href="../distributions/index.html" />
 
-    <!-- Generated with Sphinx 7.2.6 and Furo 2024.01.29 -->
+    <!-- Generated with Sphinx 7.3.7 and Furo 2024.01.29 -->
         <title>step.models.extension - STEP documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?v=135e06be" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css?v=eafc0fe6" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css?v=fd3f3429" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo-extensions.css?v=36a5483c" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/css/custom.css?v=f8d6e08a" />
@@ -192,9 +192,9 @@
 <li class="toctree-l4"><a class="reference internal" href="../deconv/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.models.deconv</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../distributions/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.models.distributions</span></code></a></li>
 <li class="toctree-l4 current current-page"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.models.extension</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../geneformer/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.models.geneformer</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../knn_map/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.models.knn_map</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../nnls/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.models.nnls</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../transcriptformer/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.models.transcriptformer</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../modules/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.modules</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle navigation of step.modules</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -265,11 +265,11 @@
         </div>
         <article role="main">
           <section id="module-step.models.extension">
-<span id="step-models-extension"></span><h1><a class="reference internal" href="#module-step.models.extension" title="step.models.extension"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.models.extension</span></code></a><a class="headerlink" href="#module-step.models.extension" title="Link to this heading">#</a></h1>
+<span id="step-models-extension"></span><h1><a class="reference internal" href="#module-step.models.extension" title="step.models.extension"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.models.extension</span></code></a><a class="headerlink" href="#module-step.models.extension" title="Link to this heading">¶</a></h1>
 <section id="module-contents">
-<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">#</a></h2>
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
 <section id="classes">
-<h3>Classes<a class="headerlink" href="#classes" title="Link to this heading">#</a></h3>
+<h3>Classes<a class="headerlink" href="#classes" title="Link to this heading">¶</a></h3>
 <div class="table-wrapper autosummary longtable docutils container">
 <table class="autosummary longtable docutils align-default">
 <tbody>
@@ -280,19 +280,19 @@
 <td><p>BatchAwareLayerNorm is a module that performs BatchAwareLayerNorm introduced in the paper.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#step.models.extension.NrmlsBC" title="step.models.extension.NrmlsBC"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NrmlsBC</span></code></a></p></td>
-<td><p>NrmlsBC is an extension of the Geneformer model that supports batch-aware normalization and scaling to eliminate batch effects.</p></td>
+<td><p>NrmlsBC is an extension of the TranscriptFormer model that supports batch-aware normalization and scaling to eliminate batch effects.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <dl class="py class">
 <dt class="sig sig-object py" id="step.models.extension.BatchAwareScale">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">BatchAwareScale</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">act</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.models.extension.BatchAwareScale" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">BatchAwareScale</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">act</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.models.extension.BatchAwareScale" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.nn.Module</span></code></p>
 <p>BatchAwareScale is a module that performs BatchAwareScale introduced in the paper.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.models.extension.BatchAwareScale.net">
-<span class="sig-name descname"><span class="pre">net</span></span><a class="headerlink" href="#step.models.extension.BatchAwareScale.net" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">net</span></span><a class="headerlink" href="#step.models.extension.BatchAwareScale.net" title="Link to this definition">¶</a></dt>
 <dd><p>The neural network.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -303,7 +303,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.models.extension.BatchAwareScale.act">
-<span class="sig-name descname"><span class="pre">act</span></span><a class="headerlink" href="#step.models.extension.BatchAwareScale.act" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">act</span></span><a class="headerlink" href="#step.models.extension.BatchAwareScale.act" title="Link to this definition">¶</a></dt>
 <dd><p>The activation function.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -314,19 +314,19 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="step.models.extension.BatchAwareScale.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.models.extension.BatchAwareScale.forward" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.models.extension.BatchAwareScale.forward" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="step.models.extension.BatchAwareLayerNorm">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">BatchAwareLayerNorm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">act</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'relu'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.models.extension.BatchAwareLayerNorm" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">BatchAwareLayerNorm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">act</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'relu'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.models.extension.BatchAwareLayerNorm" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.nn.Module</span></code></p>
 <p>BatchAwareLayerNorm is a module that performs BatchAwareLayerNorm introduced in the paper.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.models.extension.BatchAwareLayerNorm.mean">
-<span class="sig-name descname"><span class="pre">mean</span></span><a class="headerlink" href="#step.models.extension.BatchAwareLayerNorm.mean" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">mean</span></span><a class="headerlink" href="#step.models.extension.BatchAwareLayerNorm.mean" title="Link to this definition">¶</a></dt>
 <dd><p>The mean layer.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -337,7 +337,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.models.extension.BatchAwareLayerNorm.scale">
-<span class="sig-name descname"><span class="pre">scale</span></span><a class="headerlink" href="#step.models.extension.BatchAwareLayerNorm.scale" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">scale</span></span><a class="headerlink" href="#step.models.extension.BatchAwareLayerNorm.scale" title="Link to this definition">¶</a></dt>
 <dd><p>The scale layer.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -348,7 +348,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.models.extension.BatchAwareLayerNorm.layernorm">
-<span class="sig-name descname"><span class="pre">layernorm</span></span><a class="headerlink" href="#step.models.extension.BatchAwareLayerNorm.layernorm" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">layernorm</span></span><a class="headerlink" href="#step.models.extension.BatchAwareLayerNorm.layernorm" title="Link to this definition">¶</a></dt>
 <dd><p>The layer normalization layer.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -359,7 +359,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.models.extension.BatchAwareLayerNorm.act">
-<span class="sig-name descname"><span class="pre">act</span></span><a class="headerlink" href="#step.models.extension.BatchAwareLayerNorm.act" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">act</span></span><a class="headerlink" href="#step.models.extension.BatchAwareLayerNorm.act" title="Link to this definition">¶</a></dt>
 <dd><p>The activation function.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -370,19 +370,19 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="step.models.extension.BatchAwareLayerNorm.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.models.extension.BatchAwareLayerNorm.forward" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.models.extension.BatchAwareLayerNorm.forward" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="step.models.extension.NrmlsBC">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">NrmlsBC</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_batches</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_classes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dispersion</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal[gene,</span> <span class="pre">batch</span> <span class="pre">-</span> <span class="pre">gene]</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'batch-gene'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_l_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.models.extension.NrmlsBC" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../geneformer/index.html#step.models.geneformer.Geneformer" title="step.models.geneformer.Geneformer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">step.models.geneformer.Geneformer</span></code></a></p>
-<p>NrmlsBC is an extension of the Geneformer model that supports batch-aware normalization and scaling to eliminate batch effects.</p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">NrmlsBC</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_batches</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_classes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dispersion</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal[gene,</span> <span class="pre">batch</span> <span class="pre">-</span> <span class="pre">gene]</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'batch-gene'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_l_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.models.extension.NrmlsBC" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../transcriptformer/index.html#step.models.transcriptformer.TranscriptFormer" title="step.models.transcriptformer.TranscriptFormer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">step.models.transcriptformer.TranscriptFormer</span></code></a></p>
+<p>NrmlsBC is an extension of the TranscriptFormer model that supports batch-aware normalization and scaling to eliminate batch effects.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.models.extension.NrmlsBC.num_batches">
-<span class="sig-name descname"><span class="pre">num_batches</span></span><a class="headerlink" href="#step.models.extension.NrmlsBC.num_batches" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">num_batches</span></span><a class="headerlink" href="#step.models.extension.NrmlsBC.num_batches" title="Link to this definition">¶</a></dt>
 <dd><p>The number of batches.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -393,7 +393,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.models.extension.NrmlsBC.batch_emb_dim">
-<span class="sig-name descname"><span class="pre">batch_emb_dim</span></span><a class="headerlink" href="#step.models.extension.NrmlsBC.batch_emb_dim" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">batch_emb_dim</span></span><a class="headerlink" href="#step.models.extension.NrmlsBC.batch_emb_dim" title="Link to this definition">¶</a></dt>
 <dd><p>The batch embedding dimension.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -404,7 +404,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.models.extension.NrmlsBC.smoother">
-<span class="sig-name descname"><span class="pre">smoother</span></span><a class="headerlink" href="#step.models.extension.NrmlsBC.smoother" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">smoother</span></span><a class="headerlink" href="#step.models.extension.NrmlsBC.smoother" title="Link to this definition">¶</a></dt>
 <dd><p>The smoother module.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -415,7 +415,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.models.extension.NrmlsBC.batch_embedding">
-<span class="sig-name descname"><span class="pre">batch_embedding</span></span><a class="headerlink" href="#step.models.extension.NrmlsBC.batch_embedding" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">batch_embedding</span></span><a class="headerlink" href="#step.models.extension.NrmlsBC.batch_embedding" title="Link to this definition">¶</a></dt>
 <dd><p>The batch embedding parameter.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -426,18 +426,18 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.models.extension.NrmlsBC.moduler">
-<span class="sig-name descname"><span class="pre">moduler</span></span><a class="headerlink" href="#step.models.extension.NrmlsBC.moduler" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">moduler</span></span><a class="headerlink" href="#step.models.extension.NrmlsBC.moduler" title="Link to this definition">¶</a></dt>
 <dd><p>The moduler module.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="../geneformer/index.html#step.models.geneformer.Geneformer" title="step.models.geneformer.Geneformer">Geneformer</a></p>
+<dd class="field-odd"><p><a class="reference internal" href="../transcriptformer/index.html#step.models.transcriptformer.TranscriptFormer" title="step.models.transcriptformer.TranscriptFormer">TranscriptFormer</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.models.extension.NrmlsBC.batch_readout">
-<span class="sig-name descname"><span class="pre">batch_readout</span></span><a class="headerlink" href="#step.models.extension.NrmlsBC.batch_readout" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">batch_readout</span></span><a class="headerlink" href="#step.models.extension.NrmlsBC.batch_readout" title="Link to this definition">¶</a></dt>
 <dd><p>The batch readout module.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -448,7 +448,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.models.extension.NrmlsBC.args">
-<span class="sig-name descname"><span class="pre">args</span></span><a class="headerlink" href="#step.models.extension.NrmlsBC.args" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">args</span></span><a class="headerlink" href="#step.models.extension.NrmlsBC.args" title="Link to this definition">¶</a></dt>
 <dd><p>The arguments of the model.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -459,14 +459,14 @@
 
 <dl class="py property">
 <dt class="sig sig-object py" id="step.models.extension.NrmlsBC.non_decoder_param">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">non_decoder_param</span></span><a class="headerlink" href="#step.models.extension.NrmlsBC.non_decoder_param" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">non_decoder_param</span></span><a class="headerlink" href="#step.models.extension.NrmlsBC.non_decoder_param" title="Link to this definition">¶</a></dt>
 <dd><p>Returns an iterator over the non-decoder parameters of the model.</p>
 <p>This includes the parameters of the <cite>moduler</cite>, <cite>expand</cite>, <cite>module</cite>, and <cite>readout</cite> modules.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="step.models.extension.NrmlsBC.encode_ts">
-<span class="sig-name descname"><span class="pre">encode_ts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_rep</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.models.extension.NrmlsBC.encode_ts" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">encode_ts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_rep</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.models.extension.NrmlsBC.encode_ts" title="Link to this definition">¶</a></dt>
 <dd><p>Encodes the output of transformer encoders using the transformer model.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -486,7 +486,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="step.models.extension.NrmlsBC.readout_">
-<span class="sig-name descname"><span class="pre">readout_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tsfmr_out</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.models.extension.NrmlsBC.readout_" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">readout_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tsfmr_out</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.models.extension.NrmlsBC.readout_" title="Link to this definition">¶</a></dt>
 <dd><p>Apply smoothing to the transformer output if enabled, and then perform readout.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -500,7 +500,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="step.models.extension.NrmlsBC.readout_batch">
-<span class="sig-name descname"><span class="pre">readout_batch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rep_ts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_rep</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.models.extension.NrmlsBC.readout_batch" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">readout_batch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rep_ts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_rep</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.models.extension.NrmlsBC.readout_batch" title="Link to this definition">¶</a></dt>
 <dd><p>Readout the representation with batch representation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -517,7 +517,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="step.models.extension.NrmlsBC.encode">
-<span class="sig-name descname"><span class="pre">encode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_rep</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.models.extension.NrmlsBC.encode" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">encode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_rep</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.models.extension.NrmlsBC.encode" title="Link to this definition">¶</a></dt>
 <dd><p>Encodes the input data <cite>x</cite> using the specified batch representation <cite>batch_rep</cite>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -534,7 +534,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="step.models.extension.NrmlsBC.decode">
-<span class="sig-name descname"><span class="pre">decode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls_rep</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_gd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_rep</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rep_ts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.models.extension.NrmlsBC.decode" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">decode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls_rep</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_gd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_rep</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rep_ts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.models.extension.NrmlsBC.decode" title="Link to this definition">¶</a></dt>
 <dd><p>Decodes the given input representation into output representation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -552,7 +552,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="step.models.extension.NrmlsBC.decode_ts">
-<span class="sig-name descname"><span class="pre">decode_ts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rep_ts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_gd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_rep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.models.extension.NrmlsBC.decode_ts" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">decode_ts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rep_ts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_gd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_rep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.models.extension.NrmlsBC.decode_ts" title="Link to this definition">¶</a></dt>
 <dd><p>Decode the given representation tensor <cite>rep_ts</cite> into a prediction tensor.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -567,7 +567,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="step.models.extension.NrmlsBC.decode_skip">
-<span class="sig-name descname"><span class="pre">decode_skip</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls_rep</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rep_ts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_gd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_rep</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.models.extension.NrmlsBC.decode_skip" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">decode_skip</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls_rep</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rep_ts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_gd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_rep</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.models.extension.NrmlsBC.decode_skip" title="Link to this definition">¶</a></dt>
 <dd><p>Decodes the input data using the skip model.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -597,17 +597,17 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="step.models.extension.NrmlsBC.decode_">
-<span class="sig-name descname"><span class="pre">decode_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls_rep</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_gd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_rep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.models.extension.NrmlsBC.decode_" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">decode_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls_rep</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_gd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_rep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.models.extension.NrmlsBC.decode_" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="step.models.extension.NrmlsBC.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_rep</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_exp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.models.extension.NrmlsBC.forward" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_rep</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_exp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.models.extension.NrmlsBC.forward" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="step.models.extension.NrmlsBC.init_anchor">
-<span class="sig-name descname"><span class="pre">init_anchor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_classes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_anchors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.models.extension.NrmlsBC.init_anchor" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">init_anchor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_classes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_anchors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.models.extension.NrmlsBC.init_anchor" title="Link to this definition">¶</a></dt>
 <dd><p>Initializes the anchor module.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -628,7 +628,7 @@ the class classification head and anchors will be initialized accordingly.</p></
 
 <dl class="py method">
 <dt class="sig sig-object py" id="step.models.extension.NrmlsBC.copy">
-<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">with_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.models.extension.NrmlsBC.copy" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">with_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.models.extension.NrmlsBC.copy" title="Link to this definition">¶</a></dt>
 <dd><p>Creates a copy of the current object.</p>
 <p>Returns:
 A new instance of the NrmlsBC class with the same arguments and state.</p>
@@ -636,7 +636,7 @@ A new instance of the NrmlsBC class with the same arguments and state.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="step.models.extension.NrmlsBC.copy_dec">
-<span class="sig-name descname"><span class="pre">copy_dec</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#step.models.extension.NrmlsBC.copy_dec" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">copy_dec</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#step.models.extension.NrmlsBC.copy_dec" title="Link to this definition">¶</a></dt>
 <dd><p>Creates a copy of the model with the specified parameters.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -659,12 +659,12 @@ A new instance of the NrmlsBC class with the same arguments and state.</p>
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="../geneformer/index.html">
+          <a class="next-page" href="../knn_map/index.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.models.geneformer</span></code></div>
+                <div class="title"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.models.knn_map</span></code></div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
@@ -765,7 +765,7 @@ A new instance of the NrmlsBC class with the same arguments and state.</p>
     </aside>
   </div>
 </div><script src="../../../../_static/documentation_options.js?v=5929fcd5"></script>
-    <script src="../../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/scripts/furo.js?v=32e29ea5"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>

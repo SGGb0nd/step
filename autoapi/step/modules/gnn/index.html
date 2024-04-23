@@ -5,11 +5,11 @@
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="index" title="Index" href="../../../../genindex.html" /><link rel="search" title="Search" href="../../../../search.html" /><link rel="next" title="step.modules.transformer" href="../transformer/index.html" /><link rel="prev" title="step.modules.decoder" href="../decoder/index.html" />
 
-    <!-- Generated with Sphinx 7.2.6 and Furo 2024.01.29 -->
+    <!-- Generated with Sphinx 7.3.7 and Furo 2024.01.29 -->
         <title>step.modules.gnn - STEP documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?v=135e06be" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css?v=eafc0fe6" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css?v=fd3f3429" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo-extensions.css?v=36a5483c" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/css/custom.css?v=f8d6e08a" />
@@ -192,9 +192,9 @@
 <li class="toctree-l4"><a class="reference internal" href="../../models/deconv/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.models.deconv</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../models/distributions/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.models.distributions</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../models/extension/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.models.extension</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../models/geneformer/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.models.geneformer</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../models/knn_map/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.models.knn_map</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../models/nnls/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.models.nnls</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../models/transcriptformer/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.models.transcriptformer</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3 current has-children"><a class="reference internal" href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.modules</span></code></a><input checked="" class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle navigation of step.modules</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
@@ -265,11 +265,11 @@
         </div>
         <article role="main">
           <section id="module-step.modules.gnn">
-<span id="step-modules-gnn"></span><h1><a class="reference internal" href="#module-step.modules.gnn" title="step.modules.gnn"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.modules.gnn</span></code></a><a class="headerlink" href="#module-step.modules.gnn" title="Link to this heading">#</a></h1>
+<span id="step-modules-gnn"></span><h1><a class="reference internal" href="#module-step.modules.gnn" title="step.modules.gnn"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.modules.gnn</span></code></a><a class="headerlink" href="#module-step.modules.gnn" title="Link to this heading">¶</a></h1>
 <section id="module-contents">
-<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">#</a></h2>
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
 <section id="classes">
-<h3>Classes<a class="headerlink" href="#classes" title="Link to this heading">#</a></h3>
+<h3>Classes<a class="headerlink" href="#classes" title="Link to this heading">¶</a></h3>
 <div class="table-wrapper autosummary longtable docutils container">
 <table class="autosummary longtable docutils align-default">
 <tbody>
@@ -284,7 +284,7 @@
 </div>
 <dl class="py class">
 <dt class="sig sig-object py" id="step.modules.gnn.GAT">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">GAT</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_feats</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h_feats</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_layers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_heads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.modules.gnn.GAT" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">GAT</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_feats</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h_feats</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_layers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_heads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.modules.gnn.GAT" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.nn.Module</span></code></p>
 <p>Base class for all neural network modules.</p>
 <p>Your models should also subclass this class.</p>
@@ -319,19 +319,19 @@ evaluation mode.</p>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="step.modules.gnn.GAT.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">g</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_feat</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.modules.gnn.GAT.forward" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">g</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_feat</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.modules.gnn.GAT.forward" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="step.modules.gnn.GCN">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">GCN</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_feats</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h_feats</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_layers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_edge</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.modules.gnn.GCN" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">GCN</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_feats</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h_feats</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_layers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_edge</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.modules.gnn.GCN" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.nn.Module</span></code></p>
 <p>GCN is a graph convolutional network.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.modules.gnn.GCN.in_feats">
-<span class="sig-name descname"><span class="pre">in_feats</span></span><a class="headerlink" href="#step.modules.gnn.GCN.in_feats" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">in_feats</span></span><a class="headerlink" href="#step.modules.gnn.GCN.in_feats" title="Link to this definition">¶</a></dt>
 <dd><p>The input feature dimension.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -342,7 +342,7 @@ evaluation mode.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.modules.gnn.GCN.h_feats">
-<span class="sig-name descname"><span class="pre">h_feats</span></span><a class="headerlink" href="#step.modules.gnn.GCN.h_feats" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">h_feats</span></span><a class="headerlink" href="#step.modules.gnn.GCN.h_feats" title="Link to this definition">¶</a></dt>
 <dd><p>The hidden feature dimension.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -353,7 +353,7 @@ evaluation mode.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.modules.gnn.GCN.n_layers">
-<span class="sig-name descname"><span class="pre">n_layers</span></span><a class="headerlink" href="#step.modules.gnn.GCN.n_layers" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">n_layers</span></span><a class="headerlink" href="#step.modules.gnn.GCN.n_layers" title="Link to this definition">¶</a></dt>
 <dd><p>The number of layers.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -364,7 +364,7 @@ evaluation mode.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.modules.gnn.GCN.with_edge">
-<span class="sig-name descname"><span class="pre">with_edge</span></span><a class="headerlink" href="#step.modules.gnn.GCN.with_edge" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">with_edge</span></span><a class="headerlink" href="#step.modules.gnn.GCN.with_edge" title="Link to this definition">¶</a></dt>
 <dd><p>Whether to use edge features.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -375,7 +375,7 @@ evaluation mode.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="step.modules.gnn.GCN.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">g</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_feat</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.modules.gnn.GCN.forward" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">g</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_feat</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.modules.gnn.GCN.forward" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -470,7 +470,7 @@ evaluation mode.</p>
     </aside>
   </div>
 </div><script src="../../../../_static/documentation_options.js?v=5929fcd5"></script>
-    <script src="../../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/scripts/furo.js?v=32e29ea5"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>

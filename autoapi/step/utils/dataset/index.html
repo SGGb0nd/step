@@ -5,11 +5,11 @@
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="index" title="Index" href="../../../../genindex.html" /><link rel="search" title="Search" href="../../../../search.html" /><link rel="next" title="step.utils.gbolt" href="../gbolt/index.html" /><link rel="prev" title="step.utils.synthetics.pseudo_st" href="../synthetics/pseudo_st/index.html" />
 
-    <!-- Generated with Sphinx 7.2.6 and Furo 2024.01.29 -->
+    <!-- Generated with Sphinx 7.3.7 and Furo 2024.01.29 -->
         <title>step.utils.dataset - STEP documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?v=135e06be" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css?v=eafc0fe6" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css?v=fd3f3429" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo-extensions.css?v=36a5483c" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/css/custom.css?v=f8d6e08a" />
@@ -192,9 +192,9 @@
 <li class="toctree-l4"><a class="reference internal" href="../../models/deconv/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.models.deconv</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../models/distributions/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.models.distributions</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../models/extension/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.models.extension</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../models/geneformer/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.models.geneformer</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../models/knn_map/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.models.knn_map</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../models/nnls/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.models.nnls</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../models/transcriptformer/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.models.transcriptformer</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../modules/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.modules</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle navigation of step.modules</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -265,11 +265,11 @@
         </div>
         <article role="main">
           <section id="module-step.utils.dataset">
-<span id="step-utils-dataset"></span><h1><a class="reference internal" href="#module-step.utils.dataset" title="step.utils.dataset"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.utils.dataset</span></code></a><a class="headerlink" href="#module-step.utils.dataset" title="Link to this heading">#</a></h1>
+<span id="step-utils-dataset"></span><h1><a class="reference internal" href="#module-step.utils.dataset" title="step.utils.dataset"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.utils.dataset</span></code></a><a class="headerlink" href="#module-step.utils.dataset" title="Link to this heading">¶</a></h1>
 <section id="module-contents">
-<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">#</a></h2>
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
 <section id="classes">
-<h3>Classes<a class="headerlink" href="#classes" title="Link to this heading">#</a></h3>
+<h3>Classes<a class="headerlink" href="#classes" title="Link to this heading">¶</a></h3>
 <div class="table-wrapper autosummary longtable docutils container">
 <table class="autosummary longtable docutils align-default">
 <tbody>
@@ -299,7 +299,7 @@
 </div>
 </section>
 <section id="attributes">
-<h3>Attributes<a class="headerlink" href="#attributes" title="Link to this heading">#</a></h3>
+<h3>Attributes<a class="headerlink" href="#attributes" title="Link to this heading">¶</a></h3>
 <div class="table-wrapper autosummary longtable docutils container">
 <table class="autosummary longtable docutils align-default">
 <tbody>
@@ -317,27 +317,27 @@
 </div>
 <dl class="py data">
 <dt class="sig sig-object py" id="step.utils.dataset.PROCESS_FIELDS">
-<span class="sig-name descname"><span class="pre">PROCESS_FIELDS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('adata',</span> <span class="pre">'is_human',</span> <span class="pre">'layer_key',</span> <span class="pre">'batch_key',</span> <span class="pre">'geneset',</span> <span class="pre">'log_transformed',</span> <span class="pre">'logarithm_first',...</span></em><a class="headerlink" href="#step.utils.dataset.PROCESS_FIELDS" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">PROCESS_FIELDS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('adata',</span> <span class="pre">'is_human',</span> <span class="pre">'layer_key',</span> <span class="pre">'batch_key',</span> <span class="pre">'geneset',</span> <span class="pre">'log_transformed',</span> <span class="pre">'logarithm_first',...</span></em><a class="headerlink" href="#step.utils.dataset.PROCESS_FIELDS" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py data">
 <dt class="sig sig-object py" id="step.utils.dataset.READ_FIELDS">
-<span class="sig-name descname"><span class="pre">READ_FIELDS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('adata',</span> <span class="pre">'log_transformed',</span> <span class="pre">'logarithm_first',</span> <span class="pre">'geneset',</span> <span class="pre">'n_top_genes',</span> <span class="pre">'layer_key',</span> <span class="pre">'batch_key')</span></em><a class="headerlink" href="#step.utils.dataset.READ_FIELDS" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">READ_FIELDS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('adata',</span> <span class="pre">'log_transformed',</span> <span class="pre">'logarithm_first',</span> <span class="pre">'geneset',</span> <span class="pre">'n_top_genes',</span> <span class="pre">'layer_key',</span> <span class="pre">'batch_key')</span></em><a class="headerlink" href="#step.utils.dataset.READ_FIELDS" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py data">
 <dt class="sig sig-object py" id="step.utils.dataset.RECIEVE_FIELDS">
-<span class="sig-name descname"><span class="pre">RECIEVE_FIELDS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('gene_expr',</span> <span class="pre">'adata',</span> <span class="pre">'batch_label',</span> <span class="pre">'_batch_codes',</span> <span class="pre">'layer_key')</span></em><a class="headerlink" href="#step.utils.dataset.RECIEVE_FIELDS" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">RECIEVE_FIELDS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('gene_expr',</span> <span class="pre">'adata',</span> <span class="pre">'batch_label',</span> <span class="pre">'_batch_codes',</span> <span class="pre">'layer_key')</span></em><a class="headerlink" href="#step.utils.dataset.RECIEVE_FIELDS" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="step.utils.dataset.ScMode">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ScMode</span></span><a class="headerlink" href="#step.utils.dataset.ScMode" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ScMode</span></span><a class="headerlink" href="#step.utils.dataset.ScMode" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">enum.Enum</span></code></p>
 <p>Enum class for single-cell dataset output modes.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.utils.dataset.ScMode.single_batch">
-<span class="sig-name descname"><span class="pre">single_batch</span></span><a class="headerlink" href="#step.utils.dataset.ScMode.single_batch" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">single_batch</span></span><a class="headerlink" href="#step.utils.dataset.ScMode.single_batch" title="Link to this definition">¶</a></dt>
 <dd><p>List of fields for single-batch mode.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -348,7 +348,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.utils.dataset.ScMode.multi_batches">
-<span class="sig-name descname"><span class="pre">multi_batches</span></span><a class="headerlink" href="#step.utils.dataset.ScMode.multi_batches" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">multi_batches</span></span><a class="headerlink" href="#step.utils.dataset.ScMode.multi_batches" title="Link to this definition">¶</a></dt>
 <dd><p>List of fields for multi-batch mode.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -359,7 +359,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.utils.dataset.ScMode.multi_batches_with_ct">
-<span class="sig-name descname"><span class="pre">multi_batches_with_ct</span></span><a class="headerlink" href="#step.utils.dataset.ScMode.multi_batches_with_ct" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">multi_batches_with_ct</span></span><a class="headerlink" href="#step.utils.dataset.ScMode.multi_batches_with_ct" title="Link to this definition">¶</a></dt>
 <dd><p>List of fields for multi-batch mode with class labels.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -370,29 +370,29 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="id0">
-<span class="sig-name descname"><span class="pre">single_batch</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['gene_expr']</span></em><a class="headerlink" href="#id0" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">single_batch</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['gene_expr']</span></em><a class="headerlink" href="#id0" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="id1">
-<span class="sig-name descname"><span class="pre">multi_batches</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['gene_expr',</span> <span class="pre">'batch_label']</span></em><a class="headerlink" href="#id1" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">multi_batches</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['gene_expr',</span> <span class="pre">'batch_label']</span></em><a class="headerlink" href="#id1" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="id2">
-<span class="sig-name descname"><span class="pre">multi_batches_with_ct</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['gene_expr',</span> <span class="pre">'class_label',</span> <span class="pre">'batch_label']</span></em><a class="headerlink" href="#id2" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">multi_batches_with_ct</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['gene_expr',</span> <span class="pre">'class_label',</span> <span class="pre">'batch_label']</span></em><a class="headerlink" href="#id2" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="step.utils.dataset.StMode">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">StMode</span></span><a class="headerlink" href="#step.utils.dataset.StMode" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">StMode</span></span><a class="headerlink" href="#step.utils.dataset.StMode" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">enum.Enum</span></code></p>
 <p>Enum class for spatial transcriptomics dataset output modes.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.utils.dataset.StMode.single_batch">
-<span class="sig-name descname"><span class="pre">single_batch</span></span><a class="headerlink" href="#step.utils.dataset.StMode.single_batch" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">single_batch</span></span><a class="headerlink" href="#step.utils.dataset.StMode.single_batch" title="Link to this definition">¶</a></dt>
 <dd><p>List of fields for single-batch mode.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -403,7 +403,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.utils.dataset.StMode.multi_batches">
-<span class="sig-name descname"><span class="pre">multi_batches</span></span><a class="headerlink" href="#step.utils.dataset.StMode.multi_batches" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">multi_batches</span></span><a class="headerlink" href="#step.utils.dataset.StMode.multi_batches" title="Link to this definition">¶</a></dt>
 <dd><p>List of fields for multi-batch mode.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -414,7 +414,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.utils.dataset.StMode.with_rep">
-<span class="sig-name descname"><span class="pre">with_rep</span></span><a class="headerlink" href="#step.utils.dataset.StMode.with_rep" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">with_rep</span></span><a class="headerlink" href="#step.utils.dataset.StMode.with_rep" title="Link to this definition">¶</a></dt>
 <dd><p>List of fields for mode with representation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -425,7 +425,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.utils.dataset.StMode.with_domains">
-<span class="sig-name descname"><span class="pre">with_domains</span></span><a class="headerlink" href="#step.utils.dataset.StMode.with_domains" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">with_domains</span></span><a class="headerlink" href="#step.utils.dataset.StMode.with_domains" title="Link to this definition">¶</a></dt>
 <dd><p>List of fields for mode with domains.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -436,34 +436,34 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="id3">
-<span class="sig-name descname"><span class="pre">single_batch</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['gene_expr']</span></em><a class="headerlink" href="#id3" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">single_batch</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['gene_expr']</span></em><a class="headerlink" href="#id3" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="id4">
-<span class="sig-name descname"><span class="pre">multi_batches</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['gene_expr',</span> <span class="pre">'batch_label']</span></em><a class="headerlink" href="#id4" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">multi_batches</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['gene_expr',</span> <span class="pre">'batch_label']</span></em><a class="headerlink" href="#id4" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="id5">
-<span class="sig-name descname"><span class="pre">with_rep</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['gene_expr',</span> <span class="pre">'rep',</span> <span class="pre">'batch_label']</span></em><a class="headerlink" href="#id5" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">with_rep</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['gene_expr',</span> <span class="pre">'rep',</span> <span class="pre">'batch_label']</span></em><a class="headerlink" href="#id5" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="id6">
-<span class="sig-name descname"><span class="pre">with_domains</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['gene_expr',</span> <span class="pre">'rep',</span> <span class="pre">'domains',</span> <span class="pre">'batch_label']</span></em><a class="headerlink" href="#id6" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">with_domains</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['gene_expr',</span> <span class="pre">'rep',</span> <span class="pre">'domains',</span> <span class="pre">'batch_label']</span></em><a class="headerlink" href="#id6" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="step.utils.dataset.MaskedDataset">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MaskedDataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">original_dataset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.utils.dataset.MaskedDataset" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MaskedDataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">original_dataset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.utils.dataset.MaskedDataset" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.utils.data.Dataset</span></code></p>
 <p>A dataset class that represents a masked subset of an original dataset.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.utils.dataset.MaskedDataset.original_dataset">
-<span class="sig-name descname"><span class="pre">original_dataset</span></span><a class="headerlink" href="#step.utils.dataset.MaskedDataset.original_dataset" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">original_dataset</span></span><a class="headerlink" href="#step.utils.dataset.MaskedDataset.original_dataset" title="Link to this definition">¶</a></dt>
 <dd><p>The original dataset.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -474,7 +474,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.utils.dataset.MaskedDataset._indices">
-<span class="sig-name descname"><span class="pre">_indices</span></span><a class="headerlink" href="#step.utils.dataset.MaskedDataset._indices" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">_indices</span></span><a class="headerlink" href="#step.utils.dataset.MaskedDataset._indices" title="Link to this definition">¶</a></dt>
 <dd><p>The indices of the samples in the subset.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -485,7 +485,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.utils.dataset.MaskedDataset._mask">
-<span class="sig-name descname"><span class="pre">_mask</span></span><a class="headerlink" href="#step.utils.dataset.MaskedDataset._mask" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">_mask</span></span><a class="headerlink" href="#step.utils.dataset.MaskedDataset._mask" title="Link to this definition">¶</a></dt>
 <dd><p>The mask indicating which samples to include in the subset.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -496,7 +496,7 @@
 
 <dl class="py property">
 <dt class="sig sig-object py" id="step.utils.dataset.MaskedDataset.mode">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">mode</span></span><a class="headerlink" href="#step.utils.dataset.MaskedDataset.mode" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">mode</span></span><a class="headerlink" href="#step.utils.dataset.MaskedDataset.mode" title="Link to this definition">¶</a></dt>
 <dd><p>The mode of the original dataset.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -510,22 +510,22 @@
 
 <dl class="py property">
 <dt class="sig sig-object py" id="step.utils.dataset.MaskedDataset.adata">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">adata</span></span><a class="headerlink" href="#step.utils.dataset.MaskedDataset.adata" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">adata</span></span><a class="headerlink" href="#step.utils.dataset.MaskedDataset.adata" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="step.utils.dataset.MaskedDataset.masked_num_batches">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">masked_num_batches</span></span><a class="headerlink" href="#step.utils.dataset.MaskedDataset.masked_num_batches" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">masked_num_batches</span></span><a class="headerlink" href="#step.utils.dataset.MaskedDataset.masked_num_batches" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="step.utils.dataset.MaskedDataset.masked_num_classes">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">masked_num_classes</span></span><a class="headerlink" href="#step.utils.dataset.MaskedDataset.masked_num_classes" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">masked_num_classes</span></span><a class="headerlink" href="#step.utils.dataset.MaskedDataset.masked_num_classes" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="step.utils.dataset.MaskedDataset.set_mode">
-<span class="sig-name descname"><span class="pre">set_mode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.utils.dataset.MaskedDataset.set_mode" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_mode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.utils.dataset.MaskedDataset.set_mode" title="Link to this definition">¶</a></dt>
 <dd><p>Sets the mode of the original dataset.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -542,7 +542,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="step.utils.dataset.MaskedDataset.subset">
-<span class="sig-name descname"><span class="pre">subset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.utils.dataset.MaskedDataset.subset" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">subset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.utils.dataset.MaskedDataset.subset" title="Link to this definition">¶</a></dt>
 <dd><p>Returns a new MaskedDataset object representing a subset of the current subset.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -565,12 +565,12 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="step.utils.dataset.BaseDataset">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">BaseDataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">adata</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">anndata.AnnData</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filtered</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_transformed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logarithm_first</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hvg_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'seurat_v3'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geneset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_top_genes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layer_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.utils.dataset.BaseDataset" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">BaseDataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">adata</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">anndata.AnnData</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filtered</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_transformed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logarithm_first</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hvg_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'seurat_v3'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geneset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_top_genes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layer_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.utils.dataset.BaseDataset" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.utils.data.Dataset</span></code></p>
 <p>Base dataset class for single-cell and spatial datasets.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.utils.dataset.BaseDataset.read_fields">
-<span class="sig-name descname"><span class="pre">read_fields</span></span><a class="headerlink" href="#step.utils.dataset.BaseDataset.read_fields" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">read_fields</span></span><a class="headerlink" href="#step.utils.dataset.BaseDataset.read_fields" title="Link to this definition">¶</a></dt>
 <dd><p>Tuple of fields to be read.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -581,7 +581,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.utils.dataset.BaseDataset.process_fields">
-<span class="sig-name descname"><span class="pre">process_fields</span></span><a class="headerlink" href="#step.utils.dataset.BaseDataset.process_fields" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">process_fields</span></span><a class="headerlink" href="#step.utils.dataset.BaseDataset.process_fields" title="Link to this definition">¶</a></dt>
 <dd><p>Tuple of fields to be processed.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -592,7 +592,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.utils.dataset.BaseDataset.recieve_fields">
-<span class="sig-name descname"><span class="pre">recieve_fields</span></span><a class="headerlink" href="#step.utils.dataset.BaseDataset.recieve_fields" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">recieve_fields</span></span><a class="headerlink" href="#step.utils.dataset.BaseDataset.recieve_fields" title="Link to this definition">¶</a></dt>
 <dd><p>Tuple of fields to be received.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -603,7 +603,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.utils.dataset.BaseDataset.read_folder">
-<span class="sig-name descname"><span class="pre">read_folder</span></span><a class="headerlink" href="#step.utils.dataset.BaseDataset.read_folder" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">read_folder</span></span><a class="headerlink" href="#step.utils.dataset.BaseDataset.read_folder" title="Link to this definition">¶</a></dt>
 <dd><p>Function to read the dataset from a folder.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -614,7 +614,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.utils.dataset.BaseDataset.is_human">
-<span class="sig-name descname"><span class="pre">is_human</span></span><a class="headerlink" href="#step.utils.dataset.BaseDataset.is_human" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">is_human</span></span><a class="headerlink" href="#step.utils.dataset.BaseDataset.is_human" title="Link to this definition">¶</a></dt>
 <dd><p>Flag indicating if the dataset is from human.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -625,7 +625,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.utils.dataset.BaseDataset.n_top_genes">
-<span class="sig-name descname"><span class="pre">n_top_genes</span></span><a class="headerlink" href="#step.utils.dataset.BaseDataset.n_top_genes" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">n_top_genes</span></span><a class="headerlink" href="#step.utils.dataset.BaseDataset.n_top_genes" title="Link to this definition">¶</a></dt>
 <dd><p>Number of top genes to be selected.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -636,7 +636,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.utils.dataset.BaseDataset.geneset">
-<span class="sig-name descname"><span class="pre">geneset</span></span><a class="headerlink" href="#step.utils.dataset.BaseDataset.geneset" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">geneset</span></span><a class="headerlink" href="#step.utils.dataset.BaseDataset.geneset" title="Link to this definition">¶</a></dt>
 <dd><p>Geneset to be used.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -647,7 +647,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.utils.dataset.BaseDataset.num_batches">
-<span class="sig-name descname"><span class="pre">num_batches</span></span><a class="headerlink" href="#step.utils.dataset.BaseDataset.num_batches" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">num_batches</span></span><a class="headerlink" href="#step.utils.dataset.BaseDataset.num_batches" title="Link to this definition">¶</a></dt>
 <dd><p>Number of batches in the dataset.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -658,7 +658,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.utils.dataset.BaseDataset.num_classes">
-<span class="sig-name descname"><span class="pre">num_classes</span></span><a class="headerlink" href="#step.utils.dataset.BaseDataset.num_classes" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">num_classes</span></span><a class="headerlink" href="#step.utils.dataset.BaseDataset.num_classes" title="Link to this definition">¶</a></dt>
 <dd><p>Number of classes in the dataset.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -669,7 +669,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.utils.dataset.BaseDataset.layer_key">
-<span class="sig-name descname"><span class="pre">layer_key</span></span><a class="headerlink" href="#step.utils.dataset.BaseDataset.layer_key" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">layer_key</span></span><a class="headerlink" href="#step.utils.dataset.BaseDataset.layer_key" title="Link to this definition">¶</a></dt>
 <dd><p>Key for the layer in the data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -680,7 +680,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.utils.dataset.BaseDataset.batch_key">
-<span class="sig-name descname"><span class="pre">batch_key</span></span><a class="headerlink" href="#step.utils.dataset.BaseDataset.batch_key" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">batch_key</span></span><a class="headerlink" href="#step.utils.dataset.BaseDataset.batch_key" title="Link to this definition">¶</a></dt>
 <dd><p>Key for the batch in the data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -691,7 +691,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.utils.dataset.BaseDataset.logarithm_first">
-<span class="sig-name descname"><span class="pre">logarithm_first</span></span><a class="headerlink" href="#step.utils.dataset.BaseDataset.logarithm_first" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">logarithm_first</span></span><a class="headerlink" href="#step.utils.dataset.BaseDataset.logarithm_first" title="Link to this definition">¶</a></dt>
 <dd><p>Flag indicating if logarithm transformation is applied first.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -702,7 +702,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.utils.dataset.BaseDataset.hvg_method">
-<span class="sig-name descname"><span class="pre">hvg_method</span></span><a class="headerlink" href="#step.utils.dataset.BaseDataset.hvg_method" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">hvg_method</span></span><a class="headerlink" href="#step.utils.dataset.BaseDataset.hvg_method" title="Link to this definition">¶</a></dt>
 <dd><p>The method for selecting highly variable genes.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -713,7 +713,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.utils.dataset.BaseDataset.filtered">
-<span class="sig-name descname"><span class="pre">filtered</span></span><a class="headerlink" href="#step.utils.dataset.BaseDataset.filtered" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">filtered</span></span><a class="headerlink" href="#step.utils.dataset.BaseDataset.filtered" title="Link to this definition">¶</a></dt>
 <dd><p>Flag indicating if the dataset is filtered.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -724,7 +724,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.utils.dataset.BaseDataset.log_transformed">
-<span class="sig-name descname"><span class="pre">log_transformed</span></span><a class="headerlink" href="#step.utils.dataset.BaseDataset.log_transformed" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">log_transformed</span></span><a class="headerlink" href="#step.utils.dataset.BaseDataset.log_transformed" title="Link to this definition">¶</a></dt>
 <dd><p>Flag indicating if the dataset is log-transformed.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -735,7 +735,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.utils.dataset.BaseDataset.adata">
-<span class="sig-name descname"><span class="pre">adata</span></span><a class="headerlink" href="#step.utils.dataset.BaseDataset.adata" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">adata</span></span><a class="headerlink" href="#step.utils.dataset.BaseDataset.adata" title="Link to this definition">¶</a></dt>
 <dd><p>The annotated data matrix.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -746,7 +746,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.utils.dataset.BaseDataset.mode">
-<span class="sig-name descname"><span class="pre">mode</span></span><a class="headerlink" href="#step.utils.dataset.BaseDataset.mode" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">mode</span></span><a class="headerlink" href="#step.utils.dataset.BaseDataset.mode" title="Link to this definition">¶</a></dt>
 <dd><p>Mode of the dataset for output fields.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -757,7 +757,7 @@
 
 <dl class="py property">
 <dt class="sig sig-object py" id="step.utils.dataset.BaseDataset.batch_codes">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">batch_codes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">pandas.DataFrame</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#step.utils.dataset.BaseDataset.batch_codes" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">batch_codes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">pandas.DataFrame</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#step.utils.dataset.BaseDataset.batch_codes" title="Link to this definition">¶</a></dt>
 <dd><p>Get the batch codes.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -771,7 +771,7 @@
 
 <dl class="py property">
 <dt class="sig sig-object py" id="step.utils.dataset.BaseDataset.batch_names">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">batch_names</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">pandas.Index</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#step.utils.dataset.BaseDataset.batch_names" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">batch_names</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">pandas.Index</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#step.utils.dataset.BaseDataset.batch_names" title="Link to this definition">¶</a></dt>
 <dd><p>Get the batch names.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -785,7 +785,7 @@
 
 <dl class="py property">
 <dt class="sig sig-object py" id="step.utils.dataset.BaseDataset.class_codes">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">class_codes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">pandas.DataFrame</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#step.utils.dataset.BaseDataset.class_codes" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">class_codes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">pandas.DataFrame</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#step.utils.dataset.BaseDataset.class_codes" title="Link to this definition">¶</a></dt>
 <dd><p>Get the class codes.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -799,7 +799,7 @@
 
 <dl class="py property">
 <dt class="sig sig-object py" id="step.utils.dataset.BaseDataset.n_genes">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">n_genes</span></span><a class="headerlink" href="#step.utils.dataset.BaseDataset.n_genes" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">n_genes</span></span><a class="headerlink" href="#step.utils.dataset.BaseDataset.n_genes" title="Link to this definition">¶</a></dt>
 <dd><p>Get the number of genes.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -813,27 +813,27 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="id7">
-<span class="sig-name descname"><span class="pre">read_fields</span></span><a class="headerlink" href="#id7" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">read_fields</span></span><a class="headerlink" href="#id7" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="id8">
-<span class="sig-name descname"><span class="pre">process_fields</span></span><a class="headerlink" href="#id8" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">process_fields</span></span><a class="headerlink" href="#id8" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="id9">
-<span class="sig-name descname"><span class="pre">recieve_fields</span></span><a class="headerlink" href="#id9" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">recieve_fields</span></span><a class="headerlink" href="#id9" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="id10">
-<span class="sig-name descname"><span class="pre">read_folder</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#id10" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">read_folder</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#id10" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="step.utils.dataset.BaseDataset.read">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_transformed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logarithm_first</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filtered</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geneset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_top_genes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layer_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.utils.dataset.BaseDataset.read" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_transformed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logarithm_first</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filtered</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geneset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_top_genes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layer_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.utils.dataset.BaseDataset.read" title="Link to this definition">¶</a></dt>
 <dd><p>Read the dataset from a file or folder.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -863,7 +863,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="step.utils.dataset.BaseDataset.process">
-<span class="sig-name descname"><span class="pre">process</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">process_config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.utils.dataset.BaseDataset.process" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">process</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">process_config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.utils.dataset.BaseDataset.process" title="Link to this definition">¶</a></dt>
 <dd><p>Process the dataset.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -874,7 +874,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="step.utils.dataset.BaseDataset.get">
-<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'gene_expr'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.utils.dataset.BaseDataset.get" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'gene_expr'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.utils.dataset.BaseDataset.get" title="Link to this definition">¶</a></dt>
 <dd><p>Get the data for a specific batch.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -894,12 +894,12 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="step.utils.dataset.BaseDataset.switch_layer">
-<span class="sig-name descname"><span class="pre">switch_layer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">layer_key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.utils.dataset.BaseDataset.switch_layer" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">switch_layer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">layer_key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.utils.dataset.BaseDataset.switch_layer" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="step.utils.dataset.BaseDataset.subset">
-<span class="sig-name descname"><span class="pre">subset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.utils.dataset.BaseDataset.subset" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">subset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.utils.dataset.BaseDataset.subset" title="Link to this definition">¶</a></dt>
 <dd><p>Create a subset of the dataset based on a condition.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -922,12 +922,12 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="step.utils.dataset.ScDataset">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ScDataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">class_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.utils.dataset.ScDataset" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ScDataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">class_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.utils.dataset.ScDataset" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#step.utils.dataset.BaseDataset" title="step.utils.dataset.BaseDataset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BaseDataset</span></code></a></p>
 <p>Single-cell dataset class.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.utils.dataset.ScDataset.class_key">
-<span class="sig-name descname"><span class="pre">class_key</span></span><a class="headerlink" href="#step.utils.dataset.ScDataset.class_key" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">class_key</span></span><a class="headerlink" href="#step.utils.dataset.ScDataset.class_key" title="Link to this definition">¶</a></dt>
 <dd><p>Key for the class labels in the data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -938,7 +938,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.utils.dataset.ScDataset.read_fields">
-<span class="sig-name descname"><span class="pre">read_fields</span></span><a class="headerlink" href="#step.utils.dataset.ScDataset.read_fields" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">read_fields</span></span><a class="headerlink" href="#step.utils.dataset.ScDataset.read_fields" title="Link to this definition">¶</a></dt>
 <dd><p>Tuple of fields to be read.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -949,7 +949,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.utils.dataset.ScDataset.recieve_fields">
-<span class="sig-name descname"><span class="pre">recieve_fields</span></span><a class="headerlink" href="#step.utils.dataset.ScDataset.recieve_fields" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">recieve_fields</span></span><a class="headerlink" href="#step.utils.dataset.ScDataset.recieve_fields" title="Link to this definition">¶</a></dt>
 <dd><p>Tuple of fields to be received.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -960,7 +960,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.utils.dataset.ScDataset.process_fields">
-<span class="sig-name descname"><span class="pre">process_fields</span></span><a class="headerlink" href="#step.utils.dataset.ScDataset.process_fields" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">process_fields</span></span><a class="headerlink" href="#step.utils.dataset.ScDataset.process_fields" title="Link to this definition">¶</a></dt>
 <dd><p>Tuple of fields to be processed.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -971,7 +971,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.utils.dataset.ScDataset.read_folder">
-<span class="sig-name descname"><span class="pre">read_folder</span></span><a class="headerlink" href="#step.utils.dataset.ScDataset.read_folder" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">read_folder</span></span><a class="headerlink" href="#step.utils.dataset.ScDataset.read_folder" title="Link to this definition">¶</a></dt>
 <dd><p>Function to read the dataset from a folder.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -982,7 +982,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.utils.dataset.ScDataset.num_classes">
-<span class="sig-name descname"><span class="pre">num_classes</span></span><a class="headerlink" href="#step.utils.dataset.ScDataset.num_classes" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">num_classes</span></span><a class="headerlink" href="#step.utils.dataset.ScDataset.num_classes" title="Link to this definition">¶</a></dt>
 <dd><p>Number of classes in the data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -993,7 +993,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.utils.dataset.ScDataset.mode">
-<span class="sig-name descname"><span class="pre">mode</span></span><a class="headerlink" href="#step.utils.dataset.ScDataset.mode" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">mode</span></span><a class="headerlink" href="#step.utils.dataset.ScDataset.mode" title="Link to this definition">¶</a></dt>
 <dd><p>Mode of the dataset.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -1004,27 +1004,27 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="id11">
-<span class="sig-name descname"><span class="pre">read_fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">()</span></em><a class="headerlink" href="#id11" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">read_fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">()</span></em><a class="headerlink" href="#id11" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="id12">
-<span class="sig-name descname"><span class="pre">recieve_fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">()</span></em><a class="headerlink" href="#id12" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">recieve_fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">()</span></em><a class="headerlink" href="#id12" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="id13">
-<span class="sig-name descname"><span class="pre">process_fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">()</span></em><a class="headerlink" href="#id13" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">process_fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">()</span></em><a class="headerlink" href="#id13" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="id14">
-<span class="sig-name descname"><span class="pre">read_folder</span></span><a class="headerlink" href="#id14" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">read_folder</span></span><a class="headerlink" href="#id14" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="step.utils.dataset.ScDataset.set_mode">
-<span class="sig-name descname"><span class="pre">set_mode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">ScMode.multi_batches_with_ct</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.utils.dataset.ScDataset.set_mode" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_mode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">ScMode.multi_batches_with_ct</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.utils.dataset.ScDataset.set_mode" title="Link to this definition">¶</a></dt>
 <dd><p>Set the mode of the dataset.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1043,12 +1043,12 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="step.utils.dataset.StDataset">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">StDataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coord_keys</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">('array_row',</span> <span class="pre">'array_col')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">domains</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.utils.dataset.StDataset" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">StDataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coord_keys</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">('array_row',</span> <span class="pre">'array_col')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">domains</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.utils.dataset.StDataset" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#step.utils.dataset.BaseDataset" title="step.utils.dataset.BaseDataset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BaseDataset</span></code></a></p>
 <p>Spatial dataset class.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.utils.dataset.StDataset.coord_keys">
-<span class="sig-name descname"><span class="pre">coord_keys</span></span><a class="headerlink" href="#step.utils.dataset.StDataset.coord_keys" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">coord_keys</span></span><a class="headerlink" href="#step.utils.dataset.StDataset.coord_keys" title="Link to this definition">¶</a></dt>
 <dd><p>List of keys for the spatial coordinates in the data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -1059,7 +1059,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.utils.dataset.StDataset.read_fields">
-<span class="sig-name descname"><span class="pre">read_fields</span></span><a class="headerlink" href="#step.utils.dataset.StDataset.read_fields" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">read_fields</span></span><a class="headerlink" href="#step.utils.dataset.StDataset.read_fields" title="Link to this definition">¶</a></dt>
 <dd><p>Tuple of fields to be read.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -1070,7 +1070,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.utils.dataset.StDataset.recieve_fields">
-<span class="sig-name descname"><span class="pre">recieve_fields</span></span><a class="headerlink" href="#step.utils.dataset.StDataset.recieve_fields" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">recieve_fields</span></span><a class="headerlink" href="#step.utils.dataset.StDataset.recieve_fields" title="Link to this definition">¶</a></dt>
 <dd><p>Tuple of fields to be received.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -1081,7 +1081,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.utils.dataset.StDataset.process_fields">
-<span class="sig-name descname"><span class="pre">process_fields</span></span><a class="headerlink" href="#step.utils.dataset.StDataset.process_fields" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">process_fields</span></span><a class="headerlink" href="#step.utils.dataset.StDataset.process_fields" title="Link to this definition">¶</a></dt>
 <dd><p>Tuple of fields to be processed.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -1092,7 +1092,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.utils.dataset.StDataset.read_folder">
-<span class="sig-name descname"><span class="pre">read_folder</span></span><a class="headerlink" href="#step.utils.dataset.StDataset.read_folder" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">read_folder</span></span><a class="headerlink" href="#step.utils.dataset.StDataset.read_folder" title="Link to this definition">¶</a></dt>
 <dd><p>Function to read the dataset from a folder.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -1103,7 +1103,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.utils.dataset.StDataset.rep">
-<span class="sig-name descname"><span class="pre">rep</span></span><a class="headerlink" href="#step.utils.dataset.StDataset.rep" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">rep</span></span><a class="headerlink" href="#step.utils.dataset.StDataset.rep" title="Link to this definition">¶</a></dt>
 <dd><p>Representation object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -1114,7 +1114,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.utils.dataset.StDataset.domains">
-<span class="sig-name descname"><span class="pre">domains</span></span><a class="headerlink" href="#step.utils.dataset.StDataset.domains" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">domains</span></span><a class="headerlink" href="#step.utils.dataset.StDataset.domains" title="Link to this definition">¶</a></dt>
 <dd><p>Domains object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -1125,7 +1125,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.utils.dataset.StDataset.mode">
-<span class="sig-name descname"><span class="pre">mode</span></span><a class="headerlink" href="#step.utils.dataset.StDataset.mode" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">mode</span></span><a class="headerlink" href="#step.utils.dataset.StDataset.mode" title="Link to this definition">¶</a></dt>
 <dd><p>Mode of the dataset.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -1136,39 +1136,39 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="id15">
-<span class="sig-name descname"><span class="pre">read_folder</span></span><a class="headerlink" href="#id15" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">read_folder</span></span><a class="headerlink" href="#id15" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="id16">
-<span class="sig-name descname"><span class="pre">read_fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">()</span></em><a class="headerlink" href="#id16" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">read_fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">()</span></em><a class="headerlink" href="#id16" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="step.utils.dataset.StDataset.set_domains">
-<span class="sig-name descname"><span class="pre">set_domains</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">domains</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.utils.dataset.StDataset.set_domains" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_domains</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">domains</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.utils.dataset.StDataset.set_domains" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="step.utils.dataset.StDataset.set_prior_coef">
-<span class="sig-name descname"><span class="pre">set_prior_coef</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prior_coef</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.utils.dataset.StDataset.set_prior_coef" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_prior_coef</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prior_coef</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.utils.dataset.StDataset.set_prior_coef" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="step.utils.dataset.StDataset.set_mode">
-<span class="sig-name descname"><span class="pre">set_mode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">StMode.multi_batches</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.utils.dataset.StDataset.set_mode" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_mode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">StMode.multi_batches</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.utils.dataset.StDataset.set_mode" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="step.utils.dataset.CrossDataset">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">CrossDataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sc_adata</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">anndata.AnnData</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">st_adata</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">anndata.AnnData</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coord_keys</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">('array_row',</span> <span class="pre">'array_col')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">st_sample_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">st_batch_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.utils.dataset.CrossDataset" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">CrossDataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sc_adata</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">anndata.AnnData</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">st_adata</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">anndata.AnnData</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coord_keys</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">('array_row',</span> <span class="pre">'array_col')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">st_sample_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">st_batch_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.utils.dataset.CrossDataset" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#step.utils.dataset.BaseDataset" title="step.utils.dataset.BaseDataset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BaseDataset</span></code></a></p>
 <p>A dataset class for cross-modal single-cell and spatial transcriptomics data.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.utils.dataset.CrossDataset.process_fields">
-<span class="sig-name descname"><span class="pre">process_fields</span></span><a class="headerlink" href="#step.utils.dataset.CrossDataset.process_fields" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">process_fields</span></span><a class="headerlink" href="#step.utils.dataset.CrossDataset.process_fields" title="Link to this definition">¶</a></dt>
 <dd><p>Tuple of fields to be processed.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -1179,7 +1179,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.utils.dataset.CrossDataset.recieve_fields">
-<span class="sig-name descname"><span class="pre">recieve_fields</span></span><a class="headerlink" href="#step.utils.dataset.CrossDataset.recieve_fields" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">recieve_fields</span></span><a class="headerlink" href="#step.utils.dataset.CrossDataset.recieve_fields" title="Link to this definition">¶</a></dt>
 <dd><p>Tuple of fields to be received.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -1190,7 +1190,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.utils.dataset.CrossDataset.class_key">
-<span class="sig-name descname"><span class="pre">class_key</span></span><a class="headerlink" href="#step.utils.dataset.CrossDataset.class_key" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">class_key</span></span><a class="headerlink" href="#step.utils.dataset.CrossDataset.class_key" title="Link to this definition">¶</a></dt>
 <dd><p>Key for the class labels in the single-cell data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -1201,7 +1201,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.utils.dataset.CrossDataset.coord_keys">
-<span class="sig-name descname"><span class="pre">coord_keys</span></span><a class="headerlink" href="#step.utils.dataset.CrossDataset.coord_keys" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">coord_keys</span></span><a class="headerlink" href="#step.utils.dataset.CrossDataset.coord_keys" title="Link to this definition">¶</a></dt>
 <dd><p>List of keys for the spatial coordinates in the spatial transcriptomics data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -1212,7 +1212,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.utils.dataset.CrossDataset.st_sample_names">
-<span class="sig-name descname"><span class="pre">st_sample_names</span></span><a class="headerlink" href="#step.utils.dataset.CrossDataset.st_sample_names" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">st_sample_names</span></span><a class="headerlink" href="#step.utils.dataset.CrossDataset.st_sample_names" title="Link to this definition">¶</a></dt>
 <dd><p>List of sample names in the spatial transcriptomics data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -1223,7 +1223,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.utils.dataset.CrossDataset.batch_key">
-<span class="sig-name descname"><span class="pre">batch_key</span></span><a class="headerlink" href="#step.utils.dataset.CrossDataset.batch_key" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">batch_key</span></span><a class="headerlink" href="#step.utils.dataset.CrossDataset.batch_key" title="Link to this definition">¶</a></dt>
 <dd><p>Key for the batch information in the single-cell data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -1234,7 +1234,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.utils.dataset.CrossDataset.num_classes">
-<span class="sig-name descname"><span class="pre">num_classes</span></span><a class="headerlink" href="#step.utils.dataset.CrossDataset.num_classes" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">num_classes</span></span><a class="headerlink" href="#step.utils.dataset.CrossDataset.num_classes" title="Link to this definition">¶</a></dt>
 <dd><p>Number of classes in the single-cell data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -1245,7 +1245,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.utils.dataset.CrossDataset.st_adata">
-<span class="sig-name descname"><span class="pre">st_adata</span></span><a class="headerlink" href="#step.utils.dataset.CrossDataset.st_adata" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">st_adata</span></span><a class="headerlink" href="#step.utils.dataset.CrossDataset.st_adata" title="Link to this definition">¶</a></dt>
 <dd><p>Spatial transcriptomics AnnData object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -1256,7 +1256,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.utils.dataset.CrossDataset.rep">
-<span class="sig-name descname"><span class="pre">rep</span></span><a class="headerlink" href="#step.utils.dataset.CrossDataset.rep" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">rep</span></span><a class="headerlink" href="#step.utils.dataset.CrossDataset.rep" title="Link to this definition">¶</a></dt>
 <dd><p>Representation object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -1267,7 +1267,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.utils.dataset.CrossDataset._integrated">
-<span class="sig-name descname"><span class="pre">_integrated</span></span><a class="headerlink" href="#step.utils.dataset.CrossDataset._integrated" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">_integrated</span></span><a class="headerlink" href="#step.utils.dataset.CrossDataset._integrated" title="Link to this definition">¶</a></dt>
 <dd><p>Flag indicating if the dataset is integrated.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -1278,7 +1278,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.utils.dataset.CrossDataset.mode">
-<span class="sig-name descname"><span class="pre">mode</span></span><a class="headerlink" href="#step.utils.dataset.CrossDataset.mode" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">mode</span></span><a class="headerlink" href="#step.utils.dataset.CrossDataset.mode" title="Link to this definition">¶</a></dt>
 <dd><p>Mode of the dataset.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -1289,7 +1289,7 @@
 
 <dl class="py property">
 <dt class="sig sig-object py" id="step.utils.dataset.CrossDataset.st_batch_codes">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">st_batch_codes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">pandas.Series</span></em><a class="headerlink" href="#step.utils.dataset.CrossDataset.st_batch_codes" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">st_batch_codes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">pandas.Series</span></em><a class="headerlink" href="#step.utils.dataset.CrossDataset.st_batch_codes" title="Link to this definition">¶</a></dt>
 <dd><p>Get the batch codes for the spatial transcriptomics dataset.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -1303,7 +1303,7 @@
 
 <dl class="py property">
 <dt class="sig sig-object py" id="step.utils.dataset.CrossDataset.st_sample_list">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">st_sample_list</span></span><a class="headerlink" href="#step.utils.dataset.CrossDataset.st_sample_list" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">st_sample_list</span></span><a class="headerlink" href="#step.utils.dataset.CrossDataset.st_sample_list" title="Link to this definition">¶</a></dt>
 <dd><p>Get the sample list for the spatial transcriptomics dataset.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -1317,7 +1317,7 @@
 
 <dl class="py property">
 <dt class="sig sig-object py" id="step.utils.dataset.CrossDataset.num_st_batches">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">num_st_batches</span></span><a class="headerlink" href="#step.utils.dataset.CrossDataset.num_st_batches" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">num_st_batches</span></span><a class="headerlink" href="#step.utils.dataset.CrossDataset.num_st_batches" title="Link to this definition">¶</a></dt>
 <dd><p>Get the number of batches for the spatial transcriptomics dataset.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -1331,17 +1331,17 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="id17">
-<span class="sig-name descname"><span class="pre">process_fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">()</span></em><a class="headerlink" href="#id17" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">process_fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">()</span></em><a class="headerlink" href="#id17" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="id18">
-<span class="sig-name descname"><span class="pre">recieve_fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">()</span></em><a class="headerlink" href="#id18" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">recieve_fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">()</span></em><a class="headerlink" href="#id18" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="step.utils.dataset.CrossDataset.set_rep">
-<span class="sig-name descname"><span class="pre">set_rep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rep</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.utils.dataset.CrossDataset.set_rep" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_rep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rep</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.utils.dataset.CrossDataset.set_rep" title="Link to this definition">¶</a></dt>
 <dd><p>Set the representation for the dataset.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1355,7 +1355,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="step.utils.dataset.CrossDataset.set_mode">
-<span class="sig-name descname"><span class="pre">set_mode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">ScMode.multi_batches_with_ct</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.utils.dataset.CrossDataset.set_mode" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_mode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">ScMode.multi_batches_with_ct</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.utils.dataset.CrossDataset.set_mode" title="Link to this definition">¶</a></dt>
 <dd><p>Sets the mode of the dataset.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1372,7 +1372,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="step.utils.dataset.CrossDataset.read">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#step.utils.dataset.CrossDataset.read" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#step.utils.dataset.CrossDataset.read" title="Link to this definition">¶</a></dt>
 <dd><p>Read the dataset from a file or folder.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1402,7 +1402,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="step.utils.dataset.CrossDataset.subset_st">
-<span class="sig-name descname"><span class="pre">subset_st</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">adata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">domains</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#step.utils.dataset.MaskedDataset" title="step.utils.dataset.MaskedDataset"><span class="pre">MaskedDataset</span></a></span></span><a class="headerlink" href="#step.utils.dataset.CrossDataset.subset_st" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">subset_st</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">adata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">domains</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#step.utils.dataset.MaskedDataset" title="step.utils.dataset.MaskedDataset"><span class="pre">MaskedDataset</span></a></span></span><a class="headerlink" href="#step.utils.dataset.CrossDataset.subset_st" title="Link to this definition">¶</a></dt>
 <dd><p>Creates a subset specific to the spatial transcriptomics dataset.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1624,7 +1624,7 @@
     </aside>
   </div>
 </div><script src="../../../../_static/documentation_options.js?v=5929fcd5"></script>
-    <script src="../../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/scripts/furo.js?v=32e29ea5"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>

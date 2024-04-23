@@ -5,11 +5,11 @@
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="index" title="Index" href="../../../../../genindex.html" /><link rel="search" title="Search" href="../../../../../search.html" /><link rel="next" title="step.functionality.base" href="../../base/index.html" /><link rel="prev" title="step.functionality.comps.model_ops" href="../model_ops/index.html" />
 
-    <!-- Generated with Sphinx 7.2.6 and Furo 2024.01.29 -->
+    <!-- Generated with Sphinx 7.3.7 and Furo 2024.01.29 -->
         <title>step.functionality.comps.trainer - STEP documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/styles/furo.css?v=135e06be" />
-    <link rel="stylesheet" type="text/css" href="../../../../../_static/graphviz.css?v=eafc0fe6" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/graphviz.css?v=fd3f3429" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/styles/furo-extensions.css?v=36a5483c" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/css/custom.css?v=f8d6e08a" />
@@ -192,9 +192,9 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../models/deconv/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.models.deconv</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../models/distributions/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.models.distributions</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../models/extension/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.models.extension</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../models/geneformer/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.models.geneformer</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../models/knn_map/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.models.knn_map</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../models/nnls/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.models.nnls</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../models/transcriptformer/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.models.transcriptformer</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../../modules/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.modules</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle navigation of step.modules</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -265,11 +265,11 @@
         </div>
         <article role="main">
           <section id="module-step.functionality.comps.trainer">
-<span id="step-functionality-comps-trainer"></span><h1><a class="reference internal" href="#module-step.functionality.comps.trainer" title="step.functionality.comps.trainer"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.functionality.comps.trainer</span></code></a><a class="headerlink" href="#module-step.functionality.comps.trainer" title="Link to this heading">#</a></h1>
+<span id="step-functionality-comps-trainer"></span><h1><a class="reference internal" href="#module-step.functionality.comps.trainer" title="step.functionality.comps.trainer"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.functionality.comps.trainer</span></code></a><a class="headerlink" href="#module-step.functionality.comps.trainer" title="Link to this heading">¶</a></h1>
 <section id="module-contents">
-<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">#</a></h2>
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
 <section id="classes">
-<h3>Classes<a class="headerlink" href="#classes" title="Link to this heading">#</a></h3>
+<h3>Classes<a class="headerlink" href="#classes" title="Link to this heading">¶</a></h3>
 <div class="table-wrapper autosummary longtable docutils container">
 <table class="autosummary longtable docutils align-default">
 <tbody>
@@ -277,14 +277,14 @@
 <td><p>Early stops the training if validation loss doesn't improve after a given patience.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#step.functionality.comps.trainer.Trainer" title="step.functionality.comps.trainer.Trainer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Trainer</span></code></a></p></td>
-<td><p>The Trainer class is responsible for training the Geneformer model.</p></td>
+<td><p>The Trainer class is responsible for training the TranscriptFormer model.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 </section>
 <section id="functions">
-<h3>Functions<a class="headerlink" href="#functions" title="Link to this heading">#</a></h3>
+<h3>Functions<a class="headerlink" href="#functions" title="Link to this heading">¶</a></h3>
 <div class="table-wrapper autosummary longtable docutils container">
 <table class="autosummary longtable docutils align-default">
 <tbody>
@@ -299,7 +299,7 @@
 </div>
 <dl class="py function">
 <dt class="sig sig-object py" id="step.functionality.comps.trainer.train_loop_formatter">
-<span class="sig-name descname"><span class="pre">train_loop_formatter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">train_func</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.functionality.comps.trainer.train_loop_formatter" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">train_loop_formatter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">train_func</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.functionality.comps.trainer.train_loop_formatter" title="Link to this definition">¶</a></dt>
 <dd><p>A decorator function that formats the training loop.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -316,29 +316,29 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="step.functionality.comps.trainer.EarlyStopping">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">EarlyStopping</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">patience</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">7</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'checkpoint.pt'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trace_func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">print</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.functionality.comps.trainer.EarlyStopping" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">EarlyStopping</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">patience</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">7</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'checkpoint.pt'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trace_func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">print</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.functionality.comps.trainer.EarlyStopping" title="Link to this definition">¶</a></dt>
 <dd><p>Early stops the training if validation loss doesn’t improve after a given patience.</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="step.functionality.comps.trainer.Trainer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Trainer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../../models/geneformer/index.html#step.models.geneformer.Geneformer" title="step.models.geneformer.Geneformer"><span class="pre">step.models.geneformer.Geneformer</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.functionality.comps.trainer.Trainer" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Trainer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../../models/transcriptformer/index.html#step.models.transcriptformer.TranscriptFormer" title="step.models.transcriptformer.TranscriptFormer"><span class="pre">step.models.transcriptformer.TranscriptFormer</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.functionality.comps.trainer.Trainer" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>The Trainer class is responsible for training the Geneformer model.</p>
+<p>The Trainer class is responsible for training the TranscriptFormer model.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.functionality.comps.trainer.Trainer.model">
-<span class="sig-name descname"><span class="pre">model</span></span><a class="headerlink" href="#step.functionality.comps.trainer.Trainer.model" title="Link to this definition">#</a></dt>
-<dd><p>The Geneformer model being trained.</p>
+<span class="sig-name descname"><span class="pre">model</span></span><a class="headerlink" href="#step.functionality.comps.trainer.Trainer.model" title="Link to this definition">¶</a></dt>
+<dd><p>The TranscriptFormer model being trained.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="../../../models/geneformer/index.html#step.models.geneformer.Geneformer" title="step.models.geneformer.Geneformer">Geneformer</a></p>
+<dd class="field-odd"><p><a class="reference internal" href="../../../models/transcriptformer/index.html#step.models.transcriptformer.TranscriptFormer" title="step.models.transcriptformer.TranscriptFormer">TranscriptFormer</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.functionality.comps.trainer.Trainer.optimizer">
-<span class="sig-name descname"><span class="pre">optimizer</span></span><a class="headerlink" href="#step.functionality.comps.trainer.Trainer.optimizer" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">optimizer</span></span><a class="headerlink" href="#step.functionality.comps.trainer.Trainer.optimizer" title="Link to this definition">¶</a></dt>
 <dd><p>The optimizer used for model parameter updates.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -349,7 +349,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.functionality.comps.trainer.Trainer.lr_scheduler">
-<span class="sig-name descname"><span class="pre">lr_scheduler</span></span><a class="headerlink" href="#step.functionality.comps.trainer.Trainer.lr_scheduler" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">lr_scheduler</span></span><a class="headerlink" href="#step.functionality.comps.trainer.Trainer.lr_scheduler" title="Link to this definition">¶</a></dt>
 <dd><p>The learning rate scheduler.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -360,7 +360,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.functionality.comps.trainer.Trainer.early_stopping">
-<span class="sig-name descname"><span class="pre">early_stopping</span></span><a class="headerlink" href="#step.functionality.comps.trainer.Trainer.early_stopping" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">early_stopping</span></span><a class="headerlink" href="#step.functionality.comps.trainer.Trainer.early_stopping" title="Link to this definition">¶</a></dt>
 <dd><p>A dictionary of EarlyStopping objects for each loss type.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -371,7 +371,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.functionality.comps.trainer.Trainer.lossconfig">
-<span class="sig-name descname"><span class="pre">lossconfig</span></span><a class="headerlink" href="#step.functionality.comps.trainer.Trainer.lossconfig" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">lossconfig</span></span><a class="headerlink" href="#step.functionality.comps.trainer.Trainer.lossconfig" title="Link to this definition">¶</a></dt>
 <dd><p>A dictionary containing the configuration for different loss types.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -382,7 +382,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="step.functionality.comps.trainer.Trainer.defualt_lcfg">
-<span class="sig-name descname"><span class="pre">defualt_lcfg</span></span><a class="headerlink" href="#step.functionality.comps.trainer.Trainer.defualt_lcfg" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">defualt_lcfg</span></span><a class="headerlink" href="#step.functionality.comps.trainer.Trainer.defualt_lcfg" title="Link to this definition">¶</a></dt>
 <dd><p>The default configuration for loss types.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -393,12 +393,12 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="step.functionality.comps.trainer.Trainer.mode_switch_to_train">
-<span class="sig-name descname"><span class="pre">mode_switch_to_train</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#step.functionality.comps.trainer.Trainer.mode_switch_to_train" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">mode_switch_to_train</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#step.functionality.comps.trainer.Trainer.mode_switch_to_train" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="step.functionality.comps.trainer.Trainer.init_optimizer">
-<span class="sig-name descname"><span class="pre">init_optimizer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tune_lr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stage</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tune_batch_embedding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.functionality.comps.trainer.Trainer.init_optimizer" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">init_optimizer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tune_lr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stage</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tune_batch_embedding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.functionality.comps.trainer.Trainer.init_optimizer" title="Link to this definition">¶</a></dt>
 <dd><p>Initializes the optimizer for model parameter updates.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -414,7 +414,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="step.functionality.comps.trainer.Trainer.set_lr_scheduler">
-<span class="sig-name descname"><span class="pre">set_lr_scheduler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lr_scheduler</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.functionality.comps.trainer.Trainer.set_lr_scheduler" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_lr_scheduler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lr_scheduler</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.functionality.comps.trainer.Trainer.set_lr_scheduler" title="Link to this definition">¶</a></dt>
 <dd><p>Sets the learning rate scheduler.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -429,7 +429,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="step.functionality.comps.trainer.Trainer.update_model_params">
-<span class="sig-name descname"><span class="pre">update_model_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">loss_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epoch</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.functionality.comps.trainer.Trainer.update_model_params" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">update_model_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">loss_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epoch</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.functionality.comps.trainer.Trainer.update_model_params" title="Link to this definition">¶</a></dt>
 <dd><p>Updates the model parameters based on the loss.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -440,7 +440,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="step.functionality.comps.trainer.Trainer.setup_early_stopping">
-<span class="sig-name descname"><span class="pre">setup_early_stopping</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">loss_dict</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.functionality.comps.trainer.Trainer.setup_early_stopping" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">setup_early_stopping</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">loss_dict</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.functionality.comps.trainer.Trainer.setup_early_stopping" title="Link to this definition">¶</a></dt>
 <dd><p>Sets up the EarlyStopping objects for each loss type.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -451,7 +451,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="step.functionality.comps.trainer.Trainer.cum_loss">
-<span class="sig-name descname"><span class="pre">cum_loss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">loss_dict</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">total_loss_dict</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_earlystop</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_batch</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_epoch</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.functionality.comps.trainer.Trainer.cum_loss" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">cum_loss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">loss_dict</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">total_loss_dict</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_earlystop</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_batch</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_epoch</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.functionality.comps.trainer.Trainer.cum_loss" title="Link to this definition">¶</a></dt>
 <dd><p>Computes the cumulative loss.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -474,7 +474,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="step.functionality.comps.trainer.Trainer.check_early_stop">
-<span class="sig-name descname"><span class="pre">check_early_stop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">total_loss_dict</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.functionality.comps.trainer.Trainer.check_early_stop" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">check_early_stop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">total_loss_dict</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.functionality.comps.trainer.Trainer.check_early_stop" title="Link to this definition">¶</a></dt>
 <dd><p>Checks if early stopping criteria are met.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -491,7 +491,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="step.functionality.comps.trainer.Trainer.format_loss_dict">
-<span class="sig-name descname"><span class="pre">format_loss_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">loss_dict</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">valid_loss_dict</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endepoch</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.functionality.comps.trainer.Trainer.format_loss_dict" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">format_loss_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">loss_dict</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">valid_loss_dict</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endepoch</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.functionality.comps.trainer.Trainer.format_loss_dict" title="Link to this definition">¶</a></dt>
 <dd><p>Formats the loss dictionary for display.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -507,7 +507,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="step.functionality.comps.trainer.Trainer.split_X">
-<span class="sig-name descname"><span class="pre">split_X</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split_rate</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.functionality.comps.trainer.Trainer.split_X" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">split_X</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split_rate</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.functionality.comps.trainer.Trainer.split_X" title="Link to this definition">¶</a></dt>
 <dd><p>Splits the input data into training and validation sets based on the given split rate.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -527,7 +527,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="step.functionality.comps.trainer.Trainer.handle_input_tuple">
-<span class="sig-name descname"><span class="pre">handle_input_tuple</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_tuple</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.functionality.comps.trainer.Trainer.handle_input_tuple" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">handle_input_tuple</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_tuple</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.functionality.comps.trainer.Trainer.handle_input_tuple" title="Link to this definition">¶</a></dt>
 <dd><p>Handles the input tuple and calculates the loss.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -544,12 +544,12 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="step.functionality.comps.trainer.Trainer.handle_ginput_tuple">
-<span class="sig-name descname"><span class="pre">handle_ginput_tuple</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_tuple</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ind</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.functionality.comps.trainer.Trainer.handle_ginput_tuple" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">handle_ginput_tuple</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_tuple</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ind</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.functionality.comps.trainer.Trainer.handle_ginput_tuple" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="step.functionality.comps.trainer.Trainer.train_batch">
-<span class="sig-name descname"><span class="pre">train_batch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loaders</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">call_func</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.functionality.comps.trainer.Trainer.train_batch" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">train_batch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loaders</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">call_func</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.functionality.comps.trainer.Trainer.train_batch" title="Link to this definition">¶</a></dt>
 <dd><p>Trains the model on a batch of data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -570,7 +570,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="step.functionality.comps.trainer.Trainer.train">
-<span class="sig-name descname"><span class="pre">train</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_ind</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">valid_ind</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">call_func</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.functionality.comps.trainer.Trainer.train" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">train</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_ind</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">valid_ind</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">call_func</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.functionality.comps.trainer.Trainer.train" title="Link to this definition">¶</a></dt>
 <dd><p>Train the model using the provided data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -594,7 +594,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="step.functionality.comps.trainer.Trainer.train_node_sampler">
-<span class="sig-name descname"><span class="pre">train_node_sampler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gloader</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_ind</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">valid_ind</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.functionality.comps.trainer.Trainer.train_node_sampler" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">train_node_sampler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gloader</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_ind</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">valid_ind</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.functionality.comps.trainer.Trainer.train_node_sampler" title="Link to this definition">¶</a></dt>
 <dd><p>Trains the model with node sampler.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -610,7 +610,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="step.functionality.comps.trainer.Trainer.train_graph_batch">
-<span class="sig-name descname"><span class="pre">train_graph_batch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gloader</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_ind</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">valid_ind</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.functionality.comps.trainer.Trainer.train_graph_batch" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">train_graph_batch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gloader</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_ind</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">valid_ind</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.functionality.comps.trainer.Trainer.train_graph_batch" title="Link to this definition">¶</a></dt>
 <dd><p>Trains the model on a batch of graph inputs.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -632,7 +632,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="step.functionality.comps.trainer.Trainer.validate_loader">
-<span class="sig-name descname"><span class="pre">validate_loader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">loader</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">call_func</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.functionality.comps.trainer.Trainer.validate_loader" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">validate_loader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">loader</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">call_func</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.functionality.comps.trainer.Trainer.validate_loader" title="Link to this definition">¶</a></dt>
 <dd><p>Validates the given loader by evaluating the model on the input data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -657,7 +657,7 @@ If not provided, self.handle_input_tuple will be used.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="step.functionality.comps.trainer.Trainer.validate_X">
-<span class="sig-name descname"><span class="pre">validate_X</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ind</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">call_func</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.functionality.comps.trainer.Trainer.validate_X" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">validate_X</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ind</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">call_func</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.functionality.comps.trainer.Trainer.validate_X" title="Link to this definition">¶</a></dt>
 <dd><p>Validates the input data X using the specified call_func.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -675,7 +675,7 @@ If not provided, self.handle_input_tuple will be used.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="step.functionality.comps.trainer.Trainer.validate_gloader">
-<span class="sig-name descname"><span class="pre">validate_gloader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gloader</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.functionality.comps.trainer.Trainer.validate_gloader" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">validate_gloader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gloader</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.functionality.comps.trainer.Trainer.validate_gloader" title="Link to this definition">¶</a></dt>
 <dd><p>Validates the given data loader by evaluating the model on the input data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -692,7 +692,7 @@ If not provided, self.handle_input_tuple will be used.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="step.functionality.comps.trainer.Trainer.make_loaders">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">make_loaders</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../../utils/dataset/index.html#step.utils.dataset.BaseDataset" title="step.utils.dataset.BaseDataset"><span class="pre">step.utils.dataset.BaseDataset</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="../../../utils/dataset/index.html#step.utils.dataset.MaskedDataset" title="step.utils.dataset.MaskedDataset"><span class="pre">step.utils.dataset.MaskedDataset</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split_rate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shuffle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obs_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.functionality.comps.trainer.Trainer.make_loaders" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">make_loaders</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../../utils/dataset/index.html#step.utils.dataset.BaseDataset" title="step.utils.dataset.BaseDataset"><span class="pre">step.utils.dataset.BaseDataset</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="../../../utils/dataset/index.html#step.utils.dataset.MaskedDataset" title="step.utils.dataset.MaskedDataset"><span class="pre">step.utils.dataset.MaskedDataset</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split_rate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shuffle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obs_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#step.functionality.comps.trainer.Trainer.make_loaders" title="Link to this definition">¶</a></dt>
 <dd><p>Create data loaders for training and validation datasets.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -717,7 +717,7 @@ If not provided, self.handle_input_tuple will be used.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="step.functionality.comps.trainer.category_random_split">
-<span class="sig-name descname"><span class="pre">category_random_split</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../../utils/dataset/index.html#step.utils.dataset.BaseDataset" title="step.utils.dataset.BaseDataset"><span class="pre">step.utils.dataset.BaseDataset</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="../../../utils/dataset/index.html#step.utils.dataset.MaskedDataset" title="step.utils.dataset.MaskedDataset"><span class="pre">step.utils.dataset.MaskedDataset</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">split_rate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obs_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../../../utils/dataset/index.html#step.utils.dataset.MaskedDataset" title="step.utils.dataset.MaskedDataset"><span class="pre">step.utils.dataset.MaskedDataset</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="../../../utils/dataset/index.html#step.utils.dataset.MaskedDataset" title="step.utils.dataset.MaskedDataset"><span class="pre">step.utils.dataset.MaskedDataset</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#step.functionality.comps.trainer.category_random_split" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">category_random_split</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../../utils/dataset/index.html#step.utils.dataset.BaseDataset" title="step.utils.dataset.BaseDataset"><span class="pre">step.utils.dataset.BaseDataset</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="../../../utils/dataset/index.html#step.utils.dataset.MaskedDataset" title="step.utils.dataset.MaskedDataset"><span class="pre">step.utils.dataset.MaskedDataset</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">split_rate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obs_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../../../utils/dataset/index.html#step.utils.dataset.MaskedDataset" title="step.utils.dataset.MaskedDataset"><span class="pre">step.utils.dataset.MaskedDataset</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="../../../utils/dataset/index.html#step.utils.dataset.MaskedDataset" title="step.utils.dataset.MaskedDataset"><span class="pre">step.utils.dataset.MaskedDataset</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#step.functionality.comps.trainer.category_random_split" title="Link to this definition">¶</a></dt>
 <dd><p>Splits the given dataset into training and validation datasets based on categories.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -846,7 +846,7 @@ If not provided, self.handle_input_tuple will be used.</p></li>
     </aside>
   </div>
 </div><script src="../../../../../_static/documentation_options.js?v=5929fcd5"></script>
-    <script src="../../../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../../_static/scripts/furo.js?v=32e29ea5"></script>
     <script src="../../../../../_static/clipboard.min.js?v=a7894cd8"></script>

@@ -44,18 +44,18 @@ Functions
    Early stops the training if validation loss doesn't improve after a given patience.
 
 
-.. py:class:: Trainer(model: step.models.geneformer.Geneformer)
+.. py:class:: Trainer(model: step.models.transcriptformer.TranscriptFormer)
 
 
    Bases: :py:obj:`object`
 
-   The Trainer class is responsible for training the Geneformer model.
+   The Trainer class is responsible for training the TranscriptFormer model.
 
    .. attribute:: model
 
-      The Geneformer model being trained.
+      The TranscriptFormer model being trained.
 
-      :type: Geneformer
+      :type: TranscriptFormer
 
    .. attribute:: optimizer
 

@@ -29,7 +29,7 @@ Classes
 
       The model used for training.
 
-      :type: Geneformer
+      :type: TranscriptFormer
 
    .. py:method:: handle_input_tuple(input_tuple)
 

@@ -80,9 +80,9 @@ Classes
 .. py:class:: NrmlsBC(num_batches: int, num_classes: int = 1, dispersion: Literal[gene, batch-gene] = 'batch-gene', use_l_scale=False, **kwargs)
 
 
-   Bases: :py:obj:`step.models.geneformer.Geneformer`
+   Bases: :py:obj:`step.models.transcriptformer.TranscriptFormer`
 
-   NrmlsBC is an extension of the Geneformer model that supports batch-aware normalization and scaling to eliminate batch effects.
+   NrmlsBC is an extension of the TranscriptFormer model that supports batch-aware normalization and scaling to eliminate batch effects.
 
    .. attribute:: num_batches
 
@@ -112,7 +112,7 @@ Classes
 
       The moduler module.
 
-      :type: Geneformer
+      :type: TranscriptFormer
 
    .. attribute:: batch_readout
 

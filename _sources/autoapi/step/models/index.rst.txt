@@ -14,8 +14,8 @@ Submodules
    deconv/index.rst
    distributions/index.rst
    extension/index.rst
-   geneformer/index.rst
    knn_map/index.rst
    nnls/index.rst
+   transcriptformer/index.rst
 
 

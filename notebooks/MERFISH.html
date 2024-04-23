@@ -5,11 +5,11 @@
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Integrate Human Immune Cell datasets with STEP and generate batch-corrected embeddings and gene expressions." href="scRNA-seq.html" /><link rel="prev" title="Performing integrative analysis on scRNA-seq data and 10x Visium data of Human Lymph Node with STEP" href="Human_Lymph_Node.html" />
 
-    <!-- Generated with Sphinx 7.2.6 and Furo 2024.01.29 -->
+    <!-- Generated with Sphinx 7.3.7 and Furo 2024.01.29 -->
         <title>Reveal multiple level of biological heterogeneities in Mouse Hypothalamus by MERFISH-seq - STEP documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
-    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=eafc0fe6" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=36a5483c" />
@@ -193,9 +193,9 @@
 <li class="toctree-l4"><a class="reference internal" href="../autoapi/step/models/deconv/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.models.deconv</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../autoapi/step/models/distributions/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.models.distributions</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../autoapi/step/models/extension/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.models.extension</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../autoapi/step/models/geneformer/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.models.geneformer</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../autoapi/step/models/knn_map/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.models.knn_map</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../autoapi/step/models/nnls/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.models.nnls</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/step/models/transcriptformer/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.models.transcriptformer</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../autoapi/step/modules/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.modules</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle navigation of step.modules</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -271,7 +271,7 @@
         display: none;
     }
 </style><section id="Reveal-multiple-level-of-biological-heterogeneities-in-Mouse-Hypothalamus-by-MERFISH-seq">
-<h1>Reveal multiple level of biological heterogeneities in Mouse Hypothalamus by MERFISH-seq<a class="headerlink" href="#Reveal-multiple-level-of-biological-heterogeneities-in-Mouse-Hypothalamus-by-MERFISH-seq" title="Link to this heading">#</a></h1>
+<h1>Reveal multiple level of biological heterogeneities in Mouse Hypothalamus by MERFISH-seq<a class="headerlink" href="#Reveal-multiple-level-of-biological-heterogeneities-in-Mouse-Hypothalamus-by-MERFISH-seq" title="Link to this heading">¶</a></h1>
 <p>In this tutorial, we will showcae the STEP for revealing multiple levels of biological heterogeneities in the Mouse Hypothalamus by MERFISH-seq. STEP has been designed to shed light on different aspects of cellular complexity: 1. <strong>Cell State Level Heterogeneity</strong>: STEP can capture unique cellular states based on genetic expressions in the mouse hypothalamus. 2. <strong>Spatial Domain Level Heterogeneity</strong>: STEP facilitates understanding of spatial patterns and relationships among cells by smoothing
 the cell state embeddings. 3. <strong>End-to-End (e2e) Mode for Direct Spatial Domain Identification</strong>: A streamlined process to directly identify and analyze spatial heterogeneity.</p>
 <p>The aim of this tutorial is to guide users through the process of utilizing and understanding the capabilities of STEP, enabling users to dive deep into the biological intricacies of the mouse hypothalamus.</p>
@@ -305,10 +305,10 @@ st_file = &#39;./data/merfish_animal1.h5ad&#39;
 </pre></div></div>
 </div>
 <section id="Cell-state-level-heterogeneity">
-<h2>Cell state level heterogeneity<a class="headerlink" href="#Cell-state-level-heterogeneity" title="Link to this heading">#</a></h2>
+<h2>Cell state level heterogeneity<a class="headerlink" href="#Cell-state-level-heterogeneity" title="Link to this heading">¶</a></h2>
 <p>For the identification of cell state level hetorogeneity single-cell resolution data, we use <code class="docutils literal notranslate"><span class="pre">step.scModel</span></code> which will focus on the modeling of transcipts and elimination of the potential batch-effects (not presented in this data), ignoring the spatial context even though the data is spatially resovled.</p>
 <section id="Setup-STEP-object">
-<h3>Setup STEP object<a class="headerlink" href="#Setup-STEP-object" title="Link to this heading">#</a></h3>
+<h3>Setup STEP object<a class="headerlink" href="#Setup-STEP-object" title="Link to this heading">¶</a></h3>
 <p>Due to the limitation of the MERFISH technique, there’re only 161 genes across sections. Subsequently, we will use all these genes by setting the paramter <code class="docutils literal notranslate"><span class="pre">n_top_genes=None</span></code> and set the parameter <code class="docutils literal notranslate"><span class="pre">n_modules=20</span></code> to model the fewer gene modules.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
@@ -693,7 +693,7 @@ Embeddings: 100%|<span class="ansi-green-fg">██████████</spa
 </section>
 </section>
 <section id="Spatial-domain-level-heterogeneity-by-spatially-smoothing-the-embedding-in-cell-state-level">
-<h2>Spatial domain level heterogeneity by spatially smoothing the embedding in cell state level<a class="headerlink" href="#Spatial-domain-level-heterogeneity-by-spatially-smoothing-the-embedding-in-cell-state-level" title="Link to this heading">#</a></h2>
+<h2>Spatial domain level heterogeneity by spatially smoothing the embedding in cell state level<a class="headerlink" href="#Spatial-domain-level-heterogeneity-by-spatially-smoothing-the-embedding-in-cell-state-level" title="Link to this heading">¶</a></h2>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
@@ -871,9 +871,9 @@ Title not provided, or length does not match the number of batches. Using featur
 </div>
 </section>
 <section id="E2E-mode-for-direct-spatial-domain-identification">
-<h2>E2E mode for direct spatial domain identification<a class="headerlink" href="#E2E-mode-for-direct-spatial-domain-identification" title="Link to this heading">#</a></h2>
+<h2>E2E mode for direct spatial domain identification<a class="headerlink" href="#E2E-mode-for-direct-spatial-domain-identification" title="Link to this heading">¶</a></h2>
 <section id="Model-config-&amp;-running-config">
-<h3>Model config &amp; running config<a class="headerlink" href="#Model-config-&-running-config" title="Link to this heading">#</a></h3>
+<h3>Model config &amp; running config<a class="headerlink" href="#Model-config-&-running-config" title="Link to this heading">¶</a></h3>
 <p>First, set <code class="docutils literal notranslate"><span class="pre">e2e=True</span></code> to enable the e2e mode. In e2e mode, these parameters used in the non e2e mode will be ignored: - <code class="docutils literal notranslate"><span class="pre">epochs</span></code> - <code class="docutils literal notranslate"><span class="pre">batch_size</span></code> - <code class="docutils literal notranslate"><span class="pre">split_rate</span></code></p>
 <p>Instead, a graph sampling strategy will be used to train the model.</p>
 <div class="nbinput nblast docutils container">
@@ -898,7 +898,7 @@ run_config = dict(
 </div>
 </section>
 <section id="Load-data-and-add-annotations-of-zones">
-<h3>Load data and add annotations of zones<a class="headerlink" href="#Load-data-and-add-annotations-of-zones" title="Link to this heading">#</a></h3>
+<h3>Load data and add annotations of zones<a class="headerlink" href="#Load-data-and-add-annotations-of-zones" title="Link to this heading">¶</a></h3>
 <div class="admonition note">
 <p><strong>Note</strong>: The annotations of zones is obtained from the <a class="reference external" href="https://zhengli09.github.io/BASS-Analysis/MERFISH.html">tutorial of BASS</a></p>
 </div>
@@ -917,7 +917,7 @@ for batch in os.listdir(&#39;./data/merfish_anno/&#39;):
 </div>
 </section>
 <section id="Set-up-STEP-object">
-<h3>Set up STEP object<a class="headerlink" href="#Set-up-STEP-object" title="Link to this heading">#</a></h3>
+<h3>Set up STEP object<a class="headerlink" href="#Set-up-STEP-object" title="Link to this heading">¶</a></h3>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
@@ -954,7 +954,7 @@ Modeling with 1 components
 </div>
 </section>
 <section id="Generate-spatially-smoothed-embeddings-and-cluster-them-to-obtain-spatial-domains">
-<h3>Generate spatially smoothed embeddings and cluster them to obtain spatial domains<a class="headerlink" href="#Generate-spatially-smoothed-embeddings-and-cluster-them-to-obtain-spatial-domains" title="Link to this heading">#</a></h3>
+<h3>Generate spatially smoothed embeddings and cluster them to obtain spatial domains<a class="headerlink" href="#Generate-spatially-smoothed-embeddings-and-cluster-them-to-obtain-spatial-domains" title="Link to this heading">¶</a></h3>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
@@ -991,7 +991,7 @@ Training graph with multiple batches
 </div>
 </section>
 <section id="Visualization">
-<h3>Visualization<a class="headerlink" href="#Visualization" title="Link to this heading">#</a></h3>
+<h3>Visualization<a class="headerlink" href="#Visualization" title="Link to this heading">¶</a></h3>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
@@ -1052,7 +1052,7 @@ Training graph with multiple batches
 </div>
 </section>
 <section id="Metrics-for-evaluation-of-the-obtained-spatial-domains-compared-to-the-annotations">
-<h3>Metrics for evaluation of the obtained spatial domains compared to the annotations<a class="headerlink" href="#Metrics-for-evaluation-of-the-obtained-spatial-domains-compared-to-the-annotations" title="Link to this heading">#</a></h3>
+<h3>Metrics for evaluation of the obtained spatial domains compared to the annotations<a class="headerlink" href="#Metrics-for-evaluation-of-the-obtained-spatial-domains-compared-to-the-annotations" title="Link to this heading">¶</a></h3>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
@@ -1164,7 +1164,7 @@ for batch in adata.obs[&#39;Bregma&#39;].unique():
     </aside>
   </div>
 </div><script src="../_static/documentation_options.js?v=5929fcd5"></script>
-    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=32e29ea5"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>

@@ -5,11 +5,11 @@
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Reveal multiple level of biological heterogeneities in Mouse Hypothalamus by MERFISH-seq" href="MERFISH.html" /><link rel="prev" title="Spatial domain identification on 10x Visium DLFPC data" href="DLFPC.html" />
 
-    <!-- Generated with Sphinx 7.2.6 and Furo 2024.01.29 -->
+    <!-- Generated with Sphinx 7.3.7 and Furo 2024.01.29 -->
         <title>Performing integrative analysis on scRNA-seq data and 10x Visium data of Human Lymph Node with STEP - STEP documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
-    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=eafc0fe6" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=36a5483c" />
@@ -193,9 +193,9 @@
 <li class="toctree-l4"><a class="reference internal" href="../autoapi/step/models/deconv/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.models.deconv</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../autoapi/step/models/distributions/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.models.distributions</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../autoapi/step/models/extension/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.models.extension</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../autoapi/step/models/geneformer/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.models.geneformer</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../autoapi/step/models/knn_map/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.models.knn_map</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../autoapi/step/models/nnls/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.models.nnls</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/step/models/transcriptformer/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.models.transcriptformer</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../autoapi/step/modules/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.modules</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle navigation of step.modules</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -271,10 +271,10 @@
         display: none;
     }
 </style><section id="Performing-integrative-analysis-on-scRNA-seq-data-and-10x-Visium-data-of-Human-Lymph-Node-with-STEP">
-<h1>Performing integrative analysis on scRNA-seq data and 10x Visium data of Human Lymph Node with STEP<a class="headerlink" href="#Performing-integrative-analysis-on-scRNA-seq-data-and-10x-Visium-data-of-Human-Lymph-Node-with-STEP" title="Link to this heading">#</a></h1>
+<h1>Performing integrative analysis on scRNA-seq data and 10x Visium data of Human Lymph Node with STEP<a class="headerlink" href="#Performing-integrative-analysis-on-scRNA-seq-data-and-10x-Visium-data-of-Human-Lymph-Node-with-STEP" title="Link to this heading">¶</a></h1>
 <p>This tutorial showcases the workflow of integrating two modalities with STEP where they are firstly co-embeded into a shared latent space; then the spatial domains(and subdomains) are identified based on the obtained embedding; subsequently, the cell-type composition of each spot is inferred based on the identified domains and according to the embedding in the shared latent space.</p>
 <section id="Loading-packages">
-<h2>Loading packages<a class="headerlink" href="#Loading-packages" title="Link to this heading">#</a></h2>
+<h2>Loading packages<a class="headerlink" href="#Loading-packages" title="Link to this heading">¶</a></h2>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
@@ -302,7 +302,7 @@ if not os.path.exists(&#39;./results/lymph&#39;):
 </div>
 </section>
 <section id="Load-data">
-<h2>Load data<a class="headerlink" href="#Load-data" title="Link to this heading">#</a></h2>
+<h2>Load data<a class="headerlink" href="#Load-data" title="Link to this heading">¶</a></h2>
 <p>This data loading part refers to the <a class="reference external" href="https://cell2location.readthedocs.io/en/latest/notebooks/cell2location_tutorial.html#Mapping-human-lymph-node-cell-types-to-10X-Visium-with-Cell2location">tutorial of cell2location</a></p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
@@ -348,7 +348,7 @@ del adata_ref.raw
 </div>
 </section>
 <section id="Initialize-the-STEP-instance">
-<h2>Initialize the STEP instance<a class="headerlink" href="#Initialize-the-STEP-instance" title="Link to this heading">#</a></h2>
+<h2>Initialize the STEP instance<a class="headerlink" href="#Initialize-the-STEP-instance" title="Link to this heading">¶</a></h2>
 <p>Initialization of STEP instance requires set the following parameters: - <code class="docutils literal notranslate"><span class="pre">sc_adata</span></code>: Anndata of scRNA-seq data - <code class="docutils literal notranslate"><span class="pre">st_adata</span></code>: Anndata of spatial data - <code class="docutils literal notranslate"><span class="pre">n_top_genes</span></code> or <code class="docutils literal notranslate"><span class="pre">geneset</span></code>: using hvgs or specified geneset - <code class="docutils literal notranslate"><span class="pre">batch_key</span></code>: a column name of <code class="docutils literal notranslate"><span class="pre">sc_adata.obs</span></code> specifying the batches in scRNA-seq data - <code class="docutils literal notranslate"><span class="pre">class_key</span></code>: a column name of <code class="docutils literal notranslate"><span class="pre">sc_adata.obs</span></code> specifying the cell-type annoations in scRNA-seq data - <code class="docutils literal notranslate"><span class="pre">decoder_type</span></code>: distribution(zinb or nb, default zinb) to model gene expression
 data.</p>
 <p>Other parameters are about model settings: - <code class="docutils literal notranslate"><span class="pre">module_dim</span></code>: dimension of final embedding - <code class="docutils literal notranslate"><span class="pre">hidden_dim</span></code>: dimension of hidden layers - <code class="docutils literal notranslate"><span class="pre">n_moudles</span></code>: number of gene modules - <code class="docutils literal notranslate"><span class="pre">dec_norm</span></code>: normalization layer used in decoder, - ‘layer’: LayerNorm - ‘batch’: BatchNorm - None: not using any normalization layer - <code class="docutils literal notranslate"><span class="pre">n_dec_hid_layers</span></code>: number of hidden layers used in decoder.</p>
@@ -427,7 +427,7 @@ Name: Sample, dtype: int64
 </div>
 </section>
 <section id="Co-embedding-two-modalities">
-<h2>Co-embedding two modalities<a class="headerlink" href="#Co-embedding-two-modalities" title="Link to this heading">#</a></h2>
+<h2>Co-embedding two modalities<a class="headerlink" href="#Co-embedding-two-modalities" title="Link to this heading">¶</a></h2>
 <p>In this process, the goal is to extract the information from transcripts, also eliminate the technical/batch effects in the meantime, so the spatial data is not differentiated from scRNA-seq data by ignoring the spatial locations.</p>
 <p>The following running parameters</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>tune_epochs=200,
@@ -518,7 +518,7 @@ EarlyStopping counter: 344 out of 10
 </div>
 </div>
 <section id="Get-and-check-the-co-embedding-results">
-<h3>Get and check the co-embedding results<a class="headerlink" href="#Get-and-check-the-co-embedding-results" title="Link to this heading">#</a></h3>
+<h3>Get and check the co-embedding results<a class="headerlink" href="#Get-and-check-the-co-embedding-results" title="Link to this heading">¶</a></h3>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
@@ -563,7 +563,7 @@ sc.tl.umap(adata)
 </section>
 </section>
 <section id="Zonation-after-integration">
-<h2>Zonation after integration<a class="headerlink" href="#Zonation-after-integration" title="Link to this heading">#</a></h2>
+<h2>Zonation after integration<a class="headerlink" href="#Zonation-after-integration" title="Link to this heading">¶</a></h2>
 <p>Zonation, i.e. identification of spatial domains, is then conducted on the obtained embedding in the previous co-embedding process.</p>
 <div class="admonition note">
 <p><strong>Note:</strong> This process required embedding produced in the previous process, so if the adata is not saved while the model(paramters) is saved, load the step instance <code class="docutils literal notranslate"><span class="pre">proc</span></code> and use <code class="docutils literal notranslate"><span class="pre">proc.add_embed(key_added='&lt;your</span> <span class="pre">desired</span> <span class="pre">key</span> <span class="pre">name&gt;')</span></code></p>
@@ -691,7 +691,7 @@ sc.pl.spatial(proc.st_adata, color=[&#39;sub_domain&#39;], size=1.3,)
 </div>
 </section>
 <section id="Cell-type-deconvolution-with-obtained-embedding">
-<h2>Cell-type deconvolution with obtained embedding<a class="headerlink" href="#Cell-type-deconvolution-with-obtained-embedding" title="Link to this heading">#</a></h2>
+<h2>Cell-type deconvolution with obtained embedding<a class="headerlink" href="#Cell-type-deconvolution-with-obtained-embedding" title="Link to this heading">¶</a></h2>
 <p>STEP performs deconvolution at domain-wise since the spots in the same spatial domain share a similar cell-type composition. So this process requires two features: 1. Embedding of scRNA-seq and spatial data in the shared latent space obtained in the co-embedding process. 2. Spatial domains or subdomains stored in <code class="docutils literal notranslate"><span class="pre">proc.st_adata.obs[&lt;domain_key&gt;]</span></code>.</p>
 <p>The embedding is mainly used to infer the existance of a cell-type in a spot by evaluating the similarity in latent space between the corresponding embedding. Specifically, the embedding of scRNA-seq data is averaged by cell-types, denoted as <code class="docutils literal notranslate"><span class="pre">anchors</span></code>, and the similarity is measured by a <em>sparse attention mechanism</em> where “sparse” is to ensure the sparsity of cell-type occurence in a spot. To consider the individual effect in each spot, <code class="docutils literal notranslate"><span class="pre">anchors</span></code> are refined individually for each spot
 through several(default 2) transformer encoders(can be disabled by setting <code class="docutils literal notranslate"><span class="pre">hard_anchors=True</span></code>). And to bound the refined <code class="docutils literal notranslate"><span class="pre">anchors</span></code>, we add a contrastive loss between refined <code class="docutils literal notranslate"><span class="pre">anchors</span></code> and original <code class="docutils literal notranslate"><span class="pre">anchors</span></code> as a regularization where the parameter<code class="docutils literal notranslate"><span class="pre">T</span></code> is the temperature in the contrastive loss.</p>
@@ -756,7 +756,7 @@ AnnData object with n_obs × n_vars = 4035 × 2000
 </pre></div></div>
 </div>
 <section id="Visualize-the-inferred-cell-type-composition">
-<h3>Visualize the inferred cell-type composition<a class="headerlink" href="#Visualize-the-inferred-cell-type-composition" title="Link to this heading">#</a></h3>
+<h3>Visualize the inferred cell-type composition<a class="headerlink" href="#Visualize-the-inferred-cell-type-composition" title="Link to this heading">¶</a></h3>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
@@ -775,7 +775,7 @@ sc.pl.spatial(st_adata, size=1.3, color=prop_list,)
 </div>
 </section>
 <section id="Perform-spatially-DE-genes-anlaysis">
-<h3>Perform spatially DE genes anlaysis<a class="headerlink" href="#Perform-spatially-DE-genes-anlaysis" title="Link to this heading">#</a></h3>
+<h3>Perform spatially DE genes anlaysis<a class="headerlink" href="#Perform-spatially-DE-genes-anlaysis" title="Link to this heading">¶</a></h3>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
 </pre></div>
@@ -852,7 +852,7 @@ var_group_labels: 2, 5
 </div>
 </section>
 <section id="Summarize-the-average-proportion-of-selected-cell-types-in-each-domain">
-<h3>Summarize the average proportion of selected cell-types in each domain<a class="headerlink" href="#Summarize-the-average-proportion-of-selected-cell-types-in-each-domain" title="Link to this heading">#</a></h3>
+<h3>Summarize the average proportion of selected cell-types in each domain<a class="headerlink" href="#Summarize-the-average-proportion-of-selected-cell-types-in-each-domain" title="Link to this heading">¶</a></h3>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
 </pre></div>
@@ -955,7 +955,7 @@ proc.summarize_domain(gc, adata=st_adata)
     </aside>
   </div>
 </div><script src="../_static/documentation_options.js?v=5929fcd5"></script>
-    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=32e29ea5"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
