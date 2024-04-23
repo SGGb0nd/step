@@ -9,7 +9,7 @@ from anndata import AnnData
 from torch.distributions import kl_divergence as kl
 
 from step.manager import logger
-from step.models.geneformer import Geneformer
+from step.models.transcriptformer import TranscriptFormer
 from step.utils.dataset import StDataset
 from step.utils.gbolt import MultiGraphsAllNodesSampler
 from step.utils.misc import generate_adj
@@ -65,7 +65,7 @@ class stSmoother(FunctionalBase):
                 **kwargs
             )
         else:
-            model = Geneformer(variational=variational,
+            model = TranscriptFormer(variational=variational,
                                n_glayers=n_glayers,
                                **kwargs)
 

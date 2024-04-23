@@ -5,7 +5,7 @@ import torch
 from einops import repeat
 from torch import nn
 
-from step.models.geneformer import Geneformer
+from step.models.transcriptformer import TranscriptFormer
 
 
 class BatchAwareScale(nn.Module):
@@ -74,7 +74,7 @@ class BatchAwareLayerNorm(nn.Module):
         return self.act(x * scale + mean)
 
 
-class NrmlsBC(Geneformer):
+class NrmlsBC(TranscriptFormer):
     """NrmlsBC is an extension of the Geneformer model that supports batch-aware normalization and scaling to eliminate batch effects.
 
     Attributes:

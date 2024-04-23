@@ -9,7 +9,7 @@ from torch.utils.data import DataLoader, random_split
 from tqdm import tqdm
 
 from step.manager import logger
-from step.models.geneformer import Geneformer
+from step.models.transcriptformer import TranscriptFormer
 from step.utils.dataset import BaseDataset, MaskedDataset
 
 
@@ -128,7 +128,7 @@ class Trainer(object):
 
     """
 
-    def __init__(self, model: Geneformer):
+    def __init__(self, model: TranscriptFormer):
         """
         Initializes the Trainer object.
 

@@ -5,7 +5,7 @@ import torch.nn.functional as F
 from anndata import AnnData
 
 from step.manager import logger
-from step.models.geneformer import Geneformer
+from step.models.transcriptformer import TranscriptFormer
 from step.utils.dataset import BaseDataset, MaskedDataset, ScDataset
 
 from ..models.extension import NrmlsBC
@@ -20,7 +20,7 @@ class scSingleBatch(FunctionalBase):
     """
 
     def __init__(self, device=None, **kwargs):
-        model = Geneformer(**kwargs)
+        model = TranscriptFormer(**kwargs)
         super().__init__(model, device=device)
 
     def handle_input_tuple(self, input_tuple):

@@ -185,7 +185,7 @@ class GeneModuler(nn.Module):
         return x[:, perm]
 
 
-class Geneformer(nn.Module):
+class TranscriptFormer(nn.Module):
     """Geneformer is a gene expression model based on the Transformer architecture.
 
     Attributes:
@@ -255,7 +255,7 @@ class Geneformer(nn.Module):
             n_dec_hid_layers (int, optional): Number of decoder hidden layers. Defaults to 1.
             edge_clip (int, optional): Edge clip value. Defaults to 2.
         """
-        super(Geneformer, self).__init__()
+        super(TranscriptFormer, self).__init__()
         if not variational:
             logger.info("Not using VAE")
         self.input_dim = input_dim
@@ -487,7 +487,7 @@ class Geneformer(nn.Module):
         return x_recon
 
     def copy(self, with_state=True):
-        new_model = Geneformer(**self.args)
+        new_model = TranscriptFormer(**self.args)
         if with_state:
             new_model.load_state_dict(self.state_dict())
         return new_model

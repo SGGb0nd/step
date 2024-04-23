@@ -3,7 +3,7 @@ import torch.utils
 from anndata import AnnData
 
 from step.manager import logger
-from step.models.geneformer import Geneformer
+from step.models.transcriptformer import TranscriptFormer
 from step.utils.dataset import BaseDataset, MaskedDataset
 
 from .comps.model_ops import ModelOps
@@ -21,7 +21,7 @@ class FunctionalBase(ModelOps, Trainer):
         device (str): The device to use for training. Defaults to "cuda" if a GPU is available, otherwise "cpu".
     """
 
-    def __init__(self, model: Geneformer, use_earlystop=True, device=None):
+    def __init__(self, model: TranscriptFormer, use_earlystop=True, device=None):
         """Initialize the FunctionalBase.
 
         Args:

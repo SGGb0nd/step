@@ -9,7 +9,7 @@ from torch.distributions import Poisson
 from step.manager import logger
 from step.models.distributions import (NegativeBinomial,
                                        ZeroInflatedNegativeBinomial)
-from step.models.geneformer import Geneformer, Readout
+from step.models.transcriptformer import TranscriptFormer, Readout
 from step.utils.dataset import BaseDataset
 
 
@@ -23,7 +23,7 @@ class ModelOps(object):
 
     def __init__(
         self,
-        model: Geneformer,
+        model: TranscriptFormer,
         device: str | None,
     ):
         """
