@@ -13,11 +13,6 @@ jobs:
       with:
         branch: main
 
-    - name: Set up Python
-      uses: actions/setup-python@v5.1.0
-      with:
-        python-version: 3.10.14
-
     - name: Set up Poetry
       run: |
         poetry --version
@@ -30,20 +25,7 @@ jobs:
         fi
         poetry install --extras docs
 
-    - name: Build with poetry
-      run: make build
-
-  pypi-publish:
-    name: upload release to PyPI
-    runs-on: self-hosted
-    # Specifying a GitHub environment is optional, but strongly encouraged
-    environment: release
-    permissions:
-      # IMPORTANT: this permission is mandatory for trusted publishing
-      id-token: write
-    steps:
-      # retrieve your distributions here
-      - name: Publish package distributions to PyPI
-        uses: pypa/gh-action-pypi-publish@release/v1
-        with:
-          packages_dir: dist/
+    - name: Build and publish to pypi
+    uses: JRubics/poetry-publish@v2.0
+    with:
+      pypi_token: ${{ secrets.PYPI_TOKEN }}

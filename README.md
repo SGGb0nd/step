@@ -25,14 +25,18 @@ STEP, an acronym for Spatial Transcriptomics Embedding Procedure, is a foundatio
 -  Low computational cost and high efficiency in processing large-scale SRT data: 4-8 GB GPU memory is sufficient for processing a dataset with 100,000 spatial locations with 2000+ sample-size in fast mode, and consumes less than 6 minutes for training in 2000 iterations (tested on NVIDIA RTX 3090).
 
 ## System Requiremtns
--  **Software Requirements**: Python 3.10+, CUDA 11.6+.
+-  **Software Requirements**: Python 3.10+, CUDA 11.6+, PyTorch 1.13.1+, and dgl 1.1.3+.
 -  **Hardware Requirements**: NVIDIA GPU with CUDA support (recommended), 8GB+ GPU memory. As possible as high RAM and CPU cores for storing and processing large-scale data (this is not required by STEP, but by the data itself).
 
 ## Installation
 ```
 pip install step-kit
 ```
-
+Potential installation of dgl:
+```
+pip install dgl==1.1.3 -f https://data.dgl.ai/wheels/cu117/repo.html
+```
+for installing other cuda versions of dgl 1.1.3, or other versions of dgl, please refer to the [dgl official website](https://www.dgl.ai/pages/start.html). 
 Documentation and tutorials are available at [https://sggb0nd.github.io/step/](https://sggb0nd.github.io/step/).
 
 
