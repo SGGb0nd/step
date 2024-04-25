@@ -2,6 +2,7 @@
 [![Docs](https://github.com/SGGb0nd/step/actions/workflows/mkdocs.yaml/badge.svg)](https://github.com/SGGb0nd/step/actions/workflows/mkdocs.yaml)
 [![Pages](https://github.com/SGGb0nd/step/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/SGGb0nd/step/actions/workflows/pages/pages-build-deployment)
 [![PyPI version](https://badge.fury.io/py/step-kit.svg)](https://badge.fury.io/py/step-kit)
+[![DOI](http://img.shields.io/badge/DOI-10.1101/2024.04.15.589470-B31B1B.svg)](https://doi.org/10.1101/2024.04.15.589470)
 
 ![image](http://docs.3s540lab.cloud/images/STEP_fig_1a.webp)
 ![image](http://docs.3s540lab.cloud/images/STEP_fig_1b.webp)
@@ -20,13 +21,19 @@ STEP, an acronym for Spatial Transcriptomics Embedding Procedure, is a foundatio
 ## Other Capabilities
 -  Capability to produce not only the batch-corrected embeddings but also batch-corrected gene expression profiles for scRNA-seq data.
 -  Capability to perform spatial mapping of reference scRNA-seq data points to the spatial locations of SRT data based on the learned co-embeddings and kNN.
+-  Comprehensive `adata` processing by specifically desinged `BaseDataset` class and its view version `MaskedDataset` class for the SRT data, which can be easily integrated with the PyTorch `DataLoader` class for training and validation.
+-  Low computational cost and high efficiency in processing large-scale SRT data: 4-8 GB GPU memory is sufficient for processing a dataset with 100,000 spatial locations with 2000+ sample-size in fast mode, and consumes less than 6 minutes for training in 2000 iterations (tested on NVIDIA RTX 3090).
+
+## System Requiremtns
+-  **Software Requirements**: Python 3.10+, CUDA 11.6+.
+-  **Hardware Requirements**: NVIDIA GPU with CUDA support (recommended), 8GB+ GPU memory. As possible as high RAM and CPU cores for storing and processing large-scale data (this is not required by STEP, but by the data itself).
 
 ## Installation
 ```
 pip install step-kit
 ```
 
-require python version 3.10+. Documentation and tutorials are available at [https://sggb0nd.github.io/step/](https://sggb0nd.github.io/step/)
+Documentation and tutorials are available at [https://sggb0nd.github.io/step/](https://sggb0nd.github.io/step/)
 
 
 ## Contribution
@@ -36,3 +43,18 @@ We welcome contributions! Please see [`CONTRIBUTING.md`](./CONTRIBUTING.md) for 
 ## License
 
 step is licensed under [LICENSE](./LICENSE)
+
+## Citation
+The preprint of STEP is available at [bioRxiv](https://www.biorxiv.org/content/early/2024/04/20/2024.04.15.589470.full.pdf). If you use STEP in your research, please cite:
+
+```bibtex
+@article{Li2024.04.15.589470,
+  title = {{{STEP}}: {{Spatial}} Transcriptomics Embedding Procedure for Multi-Scale Biological Heterogeneities Revelation in Multiple Samples},
+  author = {Li, Lounan and Li, Zhong and Li, Yuanyuan and Yin, Xiao-ming and Xu, Xiaojiang},
+  year = {2024},
+  journal = {bioRxiv : the preprint server for biology},
+  eprint = {https://www.biorxiv.org/content/early/2024/04/20/2024.04.15.589470.full.pdf},
+  publisher = {Cold Spring Harbor Laboratory},
+  doi = {10.1101/2024.04.15.589470},
+}
+```
