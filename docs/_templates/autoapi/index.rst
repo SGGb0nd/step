@@ -3,7 +3,15 @@ Installation
 
 .. code-block:: bash
 
-    pip install step-kit
+   pip install step-kit
+
+Then install dgl for your specific environment. For example, to install dgl 1.1.3 with cuda 11.7, which is the version used in the tutorials, you can run the following command:
+
+.. code-block:: bash
+
+   pip install dgl==1.1.3 -f https://data.dgl.ai/wheels/cu117/repo.html
+
+dgl official installation guide can be found `here <https://docs.dgl.ai/install/index.html>`_.
 
 Tutorials
 =========
