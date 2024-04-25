@@ -33,7 +33,7 @@ STEP, an acronym for Spatial Transcriptomics Embedding Procedure, is a foundatio
 pip install step-kit
 ```
 
-Documentation and tutorials are available at [https://sggb0nd.github.io/step/](https://sggb0nd.github.io/step/)
+Documentation and tutorials are available at [https://sggb0nd.github.io/step/](https://sggb0nd.github.io/step/).
 
 
 ## Contribution
@@ -43,6 +43,10 @@ We welcome contributions! Please see [`CONTRIBUTING.md`](./CONTRIBUTING.md) for 
 ## License
 
 step is licensed under [LICENSE](./LICENSE)
+
+## Contact
+
+If you have any questions, please feel free to contact us at [here](mailto:lilounan1997@gmail.com), or feel free to open an issue on this repository.
 
 ## Citation
 The preprint of STEP is available at [bioRxiv](https://www.biorxiv.org/content/early/2024/04/20/2024.04.15.589470.full.pdf). If you use STEP in your research, please cite:
