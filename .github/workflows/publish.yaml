@@ -19,16 +19,16 @@ jobs:
         python-version: 3.10.14
 
     - name: Set up Poetry
-        run: |
-          poetry --version
-          if [ $? -ne 0 ]; then
-            echo "Poetry not found, setting up..."
-            python3 -m pip install --upgrade pip
-            python3 -m pip install pipx --user
-            python3 -m pipx ensurepath
-            pipx install poetry
-          fi
-          poetry install --extras docs
+      run: |
+        poetry --version
+        if [ $? -ne 0 ]; then
+          echo "Poetry not found, setting up..."
+          python3 -m pip install --upgrade pip
+          python3 -m pip install pipx --user
+          python3 -m pipx ensurepath
+          pipx install poetry
+        fi
+        poetry install --extras docs
 
     - name: Build with poetry
       run: make build
