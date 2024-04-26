@@ -54,7 +54,7 @@ sc.pl.umap(adata, color=['celltype', 'batch', 'leiden'])
 ```
 
 ## 2. `step.stModel`
-For the generation of embedding for SRT data with spatial information. STEP does not rely on the contiguity between the sections, so just pass the `AnnData` object `adata` containing the section identifiers stored in `adata.obs` as `batch_key`.
+For the generation of embedding for SRT data with spatial information. **STEP does not rely on the contiguity between the sections**, so just pass the `AnnData` object `adata` containing the section identifiers stored in `adata.obs` as `batch_key`.
 The parameters different from `scModel` is two spatial neighboring graph associated ones:
 1. `coord_keys`: keys in `adata.obs` that stored the spatial coordinates of each spot/cell. Default is `('array_row', 'array_col')` for Visium data.
 2. `edge_clip`: cut-off distance between two indicies of grids, ***rather for pixel distance***. 2 for Visium; 1 for Visium HD, ST, Stereo-seq bin; None for activation of the kNN based graph construction.
