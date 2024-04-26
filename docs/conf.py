@@ -27,7 +27,6 @@ source_suffix = {
 extensions = [
     "sphinx.ext.autodoc",
     "sphinx.ext.napoleon",
-    'sphinx.ext.autodoc',
     'autoapi.extension',
     'sphinx_copybutton',
     'nbsphinx',
@@ -35,6 +34,7 @@ extensions = [
 ]
 add_module_names = False
 autoclass_content = "both"
+autoapi_python_class_content = "both"
 templates_path = ['_templates']
 autoapi_dirs = ['../step']
 autoapi_type = "python"
@@ -82,14 +82,19 @@ nbsphinx_prolog = """
         }
     </style>
 """
+def contains(seq, item):
+    return item in seq
+
+def prepare_jinja_env(jinja_env) -> None:
+    jinja_env.tests["contains"] = contains
+
+autoapi_prepare_jinja_env = prepare_jinja_env
+
+rst_prolog = """
+.. role:: summarylabel
+"""
 
 html_css_files = ["css/custom.css"]
+
 def setup(app):
     app.add_css_file('css/custom.css')
-
-def skip_member(app, what, name, obj, skip, options):
-    # conditional breakpoint here
-    return skip
-
-def setup(sphinx):
-    sphinx.connect("autoapi-skip-member", skip_member)
