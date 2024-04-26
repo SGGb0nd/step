@@ -7,7 +7,7 @@ Welcome to STEP's documentation!
 ================================
 
 .. image:: http://docs.3s540lab.cloud/images/STEP_fig_1a.webp
-   :alt: alternative text for image
+   :alt: 
    :align: center
 
 Overview
