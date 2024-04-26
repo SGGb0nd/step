@@ -49,7 +49,7 @@ autoapi_options = [
 ]
 autoapi_keep_files = True
 autodoc_typehints = "signature"
-copybutton_selector = 'div.nbinput.container div.input_area div[class*=highlight] > pre'
+copybutton_selector = 'div.nbinput.container div.input_area div[class*=highlight] > pre, div.highlight > pre'
 
 
 # -- Options for HTML output -------------------------------------------------
@@ -67,10 +67,6 @@ html_theme_options = {
     "source_branch": "main",
     "source_directory": "docs/",
 }
-
-# nbsphinx_execute_arguments = [
-#     "--InlineBackend.figure_formats={'svg', 'pdf'}",
-# ]
 
 nbsphinx_prolog = """
 .. raw:: html

@@ -159,7 +159,6 @@ stepc.generate_domains(
 ### Domain-wise Cell-type Deconvolution
 This process aims to infer the cell-type composition in each spot of SRT data (non-single-cell resolution). Any available cell-type annoations stored in `sc_adata.obs` can passed to arg `cell_type_key`; and so do the any spatial-domain annotations, can be passed to arg `domain_key` to support the deconvolution. Recommend passing `sub_domain` to match `sub_types`.
 ```python
-
 stpec.deconv(
     epochs=1500,
     domain_key='domain'
