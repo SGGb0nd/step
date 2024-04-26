@@ -132,7 +132,7 @@ const addCopyButtonToCodeCells = () => {
   }
 
   // Add copybuttons to all of our code cells
-  const COPYBUTTON_SELECTOR = 'div.nbinput.container div.input_area div[class*=highlight] > pre';
+  const COPYBUTTON_SELECTOR = 'div.nbinput.container div.input_area div[class*=highlight] > pre, div.highlight > pre';
   const codeCells = document.querySelectorAll(COPYBUTTON_SELECTOR)
   codeCells.forEach((codeCell, index) => {
     const id = codeCellId(index)

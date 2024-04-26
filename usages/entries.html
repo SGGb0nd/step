@@ -441,8 +441,7 @@ The parameters different from <code class="docutils literal notranslate"><span c
 <section id="domain-wise-cell-type-deconvolution">
 <h3>Domain-wise Cell-type Deconvolution<a class="headerlink" href="#domain-wise-cell-type-deconvolution" title="Link to this heading">¶</a></h3>
 <p>This process aims to infer the cell-type composition in each spot of SRT data (non-single-cell resolution). Any available cell-type annoations stored in <code class="docutils literal notranslate"><span class="pre">sc_adata.obs</span></code> can passed to arg <code class="docutils literal notranslate"><span class="pre">cell_type_key</span></code>; and so do the any spatial-domain annotations, can be passed to arg <code class="docutils literal notranslate"><span class="pre">domain_key</span></code> to support the deconvolution. Recommend passing <code class="docutils literal notranslate"><span class="pre">sub_domain</span></code> to match <code class="docutils literal notranslate"><span class="pre">sub_types</span></code>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
-<span class="n">stpec</span><span class="o">.</span><span class="n">deconv</span><span class="p">(</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">stpec</span><span class="o">.</span><span class="n">deconv</span><span class="p">(</span>
     <span class="n">epochs</span><span class="o">=</span><span class="mi">1500</span><span class="p">,</span>
     <span class="n">domain_key</span><span class="o">=</span><span class="s1">&#39;domain&#39;</span>
     <span class="n">cell_type_key</span><span class="o">=</span><span class="s1">&#39;celltype&#39;</span>
@@ -556,7 +555,7 @@ The parameters different from <code class="docutils literal notranslate"><span c
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=32e29ea5"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
-    <script src="../_static/copybutton.js?v=0b406e39"></script>
+    <script src="../_static/copybutton.js?v=a06671a6"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     </body>
 </html>
