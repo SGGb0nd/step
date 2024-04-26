@@ -1,24 +1,28 @@
-:py:mod:`step.manager.save`
-===========================
+
+step.manager.save
+=================
 
 .. py:module:: step.manager.save
 
 
-Module Contents
----------------
+Overview
+--------
+
+.. list-table:: Classes
+   :header-rows: 0
+   :widths: auto
+   :class: summarytable
+
+   * - :py:obj:`Saver <step.manager.save.Saver>`
+     - Save the model and the dataset.
+
+
+
 
 Classes
-~~~~~~~
-
-.. autoapisummary::
-
-   step.manager.save.Saver
-
-
-
+-------
 
 .. py:class:: Saver(class_name, path: str | pathlib.Path = '.')
-
 
    Save the model and the dataset.
 
@@ -40,11 +44,37 @@ Classes
 
       :type: BaseDataset
 
+   Initialize the Saver.
+
+   :param path: The path to save the model and the dataset.
+   :type path: str | Path
+
+
+   .. rubric:: Overview
+
+
+   .. list-table:: Methods
+      :header-rows: 0
+      :widths: auto
+      :class: summarytable
+
+      * - :py:obj:`save <step.manager.save.Saver.save>`\ (funcmodel, adata, dataset)
+        - \-
+      * - :py:obj:`get_instance <step.manager.save.Saver.get_instance>`\ (class_name, path)
+        - :summarylabel:`class` \-
+
+
+   .. rubric:: Members
+
    .. py:method:: save(funcmodel: step.functionality.base.FunctionalBase, adata: anndata.AnnData, dataset: step.utils.dataset.BaseDataset)
 
 
    .. py:method:: get_instance(class_name, path='.')
       :classmethod:
+
+
+
+
 
 
 

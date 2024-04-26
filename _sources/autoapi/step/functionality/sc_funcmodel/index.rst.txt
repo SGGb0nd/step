@@ -1,25 +1,30 @@
-:py:mod:`step.functionality.sc_funcmodel`
-=========================================
+
+step.functionality.sc_funcmodel
+===============================
 
 .. py:module:: step.functionality.sc_funcmodel
 
 
-Module Contents
----------------
+Overview
+--------
+
+.. list-table:: Classes
+   :header-rows: 0
+   :widths: auto
+   :class: summarytable
+
+   * - :py:obj:`scSingleBatch <step.functionality.sc_funcmodel.scSingleBatch>`
+     - scSingleBatch model for scRNA-seq data.
+   * - :py:obj:`scMultiBatchNrmls <step.functionality.sc_funcmodel.scMultiBatchNrmls>`
+     - scMultiBatchNrmls model for multi-batch scRNA-seq data.
+
+
+
 
 Classes
-~~~~~~~
-
-.. autoapisummary::
-
-   step.functionality.sc_funcmodel.scSingleBatch
-   step.functionality.sc_funcmodel.scMultiBatchNrmls
-
-
-
+-------
 
 .. py:class:: scSingleBatch(device=None, **kwargs)
-
 
    Bases: :py:obj:`step.functionality.base.FunctionalBase`
 
@@ -30,6 +35,28 @@ Classes
       The model used for training.
 
       :type: TranscriptFormer
+
+   Initialize the FunctionalBase.
+
+   :param model: The model to be wrapped.
+   :type model: TranscriptFormer
+   :param use_earlystop: A flag indicating whether to use early stopping during training. Defaults to True.
+   :type use_earlystop: bool, optional
+
+
+   .. rubric:: Overview
+
+
+   .. list-table:: Methods
+      :header-rows: 0
+      :widths: auto
+      :class: summarytable
+
+      * - :py:obj:`handle_input_tuple <step.functionality.sc_funcmodel.scSingleBatch.handle_input_tuple>`\ (input_tuple)
+        - Handles the input tuple and calculates the loss.
+
+
+   .. rubric:: Members
 
    .. py:method:: handle_input_tuple(input_tuple)
 
@@ -43,8 +70,8 @@ Classes
 
 
 
-.. py:class:: scMultiBatchNrmls(num_batches=2, device=None, **kwargs)
 
+.. py:class:: scMultiBatchNrmls(num_batches=2, device=None, **kwargs)
 
    Bases: :py:obj:`step.functionality.base.FunctionalBase`
 
@@ -63,6 +90,45 @@ Classes
       The beta factor for tuning the kl loss.
 
       :type: float
+
+   Initialize the scMultiBatchNrmls model.
+
+   :param \*\*kwargs: Additional keyword arguments for the model.
+
+
+   .. rubric:: Overview
+
+
+   .. list-table:: Methods
+      :header-rows: 0
+      :widths: auto
+      :class: summarytable
+
+      * - :py:obj:`loss <step.functionality.sc_funcmodel.scMultiBatchNrmls.loss>`\ (x, batch_rep, class_label)
+        - Calculates the loss function for the model.
+      * - :py:obj:`train <step.functionality.sc_funcmodel.scMultiBatchNrmls.train>`\ ()
+        - Train the model using the provided data.
+      * - :py:obj:`handle_input_tuple <step.functionality.sc_funcmodel.scMultiBatchNrmls.handle_input_tuple>`\ (input_tuple)
+        - Handles the input tuple and calculates the loss.
+      * - :py:obj:`embed <step.functionality.sc_funcmodel.scMultiBatchNrmls.embed>`\ (dataset, tsfmr_out, as_numpy)
+        - Embeds the given dataset using the model.
+      * - :py:obj:`get_anchors <step.functionality.sc_funcmodel.scMultiBatchNrmls.get_anchors>`\ ()
+        - Returns the anchors used by the model.
+      * - :py:obj:`run <step.functionality.sc_funcmodel.scMultiBatchNrmls.run>`\ (adata, dataset, epochs, batch_size, lr, split_rate, tune_epochs, tune_lr, need_anchors, unlabeled_key, groupby, key_added, kl_cutoff, beta1, beta2, reset)
+        - Run the function model.
+      * - :py:obj:`refine <step.functionality.sc_funcmodel.scMultiBatchNrmls.refine>`\ (adata, dataset, epochs, batch_size, lr, split_rate, tune_lr, unlabeled_key, groupby, key_added, kl_cutoff, beta)
+        - Refine the model when class labels are available.
+      * - :py:obj:`clsf <step.functionality.sc_funcmodel.scMultiBatchNrmls.clsf>`\ (adata, use_rep, out, key_added, as_numpy)
+        - Perform cell type classification on the input data.
+      * - :py:obj:`clsf_ <step.functionality.sc_funcmodel.scMultiBatchNrmls.clsf_>`\ (rep)
+        - Perform classification using the given representation.
+      * - :py:obj:`impute <step.functionality.sc_funcmodel.scMultiBatchNrmls.impute>`\ (adata, dataset, decode_dict, key_added, rep_key, layer_key, rep, qc, \*\*kwargs)
+        - Imputes missing values in the given dataset using the trained model.
+      * - :py:obj:`reset_model <step.functionality.sc_funcmodel.scMultiBatchNrmls.reset_model>`\ ()
+        - Reset the model parameters.
+
+
+   .. rubric:: Members
 
    .. py:method:: loss(x, batch_rep, class_label=None)
 
@@ -257,6 +323,10 @@ Classes
    .. py:method:: reset_model()
 
       Reset the model parameters.
+
+
+
+
 
 
 

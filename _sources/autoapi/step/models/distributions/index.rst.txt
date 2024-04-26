@@ -1,33 +1,232 @@
-:py:mod:`step.models.distributions`
-===================================
+
+step.models.distributions
+=========================
 
 .. py:module:: step.models.distributions
 
 
-Module Contents
----------------
+Overview
+--------
+
+.. list-table:: Classes
+   :header-rows: 0
+   :widths: auto
+   :class: summarytable
+
+   * - :py:obj:`NegativeBinomial <step.models.distributions.NegativeBinomial>`
+     - From scVI.
+   * - :py:obj:`ZeroInflatedNegativeBinomial <step.models.distributions.ZeroInflatedNegativeBinomial>`
+     - From scVI.
+
+
+.. list-table:: Function
+   :header-rows: 0
+   :widths: auto
+   :class: summarytable
+
+   * - :py:obj:`log_zinb_positive <step.models.distributions.log_zinb_positive>`\ (x, mu, theta, pi, eps)
+     - From scVI.
+   * - :py:obj:`log_nb_positive <step.models.distributions.log_nb_positive>`\ (x, mu, theta, eps)
+     - From scVI.
+   * - :py:obj:`log_mixture_nb <step.models.distributions.log_mixture_nb>`\ (x, mu_1, mu_2, theta_1, theta_2, pi_logits, eps)
+     - From scVI.
+
+
 
 Classes
-~~~~~~~
+-------
 
-.. autoapisummary::
+.. py:class:: NegativeBinomial(total_count: Optional[torch.Tensor] = None, probs: Optional[torch.Tensor] = None, logits: Optional[torch.Tensor] = None, mu: Optional[torch.Tensor] = None, theta: Optional[torch.Tensor] = None, scale: Optional[torch.Tensor] = None, validate_args: bool = False)
 
-   step.models.distributions.NegativeBinomial
-   step.models.distributions.ZeroInflatedNegativeBinomial
+   Bases: :py:obj:`torch.distributions.Distribution`
+
+   From scVI.
+   Negative binomial distribution.
+
+   One of the following parameterizations must be provided:
+
+   (1), (`total_count`, `probs`) where `total_count` is the number of failures until
+   the experiment is stopped and `probs` the success probability. (2), (`mu`, `theta`)
+   parameterization, which is the one used by scvi-tools. These parameters respectively
+   control the mean and inverse dispersion of the distribution.
+
+   In the (`mu`, `theta`) parameterization, samples from the negative binomial are generated as follows:
+
+   1. :math:`w \sim \textrm{Gamma}(\underbrace{\theta}_{\text{shape}}, \underbrace{\theta/\mu}_{\text{rate}})`
+   2. :math:`x \sim \textrm{Poisson}(w)`
+
+   :param total_count: Number of failures until the experiment is stopped.
+   :param probs: The success probability.
+   :param mu: Mean of the distribution.
+   :param theta: Inverse dispersion.
+   :param scale: Normalized mean expression of the distribution.
+   :param validate_args: Raise ValueError if arguments do not match constraints
+
+
+   .. rubric:: Overview
+
+   .. list-table:: Attributes
+      :header-rows: 0
+      :widths: auto
+      :class: summarytable
+
+      * - :py:obj:`arg_constraints <step.models.distributions.NegativeBinomial.arg_constraints>`
+        - \-
+      * - :py:obj:`support <step.models.distributions.NegativeBinomial.support>`
+        - \-
+
+
+   .. list-table:: Methods
+      :header-rows: 0
+      :widths: auto
+      :class: summarytable
+
+      * - :py:obj:`sample <step.models.distributions.NegativeBinomial.sample>`\ (sample_shape)
+        - Sample from the distribution.
+      * - :py:obj:`rsample <step.models.distributions.NegativeBinomial.rsample>`\ (sample_shape)
+        - Sample from the distribution.
+      * - :py:obj:`log_prob <step.models.distributions.NegativeBinomial.log_prob>`\ (value)
+        - Returns the log of the probability density/mass function evaluated at
+      * - :py:obj:`pearson_residuals <step.models.distributions.NegativeBinomial.pearson_residuals>`\ (x)
+        - Compute the Pearson residuals.
+
+
+   .. rubric:: Members
+
+   .. py:attribute:: arg_constraints
+
+      
+
+   .. py:attribute:: support
+
+      
+
+   .. py:method:: sample(sample_shape: Optional[Union[torch.Size, Tuple]] = None) -> torch.Tensor
+
+      Sample from the distribution.
+
+
+   .. py:method:: rsample(sample_shape: Optional[Union[torch.Size, Tuple]] = None)
+
+      Sample from the distribution.
+
+
+   .. py:method:: log_prob(value: torch.Tensor) -> torch.Tensor
+
+      Returns the log of the probability density/mass function evaluated at
+      `value`.
+
+      :param value:
+      :type value: Tensor
+
+
+   .. py:method:: pearson_residuals(x: torch.Tensor) -> torch.Tensor
+
+      Compute the Pearson residuals.
+
+      :param x: Observed data.
+
+      :returns: Pearson residuals.
+      :rtype: type
+
+
+
+
+.. py:class:: ZeroInflatedNegativeBinomial(total_count: Optional[torch.Tensor] = None, probs: Optional[torch.Tensor] = None, logits: Optional[torch.Tensor] = None, mu: Optional[torch.Tensor] = None, theta: Optional[torch.Tensor] = None, zi_logits: Optional[torch.Tensor] = None, scale: Optional[torch.Tensor] = None, validate_args: bool = False)
+
+   Bases: :py:obj:`NegativeBinomial`
+
+   From scVI.
+   Zero-inflated negative binomial distribution.
+
+   One of the following parameterizations must be provided:
+
+   (1), (`total_count`, `probs`) where `total_count` is the number of failures until
+   the experiment is stopped and `probs` the success probability. (2), (`mu`, `theta`)
+   parameterization, which is the one used by scvi-tools. These parameters respectively
+   control the mean and inverse dispersion of the distribution.
+
+   In the (`mu`, `theta`) parameterization, samples from the negative binomial are generated as follows:
+
+   1. :math:`w \sim \textrm{Gamma}(\underbrace{\theta}_{\text{shape}}, \underbrace{\theta/\mu}_{\text{rate}})`
+   2. :math:`x \sim \textrm{Poisson}(w)`
+
+   :param total_count: Number of failures until the experiment is stopped.
+   :param probs: The success probability.
+   :param mu: Mean of the distribution.
+   :param theta: Inverse dispersion.
+   :param zi_logits: Logits scale of zero inflation probability.
+   :param scale: Normalized mean expression of the distribution.
+   :param validate_args: Raise ValueError if arguments do not match constraints
+
+
+   .. rubric:: Overview
+
+   .. list-table:: Attributes
+      :header-rows: 0
+      :widths: auto
+      :class: summarytable
+
+      * - :py:obj:`arg_constraints <step.models.distributions.ZeroInflatedNegativeBinomial.arg_constraints>`
+        - \-
+      * - :py:obj:`support <step.models.distributions.ZeroInflatedNegativeBinomial.support>`
+        - \-
+
+
+   .. list-table:: Methods
+      :header-rows: 0
+      :widths: auto
+      :class: summarytable
+
+      * - :py:obj:`zi_logits <step.models.distributions.ZeroInflatedNegativeBinomial.zi_logits>`\ ()
+        - ZI logits.
+      * - :py:obj:`zi_probs <step.models.distributions.ZeroInflatedNegativeBinomial.zi_probs>`\ ()
+        - \-
+      * - :py:obj:`sample <step.models.distributions.ZeroInflatedNegativeBinomial.sample>`\ (sample_shape)
+        - Sample from the distribution.
+      * - :py:obj:`rsample <step.models.distributions.ZeroInflatedNegativeBinomial.rsample>`\ (sample_shape)
+        - Sample from the distribution.
+      * - :py:obj:`log_prob <step.models.distributions.ZeroInflatedNegativeBinomial.log_prob>`\ (value)
+        - Log probability.
+
+
+   .. rubric:: Members
+
+   .. py:attribute:: arg_constraints
+
+      
+
+   .. py:attribute:: support
+
+      
+
+   .. py:method:: zi_logits() -> torch.Tensor
+
+      ZI logits.
+
+
+   .. py:method:: zi_probs() -> torch.Tensor
+
+
+   .. py:method:: sample(sample_shape: Optional[Union[torch.Size, Tuple]] = None) -> torch.Tensor
+
+      Sample from the distribution.
+
+
+   .. py:method:: rsample(sample_shape: Optional[Union[torch.Size, Tuple]] = None) -> torch.Tensor
+
+      Sample from the distribution.
+
+
+   .. py:method:: log_prob(value: torch.Tensor) -> torch.Tensor
+
+      Log probability.
+
 
 
 
 Functions
-~~~~~~~~~
-
-.. autoapisummary::
-
-   step.models.distributions.log_zinb_positive
-   step.models.distributions.log_nb_positive
-   step.models.distributions.log_mixture_nb
-
-
-
+---------
 .. py:function:: log_zinb_positive(x: torch.Tensor, mu: torch.Tensor, theta: torch.Tensor, pi: torch.Tensor, eps=1e-08)
 
    From scVI.
@@ -77,144 +276,6 @@ Functions
    :param eps: Numerical stability constant
 
 
-.. py:class:: NegativeBinomial(total_count: Optional[torch.Tensor] = None, probs: Optional[torch.Tensor] = None, logits: Optional[torch.Tensor] = None, mu: Optional[torch.Tensor] = None, theta: Optional[torch.Tensor] = None, scale: Optional[torch.Tensor] = None, validate_args: bool = False)
-
-
-   Bases: :py:obj:`torch.distributions.Distribution`
-
-   From scVI.
-   Negative binomial distribution.
-
-   One of the following parameterizations must be provided:
-
-   (1), (`total_count`, `probs`) where `total_count` is the number of failures until
-   the experiment is stopped and `probs` the success probability. (2), (`mu`, `theta`)
-   parameterization, which is the one used by scvi-tools. These parameters respectively
-   control the mean and inverse dispersion of the distribution.
-
-   In the (`mu`, `theta`) parameterization, samples from the negative binomial are generated as follows:
-
-   1. :math:`w \sim \textrm{Gamma}(\underbrace{\theta}_{\text{shape}}, \underbrace{\theta/\mu}_{\text{rate}})`
-   2. :math:`x \sim \textrm{Poisson}(w)`
-
-   :param total_count: Number of failures until the experiment is stopped.
-   :param probs: The success probability.
-   :param mu: Mean of the distribution.
-   :param theta: Inverse dispersion.
-   :param scale: Normalized mean expression of the distribution.
-   :param validate_args: Raise ValueError if arguments do not match constraints
-
-   .. py:property:: mean
-
-      Returns the mean of the distribution.
-
-   .. py:property:: variance
-
-      Returns the variance of the distribution.
-
-   .. py:attribute:: arg_constraints
-
-      
-
-   .. py:attribute:: support
-
-      
-
-   .. py:method:: sample(sample_shape: Optional[Union[torch.Size, Tuple]] = None) -> torch.Tensor
-
-      Sample from the distribution.
-
-
-   .. py:method:: rsample(sample_shape: Optional[Union[torch.Size, Tuple]] = None)
-
-      Sample from the distribution.
-
-
-   .. py:method:: log_prob(value: torch.Tensor) -> torch.Tensor
-
-      Returns the log of the probability density/mass function evaluated at
-      `value`.
-
-      :param value:
-      :type value: Tensor
-
-
-   .. py:method:: pearson_residuals(x: torch.Tensor) -> torch.Tensor
-
-      Compute the Pearson residuals.
-
-      :param x: Observed data.
-
-      :returns: Pearson residuals.
-      :rtype: type
-
-
-
-.. py:class:: ZeroInflatedNegativeBinomial(total_count: Optional[torch.Tensor] = None, probs: Optional[torch.Tensor] = None, logits: Optional[torch.Tensor] = None, mu: Optional[torch.Tensor] = None, theta: Optional[torch.Tensor] = None, zi_logits: Optional[torch.Tensor] = None, scale: Optional[torch.Tensor] = None, validate_args: bool = False)
-
-
-   Bases: :py:obj:`NegativeBinomial`
-
-   From scVI.
-   Zero-inflated negative binomial distribution.
-
-   One of the following parameterizations must be provided:
-
-   (1), (`total_count`, `probs`) where `total_count` is the number of failures until
-   the experiment is stopped and `probs` the success probability. (2), (`mu`, `theta`)
-   parameterization, which is the one used by scvi-tools. These parameters respectively
-   control the mean and inverse dispersion of the distribution.
-
-   In the (`mu`, `theta`) parameterization, samples from the negative binomial are generated as follows:
-
-   1. :math:`w \sim \textrm{Gamma}(\underbrace{\theta}_{\text{shape}}, \underbrace{\theta/\mu}_{\text{rate}})`
-   2. :math:`x \sim \textrm{Poisson}(w)`
-
-   :param total_count: Number of failures until the experiment is stopped.
-   :param probs: The success probability.
-   :param mu: Mean of the distribution.
-   :param theta: Inverse dispersion.
-   :param zi_logits: Logits scale of zero inflation probability.
-   :param scale: Normalized mean expression of the distribution.
-   :param validate_args: Raise ValueError if arguments do not match constraints
-
-   .. py:property:: mean
-
-      Returns the mean of the distribution.
-
-   .. py:property:: variance
-
-      Returns the variance of the distribution.
-
-   .. py:attribute:: arg_constraints
-
-      
-
-   .. py:attribute:: support
-
-      
-
-   .. py:method:: zi_logits() -> torch.Tensor
-
-      ZI logits.
-
-
-   .. py:method:: zi_probs() -> torch.Tensor
-
-
-   .. py:method:: sample(sample_shape: Optional[Union[torch.Size, Tuple]] = None) -> torch.Tensor
-
-      Sample from the distribution.
-
-
-   .. py:method:: rsample(sample_shape: Optional[Union[torch.Size, Tuple]] = None) -> torch.Tensor
-
-      Sample from the distribution.
-
-
-   .. py:method:: log_prob(value: torch.Tensor) -> torch.Tensor
-
-      Log probability.
 
 
 

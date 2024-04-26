@@ -1,24 +1,28 @@
-:py:mod:`step.functionality.comps.model_ops`
-============================================
+
+step.functionality.comps.model_ops
+==================================
 
 .. py:module:: step.functionality.comps.model_ops
 
 
-Module Contents
----------------
+Overview
+--------
+
+.. list-table:: Classes
+   :header-rows: 0
+   :widths: auto
+   :class: summarytable
+
+   * - :py:obj:`ModelOps <step.functionality.comps.model_ops.ModelOps>`
+     - A class for wrapping a TranscriptFormer model with useful methods.
+
+
+
 
 Classes
-~~~~~~~
-
-.. autoapisummary::
-
-   step.functionality.comps.model_ops.ModelOps
-
-
-
+-------
 
 .. py:class:: ModelOps(model: step.models.transcriptformer.TranscriptFormer, device: str | None)
-
 
    Bases: :py:obj:`object`
 
@@ -29,6 +33,62 @@ Classes
       The TranscriptFormer model.
 
       :type: TranscriptFormer
+
+   Take a TranscriptFormer model and wrap it with some useful methods.
+
+   :param model: a TranscriptFormer model
+   :type model: TranscriptFormer
+   :param _factor: a factor to scale the loss
+   :type _factor: float
+   :param kl_cutoff: a cutoff value for the KL loss
+   :type kl_cutoff: float
+
+
+   .. rubric:: Overview
+
+
+   .. list-table:: Methods
+      :header-rows: 0
+      :widths: auto
+      :class: summarytable
+
+      * - :py:obj:`set_kl_cutoff <step.functionality.comps.model_ops.ModelOps.set_kl_cutoff>`\ (kl_cutoff)
+        - Sets the KL cutoff value for the model.
+      * - :py:obj:`loss <step.functionality.comps.model_ops.ModelOps.loss>`\ (x, ind)
+        - loss function for a single batch
+      * - :py:obj:`loss_gbatch <step.functionality.comps.model_ops.ModelOps.loss_gbatch>`\ ()
+        - Loss function for a graph batch
+      * - :py:obj:`get_px <step.functionality.comps.model_ops.ModelOps.get_px>`\ (decode_dict)
+        - Get the probability distribution for the observed data.
+      * - :py:obj:`get_batch_ohenc <step.functionality.comps.model_ops.ModelOps.get_batch_ohenc>`\ (batch_label, average, device)
+        - Converts the batch labels/indicators into one-hot encoded format.
+      * - :py:obj:`embed <step.functionality.comps.model_ops.ModelOps.embed>`\ (dataset, tsfmr_out, as_numpy)
+        - get the representation of the dataset
+      * - :py:obj:`add_embed <step.functionality.comps.model_ops.ModelOps.add_embed>`\ (adata, dataset, tsfmr_out, key_added)
+        - add the representation of the dataset to the adata object
+      * - :py:obj:`get_signatures <step.functionality.comps.model_ops.ModelOps.get_signatures>`\ (dataset, batch_used)
+        - Retrieves the signatures from the model for the given dataset.
+      * - :py:obj:`set_kl_start <step.functionality.comps.model_ops.ModelOps.set_kl_start>`\ (n_iterations)
+        - \-
+      * - :py:obj:`impute <step.functionality.comps.model_ops.ModelOps.impute>`\ (adata, dataset, batch_label, decode_dict, key_added, rep_key, layer_key, rep, x, qc, return_counts, log10)
+        - Imputes missing values in the gene expression data.
+      * - :py:obj:`generate <step.functionality.comps.model_ops.ModelOps.generate>`\ (adata, dataset, key_added, rep_key, rep, x)
+        - Generate synthetic data using the trained model.
+      * - :py:obj:`regress_out <step.functionality.comps.model_ops.ModelOps.regress_out>`\ (adata, dataset, batch_used, library_size, key_added, rep_key, rep)
+        - Regress out the unwanted sources of variation from the gene expression data.
+      * - :py:obj:`show_attn_maps <step.functionality.comps.model_ops.ModelOps.show_attn_maps>`\ ()
+        - :summarylabel:`abc` \-
+      * - :py:obj:`get_gene_modules <step.functionality.comps.model_ops.ModelOps.get_gene_modules>`\ (adata)
+        - get the gene modules from the model
+      * - :py:obj:`loss_fn <step.functionality.comps.model_ops.ModelOps.loss_fn>`\ (x, decoder_type, px_r, px_rate, px_dropout, px_scale, module, nokl, reduction, \*\*kwargs)
+        - Loss function for a basic objective: reconstruction + KL divergence.
+      * - :py:obj:`set_beta <step.functionality.comps.model_ops.ModelOps.set_beta>`\ (beta)
+        - Set the factor to scale the kl loss.
+      * - :py:obj:`reset_model <step.functionality.comps.model_ops.ModelOps.reset_model>`\ ()
+        - Reset the model parameters.
+
+
+   .. rubric:: Members
 
    .. py:method:: set_kl_cutoff(kl_cutoff)
 
@@ -260,6 +320,10 @@ Classes
    .. py:method:: reset_model()
 
       Reset the model parameters.
+
+
+
+
 
 
 

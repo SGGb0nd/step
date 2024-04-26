@@ -1,5 +1,6 @@
-:py:mod:`step.utils.synthetics`
-===============================
+
+step.utils.synthetics
+=====================
 
 .. py:module:: step.utils.synthetics
 

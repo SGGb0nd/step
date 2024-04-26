@@ -1,55 +1,52 @@
-:py:mod:`step.utils.dataset`
-============================
+
+step.utils.dataset
+==================
 
 .. py:module:: step.utils.dataset
 
 
-Module Contents
----------------
+Overview
+--------
+
+.. list-table:: Classes
+   :header-rows: 0
+   :widths: auto
+   :class: summarytable
+
+   * - :py:obj:`ScMode <step.utils.dataset.ScMode>`
+     - Enum class for single-cell dataset output modes.
+   * - :py:obj:`StMode <step.utils.dataset.StMode>`
+     - Enum class for spatial transcriptomics dataset output modes.
+   * - :py:obj:`MaskedDataset <step.utils.dataset.MaskedDataset>`
+     - A dataset class that represents a masked subset of an original dataset.
+   * - :py:obj:`BaseDataset <step.utils.dataset.BaseDataset>`
+     - Base dataset class for single-cell and spatial datasets.
+   * - :py:obj:`ScDataset <step.utils.dataset.ScDataset>`
+     - Single-cell dataset class.
+   * - :py:obj:`StDataset <step.utils.dataset.StDataset>`
+     - Spatial dataset class.
+   * - :py:obj:`CrossDataset <step.utils.dataset.CrossDataset>`
+     - A dataset class for cross-modal single-cell and spatial transcriptomics data.
+
+
+
+.. list-table:: Attributes
+   :header-rows: 0
+   :widths: auto
+   :class: summarytable
+
+   * - :py:obj:`PROCESS_FIELDS <step.utils.dataset.PROCESS_FIELDS>`
+     - \-
+   * - :py:obj:`READ_FIELDS <step.utils.dataset.READ_FIELDS>`
+     - \-
+   * - :py:obj:`RECIEVE_FIELDS <step.utils.dataset.RECIEVE_FIELDS>`
+     - \-
+
 
 Classes
-~~~~~~~
-
-.. autoapisummary::
-
-   step.utils.dataset.ScMode
-   step.utils.dataset.StMode
-   step.utils.dataset.MaskedDataset
-   step.utils.dataset.BaseDataset
-   step.utils.dataset.ScDataset
-   step.utils.dataset.StDataset
-   step.utils.dataset.CrossDataset
-
-
-
-
-Attributes
-~~~~~~~~~~
-
-.. autoapisummary::
-
-   step.utils.dataset.PROCESS_FIELDS
-   step.utils.dataset.READ_FIELDS
-   step.utils.dataset.RECIEVE_FIELDS
-
-
-.. py:data:: PROCESS_FIELDS
-   :value: ('adata', 'is_human', 'layer_key', 'batch_key', 'geneset', 'log_transformed', 'logarithm_first',...
-
-   
-
-.. py:data:: READ_FIELDS
-   :value: ('adata', 'log_transformed', 'logarithm_first', 'geneset', 'n_top_genes', 'layer_key', 'batch_key')
-
-   
-
-.. py:data:: RECIEVE_FIELDS
-   :value: ('gene_expr', 'adata', 'batch_label', '_batch_codes', 'layer_key')
-
-   
+-------
 
 .. py:class:: ScMode
-
 
    Bases: :py:obj:`enum.Enum`
 
@@ -73,6 +70,25 @@ Attributes
 
       :type: list
 
+
+   .. rubric:: Overview
+
+   .. list-table:: Attributes
+      :header-rows: 0
+      :widths: auto
+      :class: summarytable
+
+      * - :py:obj:`single_batch <step.utils.dataset.ScMode.single_batch>`
+        - \-
+      * - :py:obj:`multi_batches <step.utils.dataset.ScMode.multi_batches>`
+        - \-
+      * - :py:obj:`multi_batches_with_ct <step.utils.dataset.ScMode.multi_batches_with_ct>`
+        - \-
+
+
+
+   .. rubric:: Members
+
    .. py:attribute:: single_batch
       :value: ['gene_expr']
 
@@ -89,8 +105,8 @@ Attributes
       
 
 
-.. py:class:: StMode
 
+.. py:class:: StMode
 
    Bases: :py:obj:`enum.Enum`
 
@@ -120,6 +136,27 @@ Attributes
 
       :type: list
 
+
+   .. rubric:: Overview
+
+   .. list-table:: Attributes
+      :header-rows: 0
+      :widths: auto
+      :class: summarytable
+
+      * - :py:obj:`single_batch <step.utils.dataset.StMode.single_batch>`
+        - \-
+      * - :py:obj:`multi_batches <step.utils.dataset.StMode.multi_batches>`
+        - \-
+      * - :py:obj:`with_rep <step.utils.dataset.StMode.with_rep>`
+        - \-
+      * - :py:obj:`with_domains <step.utils.dataset.StMode.with_domains>`
+        - \-
+
+
+
+   .. rubric:: Members
+
    .. py:attribute:: single_batch
       :value: ['gene_expr']
 
@@ -141,8 +178,8 @@ Attributes
       
 
 
-.. py:class:: MaskedDataset(original_dataset, mask)
 
+.. py:class:: MaskedDataset(original_dataset, mask)
 
    Bases: :py:obj:`torch.utils.data.Dataset`
 
@@ -166,21 +203,29 @@ Attributes
 
       :type: ndarray
 
-   .. py:property:: mode
+   Initialize the MaskedDataset object.
 
-      The mode of the original dataset.
-
-      :returns: The mode of the original dataset.
-      :rtype: str
-
-   .. py:property:: adata
+   :param original_dataset: The original dataset.
+   :type original_dataset: BaseDataset
+   :param mask: The mask indicating which samples to include in the subset.
+   :type mask: ndarray
 
 
-   .. py:property:: masked_num_batches
+   .. rubric:: Overview
 
 
-   .. py:property:: masked_num_classes
+   .. list-table:: Methods
+      :header-rows: 0
+      :widths: auto
+      :class: summarytable
 
+      * - :py:obj:`set_mode <step.utils.dataset.MaskedDataset.set_mode>`\ (mode)
+        - Sets the mode of the original dataset.
+      * - :py:obj:`subset <step.utils.dataset.MaskedDataset.subset>`\ (key, col, exclude)
+        - Returns a new MaskedDataset object representing a subset of the current subset.
+
+
+   .. rubric:: Members
 
    .. py:method:: set_mode(mode=None)
 
@@ -209,8 +254,8 @@ Attributes
 
 
 
-.. py:class:: BaseDataset(adata: anndata.AnnData, filtered=False, log_transformed=False, logarithm_first=False, hvg_method='seurat_v3', geneset=None, n_top_genes: Optional[int] = 2000, layer_key: Optional[str] = None, batch_key: Optional[str] = None, **kwargs)
 
+.. py:class:: BaseDataset(adata: anndata.AnnData, filtered=False, log_transformed=False, logarithm_first=False, hvg_method='seurat_v3', geneset=None, n_top_genes: Optional[int] = 2000, layer_key: Optional[str] = None, batch_key: Optional[str] = None, **kwargs)
 
    Bases: :py:obj:`torch.utils.data.Dataset`
 
@@ -318,36 +363,62 @@ Attributes
 
       :type: ScMode or StMode
 
-   .. py:property:: batch_codes
-      :type: Optional[pandas.DataFrame]
+   Initialize the BaseDataset object.
 
-      Get the batch codes.
+   :param adata: The annotated data matrix.
+   :type adata: AnnData
+   :param filtered: Flag indicating if the dataset is filtered. Defaults to False.
+   :type filtered: bool, optional
+   :param log_transformed: Flag indicating if the dataset is log-transformed. Defaults to False.
+   :type log_transformed: bool, optional
+   :param logarithm_first: Flag indicating if logarithm transformation is applied first. Defaults to False.
+   :type logarithm_first: bool, optional
+   :param geneset: The geneset to be used. Defaults to None.
+   :type geneset: Optional[str], optional
+   :param n_top_genes: The number of top genes to be selected. Defaults to 2000.
+   :type n_top_genes: Optional[int], optional
+   :param layer_key: The key for the layer in the data. Defaults to None.
+   :type layer_key: Optional[str], optional
+   :param batch_key: The key for the batch in the data. Defaults to None.
+   :type batch_key: Optional[str], optional
+   :param \*\*kwargs: Additional keyword arguments.
 
-      :returns: The batch codes.
-      :rtype: Optional[pd.DataFrame]
 
-   .. py:property:: batch_names
-      :type: pandas.Index | None
+   .. rubric:: Overview
 
-      Get the batch names.
+   .. list-table:: Attributes
+      :header-rows: 0
+      :widths: auto
+      :class: summarytable
 
-      :returns: The batch names.
-      :rtype: Optional[pd.DataFrame]
+      * - :py:obj:`read_fields <step.utils.dataset.BaseDataset.read_fields>`
+        - \-
+      * - :py:obj:`process_fields <step.utils.dataset.BaseDataset.process_fields>`
+        - \-
+      * - :py:obj:`recieve_fields <step.utils.dataset.BaseDataset.recieve_fields>`
+        - \-
 
-   .. py:property:: class_codes
-      :type: Optional[pandas.DataFrame]
 
-      Get the class codes.
+   .. list-table:: Methods
+      :header-rows: 0
+      :widths: auto
+      :class: summarytable
 
-      :returns: The class codes.
-      :rtype: Optional[pd.DataFrame]
+      * - :py:obj:`read_folder <step.utils.dataset.BaseDataset.read_folder>`\ ()
+        - \-
+      * - :py:obj:`read <step.utils.dataset.BaseDataset.read>`\ (path, log_transformed, logarithm_first, filtered, geneset, batch_key, n_top_genes, layer_key, \*\*kwargs)
+        - :summarylabel:`class` Read the dataset from a file or folder.
+      * - :py:obj:`process <step.utils.dataset.BaseDataset.process>`\ (\*\*process_config)
+        - Process the dataset.
+      * - :py:obj:`get <step.utils.dataset.BaseDataset.get>`\ (batch, attr)
+        - Get the data for a specific batch.
+      * - :py:obj:`switch_layer <step.utils.dataset.BaseDataset.switch_layer>`\ (layer_key)
+        - \-
+      * - :py:obj:`subset <step.utils.dataset.BaseDataset.subset>`\ (key, col, exclude)
+        - Create a subset of the dataset based on a condition.
 
-   .. py:property:: n_genes
 
-      Get the number of genes.
-
-      :returns: The number of genes.
-      :rtype: int
+   .. rubric:: Members
 
    .. py:attribute:: read_fields
 
@@ -430,8 +501,8 @@ Attributes
 
 
 
-.. py:class:: ScDataset(class_key=None, **kwargs)
 
+.. py:class:: ScDataset(class_key=None, **kwargs)
 
    Bases: :py:obj:`BaseDataset`
 
@@ -479,6 +550,41 @@ Attributes
 
       :type: ScMode
 
+   Initialize the ScDataset object.
+
+   :param class_key: The key for the class labels in the data. Defaults to None.
+   :type class_key: Optional[str], optional
+   :param \*\*kwargs: Additional keyword arguments.
+
+
+   .. rubric:: Overview
+
+   .. list-table:: Attributes
+      :header-rows: 0
+      :widths: auto
+      :class: summarytable
+
+      * - :py:obj:`read_fields <step.utils.dataset.ScDataset.read_fields>`
+        - \-
+      * - :py:obj:`recieve_fields <step.utils.dataset.ScDataset.recieve_fields>`
+        - \-
+      * - :py:obj:`process_fields <step.utils.dataset.ScDataset.process_fields>`
+        - \-
+      * - :py:obj:`read_folder <step.utils.dataset.ScDataset.read_folder>`
+        - \-
+
+
+   .. list-table:: Methods
+      :header-rows: 0
+      :widths: auto
+      :class: summarytable
+
+      * - :py:obj:`set_mode <step.utils.dataset.ScDataset.set_mode>`\ (mode)
+        - Set the mode of the dataset.
+
+
+   .. rubric:: Members
+
    .. py:attribute:: read_fields
       :value: ()
 
@@ -510,8 +616,8 @@ Attributes
 
 
 
-.. py:class:: StDataset(coord_keys: Tuple[str, str] = ('array_row', 'array_col'), rep=None, domains=None, **kwargs)
 
+.. py:class:: StDataset(coord_keys: Tuple[str, str] = ('array_row', 'array_col'), rep=None, domains=None, **kwargs)
 
    Bases: :py:obj:`BaseDataset`
 
@@ -565,6 +671,45 @@ Attributes
 
       :type: StMode
 
+   Initialize the StDataset object.
+
+   :param coord_keys: The keys for the spatial coordinates in the data. Defaults to ("array_row", "array_col").
+   :type coord_keys: Tuple[str, str], optional
+   :param rep: The representation object. Defaults to None.
+   :type rep: Optional[object], optional
+   :param domains: The domains object. Defaults to None.
+   :type domains: Optional[object], optional
+   :param \*\*kwargs: Additional keyword arguments.
+
+
+   .. rubric:: Overview
+
+   .. list-table:: Attributes
+      :header-rows: 0
+      :widths: auto
+      :class: summarytable
+
+      * - :py:obj:`read_folder <step.utils.dataset.StDataset.read_folder>`
+        - \-
+      * - :py:obj:`read_fields <step.utils.dataset.StDataset.read_fields>`
+        - \-
+
+
+   .. list-table:: Methods
+      :header-rows: 0
+      :widths: auto
+      :class: summarytable
+
+      * - :py:obj:`set_domains <step.utils.dataset.StDataset.set_domains>`\ (domains)
+        - \-
+      * - :py:obj:`set_prior_coef <step.utils.dataset.StDataset.set_prior_coef>`\ (prior_coef)
+        - \-
+      * - :py:obj:`set_mode <step.utils.dataset.StDataset.set_mode>`\ (mode)
+        - \-
+
+
+   .. rubric:: Members
+
    .. py:attribute:: read_folder
 
       
@@ -584,8 +729,8 @@ Attributes
 
 
 
-.. py:class:: CrossDataset(sc_adata: str | anndata.AnnData, st_adata: str | anndata.AnnData, class_key: str, coord_keys: Tuple[str, str] | str = ('array_row', 'array_col'), batch_key=None, st_sample_names=None, st_batch_key=None, **kwargs)
 
+.. py:class:: CrossDataset(sc_adata: str | anndata.AnnData, st_adata: str | anndata.AnnData, class_key: str, coord_keys: Tuple[str, str] | str = ('array_row', 'array_col'), batch_key=None, st_sample_names=None, st_batch_key=None, **kwargs)
 
    Bases: :py:obj:`BaseDataset`
 
@@ -657,27 +802,54 @@ Attributes
 
       :type: ScMode or StMode
 
-   .. py:property:: st_batch_codes
-      :type: pandas.Series
+   Initialize the CrossDataset object.
 
-      Get the batch codes for the spatial transcriptomics dataset.
+   :param sc_adata: The single-cell AnnData object or the path to the file.
+   :type sc_adata: Union[str, AnnData]
+   :param st_adata: The spatial transcriptomics AnnData object or the path to the file.
+   :type st_adata: Union[str, AnnData]
+   :param class_key: The key for the class labels in the single-cell data.
+   :type class_key: str
+   :param coord_keys: The keys for the spatial coordinates in the spatial transcriptomics data. Defaults to ("array_row", "array_col").
+   :type coord_keys: Tuple[str, str], optional
+   :param batch_key: The key for the batch information in the single-cell data. Defaults to None.
+   :type batch_key: Optional[str], optional
+   :param st_sample_names: The sample names in the spatial transcriptomics data. Defaults to None.
+   :type st_sample_names: Optional[Iterable], optional
+   :param st_batch_key: The key for the batch information in the spatial transcriptomics data. Defaults to None.
+   :type st_batch_key: Optional[str], optional
+   :param \*\*kwargs: Additional keyword arguments.
 
-      :returns: The batch codes for the spatial transcriptomics dataset.
-      :rtype: np.ndarray
 
-   .. py:property:: st_sample_list
+   .. rubric:: Overview
 
-      Get the sample list for the spatial transcriptomics dataset.
+   .. list-table:: Attributes
+      :header-rows: 0
+      :widths: auto
+      :class: summarytable
 
-      :returns: The sample list for the spatial transcriptomics dataset.
-      :rtype: list
+      * - :py:obj:`process_fields <step.utils.dataset.CrossDataset.process_fields>`
+        - \-
+      * - :py:obj:`recieve_fields <step.utils.dataset.CrossDataset.recieve_fields>`
+        - \-
 
-   .. py:property:: num_st_batches
 
-      Get the number of batches for the spatial transcriptomics dataset.
+   .. list-table:: Methods
+      :header-rows: 0
+      :widths: auto
+      :class: summarytable
 
-      :returns: The number of batches for the spatial transcriptomics dataset.
-      :rtype: int
+      * - :py:obj:`set_rep <step.utils.dataset.CrossDataset.set_rep>`\ (rep)
+        - Set the representation for the dataset.
+      * - :py:obj:`set_mode <step.utils.dataset.CrossDataset.set_mode>`\ (mode)
+        - Sets the mode of the dataset.
+      * - :py:obj:`read <step.utils.dataset.CrossDataset.read>`\ ()
+        - :summarylabel:`class` Read the dataset from a file or folder.
+      * - :py:obj:`subset_st <step.utils.dataset.CrossDataset.subset_st>`\ (adata, domains)
+        - Creates a subset specific to the spatial transcriptomics dataset.
+
+
+   .. rubric:: Members
 
    .. py:attribute:: process_fields
       :value: ()
@@ -752,6 +924,27 @@ Attributes
 
       :returns: The sole spatial transcriptomics dataset.
       :rtype: MaskedDataset
+
+
+
+
+
+Attributes
+----------
+.. py:data:: PROCESS_FIELDS
+   :value: ('adata', 'is_human', 'layer_key', 'batch_key', 'geneset', 'log_transformed', 'logarithm_first',...
+
+   
+
+.. py:data:: READ_FIELDS
+   :value: ('adata', 'log_transformed', 'logarithm_first', 'geneset', 'n_top_genes', 'layer_key', 'batch_key')
+
+   
+
+.. py:data:: RECIEVE_FIELDS
+   :value: ('gene_expr', 'adata', 'batch_label', '_batch_codes', 'layer_key')
+
+   
 
 
 

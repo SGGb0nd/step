@@ -1,5 +1,6 @@
-:py:mod:`step.manager`
-======================
+
+step.manager
+============
 
 .. py:module:: step.manager
 
@@ -13,47 +14,44 @@ Submodules
    save/index.rst
 
 
-Package Contents
-----------------
+Overview
+--------
+
+.. list-table:: Classes
+   :header-rows: 0
+   :widths: auto
+   :class: summarytable
+
+   * - :py:obj:`CustomFormatter <step.manager.CustomFormatter>`
+     - Formatter instances are used to convert a LogRecord to text.
+
+
+.. list-table:: Function
+   :header-rows: 0
+   :widths: auto
+   :class: summarytable
+
+   * - :py:obj:`set_verbosity <step.manager.set_verbosity>`\ (level)
+     - Set the verbosity level of the logger.
+
+
+.. list-table:: Attributes
+   :header-rows: 0
+   :widths: auto
+   :class: summarytable
+
+   * - :py:obj:`logger <step.manager.logger>`
+     - \-
+   * - :py:obj:`ch <step.manager.ch>`
+     - \-
+   * - :py:obj:`formatter <step.manager.formatter>`
+     - \-
+
 
 Classes
-~~~~~~~
-
-.. autoapisummary::
-
-   step.manager.CustomFormatter
-
-
-
-Functions
-~~~~~~~~~
-
-.. autoapisummary::
-
-   step.manager.set_verbosity
-
-
-
-Attributes
-~~~~~~~~~~
-
-.. autoapisummary::
-
-   step.manager.logger
-   step.manager.ch
-   step.manager.formatter
-
-
-.. py:data:: logger
-
-   
-
-.. py:data:: ch
-
-   
+-------
 
 .. py:class:: CustomFormatter(fmt=None, datefmt=None, style='%', validate=True, *, defaults=None)
-
 
    Bases: :py:obj:`logging.Formatter`
 
@@ -97,6 +95,35 @@ Attributes
    %(message)s         The result of record.getMessage(), computed just as
                        the record is emitted
 
+   Initialize the formatter with specified format strings.
+
+   Initialize the formatter either with the specified format string, or a
+   default as described above. Allow for specialized date formatting with
+   the optional datefmt argument. If datefmt is omitted, you get an
+   ISO8601-like (or RFC 3339-like) format.
+
+   Use a style parameter of '%', '{' or '$' to specify that you want to
+   use one of %-formatting, :meth:`str.format` (``{}``) formatting or
+   :class:`string.Template` formatting in your format string.
+
+   .. versionchanged:: 3.2
+      Added the ``style`` parameter.
+
+
+   .. rubric:: Overview
+
+
+   .. list-table:: Methods
+      :header-rows: 0
+      :widths: auto
+      :class: summarytable
+
+      * - :py:obj:`format <step.manager.CustomFormatter.format>`\ (record)
+        - Format the specified record as text.
+
+
+   .. rubric:: Members
+
    .. py:method:: format(record)
 
       Format the specified record as text.
@@ -112,15 +139,31 @@ Attributes
 
 
 
-.. py:data:: formatter
 
-   
-
+Functions
+---------
 .. py:function:: set_verbosity(level=3)
 
    Set the verbosity level of the logger.
 
    :param level: The verbosity level. 0 is warnings and errors, 1 is info, 2 is debug.
    :type level: int
+
+
+
+Attributes
+----------
+.. py:data:: logger
+
+   
+
+.. py:data:: ch
+
+   
+
+.. py:data:: formatter
+
+   
+
 
 

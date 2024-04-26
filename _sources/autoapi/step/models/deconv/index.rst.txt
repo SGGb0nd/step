@@ -1,25 +1,30 @@
-:py:mod:`step.models.deconv`
-============================
+
+step.models.deconv
+==================
 
 .. py:module:: step.models.deconv
 
 
-Module Contents
----------------
+Overview
+--------
+
+.. list-table:: Classes
+   :header-rows: 0
+   :widths: auto
+   :class: summarytable
+
+   * - :py:obj:`TopNAttention <step.models.deconv.TopNAttention>`
+     - TopNAttention is a class that implements the top-n sparse attention mechanism.
+   * - :py:obj:`Mixer <step.models.deconv.Mixer>`
+     - Mixer is a model that uses a transformer and sparse attention to predict the cell type distribution for each spot.
+
+
+
 
 Classes
-~~~~~~~
-
-.. autoapisummary::
-
-   step.models.deconv.TopNAttention
-   step.models.deconv.Mixer
-
-
-
+-------
 
 .. py:class:: TopNAttention(top_n, num_heads, embed_dim, activation='relu')
-
 
    Bases: :py:obj:`torch.nn.Module`
 
@@ -73,12 +78,38 @@ Classes
 
       :type: float
 
+   Initialize the TopNAttention class.
+
+   :param top_n: The number of top values to select.
+   :type top_n: int
+   :param num_heads: The number of attention heads.
+   :type num_heads: int
+   :param embed_dim: The dimension of the input embeddings.
+   :type embed_dim: int
+   :param activation: The activation function to use. Defaults to 'relu'.
+   :type activation: str, optional
+
+
+   .. rubric:: Overview
+
+
+   .. list-table:: Methods
+      :header-rows: 0
+      :widths: auto
+      :class: summarytable
+
+      * - :py:obj:`forward <step.models.deconv.TopNAttention.forward>`\ (q, k, v)
+        - \-
+
+
+   .. rubric:: Members
+
    .. py:method:: forward(q, k, v)
 
 
 
-.. py:class:: Mixer(anchors, signatures, hidden_dim, solver='attn', n_spots=None, smoother=None, use_smoother=False, n_glayers=2, g=None, max_ct_per_spot: Optional[int] = 8, hard_anchors: Optional[bool] = False, domain_wise=True, **kwargs)
 
+.. py:class:: Mixer(anchors, signatures, hidden_dim, solver='attn', n_spots=None, smoother=None, use_smoother=False, n_glayers=2, g=None, max_ct_per_spot: Optional[int] = 8, hard_anchors: Optional[bool] = False, domain_wise=True, **kwargs)
 
    Bases: :py:obj:`torch.nn.Module`
 
@@ -178,8 +209,72 @@ Classes
 
       Additional keyword arguments.
 
-   .. py:property:: anchors_
+   Initialize the Mixer class.
 
+   :param anchors: The anchor tensor.
+   :type anchors: torch.Tensor
+   :param signatures: The signature tensor.
+   :type signatures: torch.Tensor
+   :param hidden_dim: The hidden dimension.
+   :type hidden_dim: int
+   :param solver: The solver type. Defaults to 'params'.
+   :type solver: str, optional
+   :param n_spots: The number of spots. Defaults to None.
+   :type n_spots: int, optional
+   :param smoother: The smoother module. Defaults to None.
+   :type smoother: nn.Module, optional
+   :param use_smoother: Whether to use the smoother. Defaults to True.
+   :type use_smoother: bool, optional
+   :param n_layers: The number of layers. Defaults to 2.
+   :type n_layers: int, optional
+   :param g: The g parameter. Defaults to None.
+   :type g: Any, optional
+   :param T: The T parameter. Defaults to 0.07.
+   :type T: float, optional
+   :param max_ct_per_spot: The maximum count per spot. Defaults to 8.
+   :type max_ct_per_spot: int, optional
+   :param hard_anchors: Whether to use hard anchors. Defaults to False.
+   :type hard_anchors: bool, optional
+   :param alpha: The alpha parameter used to control the sparsity of the attention. Defaults to None.
+   :type alpha: Any, optional
+   :param rate: The rate parameter used to scale the final loss. Defaults to 0.08.
+   :type rate: float, optional
+   :param domain_wise: Whether to infer the cell type distribution domain-wise. Defaults to True.
+   :type domain_wise: bool, optional
+   :param \*\*kwargs: Additional keyword arguments.
+
+
+   .. rubric:: Overview
+
+
+   .. list-table:: Methods
+      :header-rows: 0
+      :widths: auto
+      :class: summarytable
+
+      * - :py:obj:`forward <step.models.deconv.Mixer.forward>`\ (h, g)
+        - Forward pass for the Mixer model.
+      * - :py:obj:`ts_forward <step.models.deconv.Mixer.ts_forward>`\ (h, g, return_anchors)
+        - \-
+      * - :py:obj:`inf_pz <step.models.deconv.Mixer.inf_pz>`\ (spot_logits, anchors_logits)
+        - Calculate the inference similarity (pz) based on spot logits and anchors logits.
+      * - :py:obj:`get_prop <step.models.deconv.Mixer.get_prop>`\ (h, g, phat, ct_scale)
+        - Calculate the probability distribution for the given input.
+      * - :py:obj:`get_scores <step.models.deconv.Mixer.get_scores>`\ (h, g)
+        - Calculate the scores between the input features and the anchor features.
+      * - :py:obj:`mask_prop <step.models.deconv.Mixer.mask_prop>`\ (prop)
+        - Masks the given property tensor by selecting the top `ct_per_spot` values for each spot.
+      * - :py:obj:`sc_consistency <step.models.deconv.Mixer.sc_consistency>`\ (top_n_anchors, anchors, indices)
+        - Calculate the consistency loss for self-contrasting.
+      * - :py:obj:`p_hat <step.models.deconv.Mixer.p_hat>`\ (coef, logits)
+        - \-
+      * - :py:obj:`params <step.models.deconv.Mixer.params>`\ ()
+        - Returns an iterator over the parameters of the model.
+      * - :py:obj:`phat_params <step.models.deconv.Mixer.phat_params>`\ ()
+        - Returns an iterator over the parameters of the `st_scale` and `ct_scale` models.
+
+
+   .. rubric:: Members
 
    .. py:method:: forward(h, g=None)
 
@@ -280,6 +375,10 @@ Classes
    .. py:method:: phat_params()
 
       Returns an iterator over the parameters of the `st_scale` and `ct_scale` models.
+
+
+
+
 
 
 

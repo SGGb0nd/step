@@ -1,22 +1,27 @@
-:py:mod:`step.models.knn_map`
-=============================
+
+step.models.knn_map
+===================
 
 .. py:module:: step.models.knn_map
 
 
-Module Contents
----------------
+Overview
+--------
+
+
+.. list-table:: Function
+   :header-rows: 0
+   :widths: auto
+   :class: summarytable
+
+   * - :py:obj:`knn_random_coords <step.models.knn_map.knn_random_coords>`\ (adata, Y_spatial, k, use_rep, library_id)
+     - Assigns random coordinates to the nearest neighbors from scRNA-seq data for spatial data.
+
+
 
 
 Functions
-~~~~~~~~~
-
-.. autoapisummary::
-
-   step.models.knn_map.knn_random_coords
-
-
-
+---------
 .. py:function:: knn_random_coords(adata: anndata.AnnData, Y_spatial: numpy.ndarray, k: int = 6, use_rep: str = 'X_rep', library_id: Optional[str] = None)
 
    Assigns random coordinates to the nearest neighbors from scRNA-seq data for spatial data.
@@ -34,5 +39,8 @@ Functions
 
    :returns: AnnData object of spatial data with scRNA-seq data mapped.
    :rtype: AnnData
+
+
+
 
 

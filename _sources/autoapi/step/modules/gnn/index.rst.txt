@@ -1,25 +1,30 @@
-:py:mod:`step.modules.gnn`
-==========================
+
+step.modules.gnn
+================
 
 .. py:module:: step.modules.gnn
 
 
-Module Contents
----------------
+Overview
+--------
+
+.. list-table:: Classes
+   :header-rows: 0
+   :widths: auto
+   :class: summarytable
+
+   * - :py:obj:`GAT <step.modules.gnn.GAT>`
+     - Base class for all neural network modules.
+   * - :py:obj:`GCN <step.modules.gnn.GCN>`
+     - GCN is a graph convolutional network.
+
+
+
 
 Classes
-~~~~~~~
-
-.. autoapisummary::
-
-   step.modules.gnn.GAT
-   step.modules.gnn.GCN
-
-
-
+-------
 
 .. py:class:: GAT(in_feats, h_feats, n_layers=3, n_heads=4)
-
 
    Bases: :py:obj:`torch.nn.Module`
 
@@ -54,12 +59,29 @@ Classes
                    evaluation mode.
    :vartype training: bool
 
+   Initializes internal Module state, shared by both nn.Module and ScriptModule.
+
+
+   .. rubric:: Overview
+
+
+   .. list-table:: Methods
+      :header-rows: 0
+      :widths: auto
+      :class: summarytable
+
+      * - :py:obj:`forward <step.modules.gnn.GAT.forward>`\ (g, in_feat)
+        - \-
+
+
+   .. rubric:: Members
+
    .. py:method:: forward(g, in_feat)
 
 
 
-.. py:class:: GCN(in_feats, h_feats, n_layers=3, with_edge=True)
 
+.. py:class:: GCN(in_feats, h_feats, n_layers=3, with_edge=True)
 
    Bases: :py:obj:`torch.nn.Module`
 
@@ -89,7 +111,28 @@ Classes
 
       :type: bool
 
+   Initializes internal Module state, shared by both nn.Module and ScriptModule.
+
+
+   .. rubric:: Overview
+
+
+   .. list-table:: Methods
+      :header-rows: 0
+      :widths: auto
+      :class: summarytable
+
+      * - :py:obj:`forward <step.modules.gnn.GCN.forward>`\ (g, in_feat)
+        - \-
+
+
+   .. rubric:: Members
+
    .. py:method:: forward(g, in_feat)
+
+
+
+
 
 
 

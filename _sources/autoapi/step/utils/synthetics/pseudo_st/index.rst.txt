@@ -1,24 +1,28 @@
-:py:mod:`step.utils.synthetics.pseudo_st`
-=========================================
+
+step.utils.synthetics.pseudo_st
+===============================
 
 .. py:module:: step.utils.synthetics.pseudo_st
 
 
-Module Contents
----------------
+Overview
+--------
+
+.. list-table:: Classes
+   :header-rows: 0
+   :widths: auto
+   :class: summarytable
+
+   * - :py:obj:`PseudoST <step.utils.synthetics.pseudo_st.PseudoST>`
+     - Pseudo spatial transcriptomics data.
+
+
+
 
 Classes
-~~~~~~~
-
-.. autoapisummary::
-
-   step.utils.synthetics.pseudo_st.PseudoST
-
-
-
+-------
 
 .. py:class:: PseudoST(adata_sc: anndata.AnnData, adata_st: anndata.AnnData, layer_key='counts', batch_key=None, k_hop=3, downsapmle_size=200, cell_type_key='cell_type', sub_type_key=None, coords_key='spatial', info_key='spatial')
-
 
    Pseudo spatial transcriptomics data.
 
@@ -82,6 +86,46 @@ Classes
 
       :type: str
 
+   Initialize PseudoST.
+
+   :param adata_sc: Single cell data.
+   :type adata_sc: AnnData
+   :param adata_st: Spatial transcriptomics data.
+   :type adata_st: AnnData
+   :param layer_key: Layer key for single cell data.
+   :type layer_key: str
+   :param batch_key: Batch key for single cell data.
+   :type batch_key: str
+   :param k_hop: Number of hops for spatial smoothing.
+   :type k_hop: int
+   :param downsapmle_size: Downsample size for single cell data.
+   :type downsapmle_size: int
+   :param cell_type_key: Cell type key for single cell data.
+   :type cell_type_key: str
+   :param sub_type_key: Sub type key for single cell data.
+   :type sub_type_key: str
+   :param coords_key: Coords key for spatial transcriptomics data.
+   :type coords_key: str
+   :param info_key: Info key for spatial transcriptomics data.
+   :type info_key: str
+
+
+   .. rubric:: Overview
+
+
+   .. list-table:: Methods
+      :header-rows: 0
+      :widths: auto
+      :class: summarytable
+
+      * - :py:obj:`simulate <step.utils.synthetics.pseudo_st.PseudoST.simulate>`\ (domain_key, mean_prop, min_cells, max_cells, max_num_major_types, max_rank, prop_key, abund_key, sub_domain_key, max_num_major_subtypes)
+        - Simulate spatial transcriptomics data.
+      * - :py:obj:`save <step.utils.synthetics.pseudo_st.PseudoST.save>`\ (file, st_only, \*\*kwargs)
+        - Save simulated spatial transcriptomics data.
+
+
+   .. rubric:: Members
+
    .. py:method:: simulate(domain_key: str, mean_prop=0.75, min_cells: int = 2, max_cells: int = 7, max_num_major_types: int = 2, max_rank: Union[int, float] = 0.5, prop_key='ct_composition', abund_key='ct_abundance', sub_domain_key=None, max_num_major_subtypes=4)
 
       Simulate spatial transcriptomics data.
@@ -120,6 +164,10 @@ Classes
       :param st_only: Save only spatial transcriptomics data.
       :type st_only: bool
       :param \*\*kwargs: Additional arguments.
+
+
+
+
 
 
 

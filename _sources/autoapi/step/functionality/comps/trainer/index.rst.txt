@@ -1,51 +1,63 @@
-:py:mod:`step.functionality.comps.trainer`
-==========================================
+
+step.functionality.comps.trainer
+================================
 
 .. py:module:: step.functionality.comps.trainer
 
 
-Module Contents
----------------
+Overview
+--------
+
+.. list-table:: Classes
+   :header-rows: 0
+   :widths: auto
+   :class: summarytable
+
+   * - :py:obj:`EarlyStopping <step.functionality.comps.trainer.EarlyStopping>`
+     - Early stops the training if validation loss doesn't improve after a given patience.
+   * - :py:obj:`Trainer <step.functionality.comps.trainer.Trainer>`
+     - The Trainer class is responsible for training the TranscriptFormer model.
+
+
+.. list-table:: Function
+   :header-rows: 0
+   :widths: auto
+   :class: summarytable
+
+   * - :py:obj:`train_loop_formatter <step.functionality.comps.trainer.train_loop_formatter>`\ (train_func)
+     - A decorator function that formats the training loop.
+   * - :py:obj:`category_random_split <step.functionality.comps.trainer.category_random_split>`\ (dataset, split_rate, obs_key)
+     - Splits the given dataset into training and validation datasets based on categories.
+
+
 
 Classes
-~~~~~~~
-
-.. autoapisummary::
-
-   step.functionality.comps.trainer.EarlyStopping
-   step.functionality.comps.trainer.Trainer
-
-
-
-Functions
-~~~~~~~~~
-
-.. autoapisummary::
-
-   step.functionality.comps.trainer.train_loop_formatter
-   step.functionality.comps.trainer.category_random_split
-
-
-
-.. py:function:: train_loop_formatter(train_func)
-
-   A decorator function that formats the training loop.
-
-   :param train_func: The training function to be decorated.
-   :type train_func: function
-
-   :returns: The decorated training function.
-   :rtype: function
-
+-------
 
 .. py:class:: EarlyStopping(patience=7, verbose=False, delta=0, path='checkpoint.pt', trace_func=print)
 
-
    Early stops the training if validation loss doesn't improve after a given patience.
+
+   :param patience: How long to wait after last time validation loss improved.
+                    Default: 7
+   :type patience: int
+   :param verbose: If True, prints a message for each validation loss improvement.
+                   Default: False
+   :type verbose: bool
+   :param delta: Minimum change in the monitored quantity to qualify as an improvement.
+                 Default: 0
+   :type delta: float
+   :param path: Path for the checkpoint to be saved to.
+                Default: 'checkpoint.pt'
+   :type path: str
+   :param trace_func: trace print function.
+                      Default: print
+   :type trace_func: function
+
+
 
 
 .. py:class:: Trainer(model: step.models.transcriptformer.TranscriptFormer)
-
 
    Bases: :py:obj:`object`
 
@@ -86,6 +98,62 @@ Functions
       The default configuration for loss types.
 
       :type: dict
+
+   Initializes the Trainer object.
+
+   :param model: The TranscriptFormer model being trained.
+   :type model: TranscriptFormer
+
+
+   .. rubric:: Overview
+
+
+   .. list-table:: Methods
+      :header-rows: 0
+      :widths: auto
+      :class: summarytable
+
+      * - :py:obj:`mode_switch_to_train <step.functionality.comps.trainer.Trainer.mode_switch_to_train>`\ ()
+        - \-
+      * - :py:obj:`init_optimizer <step.functionality.comps.trainer.Trainer.init_optimizer>`\ (lr, tune_lr, stage, tune_batch_embedding)
+        - Initializes the optimizer for model parameter updates.
+      * - :py:obj:`set_lr_scheduler <step.functionality.comps.trainer.Trainer.set_lr_scheduler>`\ (lr_scheduler)
+        - Sets the learning rate scheduler.
+      * - :py:obj:`update_model_params <step.functionality.comps.trainer.Trainer.update_model_params>`\ (loss_dict, epoch)
+        - Updates the model parameters based on the loss.
+      * - :py:obj:`setup_early_stopping <step.functionality.comps.trainer.Trainer.setup_early_stopping>`\ (loss_dict)
+        - Sets up the EarlyStopping objects for each loss type.
+      * - :py:obj:`cum_loss <step.functionality.comps.trainer.Trainer.cum_loss>`\ (loss_dict, total_loss_dict, use_earlystop, n_batch, n_epoch)
+        - Computes the cumulative loss.
+      * - :py:obj:`check_early_stop <step.functionality.comps.trainer.Trainer.check_early_stop>`\ (total_loss_dict)
+        - Checks if early stopping criteria are met.
+      * - :py:obj:`format_loss_dict <step.functionality.comps.trainer.Trainer.format_loss_dict>`\ (loss_dict, state, valid_loss_dict, endepoch)
+        - Formats the loss dictionary for display.
+      * - :py:obj:`split_X <step.functionality.comps.trainer.Trainer.split_X>`\ (X, split_rate)
+        - Splits the input data into training and validation sets based on the given split rate.
+      * - :py:obj:`handle_input_tuple <step.functionality.comps.trainer.Trainer.handle_input_tuple>`\ (input_tuple)
+        - Handles the input tuple and calculates the loss.
+      * - :py:obj:`handle_ginput_tuple <step.functionality.comps.trainer.Trainer.handle_ginput_tuple>`\ (input_tuple, ind, step)
+        - \-
+      * - :py:obj:`train_batch <step.functionality.comps.trainer.Trainer.train_batch>`\ (state, loaders, call_func)
+        - Trains the model on a batch of data.
+      * - :py:obj:`train <step.functionality.comps.trainer.Trainer.train>`\ (state, X, train_ind, valid_ind, call_func, \*\*kwargs)
+        - Train the model using the provided data.
+      * - :py:obj:`train_node_sampler <step.functionality.comps.trainer.Trainer.train_node_sampler>`\ (state, gloader, dataset, train_ind, valid_ind)
+        - Trains the model with node sampler.
+      * - :py:obj:`train_graph_batch <step.functionality.comps.trainer.Trainer.train_graph_batch>`\ (state, gloader, train_ind, valid_ind)
+        - Trains the model on a batch of graph inputs.
+      * - :py:obj:`validate_loader <step.functionality.comps.trainer.Trainer.validate_loader>`\ (loader, call_func)
+        - Validates the given loader by evaluating the model on the input data.
+      * - :py:obj:`validate_X <step.functionality.comps.trainer.Trainer.validate_X>`\ (X, ind, call_func)
+        - Validates the input data X using the specified call_func.
+      * - :py:obj:`validate_gloader <step.functionality.comps.trainer.Trainer.validate_gloader>`\ (gloader)
+        - Validates the given data loader by evaluating the model on the input data.
+      * - :py:obj:`make_loaders <step.functionality.comps.trainer.Trainer.make_loaders>`\ (dataset, batch_size, split_rate, shuffle, obs_key, \*\*kwargs)
+        - :summarylabel:`static` Create data loaders for training and validation datasets.
+
+
+   .. rubric:: Members
 
    .. py:method:: mode_switch_to_train()
 
@@ -328,6 +396,20 @@ Functions
 
 
 
+
+Functions
+---------
+.. py:function:: train_loop_formatter(train_func)
+
+   A decorator function that formats the training loop.
+
+   :param train_func: The training function to be decorated.
+   :type train_func: function
+
+   :returns: The decorated training function.
+   :rtype: function
+
+
 .. py:function:: category_random_split(dataset: Union[step.utils.dataset.BaseDataset, step.utils.dataset.MaskedDataset], split_rate: float = 0.2, obs_key: Optional[str] = None) -> Tuple[step.utils.dataset.MaskedDataset, step.utils.dataset.MaskedDataset]
 
    Splits the given dataset into training and validation datasets based on categories.
@@ -341,5 +423,8 @@ Functions
 
    :returns: A tuple containing the training dataset and validation dataset.
    :rtype: Tuple[ScDataset, ScDataset]
+
+
+
 
 

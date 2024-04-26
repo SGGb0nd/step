@@ -1,5 +1,6 @@
-:py:mod:`step`
-==============
+
+step
+====
 
 .. py:module:: step
 

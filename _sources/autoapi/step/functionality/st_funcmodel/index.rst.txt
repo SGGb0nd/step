@@ -1,24 +1,28 @@
-:py:mod:`step.functionality.st_funcmodel`
-=========================================
+
+step.functionality.st_funcmodel
+===============================
 
 .. py:module:: step.functionality.st_funcmodel
 
 
-Module Contents
----------------
+Overview
+--------
+
+.. list-table:: Classes
+   :header-rows: 0
+   :widths: auto
+   :class: summarytable
+
+   * - :py:obj:`stSmoother <step.functionality.st_funcmodel.stSmoother>`
+     - A class for training the model for identifying spatial domains.
+
+
+
 
 Classes
-~~~~~~~
-
-.. autoapisummary::
-
-   step.functionality.st_funcmodel.stSmoother
-
-
-
+-------
 
 .. py:class:: stSmoother(num_batches=1, beta=0.01, variational=False, dispersion='batch-gene', n_glayers=4, device=None, **kwargs)
-
 
    Bases: :py:obj:`step.functionality.base.FunctionalBase`
 
@@ -59,6 +63,45 @@ Classes
       A function for generating the graph.
 
       :type: callable
+
+   Initialize the stSmoother object.
+
+   :param num_batches: The number of batches. Defaults to 1.
+   :type num_batches: int, optional
+   :param beta: The beta value for training. Defaults to 1e-2.
+   :type beta: float, optional
+   :param variational: Whether to use variational training. Defaults to False.
+   :type variational: bool, optional
+   :param \*\*kwargs: Additional keyword arguments.
+
+
+   .. rubric:: Overview
+
+
+   .. list-table:: Methods
+      :header-rows: 0
+      :widths: auto
+      :class: summarytable
+
+      * - :py:obj:`from_spatial_graph <step.functionality.st_funcmodel.stSmoother.from_spatial_graph>`\ (adata, dataset, batch_size, num_iters, batch_key, sample_rate)
+        - Convert spatial graph data into a dataloader for training.
+      * - :py:obj:`loss_gbatch <step.functionality.st_funcmodel.stSmoother.loss_gbatch>`\ (g, x_gd, batch_rep, step, ind)
+        - Compute the loss for a batch of graphs.
+      * - :py:obj:`handle_input_tuple <step.functionality.st_funcmodel.stSmoother.handle_input_tuple>`\ (input_tuple, ind, rep)
+        - Handles the input tuple and computes the loss.
+      * - :py:obj:`handle_ginput_tuple <step.functionality.st_funcmodel.stSmoother.handle_ginput_tuple>`\ (input_tuple, dataset, ind, step)
+        - Handles the input tuple for graph data and performs necessary operations.
+      * - :py:obj:`embed <step.functionality.st_funcmodel.stSmoother.embed>`\ (dataset, tsfmr_out, as_numpy)
+        - Embeds the given dataset using the model.
+      * - :py:obj:`gembed <step.functionality.st_funcmodel.stSmoother.gembed>`\ (dataset, tsfmr_out, as_numpy)
+        - Embeds the given dataset using the current model.
+      * - :py:obj:`run <step.functionality.st_funcmodel.stSmoother.run>`\ (adata, dataset, epochs, batch_size, graph_batch_size, smooth_epochs, n_samples, n_iterations, split_rate, sample_rate, beta, key_added, lr, tune_lr, kl_cutoff, e2e, contrast, kl_contrast, logging, reset)
+        - Runs the training process for the model.
+      * - :py:obj:`reset_model <step.functionality.st_funcmodel.stSmoother.reset_model>`\ ()
+        - Reset the model parameters.
+
+
+   .. rubric:: Members
 
    .. py:method:: from_spatial_graph(adata: anndata.AnnData, dataset: step.utils.dataset.StDataset, batch_size: int = 1024, num_iters=1000, batch_key: Optional[str] = None, sample_rate: float = 1.0)
 
@@ -184,6 +227,10 @@ Classes
    .. py:method:: reset_model()
 
       Reset the model parameters.
+
+
+
+
 
 
 

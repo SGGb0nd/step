@@ -1,5 +1,6 @@
-:py:mod:`step.utils`
-====================
+
+step.utils
+==========
 
 .. py:module:: step.utils
 

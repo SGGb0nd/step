@@ -1,24 +1,28 @@
-:py:mod:`step.functionality.base`
-=================================
+
+step.functionality.base
+=======================
 
 .. py:module:: step.functionality.base
 
 
-Module Contents
----------------
+Overview
+--------
+
+.. list-table:: Classes
+   :header-rows: 0
+   :widths: auto
+   :class: summarytable
+
+   * - :py:obj:`FunctionalBase <step.functionality.base.FunctionalBase>`
+     - FunctionalBase is a compound class that combines the ModelOps and Trainer classes.
+
+
+
 
 Classes
-~~~~~~~
-
-.. autoapisummary::
-
-   step.functionality.base.FunctionalBase
-
-
-
+-------
 
 .. py:class:: FunctionalBase(model: step.models.transcriptformer.TranscriptFormer, use_earlystop=True, device=None)
-
 
    Bases: :py:obj:`step.functionality.comps.model_ops.ModelOps`, :py:obj:`step.functionality.comps.trainer.Trainer`
 
@@ -47,6 +51,30 @@ Classes
       The device to use for training. Defaults to "cuda" if a GPU is available, otherwise "cpu".
 
       :type: str
+
+   Initialize the FunctionalBase.
+
+   :param model: The model to be wrapped.
+   :type model: TranscriptFormer
+   :param use_earlystop: A flag indicating whether to use early stopping during training. Defaults to True.
+   :type use_earlystop: bool, optional
+
+
+   .. rubric:: Overview
+
+
+   .. list-table:: Methods
+      :header-rows: 0
+      :widths: auto
+      :class: summarytable
+
+      * - :py:obj:`run <step.functionality.base.FunctionalBase.run>`\ (adata, dataset, epochs, batch_size, split_rate, key_added, obs_key, call_func, kl_cutoff, reset, beta, lr)
+        - Run the training and embedding process.
+      * - :py:obj:`load_checkpoint <step.functionality.base.FunctionalBase.load_checkpoint>`\ (checkpoint)
+        - Loads a checkpoint file and updates the model's state dictionary.
+
+
+   .. rubric:: Members
 
    .. py:method:: run(adata: anndata.AnnData, dataset: step.utils.dataset.BaseDataset | step.utils.dataset.MaskedDataset, epochs=1, batch_size: int | None = None, split_rate=0.2, key_added='X_rep', obs_key=None, call_func=None, kl_cutoff=None, reset=False, beta=0.01, lr=0.001)
 
@@ -82,6 +110,10 @@ Classes
       :type checkpoint: str
 
       :returns: None
+
+
+
+
 
 
 

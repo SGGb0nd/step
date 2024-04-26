@@ -1,26 +1,32 @@
-:py:mod:`step.models.extension`
-===============================
+
+step.models.extension
+=====================
 
 .. py:module:: step.models.extension
 
 
-Module Contents
----------------
+Overview
+--------
+
+.. list-table:: Classes
+   :header-rows: 0
+   :widths: auto
+   :class: summarytable
+
+   * - :py:obj:`BatchAwareScale <step.models.extension.BatchAwareScale>`
+     - BatchAwareScale is a module that performs BatchAwareScale introduced in the paper.
+   * - :py:obj:`BatchAwareLayerNorm <step.models.extension.BatchAwareLayerNorm>`
+     - BatchAwareLayerNorm is a module that performs BatchAwareLayerNorm introduced in the paper.
+   * - :py:obj:`NrmlsBC <step.models.extension.NrmlsBC>`
+     - NrmlsBC is an extension of the TranscriptFormer model that supports batch-aware normalization and scaling to eliminate batch effects.
+
+
+
 
 Classes
-~~~~~~~
-
-.. autoapisummary::
-
-   step.models.extension.BatchAwareScale
-   step.models.extension.BatchAwareLayerNorm
-   step.models.extension.NrmlsBC
-
-
-
+-------
 
 .. py:class:: BatchAwareScale(input_dim, output_dim, act=None)
-
 
    Bases: :py:obj:`torch.nn.Module`
 
@@ -38,12 +44,37 @@ Classes
 
       :type: nn.Module
 
+   Defines the computation performed at every call.
+
+   :param x: The input data.
+   :type x: Tensor
+   :param batch: The batch data.
+   :type batch: Tensor
+
+   :returns: The output data after scaling.
+   :rtype: Tensor
+
+
+   .. rubric:: Overview
+
+
+   .. list-table:: Methods
+      :header-rows: 0
+      :widths: auto
+      :class: summarytable
+
+      * - :py:obj:`forward <step.models.extension.BatchAwareScale.forward>`\ (x, batch)
+        - \-
+
+
+   .. rubric:: Members
+
    .. py:method:: forward(x, batch)
 
 
 
-.. py:class:: BatchAwareLayerNorm(input_dim, output_dim, act='relu')
 
+.. py:class:: BatchAwareLayerNorm(input_dim, output_dim, act='relu')
 
    Bases: :py:obj:`torch.nn.Module`
 
@@ -73,12 +104,36 @@ Classes
 
       :type: nn.Module
 
+   Initialize the BatchAwareLayerNorm module.
+
+   :param input_dim: The input dimension of the module.
+   :type input_dim: int
+   :param output_dim: The output dimension of the module.
+   :type output_dim: int
+   :param act: The activation function to use. Defaults to 'relu'.
+   :type act: str, optional
+
+
+   .. rubric:: Overview
+
+
+   .. list-table:: Methods
+      :header-rows: 0
+      :widths: auto
+      :class: summarytable
+
+      * - :py:obj:`forward <step.models.extension.BatchAwareLayerNorm.forward>`\ (x, batch)
+        - \-
+
+
+   .. rubric:: Members
+
    .. py:method:: forward(x, batch)
 
 
 
-.. py:class:: NrmlsBC(num_batches: int, num_classes: int = 1, dispersion: Literal[gene, batch-gene] = 'batch-gene', use_l_scale=False, **kwargs)
 
+.. py:class:: NrmlsBC(num_batches: int, num_classes: int = 1, dispersion: Literal[gene, batch-gene] = 'batch-gene', use_l_scale=False, **kwargs)
 
    Bases: :py:obj:`step.models.transcriptformer.TranscriptFormer`
 
@@ -126,11 +181,50 @@ Classes
 
       :type: Dict[str, Any]
 
-   .. py:property:: non_decoder_param
+   Initialize the Extension class.
 
-      Returns an iterator over the non-decoder parameters of the model.
+   :param num_batches: The number of batches.
+   :type num_batches: int
+   :param num_classes: The number of classes. Defaults to 1.
+   :type num_classes: int, optional
+   :param \*\*kwargs: Additional keyword arguments.
 
-      This includes the parameters of the `moduler`, `expand`, `module`, and `readout` modules.
+
+   .. rubric:: Overview
+
+
+   .. list-table:: Methods
+      :header-rows: 0
+      :widths: auto
+      :class: summarytable
+
+      * - :py:obj:`encode_ts <step.models.extension.NrmlsBC.encode_ts>`\ (x, batch_rep)
+        - Encodes the output of transformer encoders using the transformer model.
+      * - :py:obj:`readout_ <step.models.extension.NrmlsBC.readout_>`\ (tsfmr_out)
+        - Apply smoothing to the transformer output if enabled, and then perform readout.
+      * - :py:obj:`readout_batch <step.models.extension.NrmlsBC.readout_batch>`\ (rep_ts, batch_rep)
+        - Readout the representation with batch representation.
+      * - :py:obj:`encode <step.models.extension.NrmlsBC.encode>`\ (x, batch_rep)
+        - Encodes the input data `x` using the specified batch representation `batch_rep`.
+      * - :py:obj:`decode <step.models.extension.NrmlsBC.decode>`\ (cls_rep, x_gd, batch_rep, rep_ts)
+        - Decodes the given input representation into output representation.
+      * - :py:obj:`decode_ts <step.models.extension.NrmlsBC.decode_ts>`\ (rep_ts, x_gd, batch_rep)
+        - Decode the given representation tensor `rep_ts` into a prediction tensor.
+      * - :py:obj:`decode_skip <step.models.extension.NrmlsBC.decode_skip>`\ (cls_rep, rep_ts, x_gd, batch_rep)
+        - Decodes the input data using the skip model.
+      * - :py:obj:`decode_ <step.models.extension.NrmlsBC.decode_>`\ (cls_rep, x_gd, batch_rep)
+        - \-
+      * - :py:obj:`forward <step.models.extension.NrmlsBC.forward>`\ (x, batch_rep, return_exp)
+        - \-
+      * - :py:obj:`init_anchor <step.models.extension.NrmlsBC.init_anchor>`\ (num_classes, new_anchors)
+        - Initializes the anchor module.
+      * - :py:obj:`copy <step.models.extension.NrmlsBC.copy>`\ (with_state)
+        - Creates a copy of the current object.
+      * - :py:obj:`copy_dec <step.models.extension.NrmlsBC.copy_dec>`\ ()
+        - Creates a copy of the model with the specified parameters.
+
+
+   .. rubric:: Members
 
    .. py:method:: encode_ts(x, batch_rep)
 
@@ -254,6 +348,10 @@ Classes
 
       :returns: A copy of the model with the registered parameters.
       :rtype: nn.ModuleDict
+
+
+
+
 
 
 

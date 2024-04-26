@@ -1,24 +1,28 @@
-:py:mod:`step.stmodel`
-======================
+
+step.stmodel
+============
 
 .. py:module:: step.stmodel
 
 
-Module Contents
----------------
+Overview
+--------
+
+.. list-table:: Classes
+   :header-rows: 0
+   :widths: auto
+   :class: summarytable
+
+   * - :py:obj:`stModel <step.stmodel.stModel>`
+     - stModel is the main class for spatial transcriptomics data.
+
+
+
 
 Classes
-~~~~~~~
-
-.. autoapisummary::
-
-   step.stmodel.stModel
-
-
-
+-------
 
 .. py:class:: stModel(adata: Optional[anndata.AnnData] = None, file_path: Optional[str] = None, n_top_genes: Optional[int] = 2000, geneset_to_use: Optional[Sequence[str]] = None, batch_key: Optional[str] = None, layer_key: Optional[str] = None, coord_keys: Tuple[str, str] = ('array_row', 'array_col'), log_transformed=False, module_dim=30, decoder_input_dim=None, hidden_dim=64, n_modules=32, model_checkpoint=None, edge_clip=2, logarithm_first=False, variational=True, n_glayers=4, hvg_method='seurat_v3', filtered=False, dispersion='gene', device=None, **kwargs)
-
 
    stModel is the main class for spatial transcriptomics data.
 
@@ -34,11 +38,77 @@ Classes
 
       stSmoother object.
 
-   .. py:property:: adata
+   Initialize the stModel object.
+
+   :param adata: Annotated data matrix with shape (n_obs, n_vars). If provided, it will be used to create the StDataset.
+   :type adata: Optional[AnnData]
+   :param file_path: Path to the adata file. If provided, it will be used to create the StDataset.
+   :type file_path: Optional[str]
+   :param n_top_genes: Number of top genes to select. Default is 2000.
+   :type n_top_genes: Optional[int]
+   :param geneset_to_use: List of genes to use. Default is None.
+   :type geneset_to_use: Optional[Sequence[str]]
+   :param batch_key: Key for batch information in adata.obs. Default is None.
+   :type batch_key: Optional[str]
+   :param layer_key: Key for layer information in adata.layers. Default is None.
+   :type layer_key: Optional[str]
+   :param coord_keys: Keys for spatial coordinates in adata.obsm. Default is ('array_row', 'array_col').
+   :type coord_keys: Tuple[str, str]
+   :param log_transformed: Whether the gene expression values are log-transformed. Default is False.
+   :type log_transformed: bool
+   :param module_dim: Dimensionality of the modules. Default is 30.
+   :type module_dim: int
+   :param decoder_input_dim: Dimensionality of the decoder input. If None, it will be set to module_dim.
+   :type decoder_input_dim: Optional[int]
+   :param hidden_dim: Dimensionality of the hidden layers. Default is 64.
+   :type hidden_dim: int
+   :param n_modules: Number of modules. Default is 32.
+   :type n_modules: int
+   :param model_checkpoint: Model checkpoint to load. Default is None.
+   :type model_checkpoint: Any
+   :param edge_clip: Clip the adj edges to edge_clip. Default is 2.
+   :type edge_clip: int
+   :param logarithm_first: Whether to apply logarithm transformation before hvgs. Default is False.
+   :type logarithm_first: bool
+   :param variational: Whether to use variational inference. Default is False.
+   :type variational: bool
+   :param n_glayers: Number of graph convolutional layers. Default is 4.
+   :type n_glayers: int
+   :param hvg_method: Method to select highly variable genes. Default is "seurat_v3".
+   :type hvg_method: str
+   :param filtered: Whether the gene expression data (cells) are filtered. Default is False.
+   :type filtered: bool
+   :param \*\*kwargs: Additional keyword arguments.
+   :type \*\*kwargs: Any
+
+   :raises AssertionError: If neither adata nor file_path is provided.
 
 
-   .. py:property:: model
+   .. rubric:: Overview
 
+
+   .. list-table:: Methods
+      :header-rows: 0
+      :widths: auto
+      :class: summarytable
+
+      * - :py:obj:`cluster <step.stmodel.stModel.cluster>`\ (adata, n_clusters, use_rep, key_added, method, seed)
+        - Cluster the embedding of spatial transcriptomics.
+      * - :py:obj:`sub_cluster <step.stmodel.stModel.sub_cluster>`\ (adata, n_clusters, use_rep, pre_key, key_added)
+        - Sub-cluster the clusters of spatial transcriptomics.
+      * - :py:obj:`summarize_domain <step.stmodel.stModel.summarize_domain>`\ (cell_type_names, adata, domain_key, average, obsm_key, figsize, show, save)
+        - Summarize the domain of spatial transcriptomics.
+      * - :py:obj:`summarize_single_domain <step.stmodel.stModel.summarize_single_domain>`\ (cell_type_names, adata, domain_key, obsm_key, figsize, show, save)
+        - :summarylabel:`abc` \-
+      * - :py:obj:`save <step.stmodel.stModel.save>`\ (path)
+        - \-
+      * - :py:obj:`load <step.stmodel.stModel.load>`\ (path, adata, filepath, config_name, model_name)
+        - :summarylabel:`class` Load the model and the data.
+      * - :py:obj:`spatial_plot <step.stmodel.stModel.spatial_plot>`\ (slide, with_images, \*\*kwargs)
+        - Wrapper for plotting spatial feature plot with self-contained data.
+
+
+   .. rubric:: Members
 
    .. py:method:: cluster(adata: anndata.AnnData | None = None, n_clusters=3, use_rep='X_smoothed', key_added='domain', method='kmeans', seed=None)
 
@@ -136,6 +206,10 @@ Classes
 
       :returns: Figure.
       :rtype: matplotlib.figure.Figure
+
+
+
+
 
 
 

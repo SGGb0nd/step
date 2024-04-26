@@ -1,30 +1,43 @@
-:py:mod:`step.utils.plotting`
-=============================
+
+step.utils.plotting
+===================
 
 .. py:module:: step.utils.plotting
 
 
-Module Contents
----------------
+Overview
+--------
+
+
+.. list-table:: Function
+   :header-rows: 0
+   :widths: auto
+   :class: summarytable
+
+   * - :py:obj:`spatial_plot <step.utils.plotting.spatial_plot>`\ (adata, obsm_key, batch_key, slide, with_images, title_prefix, axes, \*\*kwargs)
+     - Spatial feature plot wrapping scanpy.pl.spatial for multiple batches/sections.
+   * - :py:obj:`plot_spatial_pie_charts <step.utils.plotting.plot_spatial_pie_charts>`\ (adata, spatial_key, library_id, deconv_key, size)
+     - Plot spatial pie charts of cell type proportions
+   * - :py:obj:`plot_posterior_mu_vs_data <step.utils.plotting.plot_posterior_mu_vs_data>`\ (mu, data, log10)
+     - (from cell2location.utils_plot.plot_posterior_mu_vs_data)
+   * - :py:obj:`plot_domain_summary <step.utils.plotting.plot_domain_summary>`\ (adata, domain_key, cell_type_names, figsize, show)
+     - Plot domain summary.
+   * - :py:obj:`plot_domain_summary_single_ct <step.utils.plotting.plot_domain_summary_single_ct>`\ (adata, domain_key, cell_type_name, figsize, show, plot_func, \*\*kwargs)
+     - \-
+   * - :py:obj:`plot_single_domain_summary <step.utils.plotting.plot_single_domain_summary>`\ (adata, domain, domain_key, cell_type_names, figsize, show)
+     - \-
+   * - :py:obj:`set_cmap <step.utils.plotting.set_cmap>`\ (adata, obs_key, color_map, reverse)
+     - \-
+   * - :py:obj:`plot_trajectory <step.utils.plotting.plot_trajectory>`\ (adata, pseudotime, library_id, location, clusterlabels, gridnum, pointsize, arrowlength, arrow_color, save_endpoints, \*\*kwargs)
+     - \-
+   * - :py:obj:`plot_trajectory_curve <step.utils.plotting.plot_trajectory_curve>`\ (adata, pseudotime, library_id, location, clusterlabels, gridnum, arrow_color, save_endpoints, arrowlength, n_quantiles, order, num_t, \*\*kwargs)
+     - \-
+
+
 
 
 Functions
-~~~~~~~~~
-
-.. autoapisummary::
-
-   step.utils.plotting.spatial_plot
-   step.utils.plotting.plot_spatial_pie_charts
-   step.utils.plotting.plot_posterior_mu_vs_data
-   step.utils.plotting.plot_domain_summary
-   step.utils.plotting.plot_domain_summary_single_ct
-   step.utils.plotting.plot_single_domain_summary
-   step.utils.plotting.set_cmap
-   step.utils.plotting.plot_trajectory
-   step.utils.plotting.plot_trajectory_curve
-
-
-
+---------
 .. py:function:: spatial_plot(adata: anndata.AnnData, obsm_key: str = 'spatial', batch_key: str = 'batch', slide: str | None = None, with_images: bool = True, title_prefix: bool = True, axes: Sequence[matplotlib.pyplot.Axes] | None = None, **kwargs)
 
    Spatial feature plot wrapping scanpy.pl.spatial for multiple batches/sections.
@@ -104,5 +117,8 @@ Functions
 
 
 .. py:function:: plot_trajectory_curve(adata, pseudotime, library_id=None, location='spatial', clusterlabels='domain', gridnum=10, arrow_color='red', save_endpoints=False, arrowlength=0.2, n_quantiles=4, order=3, num_t=10, **kwargs)
+
+
+
 
 

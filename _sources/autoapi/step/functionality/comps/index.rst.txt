@@ -1,5 +1,6 @@
-:py:mod:`step.functionality.comps`
-==================================
+
+step.functionality.comps
+========================
 
 .. py:module:: step.functionality.comps
 

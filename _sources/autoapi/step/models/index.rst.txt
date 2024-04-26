@@ -1,5 +1,6 @@
-:py:mod:`step.models`
-=====================
+
+step.models
+===========
 
 .. py:module:: step.models
 

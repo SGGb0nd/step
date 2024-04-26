@@ -1,24 +1,28 @@
-:py:mod:`step.functionality.cross_funcmodel`
-============================================
+
+step.functionality.cross_funcmodel
+==================================
 
 .. py:module:: step.functionality.cross_funcmodel
 
 
-Module Contents
----------------
+Overview
+--------
+
+.. list-table:: Classes
+   :header-rows: 0
+   :widths: auto
+   :class: summarytable
+
+   * - :py:obj:`CrossModalityNrmls <step.functionality.cross_funcmodel.CrossModalityNrmls>`
+     - CrossModalityNrmls is a class for training and integrating cross-modality data: scRNA-seq and spatial transcriptomics.
+
+
+
 
 Classes
-~~~~~~~
-
-.. autoapisummary::
-
-   step.functionality.cross_funcmodel.CrossModalityNrmls
-
-
-
+-------
 
 .. py:class:: CrossModalityNrmls(device=None, **kwargs)
-
 
    Bases: :py:obj:`step.functionality.sc_funcmodel.scMultiBatchNrmls`
 
@@ -77,6 +81,59 @@ Classes
       The readout module.
 
       :type: nn.Module
+
+   Initialize the CrossModalityNrmls.
+
+   :param need_anchor: Whether to use anchors for integration. Defaults to False.
+   :type need_anchor: bool, optional
+   :param max_neighbors: The maximum number of neighbors. Defaults to 10.
+   :type max_neighbors: int, optional
+   :param edge_clip: The edge clipping value. Defaults to None.
+   :type edge_clip: Optional[float], optional
+   :param \*\*kwargs: Additional keyword arguments.
+
+
+   .. rubric:: Overview
+
+
+   .. list-table:: Methods
+      :header-rows: 0
+      :widths: auto
+      :class: summarytable
+
+      * - :py:obj:`handle_ginput_tuple <step.functionality.cross_funcmodel.CrossModalityNrmls.handle_ginput_tuple>`\ (input_tuple, ind, step)
+        - \-
+      * - :py:obj:`from_spatial_graph <step.functionality.cross_funcmodel.CrossModalityNrmls.from_spatial_graph>`\ (adata, dataset, batch_size, num_iters, use_rep, batch_key, \*\*kwargs)
+        - Convert spatial graph data into a dataloader for training.
+      * - :py:obj:`add_embed_st <step.functionality.cross_funcmodel.CrossModalityNrmls.add_embed_st>`\ (dataset, st_dataset, key_added, readout)
+        - Add the smoothed representation to the spatial transcriptomics dataset.
+      * - :py:obj:`integrate <step.functionality.cross_funcmodel.CrossModalityNrmls.integrate>`\ (adata, dataset, epochs, batch_size, lr, split_rate, tune_epochs, tune_lr, need_anchors, key_added, beta1, beta2, reset, kl_cutoff)
+        - Integrate the input data using the cross-function model.
+      * - :py:obj:`generate_domains <step.functionality.cross_funcmodel.CrossModalityNrmls.generate_domains>`\ (adata, dataset, decoder_type, use_rep, split_rate, epochs, smooth_epochs, batch_size, beta, n_dec_layers, lr, tune_lr, n_glayers, dec_norm, key_added, use_st_decoder, graph_batch_size, kl_cutoff, logging, \*\*kwargs)
+        - Generates domains for the given dataset using the specified parameters.
+      * - :py:obj:`deconv <step.functionality.cross_funcmodel.CrossModalityNrmls.deconv>`\ (adata, dataset, cell_type_key, domain_wise, domain_key, library_size, solver, rep_key, epochs, batch_size, lr, max_ct_per_spot, n_glayers, hard_anchors, sc_consist, alpha, use_raw, batch_used, logging, \*\*kwargs)
+        - Perform cell-type deconvolution on spatial transcriptomics data.
+      * - :py:obj:`nnls_deconv <step.functionality.cross_funcmodel.CrossModalityNrmls.nnls_deconv>`\ (adata, dataset, cell_type_key, batch_used, n_jobs)
+        - Perform cell-type deconvolution on spatial transcriptomics data using non-negative least squares (NNLS).
+      * - :py:obj:`reference_map <step.functionality.cross_funcmodel.CrossModalityNrmls.reference_map>`\ (adata, dataset, k, use_rep, library_id)
+        - Maps the reference dataset to the target dataset using k-nearest neighbors (KNN) algorithm.
+      * - :py:obj:`run <step.functionality.cross_funcmodel.CrossModalityNrmls.run>`\ (\*\*kwargs)
+        - :summarylabel:`abc` Run the function model.
+      * - :py:obj:`get_pz <step.functionality.cross_funcmodel.CrossModalityNrmls.get_pz>`\ (rep, colnames)
+        - \-
+      * - :py:obj:`get_prop <step.functionality.cross_funcmodel.CrossModalityNrmls.get_prop>`\ (rep, colnames, rownames, phat, norm, ct_scale)
+        - Get the proportions of the given representation.
+      * - :py:obj:`get_scores <step.functionality.cross_funcmodel.CrossModalityNrmls.get_scores>`\ (rep, colnames, rownames)
+        - Get the scores for the given representation.
+      * - :py:obj:`st_impute <step.functionality.cross_funcmodel.CrossModalityNrmls.st_impute>`\ (dataset, key_added, smooth, qc)
+        - Perform imputation on spatial transcriptomics data.
+      * - :py:obj:`get_signatures <step.functionality.cross_funcmodel.CrossModalityNrmls.get_signatures>`\ (dataset, batch_used)
+        - Get the signatures for the given dataset.
+      * - :py:obj:`load_checkpoint <step.functionality.cross_funcmodel.CrossModalityNrmls.load_checkpoint>`\ (checkpoint)
+        - Loads a checkpoint file and updates the model's state dictionary.
+
+
+   .. rubric:: Members
 
    .. py:method:: handle_ginput_tuple(input_tuple, ind=None, step=None)
 
@@ -377,6 +434,10 @@ Classes
       :type checkpoint: str
 
       :returns: None
+
+
+
+
 
 
 

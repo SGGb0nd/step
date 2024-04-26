@@ -1,23 +1,29 @@
-:py:mod:`step.utils.metrics`
-============================
+
+step.utils.metrics
+==================
 
 .. py:module:: step.utils.metrics
 
 
-Module Contents
----------------
+Overview
+--------
+
+
+.. list-table:: Function
+   :header-rows: 0
+   :widths: auto
+   :class: summarytable
+
+   * - :py:obj:`moran_i <step.utils.metrics.moran_i>`\ (adata, coord_keys, obs_key, k)
+     - Calculate Moran's I for a given spatially distributed variable.
+   * - :py:obj:`geary_c <step.utils.metrics.geary_c>`\ (adata, coord_keys, obs_key, k)
+     - Calculate Geary's C for a given spatially distributed variable.
+
+
 
 
 Functions
-~~~~~~~~~
-
-.. autoapisummary::
-
-   step.utils.metrics.moran_i
-   step.utils.metrics.geary_c
-
-
-
+---------
 .. py:function:: moran_i(adata, coord_keys, obs_key, k=1)
 
    Calculate Moran's I for a given spatially distributed variable.
@@ -50,5 +56,8 @@ Functions
 
    :returns: Geary's C value.
    :rtype: float
+
+
+
 
 

@@ -1,24 +1,28 @@
-:py:mod:`step.integration`
-==========================
+
+step.integration
+================
 
 .. py:module:: step.integration
 
 
-Module Contents
----------------
+Overview
+--------
+
+.. list-table:: Classes
+   :header-rows: 0
+   :widths: auto
+   :class: summarytable
+
+   * - :py:obj:`crossModel <step.integration.crossModel>`
+     - CrossModalityNrmls is the main class for integrating single-cell RNA-seq and spatial transcriptomics data.
+
+
+
 
 Classes
-~~~~~~~
-
-.. autoapisummary::
-
-   step.integration.crossModel
-
-
-
+-------
 
 .. py:class:: crossModel(sc_adata: str | anndata.AnnData | pathlib.Path, st_adata: str | anndata.AnnData | pathlib.Path, class_key: str, n_top_genes: Optional[int] = 2000, geneset_to_use: Optional[Sequence[str]] = None, st_sample_name: Optional[str] = None, batch_key: Optional[str] = None, layer_key: Optional[str] = None, coord_keys: Tuple[str, str] = ('array_row', 'array_col'), decoder_type: str = 'zinb', log_transformed=False, module_dim=30, decoder_input_dim=None, hidden_dim=64, n_modules=32, model_checkpoint: str | Dict[str, str] | None = None, edge_clip=2, st_batch_key=None, variational=True, logarithm_first=False, hvg_method='seurat_v3', filtered=False, dispersion='batch-gene', device=None, **kwargs)
-
 
    CrossModalityNrmls is the main class for integrating single-cell RNA-seq and spatial transcriptomics data.
 
@@ -38,18 +42,78 @@ Classes
 
       CrossModalityNrmls object.
 
-   .. py:property:: adata
-      :type: anndata.AnnData
+   Initializes the Integration object.
 
-      Returns AnnData object of the single-cell RNA-seq data.
+   :param sc_adata: Single-cell RNA-seq data or path to the file containing the data.
+   :type sc_adata: str | AnnData
+   :param st_adata: Spatial transcriptomics data or path to the file containing the data.
+   :type st_adata: str | AnnData
+   :param class_key: Key in the AnnData object that specifies the cell type labels.
+   :type class_key: str
+   :param n_top_genes: Number of top genes to select. Default is 2000.
+   :type n_top_genes: Optional[int]
+   :param geneset_to_use: List of genes to use for integration. Default is None.
+   :type geneset_to_use: Optional[Sequence[str]]
+   :param st_sample_name: Name of the st sample to use. Default is None.
+   :type st_sample_name: Optional[str]
+   :param batch_key: Key in the AnnData object that specifies the batch labels. Default is None.
+   :type batch_key: Optional[str]
+   :param layer_key: Key in the AnnData object that specifies the layer to use. Default is None.
+   :type layer_key: Optional[str]
+   :param coord_keys: Tuple of keys in the AnnData object that specify the spatial coordinates. Default is ('array_row', 'array_col').
+   :type coord_keys: Tuple[str, str]
+   :param log_transformed: Whether the gene expression data is log-transformed. Default is False.
+   :type log_transformed: bool
+   :param module_dim: Dimension of the latent space. Default is 30.
+   :type module_dim: int
+   :param decoder_input_dim: Dimension of the decoder input. Default is None.
+   :type decoder_input_dim: Optional[int]
+   :param hidden_dim: Dimension of the hidden layers. Default is 64.
+   :type hidden_dim: int
+   :param n_modules: Number of modules in the model. Default is 32.
+   :type n_modules: int
+   :param model_checkpoint: Path to the model checkpoint file. Default is None.
+   :type model_checkpoint: Optional[str]
+   :param edge_clip: Value to clip the edges of the latent space. Default is 2.
+   :type edge_clip: int
+   :param st_batch_key: Key in the AnnData object that specifies the batch labels for the st data. Default is None.
+   :type st_batch_key: Optional[str]
+   :param variational: Whether to use variational autoencoder. Default is True.
+   :type variational: bool
+   :param logarithm_first: Whether to apply logarithm to the gene expression data before normalization. Default is False.
+   :type logarithm_first: bool
+   :param hvg_method: Method to use for selecting highly variable genes. Default is "seurat_v3".
+   :type hvg_method: str
+   :param filtered: Whether the gene expression data (cells) are filtered. Default is False.
+   :type filtered: bool
+   :param \*\*kwargs: Additional keyword arguments to be passed to the CrossModalityNrmls constructor.
 
-   .. py:property:: st_adata
-      :type: anndata.AnnData
 
-      Returns AnnData object of the spatial transcriptomics data.
+   .. rubric:: Overview
 
-   .. py:property:: model
 
+   .. list-table:: Methods
+      :header-rows: 0
+      :widths: auto
+      :class: summarytable
+
+      * - :py:obj:`cluster <step.integration.crossModel.cluster>`\ (st_adata, n_clusters, use_rep, key_added, method)
+        - Cluster the embedding of spatial transcriptomics data.
+      * - :py:obj:`sub_cluster <step.integration.crossModel.sub_cluster>`\ (st_adata, n_clusters, use_rep, pre_key, key_added, method)
+        - Sub-cluster the clusters of spatial transcriptomics data.
+      * - :py:obj:`summarize_domain <step.integration.crossModel.summarize_domain>`\ (cell_type_names, adata, domain_key, obsm_key, figsize, show, save)
+        - Summarize the average quantification of cell types in each domain.
+      * - :py:obj:`summarize_single_domain <step.integration.crossModel.summarize_single_domain>`\ (cell_type_names, domain, adata, domain_key, obsm_key, figsize, show, save)
+        - Summarize the quantification of cell types in each domain.
+      * - :py:obj:`save <step.integration.crossModel.save>`\ (path, save_adata)
+        - Save the model and the data.
+      * - :py:obj:`load <step.integration.crossModel.load>`\ (path, sc_adata, st_adata, config_name, model_name, st_decoder_name, mixer_name)
+        - :summarylabel:`class` Load the model and the data.
+      * - :py:obj:`spatial_plot <step.integration.crossModel.spatial_plot>`\ (slide, with_images, \*\*kwargs)
+        - \-
+
+
+   .. rubric:: Members
 
    .. py:method:: cluster(st_adata: Optional[anndata.AnnData] = None, n_clusters=3, use_rep='X_smoothed', key_added='domain', method='kmeans')
 
@@ -160,6 +224,10 @@ Classes
 
 
    .. py:method:: spatial_plot(slide: str | int | None = None, with_images: bool = True, **kwargs)
+
+
+
+
 
 
 

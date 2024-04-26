@@ -1,24 +1,28 @@
-:py:mod:`step.scmodel`
-======================
+
+step.scmodel
+============
 
 .. py:module:: step.scmodel
 
 
-Module Contents
----------------
+Overview
+--------
+
+.. list-table:: Classes
+   :header-rows: 0
+   :widths: auto
+   :class: summarytable
+
+   * - :py:obj:`scModel <step.scmodel.scModel>`
+     - scModel is the main class for single-cell RNA-seq data analysis.
+
+
+
 
 Classes
-~~~~~~~
-
-.. autoapisummary::
-
-   step.scmodel.scModel
-
-
-
+-------
 
 .. py:class:: scModel(adata: Optional[anndata.AnnData] = None, file_path: Optional[str] = None, n_top_genes: Optional[int] = 2000, geneset_to_use: Optional[Sequence[str]] = None, layer_key: Optional[str] = None, class_key: Optional[str] = None, batch_key: Optional[str] = None, log_transformed=False, module_dim=30, decoder_input_dim=None, hidden_dim=64, n_modules=32, model_checkpoint=None, beta=0.01, decoder_type='zinb', dispersion='batch-gene', logarithm_first=False, hvg_method='seurat_v3', filtered=False, device=None, **kwargs)
-
 
    scModel is the main class for single-cell RNA-seq data analysis.
 
@@ -34,11 +38,65 @@ Classes
 
       scSingleBatch or scMultiBatchNrmls object.
 
-   .. py:property:: adata
+   Initialize the ScModel object.
+
+   :param adata: Annotated data object containing the gene expression data.
+   :type adata: Optional[AnnData]
+   :param file_path: Path to a file containing the gene expression data.
+   :type file_path: Optional[str]
+   :param n_top_genes: Number of top hvgs to use.
+   :type n_top_genes: Optional[int]
+   :param geneset_to_use: List of genes to consider.
+   :type geneset_to_use: Optional[Sequence[str]]
+   :param layer_key: Key for accessing the layer in the adata object.
+   :type layer_key: Optional[str]
+   :param class_key: Key for accessing the class labels in the adata object.
+   :type class_key: Optional[str]
+   :param batch_key: Key for accessing the batch information in the adata object.
+   :type batch_key: Optional[str]
+   :param log_transformed: Whether the gene expression data is log-transformed.
+   :type log_transformed: bool
+   :param module_dim: Dimension of the module.
+   :type module_dim: int
+   :param decoder_input_dim: Dimension of the decoder input.
+   :type decoder_input_dim: Optional[int]
+   :param hidden_dim: Dimension of the hidden layer.
+   :type hidden_dim: int
+   :param n_modules: Number of modules.
+   :type n_modules: int
+   :param model_checkpoint: Checkpoint for loading a pre-trained model.
+   :param beta: Beta value for the loss function.
+   :type beta: float
+   :param decoder_type: Type of the decoder, either 'zinb' or 'nb'.
+   :type decoder_type: str
+   :param logarithm_first: Whether to apply logarithm transformation before other operations.
+   :type logarithm_first: bool
+   :param hvg_method: Method for selecting highly variable genes.
+   :type hvg_method: str
+   :param filtered: Whether the gene expression data (cells) are filtered.
+   :type filtered: bool
+   :param \*\*kwargs: Additional keyword arguments.
+
+   :raises AssertionError: If neither adata nor file_path is provided.
 
 
-   .. py:property:: model
+   .. rubric:: Overview
 
+
+   .. list-table:: Methods
+      :header-rows: 0
+      :widths: auto
+      :class: summarytable
+
+      * - :py:obj:`load_checkpoint <step.scmodel.scModel.load_checkpoint>`\ (model_checkpoint, functional)
+        - \-
+      * - :py:obj:`save <step.scmodel.scModel.save>`\ (path)
+        - \-
+      * - :py:obj:`load <step.scmodel.scModel.load>`\ (path, adata, filepath, config_name, model_name)
+        - :summarylabel:`class` Load the model and the data.
+
+
+   .. rubric:: Members
 
    .. py:method:: load_checkpoint(model_checkpoint, functional: Union[step.functionality.sc_funcmodel.scSingleBatch, step.functionality.sc_funcmodel.scMultiBatchNrmls])
 
@@ -64,6 +122,10 @@ Classes
 
       :returns: The scModel object.
       :rtype: scModel
+
+
+
+
 
 
 

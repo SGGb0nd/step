@@ -1,39 +1,42 @@
-:py:mod:`step.models.transcriptformer`
-======================================
+
+step.models.transcriptformer
+============================
 
 .. py:module:: step.models.transcriptformer
 
 
-Module Contents
----------------
+Overview
+--------
+
+.. list-table:: Classes
+   :header-rows: 0
+   :widths: auto
+   :class: summarytable
+
+   * - :py:obj:`Linear2D <step.models.transcriptformer.Linear2D>`
+     - Linear2D module consists of a linear layer with 3D weight matrix.
+   * - :py:obj:`Readout <step.models.transcriptformer.Readout>`
+     - Readout module for the TranscriptFormer model.
+   * - :py:obj:`GeneModuler <step.models.transcriptformer.GeneModuler>`
+     - GeneModuler takes gene expression as input and outputs gene modules.
+   * - :py:obj:`TranscriptFormer <step.models.transcriptformer.TranscriptFormer>`
+     - TranscriptFormer is a gene expression model based on the Transformer architecture.
+
+
+
+.. list-table:: Attributes
+   :header-rows: 0
+   :widths: auto
+   :class: summarytable
+
+   * - :py:obj:`drop_edge <step.models.transcriptformer.drop_edge>`
+     - \-
+
 
 Classes
-~~~~~~~
-
-.. autoapisummary::
-
-   step.models.transcriptformer.Linear2D
-   step.models.transcriptformer.Readout
-   step.models.transcriptformer.GeneModuler
-   step.models.transcriptformer.TranscriptFormer
-
-
-
-
-Attributes
-~~~~~~~~~~
-
-.. autoapisummary::
-
-   step.models.transcriptformer.drop_edge
-
-
-.. py:data:: drop_edge
-
-   
+-------
 
 .. py:class:: Linear2D(input_dim, hidden_dim, n_modules, bias=False)
-
 
    Bases: :py:obj:`torch.nn.Module`
 
@@ -48,12 +51,38 @@ Attributes
    :param bias: Whether to use bias. Defaults to False.
    :type bias: bool, optional
 
+   Linear2D module consists of a linear layer with 3D weight matrix.
+
+   :param input_dim: dimension of input
+   :type input_dim: int
+   :param hidden_dim: dimension of hidden layer
+   :type hidden_dim: int
+   :param n_modules: number of linear modules
+   :type n_modules: int
+   :param bias: whether to use bias. Defaults to False.
+   :type bias: bool, optional
+
+
+   .. rubric:: Overview
+
+
+   .. list-table:: Methods
+      :header-rows: 0
+      :widths: auto
+      :class: summarytable
+
+      * - :py:obj:`forward <step.models.transcriptformer.Linear2D.forward>`\ (x)
+        - \-
+
+
+   .. rubric:: Members
+
    .. py:method:: forward(x)
 
 
 
-.. py:class:: Readout(input_dim, output_dim, variational=True)
 
+.. py:class:: Readout(input_dim, output_dim, variational=True)
 
    Bases: :py:obj:`torch.nn.Module`
 
@@ -89,6 +118,34 @@ Attributes
 
       :type: nn.Linear
 
+   Initializes the Readout module.
+
+   :param input_dim: The input dimension of the Readout module.
+   :type input_dim: int
+   :param output_dim: The output dimension of the Readout module.
+   :type output_dim: int
+   :param variational: Whether to use variational encoding. Defaults to True.
+   :type variational: bool, optional
+
+
+   .. rubric:: Overview
+
+
+   .. list-table:: Methods
+      :header-rows: 0
+      :widths: auto
+      :class: summarytable
+
+      * - :py:obj:`forward <step.models.transcriptformer.Readout.forward>`\ (x)
+        - Forward pass of the Readout module.
+      * - :py:obj:`kl_loss <step.models.transcriptformer.Readout.kl_loss>`\ ()
+        - Computes the KL divergence loss.
+      * - :py:obj:`clear <step.models.transcriptformer.Readout.clear>`\ ()
+        - \-
+
+
+   .. rubric:: Members
+
    .. py:method:: forward(x)
 
       Forward pass of the Readout module.
@@ -112,8 +169,8 @@ Attributes
 
 
 
-.. py:class:: GeneModuler(input_dim=2000, hidden_dim=8, n_modules=16)
 
+.. py:class:: GeneModuler(input_dim=2000, hidden_dim=8, n_modules=16)
 
    Bases: :py:obj:`torch.nn.Module`
 
@@ -149,6 +206,34 @@ Attributes
 
       :type: Linear2D
 
+   GeneModuler takes gene expression as input and outputs gene modules.
+
+   :param input_dim: dimension of input. Defaults to 2000.
+   :type input_dim: int, optional
+   :param hidden_dim: dimension of hidden layer. Defaults to 8.
+   :type hidden_dim: int, optional
+   :param n_modules: number of modules. Defaults to 16.
+   :type n_modules: int, optional
+
+
+   .. rubric:: Overview
+
+
+   .. list-table:: Methods
+      :header-rows: 0
+      :widths: auto
+      :class: summarytable
+
+      * - :py:obj:`forward <step.models.transcriptformer.GeneModuler.forward>`\ (x, batch)
+        - \-
+      * - :py:obj:`demodule <step.models.transcriptformer.GeneModuler.demodule>`\ (x)
+        - \-
+      * - :py:obj:`random_permute <step.models.transcriptformer.GeneModuler.random_permute>`\ (x)
+        - \-
+
+
+   .. rubric:: Members
+
    .. py:method:: forward(x, batch=None)
 
 
@@ -159,8 +244,8 @@ Attributes
 
 
 
-.. py:class:: TranscriptFormer(decoder_type='zinb', use_pe=True, use_smooth=False, use_skip=False, input_dim=2000, module_dim=30, decoder_input_dim=None, hidden_dim=256, n_modules=16, nhead=8, n_enc_layer=3, dec_norm='batch', variational=True, smoother='GCN', n_glayers=3, dec_hidden_dim=None, n_dec_hid_layers: int = 1, edge_clip=2, use_l_scale: bool = False, num_batches: int = 1, activation: Literal[softplus, softmax] | None = None)
 
+.. py:class:: TranscriptFormer(decoder_type='zinb', use_pe=True, use_smooth=False, use_skip=False, input_dim=2000, module_dim=30, decoder_input_dim=None, hidden_dim=256, n_modules=16, nhead=8, n_enc_layer=3, dec_norm='batch', variational=True, smoother='GCN', n_glayers=3, dec_hidden_dim=None, n_dec_hid_layers: int = 1, edge_clip=2, use_l_scale: bool = False, num_batches: int = 1, activation: Literal[softplus, softmax] | None = None)
 
    Bases: :py:obj:`torch.nn.Module`
 
@@ -268,6 +353,82 @@ Attributes
 
       :type: dict
 
+   Initializes the TranscriptFormer model.
+
+   :param grids: Grids. Defaults to None.
+   :type grids: None, optional
+   :param decoder_type: Decoder type. Defaults to 'zinb'.
+   :type decoder_type: str, optional
+   :param use_pe: Whether to use positional encoding. Defaults to True.
+   :type use_pe: bool, optional
+   :param use_smooth: Whether to use smoothing. Defaults to False.
+   :type use_smooth: bool, optional
+   :param use_skip: Whether to use skip connections. Defaults to False.
+   :type use_skip: bool, optional
+   :param input_dim: Input dimension. Defaults to 2000.
+   :type input_dim: int, optional
+   :param module_dim: Module dimension. Defaults to 30.
+   :type module_dim: int, optional
+   :param decoder_input_dim: Decoder input dimension. Defaults to None.
+   :type decoder_input_dim: None, optional
+   :param hidden_dim: Hidden dimension. Defaults to 256.
+   :type hidden_dim: int, optional
+   :param n_modules: Number of modules. Defaults to 16.
+   :type n_modules: int, optional
+   :param nhead: Number of attention heads. Defaults to 8.
+   :type nhead: int, optional
+   :param n_enc_layer: Number of encoder layers. Defaults to 3.
+   :type n_enc_layer: int, optional
+   :param dec_norm: Decoder normalization. Defaults to 'batch'.
+   :type dec_norm: str, optional
+   :param variational: Whether to use variational encoding. Defaults to True.
+   :type variational: bool, optional
+   :param smoother: Smoother type. Defaults to 'GCN'.
+   :type smoother: str, optional
+   :param n_glayers: Number of graph layers. Defaults to 3.
+   :type n_glayers: int, optional
+   :param dec_hidden_dim: Decoder hidden dimension. Defaults to None.
+   :type dec_hidden_dim: None, optional
+   :param n_dec_hid_layers: Number of decoder hidden layers. Defaults to 1.
+   :type n_dec_hid_layers: int, optional
+   :param edge_clip: Edge clip value. Defaults to 2.
+   :type edge_clip: int, optional
+
+
+   .. rubric:: Overview
+
+
+   .. list-table:: Methods
+      :header-rows: 0
+      :widths: auto
+      :class: summarytable
+
+      * - :py:obj:`get_px_r <step.models.transcriptformer.TranscriptFormer.get_px_r>`\ (batch_label)
+        - \-
+      * - :py:obj:`init_smoother_with_builtin <step.models.transcriptformer.TranscriptFormer.init_smoother_with_builtin>`\ ()
+        - \-
+      * - :py:obj:`init_smoother <step.models.transcriptformer.TranscriptFormer.init_smoother>`\ (n_glayers)
+        - \-
+      * - :py:obj:`local_smooth <step.models.transcriptformer.TranscriptFormer.local_smooth>`\ (h, g)
+        - Local smoothing function.
+      * - :py:obj:`encode_ts <step.models.transcriptformer.TranscriptFormer.encode_ts>`\ (x, batch_rep)
+        - Encode the input tensor with only the transformer.
+      * - :py:obj:`readout_ <step.models.transcriptformer.TranscriptFormer.readout_>`\ (cls_rep)
+        - Readout function.
+      * - :py:obj:`encode <step.models.transcriptformer.TranscriptFormer.encode>`\ (x, bacth_rep)
+        - Encode the input tensor with the transformer and the readout function.
+      * - :py:obj:`decode_ts <step.models.transcriptformer.TranscriptFormer.decode_ts>`\ (rep_ts, x_gd, batch_rep)
+        - Decoding process starting from the non-standardized representation.
+      * - :py:obj:`decode <step.models.transcriptformer.TranscriptFormer.decode>`\ (cls_rep, x_gd, batch_rep)
+        - \-
+      * - :py:obj:`forward <step.models.transcriptformer.TranscriptFormer.forward>`\ (x)
+        - \-
+      * - :py:obj:`copy <step.models.transcriptformer.TranscriptFormer.copy>`\ (with_state)
+        - \-
+
+
+   .. rubric:: Members
+
    .. py:method:: get_px_r(batch_label)
 
 
@@ -343,6 +504,16 @@ Attributes
 
 
    .. py:method:: copy(with_state=True)
+
+
+
+
+
+Attributes
+----------
+.. py:data:: drop_edge
+
+   
 
 
 
