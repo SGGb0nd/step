@@ -15,6 +15,11 @@ author = 'Lounan Li'
 
 sys.path.insert(0, os.path.abspath('..'))
 
+source_suffix = {
+    '.rst': 'restructuredtext',
+    '.md': 'markdown',
+}
+
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -26,6 +31,7 @@ extensions = [
     'autoapi.extension',
     'sphinx_copybutton',
     'nbsphinx',
+    'myst_parser',
 ]
 add_module_names = False
 autoclass_content = "both"
