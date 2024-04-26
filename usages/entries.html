@@ -1,0 +1,561 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Results Storage" href="results.html" /><link rel="prev" title="Installation" href="../autoapi/index.html" />
+
+    <!-- Generated with Sphinx 7.3.7 and Furo 2024.01.29 -->
+        <title>EntryPoints - STEP documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=36a5483c" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=f8d6e08a" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">STEP  documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+  
+  
+  <span class="sidebar-brand-text">STEP  documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../autoapi/index.html">Installation</a></li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="../autoapi/index.html#usage">Usage</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Usage</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">EntryPoints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="results.html">Results Storage</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../autoapi/index.html#tutorials">Tutorials</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Tutorials</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/DLFPC.html">Spatial domain identification on 10x Visium DLFPC data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/Human_Lymph_Node.html">Performing integrative analysis on scRNA-seq data and 10x Visium data of Human Lymph Node with STEP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/MERFISH.html">Reveal multiple level of biological heterogeneities in Mouse Hypothalamus by MERFISH-seq</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/scRNA-seq.html">Integrate Human Immune Cell datasets with STEP and generate batch-corrected embeddings and gene expressions.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/human_colorectal_cancer.html">Visium HD Human Colorectal Cancer (16 um) cell type clustering &amp; spatial domain identification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/mouse_small_intestine.html">Visium HD Mouse Small Intestine (8 um and 16 um) cell type clustering &amp; spatial domain identification</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../autoapi/index.html#api-reference">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../autoapi/step/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of step</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../autoapi/step/functionality/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.functionality</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle navigation of step.functionality</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../autoapi/step/functionality/comps/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.functionality.comps</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle navigation of step.functionality.comps</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/step/functionality/comps/model_ops/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.functionality.comps.model_ops</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/step/functionality/comps/trainer/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.functionality.comps.trainer</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/step/functionality/base/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.functionality.base</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/step/functionality/cross_funcmodel/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.functionality.cross_funcmodel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/step/functionality/sc_funcmodel/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.functionality.sc_funcmodel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/step/functionality/st_funcmodel/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.functionality.st_funcmodel</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../autoapi/step/manager/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.manager</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle navigation of step.manager</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/step/manager/save/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.manager.save</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../autoapi/step/models/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.models</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle navigation of step.models</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/step/models/clust/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.models.clust</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/step/models/deconv/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.models.deconv</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/step/models/distributions/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.models.distributions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/step/models/extension/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.models.extension</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/step/models/knn_map/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.models.knn_map</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/step/models/nnls/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.models.nnls</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/step/models/transcriptformer/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.models.transcriptformer</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../autoapi/step/modules/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.modules</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle navigation of step.modules</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/step/modules/decoder/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.modules.decoder</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/step/modules/gnn/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.modules.gnn</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/step/modules/transformer/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.modules.transformer</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../autoapi/step/utils/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.utils</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle navigation of step.utils</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../autoapi/step/utils/synthetics/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.utils.synthetics</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><div class="visually-hidden">Toggle navigation of step.utils.synthetics</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/step/utils/synthetics/pseudo_st/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.utils.synthetics.pseudo_st</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/step/utils/dataset/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.utils.dataset</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/step/utils/gbolt/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.utils.gbolt</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/step/utils/metrics/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.utils.metrics</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/step/utils/misc/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.utils.misc</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/step/utils/plotting/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.utils.plotting</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../autoapi/step/integration/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.integration</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../autoapi/step/scmodel/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.scmodel</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../autoapi/step/stmodel/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">step.stmodel</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="edit-this-page">
+  <a class="muted-link" href="https://github.com/SGGb0nd/step/edit/main/docs/usages/entries.md" title="Edit this page">
+    <svg aria-hidden="true" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" />
+      <line x1="13.5" y1="6.5" x2="17.5" y2="10.5" />
+    </svg>
+    <span class="visually-hidden">Edit this page</span>
+  </a>
+</div><div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <section id="entrypoints">
+<h1>EntryPoints<a class="headerlink" href="#entrypoints" title="Link to this heading">¶</a></h1>
+<p>STEP follows the workflows of <a class="reference external" href="https://anndata.readthedocs.io/en/latest/"><code class="docutils literal notranslate"><span class="pre">AnnData</span></code></a> and <a class="reference external" href="https://scanpy.readthedocs.io/en/stable/"><code class="docutils literal notranslate"><span class="pre">Scanpy</span></code></a>, and provides 3 major entry points for the users to interact with the package and analyze their data. All corresponding python object take the <strong>data</strong>, <strong>data processing parameters</strong> and <strong>model configurations</strong> as inputs, to perform <strong>data preprocessing</strong>, <strong>dataset construction</strong>, and <strong>functional model initialization</strong>.
+As as result, no more preprocessing is need except gene selection and cell filtering.
+More details about the usage of the entry points can be found in the <a class="reference external" href="https://sggb0nd.github.io/step/autoapi/index.html#api-reference">API reference</a>.</p>
+<section id="step-scmodel">
+<h2>1. <code class="docutils literal notranslate"><span class="pre">step.scModel</span></code><a class="headerlink" href="#step-scmodel" title="Link to this heading">¶</a></h2>
+<p>For the generation of embedding for scRNA-seq or SRT data without incorporating spatial information. The following example showcase how to handle an <code class="docutils literal notranslate"><span class="pre">AnnData</span></code> object <code class="docutils literal notranslate"><span class="pre">adata.</span></code></p>
+<p>Two important parameters are <code class="docutils literal notranslate"><span class="pre">adata.obs</span></code> related keys:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">batch_key</span></code>: name of key in <code class="docutils literal notranslate"><span class="pre">adata.obs</span></code> that stored batch indicators for each cell/spot. This information will be used to batch-correction.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">class_key</span></code>: name of key in <code class="docutils literal notranslate"><span class="pre">adata.obs</span></code> that stored cell-type/cell-state annotations for each cell/spot. This information will be used to refine the embedding if provided.</p></li>
+</ol>
+<section id="embedding-generation">
+<h3>Embedding generation<a class="headerlink" href="#embedding-generation" title="Link to this heading">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">step</span> <span class="kn">import</span> <span class="n">scModel</span>
+
+<span class="n">stepc</span> <span class="o">=</span> <span class="n">scModel</span><span class="p">(</span>
+    <span class="n">adata</span><span class="p">,</span> 
+    <span class="n">n_top_genes</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span>
+    <span class="n">geneset_to_use</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="c1"># or predefined gene list </span>
+    <span class="n">batch_key</span><span class="o">=</span><span class="s1">&#39;batch&#39;</span><span class="p">,</span>
+    <span class="n">class_key</span><span class="o">=</span><span class="s1">&#39;celltype&#39;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">stepc</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+    <span class="n">epochs</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span>
+    <span class="n">batch_size</span><span class="o">=</span><span class="mi">1024</span><span class="p">,</span>
+    <span class="n">split_rate</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="save-the-model-config-and-weights">
+<h3>Save the model config and weights<a class="headerlink" href="#save-the-model-config-and-weights" title="Link to this heading">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">stepc</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;scmodel_config&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This will create a folder named <code class="docutils literal notranslate"><span class="pre">scmodel_config</span></code> in the current working directory, containing the <code class="docutils literal notranslate"><span class="pre">config.json</span></code>, <code class="docutils literal notranslate"><span class="pre">model.pth</span></code> files.</p>
+</section>
+<section id="do-downstream-analysis-with-scanpy-workflow">
+<h3>Do downstream analysis with scanpy workflow<a class="headerlink" href="#do-downstream-analysis-with-scanpy-workflow" title="Link to this heading">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">adata</span> <span class="o">=</span> <span class="n">stepc</span><span class="o">.</span><span class="n">adata</span>
+<span class="c1"># &#39;X_rep&#39; is the embedding generated by STEP in unsupervised mode</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">neighbors</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">use_rep</span><span class="o">=</span><span class="s1">&#39;X_rep&#39;</span><span class="p">)</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span><span class="n">adata</span><span class="p">)</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">leiden</span><span class="p">(</span><span class="n">adata</span><span class="p">)</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;celltype&#39;</span><span class="p">,</span> <span class="s1">&#39;batch&#39;</span><span class="p">,</span> <span class="s1">&#39;leiden&#39;</span><span class="p">])</span>
+
+<span class="c1"># &#39;X_anchrod&#39; is the embedding refined from &#39;X_rep&#39; by using cell-type annotations</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">neighbors</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">use_rep</span><span class="o">=</span><span class="s1">&#39;X_anchord&#39;</span><span class="p">)</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span><span class="n">adata</span><span class="p">)</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">leiden</span><span class="p">(</span><span class="n">adata</span><span class="p">)</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;celltype&#39;</span><span class="p">,</span> <span class="s1">&#39;batch&#39;</span><span class="p">,</span> <span class="s1">&#39;leiden&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="step-stmodel">
+<h2>2. <code class="docutils literal notranslate"><span class="pre">step.stModel</span></code><a class="headerlink" href="#step-stmodel" title="Link to this heading">¶</a></h2>
+<p>For the generation of embedding for SRT data with spatial information.
+The parameters different from <code class="docutils literal notranslate"><span class="pre">scModel</span></code> is two spatial neighboring graph associated ones:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">coord_keys</span></code>: keys in <code class="docutils literal notranslate"><span class="pre">adata.obs</span></code> that stored the spatial coordinates of each spot/cell. Default is <code class="docutils literal notranslate"><span class="pre">('array_row',</span> <span class="pre">'array_col')</span></code> for Visium data.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">edge_clip</span></code>: cut-off distance between two indicies of grids, <em><strong>rather for pixel distance</strong></em>. 2 for Visium; 1 for Visium HD, ST, Stereo-seq bin; None for activation of the kNN based graph construction.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">max_neighs</span></code>: maximum number of neighbors for each cell using kNN for image segmentation based SRT data. Euclidean distance is used for the calculation of the neighbors.</p></li>
+</ol>
+<p>In default, the <code class="docutils literal notranslate"><span class="pre">stModel</span></code> will run on the end-to-end mode(the ‘<strong>fast mode</strong>’ in paper), which means the model will be trained on the spatial graph directly. If you want to train the model on the gene expression data first, and then smooth the embedding with the spatial information, you can set <code class="docutils literal notranslate"><span class="pre">e2e=False</span></code>.</p>
+<section id="id1">
+<h3>Embedding generation<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">step</span> <span class="kn">import</span> <span class="n">stModel</span>
+
+<span class="n">stepc</span> <span class="o">=</span> <span class="n">stModel</span><span class="p">(</span>
+    <span class="n">adata</span><span class="p">,</span> 
+    <span class="n">n_top_genes</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span>
+    <span class="n">batch_key</span><span class="o">=</span><span class="s1">&#39;library_id&#39;</span><span class="p">,</span>
+    <span class="n">coord_keys</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;array_row&#39;</span><span class="p">,</span> <span class="s1">&#39;array_col&#39;</span><span class="p">),</span>
+    <span class="n">geneset_to_use</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="c1"># or predefined gene list</span>
+    <span class="n">edge_clip</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">max_neighs</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">stepc</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+    <span class="n">e2e</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">n_iterations</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span>
+    <span class="n">n_samples</span><span class="o">=</span><span class="mi">2048</span><span class="p">,</span> <span class="c1"># number of sampled nodes for each iteration</span>
+    <span class="n">graph_batch_size</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="c1"># when multiple sections are available</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="id2">
+<h3>Save the model config and weights<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">stepc</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;stmodel_config&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="identify-spatial-domains-and-sub-domains">
+<h3>identify spatial domains and sub-domains<a class="headerlink" href="#identify-spatial-domains-and-sub-domains" title="Link to this heading">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">stepc</span><span class="o">.</span><span class="n">cluster</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">stepc</span><span class="o">.</span><span class="n">sub_cluster</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">pre_key</span><span class="o">=</span><span class="s1">&#39;domain&#39;</span><span class="p">)</span> <span class="c1"># identify 3 sub-domains for each identified domains</span>
+</pre></div>
+</div>
+</section>
+<section id="do-visualization-with-wrapped-scanpy-plotting-functions-when-containing-multiple-sections">
+<h3>Do visualization with wrapped scanpy plotting functions when containing multiple sections<a class="headerlink" href="#do-visualization-with-wrapped-scanpy-plotting-functions-when-containing-multiple-sections" title="Link to this heading">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">stepc</span><span class="o">.</span><span class="n">spatial_plot</span><span class="p">(</span>
+    <span class="n">color</span><span class="o">=</span><span class="s1">&#39;domain&#39;</span><span class="p">,</span>
+    <span class="n">with_images</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="c1"># show the images of the sections if available</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Perfrom downstream analysis with scanpy workflow</span>
+<span class="n">adata</span> <span class="o">=</span> <span class="n">stepc</span><span class="o">.</span><span class="n">adata</span>
+<span class="c1"># &#39;X_smoothed&#39; is the embedding generated by STEP</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">neighbors</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">use_rep</span><span class="o">=</span><span class="s1">&#39;X_smoothed&#39;</span><span class="p">)</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span><span class="n">adata</span><span class="p">)</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">leiden</span><span class="p">(</span><span class="n">adata</span><span class="p">)</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;domain&#39;</span><span class="p">,</span> <span class="s1">&#39;leiden&#39;</span><span class="p">,</span> <span class="s1">&#39;library_id&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="step-crossmodel">
+<h2>3. <code class="docutils literal notranslate"><span class="pre">step.crossModel</span></code><a class="headerlink" href="#step-crossmodel" title="Link to this heading">¶</a></h2>
+<p>For the integration of scRNA-seq and SRT data.</p>
+<p>Following parameters are different from <code class="docutils literal notranslate"><span class="pre">scModel</span></code> and <code class="docutils literal notranslate"><span class="pre">stModel</span></code>:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">st_adata</span></code>: the <code class="docutils literal notranslate"><span class="pre">AnnData</span></code> object for the SRT data.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">st_batch_key</span></code>: name of key in <code class="docutils literal notranslate"><span class="pre">st_adata.obs</span></code> that stored batch indicators for each spot. This information will be used to batch-correction.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sc_adata</span></code>: the <code class="docutils literal notranslate"><span class="pre">AnnData</span></code> object for the scRNA-seq data.</p></li>
+</ol>
+<section id="co-embeding">
+<h3>Co-embeding<a class="headerlink" href="#co-embeding" title="Link to this heading">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">step</span> <span class="kn">import</span> <span class="n">crossModel</span>
+
+<span class="n">stepc</span> <span class="o">=</span> <span class="n">crossModel</span><span class="p">(</span>
+    <span class="n">sc_adata</span><span class="o">=</span><span class="n">sc_adata</span><span class="p">,</span>
+    <span class="n">st_adata</span><span class="o">=</span><span class="n">st_adata</span><span class="p">,</span>
+    <span class="n">n_top_genes</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span>
+    <span class="n">batch_key</span><span class="o">=</span><span class="s1">&#39;batch&#39;</span><span class="p">,</span>
+    <span class="n">class_key</span><span class="o">=</span><span class="s1">&#39;celltype&#39;</span><span class="p">,</span>
+    <span class="n">st_batch_key</span><span class="o">=</span><span class="s1">&#39;library_id&#39;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">stepc</span><span class="o">.</span><span class="n">integrate</span><span class="p">(</span>
+    <span class="n">epochs</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span>
+    <span class="n">batch_size</span><span class="o">=</span><span class="mi">1024</span><span class="p">,</span>
+    <span class="n">split_rate</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
+    <span class="n">need_anchors</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="c1"># whether use cell-type annotations to postprocess the co-embedding</span>
+<span class="p">)</span>
+
+<span class="c1"># Save the model config and weights</span>
+<span class="n">stepc</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;crossmodel_config&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>After co-embedding, the SRT part can be further processed by STEP’s spatial model to identify spatial domains, but <strong>only recommended on single section data</strong>. Because the batch-effect seems to be retrived by the section-depnenent spatial bias when training the spatial model on multiple sections. Thereby, for multi-section scenario, we recommend use <code class="docutils literal notranslate"><span class="pre">step.stModel</span></code> to identify spatial domains.</p>
+</section>
+<section id="smooth-the-embedding-of-srt-data">
+<h3>Smooth the embedding of SRT data<a class="headerlink" href="#smooth-the-embedding-of-srt-data" title="Link to this heading">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">stepc</span><span class="o">.</span><span class="n">generate_domains</span><span class="p">(</span>
+    <span class="n">use_st_decoder</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="c1"># whether to train a new decoder for the SRT data</span>
+    <span class="n">epochs</span><span class="o">=</span><span class="mi">800</span><span class="p">,</span> <span class="c1"># epochs for the training of the decoder</span>
+    <span class="n">batch_size</span><span class="o">=</span><span class="mi">1024</span><span class="p">,</span> <span class="c1"># batch size for the training of the decoder</span>
+    <span class="n">smooth_epochs</span><span class="o">=</span><span class="mi">800</span><span class="p">,</span> <span class="c1"># epochs for the smoothing of the embedding with training a spaital model</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="domain-wise-cell-type-deconvolution">
+<h3>Domain-wise Cell-type Deconvolution<a class="headerlink" href="#domain-wise-cell-type-deconvolution" title="Link to this heading">¶</a></h3>
+<p>This process aims to infer the cell-type composition in each spot of SRT data (non-single-cell resolution). Any available cell-type annoations stored in <code class="docutils literal notranslate"><span class="pre">sc_adata.obs</span></code> can passed to arg <code class="docutils literal notranslate"><span class="pre">cell_type_key</span></code>; and so do the any spatial-domain annotations, can be passed to arg <code class="docutils literal notranslate"><span class="pre">domain_key</span></code> to support the deconvolution. Recommend passing <code class="docutils literal notranslate"><span class="pre">sub_domain</span></code> to match <code class="docutils literal notranslate"><span class="pre">sub_types</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+<span class="n">stpec</span><span class="o">.</span><span class="n">deconv</span><span class="p">(</span>
+    <span class="n">epochs</span><span class="o">=</span><span class="mi">1500</span><span class="p">,</span>
+    <span class="n">domain_key</span><span class="o">=</span><span class="s1">&#39;domain&#39;</span>
+    <span class="n">cell_type_key</span><span class="o">=</span><span class="s1">&#39;celltype&#39;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Visualizing the results:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">celltypes</span> <span class="o">=</span> <span class="n">stepc</span><span class="o">.</span><span class="n">st_adata</span><span class="o">.</span><span class="n">obsm</span><span class="p">[</span><span class="s1">&#39;deconv&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">columns</span>
+<span class="n">stpec</span><span class="o">.</span><span class="n">st_adata</span><span class="o">.</span><span class="n">obs</span> <span class="o">=</span> <span class="n">stpec</span><span class="o">.</span><span class="n">st_adata</span><span class="o">.</span><span class="n">obsm</span><span class="p">[</span><span class="s1">&#39;deconv&#39;</span><span class="p">]</span>
+
+<span class="n">stepc</span><span class="o">.</span><span class="n">spatial_plot</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">celltypes</span><span class="p">)</span>
+<span class="c1"># some cell-types in section &#39;A&#39; </span>
+<span class="n">stepc</span><span class="o">.</span><span class="n">spatial_plot</span><span class="p">(</span>
+    <span class="n">color</span><span class="o">=</span><span class="n">celltypes</span><span class="p">[:</span><span class="mi">4</span><span class="p">],</span>
+    <span class="n">library_id</span><span class="o">=</span><span class="s1">&#39;A&#39;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="results.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Results Storage</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="../autoapi/index.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Installation</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2024, Lounan Li
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">EntryPoints</a><ul>
+<li><a class="reference internal" href="#step-scmodel">1. <code class="docutils literal notranslate"><span class="pre">step.scModel</span></code></a><ul>
+<li><a class="reference internal" href="#embedding-generation">Embedding generation</a></li>
+<li><a class="reference internal" href="#save-the-model-config-and-weights">Save the model config and weights</a></li>
+<li><a class="reference internal" href="#do-downstream-analysis-with-scanpy-workflow">Do downstream analysis with scanpy workflow</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#step-stmodel">2. <code class="docutils literal notranslate"><span class="pre">step.stModel</span></code></a><ul>
+<li><a class="reference internal" href="#id1">Embedding generation</a></li>
+<li><a class="reference internal" href="#id2">Save the model config and weights</a></li>
+<li><a class="reference internal" href="#identify-spatial-domains-and-sub-domains">identify spatial domains and sub-domains</a></li>
+<li><a class="reference internal" href="#do-visualization-with-wrapped-scanpy-plotting-functions-when-containing-multiple-sections">Do visualization with wrapped scanpy plotting functions when containing multiple sections</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#step-crossmodel">3. <code class="docutils literal notranslate"><span class="pre">step.crossModel</span></code></a><ul>
+<li><a class="reference internal" href="#co-embeding">Co-embeding</a></li>
+<li><a class="reference internal" href="#smooth-the-embedding-of-srt-data">Smooth the embedding of SRT data</a></li>
+<li><a class="reference internal" href="#domain-wise-cell-type-deconvolution">Domain-wise Cell-type Deconvolution</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/furo.js?v=32e29ea5"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=0b406e39"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    </body>
+</html>

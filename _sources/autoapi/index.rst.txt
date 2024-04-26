@@ -13,6 +13,17 @@ Then install dgl for your specific environment. For example, to install dgl 1.1.
 
 dgl official installation guide can be found `here <https://docs.dgl.ai/install/index.html>`_.
 
+
+Usage
+===============
+
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   ../../usages/entries.md
+   ../../usages/results.md
+
 Tutorials
 =========
 This page contains tutorials on how to use the STEP.
