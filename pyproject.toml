@@ -31,10 +31,11 @@ nbsphinx = { version = "*", optional = true }
 furo = { version = "*", optional = true }
 sphinx-copybutton = { version = "*", optional = true }
 sphinx-autoapi = { version = "*", optional = true }
+myst-parser = { version = "*", optional = true }
 
 [tool.poetry.extras]
 ipykernel = ["ipykernel"]
-docs = ["sphinx", "sphinx-book-theme", "sphinx-autodoc-typehints", "sphinxcontrib-bibtex", "nbsphinx", "furo", "sphinx-copybutton", "sphinx-autoapi"]
+docs = ["sphinx", "sphinx-book-theme", "sphinx-autodoc-typehints", "sphinxcontrib-bibtex", "nbsphinx", "furo", "sphinx-copybutton", "sphinx-autoapi", "myst-parser"]
 r = ["rpy2"]
 
 [[tool.poetry.source]]
