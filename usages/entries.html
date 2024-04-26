@@ -279,8 +279,8 @@ More details about the usage of the entry points can be found in the <a class="r
 <p>For the generation of embedding for scRNA-seq or SRT data without incorporating spatial information. The following example showcase how to handle an <code class="docutils literal notranslate"><span class="pre">AnnData</span></code> object <code class="docutils literal notranslate"><span class="pre">adata.</span></code></p>
 <p>Two important parameters are <code class="docutils literal notranslate"><span class="pre">adata.obs</span></code> related keys:</p>
 <ol class="arabic simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">batch_key</span></code>: name of key in <code class="docutils literal notranslate"><span class="pre">adata.obs</span></code> that stored batch indicators for each cell/spot. This information will be used to batch-correction.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">class_key</span></code>: name of key in <code class="docutils literal notranslate"><span class="pre">adata.obs</span></code> that stored cell-type/cell-state annotations for each cell/spot. This information will be used to refine the embedding if provided.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">batch_key</span></code>: name of key in <code class="docutils literal notranslate"><span class="pre">adata.obs</span></code> that stored batch indicators for each cell/spot. This information will be used to batch-correction. <code class="docutils literal notranslate"><span class="pre">None</span></code> for single-batch data.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">class_key</span></code>: name of key in <code class="docutils literal notranslate"><span class="pre">adata.obs</span></code> that stored cell-type/cell-state annotations for each cell/spot. This information will be used to refine the embedding if provided, otherwise the model will run in unsupervised mode.</p></li>
 </ol>
 <section id="embedding-generation">
 <h3>Embedding generation<a class="headerlink" href="#embedding-generation" title="Link to this heading">¶</a></h3>
@@ -290,8 +290,8 @@ More details about the usage of the entry points can be found in the <a class="r
     <span class="n">adata</span><span class="p">,</span> 
     <span class="n">n_top_genes</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span>
     <span class="n">geneset_to_use</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="c1"># or predefined gene list </span>
-    <span class="n">batch_key</span><span class="o">=</span><span class="s1">&#39;batch&#39;</span><span class="p">,</span>
-    <span class="n">class_key</span><span class="o">=</span><span class="s1">&#39;celltype&#39;</span><span class="p">,</span>
+    <span class="n">batch_key</span><span class="o">=</span><span class="s1">&#39;batch&#39;</span><span class="p">,</span> <span class="c1"># None for single-batch data</span>
+    <span class="n">class_key</span><span class="o">=</span><span class="s1">&#39;celltype&#39;</span><span class="p">,</span> <span class="c1"># None for unsupervised mode</span>
 <span class="p">)</span>
 
 <span class="n">stepc</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
@@ -329,7 +329,7 @@ More details about the usage of the entry points can be found in the <a class="r
 </section>
 <section id="step-stmodel">
 <h2>2. <code class="docutils literal notranslate"><span class="pre">step.stModel</span></code><a class="headerlink" href="#step-stmodel" title="Link to this heading">¶</a></h2>
-<p>For the generation of embedding for SRT data with spatial information.
+<p>For the generation of embedding for SRT data with spatial information. <strong>STEP does not rely on the contiguity between the sections</strong>, so just pass the <code class="docutils literal notranslate"><span class="pre">AnnData</span></code> object <code class="docutils literal notranslate"><span class="pre">adata</span></code> containing the section identifiers stored in <code class="docutils literal notranslate"><span class="pre">adata.obs</span></code> as <code class="docutils literal notranslate"><span class="pre">batch_key</span></code>.
 The parameters different from <code class="docutils literal notranslate"><span class="pre">scModel</span></code> is two spatial neighboring graph associated ones:</p>
 <ol class="arabic simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">coord_keys</span></code>: keys in <code class="docutils literal notranslate"><span class="pre">adata.obs</span></code> that stored the spatial coordinates of each spot/cell. Default is <code class="docutils literal notranslate"><span class="pre">('array_row',</span> <span class="pre">'array_col')</span></code> for Visium data.</p></li>
@@ -344,7 +344,7 @@ The parameters different from <code class="docutils literal notranslate"><span c
 <span class="n">stepc</span> <span class="o">=</span> <span class="n">stModel</span><span class="p">(</span>
     <span class="n">adata</span><span class="p">,</span> 
     <span class="n">n_top_genes</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span>
-    <span class="n">batch_key</span><span class="o">=</span><span class="s1">&#39;library_id&#39;</span><span class="p">,</span>
+    <span class="n">batch_key</span><span class="o">=</span><span class="s1">&#39;library_id&#39;</span><span class="p">,</span> <span class="c1"># None for single section data</span>
     <span class="n">coord_keys</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;array_row&#39;</span><span class="p">,</span> <span class="s1">&#39;array_col&#39;</span><span class="p">),</span>
     <span class="n">geneset_to_use</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="c1"># or predefined gene list</span>
     <span class="n">edge_clip</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>

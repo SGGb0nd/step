@@ -8,8 +8,8 @@ More details about the usage of the entry points can be found in the [API refere
 For the generation of embedding for scRNA-seq or SRT data without incorporating spatial information. The following example showcase how to handle an `AnnData` object `adata.`
 
 Two important parameters are `adata.obs` related keys:
-1. `batch_key`: name of key in `adata.obs` that stored batch indicators for each cell/spot. This information will be used to batch-correction.
-2. `class_key`: name of key in `adata.obs` that stored cell-type/cell-state annotations for each cell/spot. This information will be used to refine the embedding if provided.
+1. `batch_key`: name of key in `adata.obs` that stored batch indicators for each cell/spot. This information will be used to batch-correction. `None` for single-batch data.
+2. `class_key`: name of key in `adata.obs` that stored cell-type/cell-state annotations for each cell/spot. This information will be used to refine the embedding if provided, otherwise the model will run in unsupervised mode.
 
 ### Embedding generation
 
@@ -20,8 +20,8 @@ stepc = scModel(
     adata, 
     n_top_genes=2000,
     geneset_to_use=None, # or predefined gene list 
-    batch_key='batch',
-    class_key='celltype',
+    batch_key='batch', # None for single-batch data
+    class_key='celltype', # None for unsupervised mode
 )
 
 stepc.run(
@@ -54,7 +54,7 @@ sc.pl.umap(adata, color=['celltype', 'batch', 'leiden'])
 ```
 
 ## 2. `step.stModel`
-For the generation of embedding for SRT data with spatial information.
+For the generation of embedding for SRT data with spatial information. **STEP does not rely on the contiguity between the sections**, so just pass the `AnnData` object `adata` containing the section identifiers stored in `adata.obs` as `batch_key`.
 The parameters different from `scModel` is two spatial neighboring graph associated ones:
 1. `coord_keys`: keys in `adata.obs` that stored the spatial coordinates of each spot/cell. Default is `('array_row', 'array_col')` for Visium data.
 2. `edge_clip`: cut-off distance between two indicies of grids, ***rather for pixel distance***. 2 for Visium; 1 for Visium HD, ST, Stereo-seq bin; None for activation of the kNN based graph construction.
@@ -69,7 +69,7 @@ from step import stModel
 stepc = stModel(
     adata, 
     n_top_genes=2000,
-    batch_key='library_id',
+    batch_key='library_id', # None for single section data
     coord_keys=('array_row', 'array_col'),
     geneset_to_use=None, # or predefined gene list
     edge_clip=2,
