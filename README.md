@@ -35,14 +35,11 @@ STEP, an acronym for Spatial Transcriptomics Embedding Procedure, is a foundatio
 pip install step-kit
 ```
 
-### Default Dependencies
-
 **Note**: This installation will include the following default versions:
+- Python 3.10, 3.11
 - PyTorch 1.13.1
 - DGL 1.1.3
 - CUDA 11.7
-
-⚠️ **Important**: Ensure that the installed PyTorch and DGL versions are compatible with the CUDA version on your machine.
 
 ### Custom Installation
 
@@ -58,6 +55,7 @@ pip install dgl -f https://data.dgl.ai/wheels/torch-2.3/cu118/repo.html
 # Install PyTorch 2.3.1 with CUDA 11.8
 pip install torch==2.3.1+cu118 -f https://download.pytorch.org/whl/cu118/torch_stable.html
 ```
+⚠️ **Important**: Ensure that the installed PyTorch and DGL versions are compatible with the CUDA version on your machine.
 
 ### Additional Resources
 
