@@ -29,6 +29,7 @@ libpysal = "4.8.1"
 esda = "2.5.1"
 scikit-misc = "*"
 pydantic = "*"
+numpy = "^1.21.2"
 rpy2 = { version = "*", optional = true }
 ipykernel = { version = "*", optional = true }
 sphinx = { version = "*", optional = true }
