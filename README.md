@@ -32,11 +32,11 @@ STEP, an acronym for Spatial Transcriptomics Embedding Procedure, is a foundatio
 ```
 pip install step-kit
 ```
-Potential installation of dgl:
+Installation of dgl, for example, installing dgl 1.1.3 with cuda 11.7:
 ```
 pip install dgl==1.1.3 -f https://data.dgl.ai/wheels/cu117/repo.html
 ```
-for installing other cuda versions of dgl 1.1.3, or other versions of dgl, please refer to the [dgl official website](https://www.dgl.ai/pages/start.html). 
+for installing other cuda versions of dgl, or other versions of dgl, please refer to the [dgl official website](https://www.dgl.ai/pages/start.html). 
 Documentation and tutorials are available at [https://sggb0nd.github.io/step/](https://sggb0nd.github.io/step/).
 
 
