@@ -32,9 +32,11 @@ STEP, an acronym for Spatial Transcriptomics Embedding Procedure, is a foundatio
 ```
 pip install step-kit
 ```
-Installation of dgl, for example, installing dgl 1.1.3 with cuda 11.7:
+**Make sure the pytorch and dgl are compatible with the CUDA version installed on your machine**
+Installation of dgl, for example, installing pytorch 1.13.1 and dgl 1.1.3 with cuda 11.7:
 ```
 pip install dgl==1.1.3 -f https://data.dgl.ai/wheels/cu117/repo.html
+pip install torch==1.13.1+cu117 -f https://download.pytorch.org/whl/cu117/torch_stable.html
 ```
 for installing other cuda versions of dgl, or other versions of dgl, please refer to the [dgl official website](https://www.dgl.ai/pages/start.html). 
 Documentation and tutorials are available at [https://sggb0nd.github.io/step/](https://sggb0nd.github.io/step/).
