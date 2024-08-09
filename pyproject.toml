@@ -28,6 +28,7 @@ leidenalg = "^0.9.0"
 libpysal = "4.8.1"
 esda = "2.5.1"
 scikit-misc = "*"
+pydantic = "*"
 rpy2 = { version = "*", optional = true }
 ipykernel = { version = "*", optional = true }
 sphinx = { version = "*", optional = true }
