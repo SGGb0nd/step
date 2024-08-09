@@ -27,20 +27,39 @@ STEP, an acronym for Spatial Transcriptomics Embedding Procedure, is a foundatio
 ## System Requiremtns
 -  **Software Requirements**: Python 3.10+, CUDA 11.6+, PyTorch 1.13.1+, and dgl 1.1.3+.
 -  **Hardware Requirements**: NVIDIA GPU with CUDA support (recommended), 8GB+ GPU memory. As possible as high RAM and CPU cores for storing and processing large-scale data (this is not required by STEP, but by the data itself).
-
 ## Installation
-```
+
+### Basic Installation
+
+```bash
 pip install step-kit
 ```
-**Make sure the pytorch and dgl are compatible with the CUDA version installed on your machine**
-Installation of dgl, for example, installing pytorch 1.13.1 and dgl 1.1.3 with cuda 11.7:
-```
+
+### Default Dependencies
+
+**Note**: This installation will include the following default versions:
+- PyTorch 1.13.1
+- DGL 1.1.3
+- CUDA 11.7
+
+⚠️ **Important**: Ensure that the installed PyTorch and DGL versions are compatible with the CUDA version on your machine.
+
+### Custom Installation
+
+If you need to install specific versions of PyTorch and DGL, refer to the following commands:
+
+```bash
+# Install DGL 1.1.3 with CUDA 11.7
 pip install dgl==1.1.3 -f https://data.dgl.ai/wheels/cu117/repo.html
+
+# Install PyTorch 1.13.1 with CUDA 11.7
 pip install torch==1.13.1+cu117 -f https://download.pytorch.org/whl/cu117/torch_stable.html
 ```
-for installing other cuda versions of dgl, or other versions of dgl, please refer to the [dgl official website](https://www.dgl.ai/pages/start.html). 
-Documentation and tutorials are available at [https://sggb0nd.github.io/step/](https://sggb0nd.github.io/step/).
 
+### Additional Resources
+
+- For other CUDA versions or DGL versions, please refer to the [DGL official website](https://www.dgl.ai/pages/start.html).
+- Documentation and tutorials are available at [https://sggb0nd.github.io/step/](https://sggb0nd.github.io/step/).
 
 ## Contribution
 
