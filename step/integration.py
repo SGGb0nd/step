@@ -371,7 +371,7 @@ class crossModel:
         config["model_config"].pop("input_dim")
         config["model_config"].pop("num_batches", None)
         config["model_config"].pop("num_classes", None)
-        config["dataset_config"]["geneset_to_use"] = config["dataset_config"].pop("geneset")
+        config["dataset_config"]["geneset_to_use"] = config["dataset_config"].pop("geneset", None)
         st_decoder_config = config["model_config"].pop("st_decoder", None)
         mixer_config = config["model_config"].pop("mixer", None)
         model_checkpoint = dict(

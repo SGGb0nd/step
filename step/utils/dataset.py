@@ -141,7 +141,7 @@ class MaskedDataset(Dataset):
             return self.original_dataset.set_mode(mode)
         return self.original_dataset.set_mode()
 
-    def subset(self, key=True, col=None, exclude=True):
+    def subset(self, key: Iterable=True, col=None, exclude=True):
         """Returns a new MaskedDataset object representing a subset of the current subset.
 
         Args:
@@ -734,13 +734,14 @@ class CrossDataset(BaseDataset):
         filtermt = kwargs.get("filtermt", True)
         if filtermt:
             st_adata = _filter_mt(st_adata, is_human=self.is_human)
-        sc.pp.filter_cells(st_adata, min_genes=10)
+        
+        st_adata = st_adata[self.st_obs_names]
         assert (
             st_adata.n_obs
             == self.adata[
                 self.adata.obs[self.batch_key].isin(self.st_sample_list)
             ].n_obs
-        )
+        ), "Unmatched number of samples of st data and merged data"
 
         st_adata.raw = st_adata
         st_adata.layers[self.layer_key] = st_adata.X.copy()
@@ -846,6 +847,15 @@ class CrossDataset(BaseDataset):
             int: The number of batches for the spatial transcriptomics dataset.
         """
         return len(self.st_sample_names)
+    
+    @property
+    def st_obs_names(self):
+        obs_names = self.adata[
+            self.adata.obs[self.batch_key].isin(
+                self.st_sample_list
+            )
+        ].obs_names
+        return obs_names.to_series().apply(lambda x: x[:-3]).to_list()
 
 
 def _process_adata(
@@ -861,7 +871,7 @@ def _process_adata(
     logarithm_first=False,
     hvg_method="seurat_v3",
     n_top_genes: Optional[int] = 3000,
-    normalize=False,
+    logarithm_after_hvgs=False,
 ) -> dict:
     """
     Process the AnnData object and extract relevant information for downstream analysis.
@@ -925,9 +935,6 @@ def _process_adata(
                 )
             except Exception:
                 logger.info("Failed, trying pearson residuals for hvgs")
-                if not log_transformed:
-                    sc.pp.log1p(adata)
-                    log_transformed = True
                 sc.experimental.pp.highly_variable_genes(
                     adata,
                     n_top_genes=n_top_genes,
@@ -950,23 +957,25 @@ def _process_adata(
         count_data = count_data[:, adata.var.highly_variable]
         adata = adata[:, adata.var.highly_variable]
 
+    if logarithm_after_hvgs:
+        logger.info("Log-transform count data")
+        count_data = np.log1p(count_data)    
+
+    sc.pp.filter_cells(adata, min_genes=0)
+    cells = adata.obs["n_genes"] > 10
+    adata = adata[cells]
+    count_data = count_data[cells]
+
     count_data = torch.from_numpy(count_data).to(torch.float32)
     batch_label = torch.ones(adata.n_obs)
     batch_df = None
     if layer_key is None:
-        if normalize:
-            logger.info("Adding normalized log-count data to layer 'log_counts'")
-            layer_key = "log_counts"
+        logger.info("Adding count data to layer 'counts'")
+        layer_key = "counts"
+        try:
             adata.layers[layer_key] = count_data.numpy()
-            sc.pp.normalize_total(adata, target_sum=1e4, layer="log_counts")
-            sc.pp.log1p(adata, layer="log_counts")
-        else:
-            logger.info("Adding count data to layer 'counts'")
-            layer_key = "counts"
-            try:
-                adata.layers[layer_key] = count_data.numpy()
-            except Exception:
-                logger.info("Adding data to 'counts' failed")
+        except Exception:
+            logger.info("Adding data to 'counts' failed")
     if batch_key is not None:
         catted = adata.obs[batch_key].astype("category")
         batch_df = pd.concat([catted, catted.cat.codes], axis=1)
@@ -1112,7 +1121,8 @@ def _merge_sc_st_adata(
         logger.info("Found conflict between names of sc batch key and st batch key")
         logger.info(f"Rename st batch key {st_batch_key} to {st_batch_key}_orig")
         st_batch_key = f"{st_batch_key}_orig"
-        st_adata.obs.rename(columns={batch_key: st_batch_key}, inplace=True)
+        if st_batch_key not in st_adata.obs_keys():
+            st_adata.obs.rename(columns={batch_key: st_batch_key}, inplace=True)
     st_adata.obs[batch_key] = st_adata.obs[st_batch_key]
 
     if st_rename_map:

@@ -641,6 +641,7 @@ class CrossModalityNrmls(scMultiBatchNrmls):
         adata: AnnData,
         dataset: CrossDataset,
         cell_type_key: Optional[str] = None,
+        st_sample_list: Optional[list] = None,
         domain_wise: bool = True,
         domain_key: str | None = "domain",
         library_size: float = 1e5,
@@ -705,6 +706,12 @@ class CrossModalityNrmls(scMultiBatchNrmls):
         st_dataset = dataset.subset_st(
             domains=domains,
         )
+        if st_sample_list is not None:
+            st_dataset.subset(
+                key=st_sample_list,
+                col=dataset.st_batch_key,
+                exclude=False,
+            )
         assert st_dataset.rep is not None
 
         single_st = dataset.num_st_batches == 1

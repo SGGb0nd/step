@@ -49,6 +49,7 @@ class stModel:
         filtered=False,
         dispersion='gene',
         device=None,
+        logarithm_after_hvgs=False,
         **kwargs,
     ):
         """
@@ -97,6 +98,7 @@ class stModel:
                 filtered=filtered,
                 logarithm_first=logarithm_first,
                 hvg_method=hvg_method,
+                logarithm_after_hvgs=logarithm_after_hvgs,
             )
         elif adata_file_path_provided:
             self.dataset = StDataset.read(
@@ -109,6 +111,7 @@ class stModel:
                 log_transformed=log_transformed,
                 filtered=filtered,
                 logarithm_first=logarithm_first,
+                logarithm_after_hvgs=logarithm_after_hvgs,
             )
         else:
             raise

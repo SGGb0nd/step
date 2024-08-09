@@ -159,6 +159,7 @@ def generate_adj(
             adata,
             edge_clip=edge_clip,
             max_neighbors=max_neighbors,
+            info=True,
         )
     adata.obs[batch_key] = adata.obs[batch_key].astype("category")
     graphs = []
@@ -166,7 +167,7 @@ def generate_adj(
         _adata = adata[adata.obs[batch_key] == batch]
         graphs.append(
             _generate_adj(
-                _adata, edge_clip=edge_clip, max_neighbors=max_neighbors, info=i == 0
+                _adata, edge_clip=edge_clip, max_neighbors=max_neighbors, info=(i == 0)
             )
         )
     return dgl.batch(graphs=graphs)
@@ -264,7 +265,7 @@ def read_visium_hd(
     source_image_path: Path | str | None = None,
 ) -> AnnData:
     """\
-    Read 10x-Genomics-formatted visum-hd dataset modified from scanpy.read_visium.
+    Read 10x-Genomics-formatted visum-hd dataset, **modified from scanpy.read_visium**.
 
     In addition to reading regular 10x output,
     this looks for the `spatial` folder and loads images,
