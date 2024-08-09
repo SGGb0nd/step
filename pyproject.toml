@@ -20,8 +20,11 @@ packages = [{ include = "step" }]
 
 [tool.poetry.dependencies]
 python = "^3.10"
-torch = { version = "^1.13.1", extras = ["cu117"] }
-dgl = { version = "^1.1.3", extras = ["cu117"] }
+torch = { version = "^1.13.1", source = "pytorch", optional = true }
+dgl = [
+    { url = "https://data.dgl.ai/wheels/cu117/dgl-1.1.3%2Bcu117-cp310-cp310-manylinux1_x86_64.whl", markers = "sys_platform == 'linux' and platform_machine == 'x86_64' and python_version == '3.10'", optional = true },
+    { url = "https://data.dgl.ai/wheels/cu117/dgl-1.1.3%2Bcu117-cp311-cp311-manylinux1_x86_64.whl", markers = "sys_platform == 'linux' and platform_machine == 'x86_64' and python_version == '3.11'", optional = true },
+]
 scanpy = "^1.10.0"
 einops = "^0.6.0"
 leidenalg = "^0.9.0"
@@ -56,6 +59,8 @@ docs = [
     "myst-parser",
 ]
 r = ["rpy2"]
+plain = []
+default = ["torch", "dgl"]
 
 [[tool.poetry.source]]
 name = "pypi"
@@ -71,9 +76,4 @@ build-backend = "poetry.core.masonry.api"
 [[tool.poetry.source]]
 name = "pytorch"
 url = "https://download.pytorch.org/whl/cu117"
-priority = "supplemental"
-
-[[tool.poetry.source]]
-name = "dgl"
-url = "https://data.dgl.ai/wheels/cu117"
 priority = "supplemental"
