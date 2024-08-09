@@ -49,11 +49,14 @@ pip install step-kit
 If you need to install specific versions of PyTorch and DGL, refer to the following commands:
 
 ```bash
-# Install DGL 1.1.3 with CUDA 11.7
-pip install dgl==1.1.3 -f https://data.dgl.ai/wheels/cu117/repo.html
+# Install STEP without torch and dgl
+pip install step-kit[plain]
 
-# Install PyTorch 1.13.1 with CUDA 11.7
-pip install torch==1.13.1+cu117 -f https://download.pytorch.org/whl/cu117/torch_stable.html
+# Install latest DGL compatible with torch 2.3.x with CUDA 11.8
+pip install dgl -f https://data.dgl.ai/wheels/torch-2.3/cu118/repo.html
+
+# Install PyTorch 2.3.1 with CUDA 11.8
+pip install torch==2.3.1+cu118 -f https://download.pytorch.org/whl/cu118/torch_stable.html
 ```
 
 ### Additional Resources
