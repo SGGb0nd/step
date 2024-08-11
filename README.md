@@ -29,38 +29,44 @@ STEP, an acronym for Spatial Transcriptomics Embedding Procedure, is a foundatio
 -  **Hardware Requirements**: NVIDIA GPU with CUDA support (recommended), 8GB+ GPU memory. As possible as high RAM and CPU cores for storing and processing large-scale data (this is not required by STEP, but by the data itself).
 ## Installation
 
+### Quick Installation (Recommended for Python 3.10, Linux, CUDA 11.7)
+
+```bash
+pip install step-kit[cu117]
+```
+
+This command installs STEP along with compatible versions of PyTorch and DGL.
+
 ### Basic Installation
 
 ```bash
 pip install step-kit
 ```
 
-**Note**: This installation will include the following default versions:
-- Python 3.10, 3.11
-- PyTorch 1.13.1
-- DGL 1.1.3
-- CUDA 11.7
+⚠️ **Critical Note**: 
+- This basic installation **does not** include PyTorch and DGL.
+- STEP **will not function** without PyTorch and DGL properly installed.
+- You must install these dependencies separately before using STEP.
 
-### Custom Installation
+### Manual Dependency Installation
 
-If you need to install specific versions of PyTorch and DGL, refer to the following commands:
+If you need to install specific versions of PyTorch and DGL:
 
-```bash
-# Install STEP without torch and dgl
-pip install step-kit[plain]
+1. Install DGL (example for latest DGL compatible with PyTorch 2.3.x and CUDA 11.8):
+   ```bash
+   pip install dgl -f https://data.dgl.ai/wheels/torch-2.3/cu118/repo.html
+   ```
 
-# Install latest DGL compatible with torch 2.3.x with CUDA 11.8
-pip install dgl -f https://data.dgl.ai/wheels/torch-2.3/cu118/repo.html
+2. Install PyTorch (example for PyTorch 2.3.1 with CUDA 11.8):
+   ```bash
+   pip install torch==2.3.1+cu118 -f https://download.pytorch.org/whl/cu118/torch_stable.html
+   ```
 
-# Install PyTorch 2.3.1 with CUDA 11.8
-pip install torch==2.3.1+cu118 -f https://download.pytorch.org/whl/cu118/torch_stable.html
-```
-⚠️ **Important**: Ensure that the installed PyTorch and DGL versions are compatible with the CUDA version on your machine.
+For more information on installing PyTorch and DGL, visit:
+- PyTorch: https://pytorch.org/
+- DGL: https://www.dgl.ai/
 
-### Additional Resources
-
-- For other CUDA versions or DGL versions, please refer to the [DGL official website](https://www.dgl.ai/pages/start.html).
-- Documentation and tutorials are available at [https://sggb0nd.github.io/step/](https://sggb0nd.github.io/step/).
+Remember to choose versions compatible with your system configuration and CUDA version (if applicable).
 
 ## Contribution
 
