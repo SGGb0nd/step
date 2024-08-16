@@ -1,13 +1,16 @@
 import os
 import warnings
+import gc
 from enum import Enum
 from typing import Iterable, Optional, Tuple, Union
 
+import scipy.sparse as sp
 import numpy as np
 import pandas as pd
 import scanpy as sc
 import torch
 from anndata import AnnData
+from memory_profiler import profile
 from torch.utils.data import Dataset
 
 from step.manager import logger
@@ -39,11 +42,12 @@ READ_FIELDS = (
 
 RECIEVE_FIELDS = (
     "gene_expr",
-    "adata",
     "batch_label",
     "_batch_codes",
     "layer_key",
 )
+
+LAYER_KEY = 'counts'
 
 
 class ScMode(Enum):
@@ -231,6 +235,7 @@ class BaseDataset(Dataset):
 
     """
 
+    __slots__ = ['adata']
     read_fields = READ_FIELDS
     process_fields = PROCESS_FIELDS
     recieve_fields = RECIEVE_FIELDS
@@ -265,6 +270,7 @@ class BaseDataset(Dataset):
 
         """
         super(BaseDataset, self).__init__()
+        logger.debug(f"Passing into Dataset: {monitor_memory()}")
         assert adata is not None
         self.is_human = adata.var_names.str.contains("^MT", regex=True).any()
         self.n_top_genes = n_top_genes
@@ -290,9 +296,11 @@ class BaseDataset(Dataset):
         self.filtered = filtered
         self.log_transformed = log_transformed
         self.adata = adata
+        logger.debug(f"Assigned as attr of Dataset: {monitor_memory()}")
 
-        process_config = {k: getattr(self, k) for k in self.process_fields}
+        process_config = {k: getattr(self, k) for k in self.process_fields if k != 'adata'}
         process_config = {**process_config, **kwargs}
+        logger.debug(f"Assigned as kwargs to procees: {monitor_memory()}")
         self.process(**process_config)
 
     @classmethod
@@ -360,11 +368,169 @@ class BaseDataset(Dataset):
             **process_config: Keyword arguments for the processing configuration.
 
         """
-        processed = _process_adata(**process_config)
+        processed = self.process_adata(**process_config)
         for key in self.recieve_fields:
             setattr(self, key, processed[key])
 
         self.log_transformed = True
+        logger.debug(f'After preprocessing: {monitor_memory()}')
+
+    @profile
+    def process_adata(
+        self,
+        is_human,
+        layer_key=None,
+        batch_key=None,
+        class_key=None,
+        geneset=None,
+        filtered=False,
+        filtermt=True,
+        log_transformed=False,
+        logarithm_first=False,
+        hvg_method="seurat_v3",
+        n_top_genes: Optional[int] = 3000,
+        logarithm_after_hvgs=False,
+    ) -> dict:
+        """
+        Process the AnnData object and extract relevant information for downstream analysis.
+
+        Args:
+            adata (AnnData): The input AnnData object.
+            is_human (bool): Flag indicating whether the data is human or not.
+            layer_key (str, optional): The key for the layer in the AnnData object. Defaults to None.
+            batch_key (str, optional): The key for the batch information in the AnnData object. Defaults to None.
+            class_key (str, optional): The key for the class information in the AnnData object. Defaults to None.
+            geneset (list, optional): List of genes to subset the data. Defaults to None.
+            filtered (bool, optional): Flag indicating whether the data is already filtered. Defaults to False.
+            filtermt (bool, optional): Flag indicating whether to filter mitochondrial genes. Defaults to True.
+            log_transformed (bool, optional): Flag indicating whether the data is already log-transformed. Defaults to False.
+            logarithm_first (bool, optional): Flag indicating whether to perform log transformation before other preprocessing steps. Defaults to False.
+            n_top_genes (int, optional): Number of top genes to select. Defaults to 3000.
+            normalize (bool, optional): Flag indicating whether to normalize the data. Defaults to False.
+
+        Returns:
+            dict: A dictionary containing the processed data and relevant information.
+                - gene_expr: The gene expression data.
+                - adata: The processed AnnData object.
+                - batch_label: The batch labels.
+                - class_label: The class labels.
+                - _batch_codes: The batch codes.
+                - _class_codes: The class codes.
+                - layer_key: The key for the layer in the AnnData object.
+        """
+        if not filtered:
+            logger.debug(f"Before filtering: {monitor_memory()}")
+            self.adata.var_names_make_unique()
+            if filtermt:
+                self.adata = _filter_mt(self.adata, is_human=is_human)
+            sc.pp.filter_cells(
+                self.adata, min_genes=10
+            )
+            logger.debug(f"After filtering: {monitor_memory()}")
+
+        if (not log_transformed) and logarithm_first:
+            logger.debug(f"before logarithm: {monitor_memory()}")
+            logger.info('Log-transform required by user')
+            sc.pp.log1p(self.adata, layer=layer_key)
+            log_transformed = True
+            logger.debug(f"after logarithm: {monitor_memory()}")
+
+        logger.debug(f"before copying X: {monitor_memory()}")
+        if layer_key is None:
+            self.adata.layers[LAYER_KEY] = self.adata.X.copy() if not self.adata.is_view else self.adata.X
+            layer_key = LAYER_KEY
+        logger.debug(f"after copying X: {monitor_memory()}")
+
+        if geneset is not None:
+            logger.info("Using given geneset")
+            interc = self.adata.var_names.isin(geneset)
+            if interc.sum() == self.adata.n_vars:
+                interc = None
+            count_data = _get_adata_count_data(self.adata, layer_key, interc)
+            if not log_transformed:
+                sc.pp.log1p(self.adata)
+            if self.adata.raw is None:
+                self.adata.raw = self.adata
+            if interc is not None:
+                self.adata = self.adata[:, interc]
+        else:
+            if hvg_method == "seurat_v3":
+                try:
+                    logger.info("Trying seurat_v3 for hvgs")
+                    sc.pp.highly_variable_genes(
+                        self.adata,
+                        flavor="seurat_v3",
+                        n_top_genes=n_top_genes,
+                        batch_key=batch_key,
+                        layer=layer_key,
+                    )
+                except Exception:
+                    logger.info("Failed, trying pearson residuals for hvgs")
+                    sc.experimental.pp.highly_variable_genes(
+                        self.adata,
+                        n_top_genes=n_top_genes,
+                        batch_key=batch_key,
+                        layer=layer_key,
+                    )
+            else:
+                logger.info("Trying pearson residuals for hvgs")
+                sc.experimental.pp.highly_variable_genes(
+                    self.adata,
+                    n_top_genes=n_top_genes,
+                    batch_key=batch_key,
+                    layer=layer_key,
+                )
+            if not log_transformed:
+                logger.info("not log_transformed")
+                sc.pp.log1p(self.adata)
+            if self.adata.raw is None:
+                self.adata.raw = self.adata
+            self.adata = self.adata[:, self.adata.var.highly_variable]
+            logger.debug(f"before get count data: {monitor_memory()}")
+            count_data = _get_adata_count_data(self.adata, layer_key)
+            logger.debug(f"after get count data: {monitor_memory()}")
+
+        if logarithm_after_hvgs:
+            logger.info("Log-transform count data")
+            count_data = np.log1p(count_data)    
+
+        if geneset is None:
+            sc.pp.filter_cells(self.adata, min_genes=0)
+            cells = self.adata.obs["n_genes"] > 10
+            self.adata = self.adata[cells]
+            count_data = count_data[cells]
+            gc.collect()
+
+        batch_label = torch.ones(self.adata.n_obs)
+        batch_df = None
+        if layer_key is None:
+            logger.info("Adding count data to layer 'counts'")
+            layer_key = "counts"
+            try:
+                self.adata.layers[layer_key] = count_data.numpy()
+            except Exception:
+                logger.info("Adding data to 'counts' failed")
+        if batch_key is not None:
+            catted = self.adata.obs[batch_key].astype("category")
+            batch_df = pd.concat([catted, catted.cat.codes], axis=1)
+            batch_df = batch_df.groupby(batch_key).mean()[0].astype(int)
+            batch_label = torch.from_numpy(catted.cat.codes.values).long()
+        class_label = torch.ones(self.adata.n_obs)
+        class_df = None
+        if class_key is not None:
+            catted = self.adata.obs[class_key].astype("category")
+            class_df = pd.concat([catted, catted.cat.codes], axis=1)
+            class_df = class_df.groupby(class_key).mean()[0].astype(int)
+            class_label = torch.from_numpy(catted.cat.codes.values).long()
+
+        return dict(
+            gene_expr=count_data,
+            batch_label=batch_label,
+            class_label=class_label,
+            _batch_codes=batch_df,
+            _class_codes=class_df,
+            layer_key=layer_key,
+        )
 
     def get(self, batch, attr: Optional[str] = "gene_expr"):
         """Get the data for a specific batch.
@@ -858,149 +1024,7 @@ class CrossDataset(BaseDataset):
         return obs_names.to_series().apply(lambda x: x[:-3]).to_list()
 
 
-def _process_adata(
-    adata: AnnData,
-    is_human,
-    layer_key=None,
-    batch_key=None,
-    class_key=None,
-    geneset=None,
-    filtered=False,
-    filtermt=True,
-    log_transformed=False,
-    logarithm_first=False,
-    hvg_method="seurat_v3",
-    n_top_genes: Optional[int] = 3000,
-    logarithm_after_hvgs=False,
-) -> dict:
-    """
-    Process the AnnData object and extract relevant information for downstream analysis.
-
-    Args:
-        adata (AnnData): The input AnnData object.
-        is_human (bool): Flag indicating whether the data is human or not.
-        layer_key (str, optional): The key for the layer in the AnnData object. Defaults to None.
-        batch_key (str, optional): The key for the batch information in the AnnData object. Defaults to None.
-        class_key (str, optional): The key for the class information in the AnnData object. Defaults to None.
-        geneset (list, optional): List of genes to subset the data. Defaults to None.
-        filtered (bool, optional): Flag indicating whether the data is already filtered. Defaults to False.
-        filtermt (bool, optional): Flag indicating whether to filter mitochondrial genes. Defaults to True.
-        log_transformed (bool, optional): Flag indicating whether the data is already log-transformed. Defaults to False.
-        logarithm_first (bool, optional): Flag indicating whether to perform log transformation before other preprocessing steps. Defaults to False.
-        n_top_genes (int, optional): Number of top genes to select. Defaults to 3000.
-        normalize (bool, optional): Flag indicating whether to normalize the data. Defaults to False.
-
-    Returns:
-        dict: A dictionary containing the processed data and relevant information.
-            - gene_expr: The gene expression data.
-            - adata: The processed AnnData object.
-            - batch_label: The batch labels.
-            - class_label: The class labels.
-            - _batch_codes: The batch codes.
-            - _class_codes: The class codes.
-            - layer_key: The key for the layer in the AnnData object.
-    """
-    if not filtered:
-        adata.var_names_make_unique()
-        if filtermt:
-            adata = _filter_mt(adata, is_human=is_human)
-        sc.pp.filter_cells(
-            adata,
-            min_genes=10,
-        )
-    if not log_transformed and logarithm_first:
-        sc.pp.log1p(adata, layer=layer_key)
-        log_transformed = True
-
-    if geneset is not None:
-        logger.info("Using given geneset")
-        interc = adata.var_names.isin(geneset)
-        count_data = _get_adata_count_data(adata, layer_key, interc)
-        if not log_transformed:
-            sc.pp.log1p(adata)
-        if adata.raw is None:
-            adata.raw = adata
-        adata = adata[:, interc]
-    else:
-        count_data = _get_adata_count_data(adata, layer_key)
-        if hvg_method == "seurat_v3":
-            try:
-                logger.info("Trying seurat_v3 for hvgs")
-                sc.pp.highly_variable_genes(
-                    adata,
-                    flavor="seurat_v3",
-                    n_top_genes=n_top_genes,
-                    batch_key=batch_key,
-                    layer=layer_key,
-                )
-            except Exception:
-                logger.info("Failed, trying pearson residuals for hvgs")
-                sc.experimental.pp.highly_variable_genes(
-                    adata,
-                    n_top_genes=n_top_genes,
-                    batch_key=batch_key,
-                    layer=layer_key,
-                )
-        else:
-            logger.info("Trying pearson residuals for hvgs")
-            sc.experimental.pp.highly_variable_genes(
-                adata,
-                n_top_genes=n_top_genes,
-                batch_key=batch_key,
-                layer=layer_key,
-            )
-        if not log_transformed:
-            logger.info("not log_transformed")
-            sc.pp.log1p(adata)
-        if adata.raw is None:
-            adata.raw = adata
-        count_data = count_data[:, adata.var.highly_variable]
-        adata = adata[:, adata.var.highly_variable]
-
-    if logarithm_after_hvgs:
-        logger.info("Log-transform count data")
-        count_data = np.log1p(count_data)    
-
-    sc.pp.filter_cells(adata, min_genes=0)
-    cells = adata.obs["n_genes"] > 10
-    adata = adata[cells]
-    count_data = count_data[cells]
-
-    count_data = torch.from_numpy(count_data).to(torch.float32)
-    batch_label = torch.ones(adata.n_obs)
-    batch_df = None
-    if layer_key is None:
-        logger.info("Adding count data to layer 'counts'")
-        layer_key = "counts"
-        try:
-            adata.layers[layer_key] = count_data.numpy()
-        except Exception:
-            logger.info("Adding data to 'counts' failed")
-    if batch_key is not None:
-        catted = adata.obs[batch_key].astype("category")
-        batch_df = pd.concat([catted, catted.cat.codes], axis=1)
-        batch_df = batch_df.groupby(batch_key).mean()[0].astype(int)
-        batch_label = torch.from_numpy(catted.cat.codes.values).long()
-    class_label = torch.ones(adata.n_obs)
-    class_df = None
-    if class_key is not None:
-        catted = adata.obs[class_key].astype("category")
-        class_df = pd.concat([catted, catted.cat.codes], axis=1)
-        class_df = class_df.groupby(class_key).mean()[0].astype(int)
-        class_label = torch.from_numpy(catted.cat.codes.values).long()
-
-    return dict(
-        gene_expr=count_data,
-        adata=adata,
-        batch_label=batch_label,
-        class_label=class_label,
-        _batch_codes=batch_df,
-        _class_codes=class_df,
-        layer_key=layer_key,
-    )
-
-
-def _get_adata_count_data(adata: AnnData, layer_key=None, interc=None) -> np.ndarray:
+def _get_adata_count_data(adata: AnnData, layer_key=None, interc=None) -> sp.csr_matrix:
     """
     Get the count data from the AnnData object.
 
@@ -1014,25 +1038,24 @@ def _get_adata_count_data(adata: AnnData, layer_key=None, interc=None) -> np.nda
 
     """
     adata = adata[:, interc] if interc is not None else adata
-    if layer_key is not None:
-        logger.info("Checking layer key")
-        count_data = adata.layers[layer_key]
-    else:
-        count_data = adata.X.copy()  # type:ignore
+    logger.info("Checking layer key")
+    assert layer_key in adata.layers.keys(), "Invalid layer key"
+    count_data = adata.layers[layer_key]
+    logger.debug(type(count_data))
+    if type(count_data) is not sp.csr_matrix:
+        logger.debug("Transferring data to csr_matrix")
+        count_data = sp.csr_matrix(count_data)
 
-    if not isinstance(count_data, np.ndarray):
-        count_data = count_data.toarray().copy()
-    else:
-        if (count_data < 0).any():
-            try:
-                logger.info("Trying .raw")
-                logger.info(interc is None)
-                adata_raw = adata.raw[:,
-                                      interc] if interc is not None else adata.raw
-                adata.layers["raw"] = adata_raw.X  # type:ignore
-                return _get_adata_count_data(adata, layer_key="raw")
-            except Exception:
-                raise
+    if np.any(count_data.data < 0):
+        try:
+            logger.info("Trying .raw")
+            logger.info(interc is None)
+            adata_raw = adata.raw[:,
+                                  interc] if interc is not None else adata.raw
+            adata.layers["raw"] = adata_raw.X  # type:ignore
+            return _get_adata_count_data(adata, layer_key="raw")
+        except Exception:
+            raise
     return count_data
 
 
@@ -1163,3 +1186,9 @@ def _ensure_spatial_dtype(adata):
     if "spaital" in adata.obsm_keys() and adata.obsm["spatial"].shape[1] == 2:
         if adata.obsm["spatial"].dtype != float:
             adata.obsm["spatial"] = adata.obsm["spatial"].astype(float)
+
+def monitor_memory():
+    import psutil
+    process = psutil.Process()
+    memory_info = process.memory_info()
+    return f"Memory usage: {memory_info.rss / 1024 / 1024:.2f} MB"

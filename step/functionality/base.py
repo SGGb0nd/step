@@ -1,5 +1,6 @@
 import torch
 import torch.utils
+from memory_profiler import profile
 from anndata import AnnData
 
 from step.manager import logger

@@ -3,9 +3,11 @@ from typing import Any, Callable, Dict, Optional, Tuple, Union
 
 import numpy as np
 import torch
+import scipy.sparse as sp
+from datetime import datetime
 from sklearn.model_selection import train_test_split
 from torch import optim
-from torch.utils.data import DataLoader, random_split
+from torch.utils.data import DataLoader, random_split, BatchSampler, RandomSampler
 from tqdm import tqdm
 
 from step.manager import logger
@@ -419,6 +421,7 @@ class Trainer(object):
         n_steps = len(train_loader)
         train_loss_dict = {}
         for i, input_tuple in enumerate(train_loader):
+            logger.debug(f"{datetime.now()} | running batch {i}")
             loss_dict = call_func(input_tuple)
             self.update_model_params(loss_dict, state['epoch_val'] - 1)
             train_loss_dict = self.cum_loss(
@@ -666,8 +669,8 @@ class Trainer(object):
         cum_loss_dict = {f"val_{k}": v for k, v in cum_loss_dict.items()}
         return cum_loss_dict
 
-    @staticmethod
     def make_loaders(
+        self,
         dataset: BaseDataset | MaskedDataset,
         batch_size: int,
         split_rate: float = 0.2,
@@ -689,6 +692,12 @@ class Trainer(object):
         """
 
         train_loader, valid_loader = None, None
+        train_sampler, valid_sampler = None, None
+        _bs = batch_size
+        _shuffle = shuffle
+
+        if kwargs.get('collate_fn', None) is None:
+            kwargs['collate_fn'] = sp_csr_csr_collate_fn
         train_ds = dataset
         if (class_key := getattr(dataset, "class_key", None)) is not None and class_key == obs_key:
             logger.info(f"Found class key: {class_key}, setting mode to multi_batches_with_ct")
@@ -710,10 +719,32 @@ class Trainer(object):
                 dataset.set_mode(mode)
                 train_ds, valid_ds = random_split(
                     dataset, [train_size, valid_size])
+            if shuffle:
+                valid_sampler = BatchSampler(
+                            RandomSampler(valid_ds,
+                            generator=torch.Generator()),
+                            batch_size=batch_size,
+                            drop_last=False)
+                _bs = 1
+                _shuffle = False
             valid_loader = DataLoader(
-                valid_ds, batch_size=batch_size, shuffle=shuffle, **kwargs)
+                valid_ds, batch_size=_bs, 
+                shuffle=_shuffle, 
+                sampler=valid_sampler,
+                **kwargs)
+        if shuffle:
+            train_sampler = BatchSampler(
+                    RandomSampler(train_ds,
+                    generator=torch.Generator()),
+                    batch_size=batch_size,
+                    drop_last=False)
+            _bs = 1
+            _shuffle = False
         train_loader = DataLoader(
-            train_ds, batch_size=batch_size, shuffle=shuffle, **kwargs)
+            train_ds, batch_size=_bs, 
+            shuffle=_shuffle, 
+            sampler=train_sampler,
+            **kwargs)
         return (train_loader, valid_loader)
 
 
@@ -743,7 +774,7 @@ def category_random_split(
         label_ind = all_indicies[indicies.values]
         indicies = np.random.permutation(label_ind)
         train_size = int((1 - split_rate) * len(indicies))
-        logger.info(f"Training size for {label}: {train_size}")
+        # logger.info(f"Training size for {label}: {train_size}")
         train_indicies.extend(label_ind[:train_size])
 
     train_indicies = dataset.adata.obs.index.to_numpy()[train_indicies]
@@ -754,3 +785,31 @@ def category_random_split(
     logger.info(f"train size: {len(train_ds)}")
     logger.info(f"valid size: {len(valid_ds)}")
     return train_ds, valid_ds
+
+def sparse_coo_to_tensor(coo: sp.coo_matrix):
+    """
+    Transform scipy coo matrix to pytorch sparse tensor
+    """
+    values = coo.data
+    indices = np.vstack((coo.row, coo.col))
+    shape = coo.shape
+
+    i = torch.LongTensor(indices)
+    v = torch.FloatTensor(values)
+    s = torch.Size(shape)
+
+    return torch.sparse_coo_tensor(i, v, s)
+
+def sparse_csr_to_tensor(csr: sp.csr_matrix):
+    return torch.from_numpy(csr.toarray()).float()
+    # row_indices = torch.tensor(csr.indptr, dtype=torch.int64)
+    # col_indices = torch.tensor(csr.indices, dtype=torch.int64)
+    # values = torch.tensor(csr.data, dtype=torch.float32)
+    #
+    # torch_csr = torch.sparse_csr_tensor(row_indices, col_indices, values, size=csr.shape, dtype=torch.float32)
+    # return torch_csr
+
+def sp_csr_csr_collate_fn(batch):
+    gex, *labels = batch[0]
+    gex = sparse_csr_to_tensor(gex)
+    return (gex, *(torch.tensor(item) for item in labels))

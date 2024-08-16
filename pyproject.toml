@@ -20,8 +20,8 @@ packages = [{ include = "step" }]
 
 [tool.poetry.dependencies]
 python = "^3.10"
-torch = { version = "^1.13.1", source = "pytorch", optional = true }
-dgl = { version = "^1.1.2", source = 'dgl', optional = true }
+torch = { version = "^1.13.1", source = "pytorch" }
+# dgl = { version = "^1.1.2", source = 'dgl', optional = true }
 scanpy = "^1.10.0"
 einops = "^0.6.0"
 leidenalg = "^0.9.0"
@@ -59,7 +59,8 @@ r = ["rpy2"]
 cu117 = ["torch", "dgl"]
 
 [[tool.poetry.source]]
-name = "pypi"
+name = "wlu"
+url = "https://mirrors.westlake.edu.cn/pypi/simple"
 priority = "primary"
 
 [[tool.poetry.source]]

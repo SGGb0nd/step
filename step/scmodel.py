@@ -71,6 +71,7 @@ class scModel:
             AssertionError: If neither adata nor file_path is provided.
         """
 
+        print(f"Passing into scModel: {monitor_memory()}")
         adata_provided = adata is not None
         adata_file_path_provided = file_path is not None
         assert (adata_provided) or (
@@ -104,7 +105,6 @@ class scModel:
         else:
             raise
         logger.info(self.dataset)
-        self._model_config = {}  # TODO: add config
         self._functional = self._select_functional(
             module_dim,
             hidden_dim,
@@ -287,3 +287,10 @@ class scModel:
     @property
     def model(self):
         return self._functional.model
+
+
+import psutil
+def monitor_memory():
+        process = psutil.Process()
+        memory_info = process.memory_info()
+        return f"Memory usage: {memory_info.rss / 1024 / 1024:.2f} MB"

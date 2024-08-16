@@ -48,3 +48,4 @@ keyringrc.cfg
 poetry.lock
 debug
 docs/autoapi/
+*.dat
