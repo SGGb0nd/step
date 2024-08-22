@@ -1,8 +1,16 @@
+import os
+import gc
+import time
 from typing import Literal, Optional
 
+from memory_profiler import profile
+from sklearn.utils.extmath import device
 import torch
+import psutil
 import torch.nn.functional as F
+import numpy as np
 from anndata import AnnData
+from pathlib import Path
 
 from step.manager import logger
 from step.models.transcriptformer import TranscriptFormer
@@ -156,7 +164,7 @@ class scMultiBatchNrmls(FunctionalBase):
         return loss_dict
 
     @torch.no_grad()
-    def _embed(self, dataset, tsfmr_out=False, as_numpy=True):
+    def _embed(self, dataset, tsfmr_out=False, as_numpy=True, batch_size: int | None=512):
         """Embeds the dataset using the model.
 
         Args:
@@ -171,27 +179,52 @@ class scMultiBatchNrmls(FunctionalBase):
         self.model.eval()
         self.model._smooth = False
         self.model.to(self.device)
+        logger.info("Embedding...")
+        batch_size = 512 if batch_size is None else batch_size
         prev_mode = dataset.set_mode("multi_batches")
         loaders = self.make_loaders(
-            dataset, batch_size=512, split_rate=0, shuffle=False
+            dataset, batch_size=batch_size, split_rate=0, 
+            shuffle=False,
+            pin_memory=True,
         )
         dim = self.model.module_dim if not tsfmr_out else self.model.hidden_dim
-        rep = torch.zeros(len(dataset), dim)
+        tmp_path = Path(os.getcwd()) / f'{int(time.time())}_temp_embeddings.pt'
+        logger.debug(f'Creating memmap at {tmp_path}...')
+        torch.zeros(len(dataset), dim).numpy().tofile(tmp_path,)
+        logger.debug('Reading memmap...')
+        rep = torch.from_file(str(tmp_path), shared=True, size=len(dataset) * dim).reshape(
+            len(dataset), dim
+        )
         offset = 0
         fn = self.model.encode if not tsfmr_out else self.model.encode_ts
-        for x, batch_label in loaders[0]:
-            batch_rep = self.get_batch_ohenc(batch_label)
-            rep[offset: offset + len(x)] = fn(
-                x.to(self.device), batch_rep=batch_rep.to(self.device)
+        length = len(loaders[0])
+        logger.debug('Starting inference...')
+        start_ = time.time()
+        for i, (x, batch_label) in enumerate(loaders[0]):
+            start = time.time()
+            # memory_usage = psutil.Process().memory_info().rss
+            # logger.debug(f'[{i+1}/{length}] Memory usage: {memory_usage / (1024 * 1024)} MB')
+
+            mini_batch_rep = fn(
+                x.to(self.device, non_blocking=True), 
+                batch_rep=self.get_batch_ohenc(batch_label).to(self.device)
             ).cpu()
+            logger.debug(f"Elapse: {time.time() - start}")
+            rep[offset: offset + len(x)] = mini_batch_rep
             offset += len(x)
+            del x, batch_label
+            if i % 10 == 0:
+                gc.collect()
+                torch.cuda.empty_cache()
+        logger.debug(f"Elapsed: {time.time() - start_}")
+
         self.model.cpu()
         dataset.set_mode(mode=prev_mode)
         if as_numpy:
             return rep.numpy()
         return rep
 
-    def embed(self, dataset, tsfmr_out=False, as_numpy=True):
+    def embed(self, dataset, tsfmr_out=False, as_numpy=True, batch_size=512):
         """Embeds the given dataset using the model.
 
         Args:
@@ -202,7 +235,7 @@ class scMultiBatchNrmls(FunctionalBase):
         Returns:
             The embeddings of the dataset.
         """
-        return self._embed(dataset, tsfmr_out, as_numpy)
+        return self._embed(dataset, tsfmr_out, as_numpy, batch_size)
 
     @torch.no_grad()
     def get_anchors(self):

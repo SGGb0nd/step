@@ -428,7 +428,7 @@ class TranscriptFormer(nn.Module):
         cls_rep = self.readout_(cls_rep)
         return cls_rep
 
-    def decode_ts(self, rep_ts, x_gd, batch_rep=None):
+    def decode_ts(self, rep_ts, x_gd, batch_label=None):
         """
         Decoding process starting from the non-standardized representation.
 
@@ -455,12 +455,12 @@ class TranscriptFormer(nn.Module):
             px_rate=px_rate,
             px_dropout=px_dropout,
             px_scale=px_scale,
-            px_r=self.get_px_r(batch_rep),
+            px_r=self.get_px_r(batch_label),
             decoder_type=self.decoder_type,
             x=x_gd,
         )
 
-    def decode(self, cls_rep, x_gd, batch_rep=None):
+    def decode(self, cls_rep, x_gd, batch_label=None):
         px_rate, px_dropout, px_scale = None, None, None
         library = x_gd.sum(-1).unsqueeze(-1)
         if cls_rep.shape[0] > library.shape[0]:
@@ -473,7 +473,7 @@ class TranscriptFormer(nn.Module):
             px_rate=px_rate,
             px_dropout=px_dropout,
             px_scale=px_scale,
-            px_r=self.get_px_r(batch_rep),
+            px_r=self.get_px_r(batch_label),
             decoder_type=self.decoder_type,
             x=x_gd,
         )

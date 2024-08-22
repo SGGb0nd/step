@@ -164,7 +164,7 @@ class ModelOps(object):
 
     @torch.no_grad()
     def embed(
-        self, dataset: BaseDataset, tsfmr_out=False, as_numpy=True
+        self, dataset: BaseDataset, tsfmr_out=False, as_numpy=True, batch_size: int | None=512,
     ):
         """get the representation of the dataset
 
@@ -175,6 +175,7 @@ class ModelOps(object):
         Returns:
             rep (torch.Tensor): the representation of the dataset
         """
+        logger.debug("Embedding...")
         self.model.eval()
         self.model.to(self.device)
         x = dataset.gene_expr
@@ -187,7 +188,7 @@ class ModelOps(object):
             return rep.numpy()
         return rep
 
-    def add_embed(self, adata: AnnData, dataset: BaseDataset, tsfmr_out=False, key_added="X_rep"):
+    def add_embed(self, adata: AnnData, dataset: BaseDataset, tsfmr_out=False, batch_size: int | None=512, key_added="X_rep"):
         """add the representation of the dataset to the adata object
 
         Args:
@@ -195,7 +196,7 @@ class ModelOps(object):
             dataset (_type_): _description_
             key_added (str, optional): _description_. Defaults to 'X_rep'.
         """
-        rep = self.embed(dataset=dataset, tsfmr_out=tsfmr_out)
+        rep = self.embed(dataset=dataset, tsfmr_out=tsfmr_out, batch_size=batch_size)
         if tsfmr_out:
             key_added = "X_rep_tsfmr" if key_added is None else key_added
         adata.obsm[key_added] = rep
@@ -210,8 +211,7 @@ class ModelOps(object):
 
         Args:
             dataset: The dataset for which to retrieve the signatures.
-            batch_label: The batch label to use for signature retrieval. If None, the batch label from the dataset will be used.
-            use_batch_rep: Whether to use batch representation for signature retrieval.
+            batch_used: The batch label to use for signature retrieval. If None, the batch label from the dataset will be used.
 
         Returns:
             The retrieved signatures.
@@ -276,11 +276,10 @@ class ModelOps(object):
 
         if decode_dict is None:
             batch_labels = torch.ones(len(rep), dtype=torch.long) * batch_label  # type: ignore
-            batch_rep = self.get_batch_ohenc(batch_labels)
             decode_dict = self.model.decode(
                 cls_rep=rep.to(self.device),
                 x_gd=x.to(self.device),
-                batch_rep=batch_rep.to(self.device),
+                batch_label=batch_labels.to(self.device),
             )
         px = self.get_px(decode_dict)
         x_recon = px.mean
@@ -394,20 +393,15 @@ class ModelOps(object):
             if isinstance(batch_used, str):
                 assert batch_used in dataset.batch_codes, f"Invalid batch name: {batch_used}"
                 batch_used = dataset.batch_codes[batch_used]
-            batch_rep = self.get_batch_ohenc(
-                torch.ones(len(dataset)) * batch_used
-            )
+            batch_label = torch.ones(len(dataset)) * batch_used
         else:
-            batch_rep = self.get_batch_ohenc(
-                torch.ones(len(dataset)),
-                average=True,
-            )
+            batch_label = torch.ones(len(dataset)) / len(dataset)
 
         self.model.to(self.device)
         decode_dict = self.model.decode(
             cls_rep=rep.to(self.device),
             x_gd=x.to(self.device),
-            batch_rep=batch_rep.to(self.device),
+            batch_label=batch_label.to(self.device),
         )
         px = self.get_px(decode_dict)
         x_recon = px.mean

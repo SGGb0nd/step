@@ -178,12 +178,12 @@ class stSmoother(FunctionalBase):
         if self.contrast and self._kl_contrast:
             dist = self.model.readout.dist
 
-        decode_dict = self.model.decode(cls_rep, x, batch_rep=batch_rep)
+        decode_dict = self.model.decode(cls_rep, x, batch_label=batch_rep)
         loss_dict = self.loss_fn(**decode_dict)
 
         if self.e2e:
             rep_k = rep_ts
-            decode_dict2 = self.model.decode_ts(rep_ts, x, batch_rep=batch_rep)
+            decode_dict2 = self.model.decode_ts(rep_ts, x, batch_label=batch_rep)
             if self.contrast:
                 if self._kl_contrast:
                     dist2 = self.model.readout.dist
@@ -211,7 +211,7 @@ class stSmoother(FunctionalBase):
             The loss value.
         """
         rep_ts = self.model.encode_ts(x, batch_rep)
-        decode_dict = self.model.decode_ts(rep_ts, x_gd=x, batch_rep=batch_rep)
+        decode_dict = self.model.decode_ts(rep_ts, x_gd=x, batch_label=batch_rep)
         return self.loss_fn(**decode_dict)
 
     def loss_gbatch(self, g, x_gd, batch_rep, step, ind=None):

@@ -1,11 +1,15 @@
+import os
+
 import torch
 import torch.utils
+from datetime import datetime
 from memory_profiler import profile
 from anndata import AnnData
 
 from step.manager import logger
 from step.models.transcriptformer import TranscriptFormer
 from step.utils.dataset import BaseDataset, MaskedDataset
+from torch.profiler import profile as torch_profile, ProfilerActivity
 
 from .comps.model_ops import ModelOps
 from .comps.trainer import Trainer
@@ -52,6 +56,7 @@ class FunctionalBase(ModelOps, Trainer):
         reset=False,
         beta=0.01,
         lr=1e-3,
+        auto_emb=True,
     ):
         """Run the training and embedding process.
 
@@ -86,12 +91,16 @@ class FunctionalBase(ModelOps, Trainer):
             self.train_batch(
                 epochs=epochs, loaders=loaders, call_func=call_func  # type:ignore
             )
+
         else:
             self.train(
                 epochs=epochs, X=dataset.gene_expr, call_func=call_func
             )  # type:ignore
-        torch.cuda.empty_cache()
-        self.add_embed(adata, dataset=dataset, key_added=key_added)
+        # torch.cuda.empty_cache()
+        if auto_emb:
+            self.add_embed(adata, dataset=dataset, key_added=key_added, batch_size=batch_size)
+            logger.debug(f"{datetime.now()} | Embedding done")
+
         torch.cuda.empty_cache()
         self.model.cpu()
 
