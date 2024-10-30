@@ -66,7 +66,7 @@ class Saver:
             ds_config["received_layer_key"] = dataset.received_layer_key
             config["dataset_config"] = ds_config
             if geneset := ds_config.pop('geneset', None) is not None:
-                with open(os.path.join(self.path), "geneset.txt") as f:
+                with open(os.path.join(self.path,  "geneset.txt"), 'w') as f:
                     f.writelines(geneset)
 
             if self.save_adata:

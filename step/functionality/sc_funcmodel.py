@@ -180,9 +180,9 @@ class scMultiBatchNrmls(FunctionalBase):
         offset = 0
         fn = self.model.encode if not tsfmr_out else self.model.encode_ts
         for x, batch_label in loaders[0]:
-            batch_rep = self.get_batch_ohenc(batch_label)
+            batch_rep = self.get_batch_ohenc(batch_label, device=self.device)
             rep[offset: offset + len(x)] = fn(
-                x.to(self.device), batch_rep=batch_rep.to(self.device)
+                x.to(self.device), batch_rep=batch_rep
             ).cpu()
             offset += len(x)
         self.model.cpu()

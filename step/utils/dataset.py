@@ -141,7 +141,7 @@ class MaskedDataset(Dataset):
             return self.original_dataset.set_mode(mode)
         return self.original_dataset.set_mode()
 
-    def subset(self, key: Iterable=True, col=None, exclude=True):
+    def subset(self, key: Iterable = True, col=None, exclude=True):
         """Returns a new MaskedDataset object representing a subset of the current subset.
 
         Args:
@@ -366,7 +366,7 @@ class BaseDataset(Dataset):
 
         self.log_transformed = True
 
-    def get(self, batch, attr: Optional[str] = "gene_expr"):
+    def get(self, batch=None, attr: Optional[str] = "gene_expr"):
         """Get the data for a specific batch.
 
         Args:
@@ -377,10 +377,11 @@ class BaseDataset(Dataset):
             Union[np.ndarray, None]: The data for the specified batch.
 
         """
-        indicies = np.arange(self.adata.n_obs, dtype=int)
-        batch_code = self._batch_codes[batch]
-        mask = self.batch_label == batch_code
-        index = indicies[mask]
+        index = np.arange(self.adata.n_obs, dtype=int)
+        if batch is not None:
+            batch_code = self._batch_codes[batch]
+            mask = self.batch_label == batch_code
+            index = index[mask]
         if attr is None:
             return index
         attr_val = getattr(self, attr, None)
@@ -734,7 +735,7 @@ class CrossDataset(BaseDataset):
         filtermt = kwargs.get("filtermt", True)
         if filtermt:
             st_adata = _filter_mt(st_adata, is_human=self.is_human)
-        
+
         st_adata = st_adata[self.st_obs_names]
         assert (
             st_adata.n_obs
@@ -847,7 +848,7 @@ class CrossDataset(BaseDataset):
             int: The number of batches for the spatial transcriptomics dataset.
         """
         return len(self.st_sample_names)
-    
+
     @property
     def st_obs_names(self):
         obs_names = self.adata[
@@ -959,7 +960,7 @@ def _process_adata(
 
     if logarithm_after_hvgs:
         logger.info("Log-transform count data")
-        count_data = np.log1p(count_data)    
+        count_data = np.log1p(count_data)
 
     sc.pp.filter_cells(adata, min_genes=0)
     cells = adata.obs["n_genes"] > 10

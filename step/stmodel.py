@@ -1,6 +1,6 @@
 import inspect
 from pathlib import Path
-from typing import Optional, Sequence, Tuple
+from typing import Literal, Optional, Sequence, Tuple
 
 import scanpy as sc
 import seaborn as sns
@@ -41,7 +41,7 @@ class stModel:
         hidden_dim=64,
         n_modules=32,
         model_checkpoint=None,
-        edge_clip=2,
+        edge_clip: float | Literal['visium'] = 'visium',
         logarithm_first=False,
         variational=True,
         n_glayers=4,
@@ -232,7 +232,7 @@ class stModel:
         """
         if adata is None:
             adata = self.adata
-        adata.obs[key_added] = adata.obs[pre_key].copy().astype(int)
+        adata.obs[key_added] = adata.obs[pre_key].copy().astype(str)
         for clu in adata.obs[pre_key].unique():
             _adata = adata[adata.obs[pre_key] == clu, :]
             if use_rep is None:

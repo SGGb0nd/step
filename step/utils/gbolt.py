@@ -1,21 +1,8 @@
 import random
 
 import dgl
-# import dgl.graphbolt as gb
+import numpy as np
 import torch
-
-# from torch.utils.data import functional_datapipe
-
-
-# def create_dataloader(A, dataset, batch_size, device):
-#     ids = gb.ItemSet(len(dataset))
-#     datapipe = gb.ItemSampler(dataset, batch_size=batch_size)
-#     # Customize graphbolt sampler by sparse.
-#     datapipe = datapipe.from_spatial_graph(A)
-#     # Use grapbolt to fetch features.
-#     datapipe = datapipe.copy_to(device)
-#     dataloader = gb.DataLoader(datapipe)
-#     return dataloader
 
 
 class MultiGraphsAllNodesSampler(dgl.dataloading.SAINTSampler):

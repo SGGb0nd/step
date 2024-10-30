@@ -533,7 +533,7 @@ class Trainer(object):
                 del loss_dict
 
     @train_loop_formatter
-    def train_graph_batch(self, state, gloader, train_ind=None, valid_ind=None):
+    def train_graph_batch(self, state, gloader, dataset, train_ind=None, valid_ind=None):
         """Trains the model on a batch of graph inputs.
 
         Args:
@@ -552,9 +552,9 @@ class Trainer(object):
         n_steps = len(gloader)
         writer = state.get("writer", None)
         for i, ginput_tuple in enumerate(gloader):
-            loss_dict = self.handle_ginput_tuple(ginput_tuple, train_ind)
+            loss_dict = self.handle_ginput_tuple(ginput_tuple, dataset=dataset, ind=train_ind)
             loss_dict.pop("graph_ids", None)
-            self.update_model_params(loss_dict)
+            self.update_model_params(loss_dict, epoch=state['epoch_val'] - 1)
             train_loss_dict = self.cum_loss(
                 loss_dict,
                 train_loss_dict,

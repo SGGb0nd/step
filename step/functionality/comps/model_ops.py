@@ -192,7 +192,7 @@ class ModelOps(object):
 
         Args:
             adata (AnnData): an AnnData object
-            dataset (_type_): _description_
+            dataset (BaseDataset): _description_
             key_added (str, optional): _description_. Defaults to 'X_rep'.
         """
         rep = self.embed(dataset=dataset, tsfmr_out=tsfmr_out)

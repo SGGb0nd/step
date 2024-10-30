@@ -14,7 +14,8 @@ import torch
 import torch.nn.functional as F
 from anndata import AnnData
 from matplotlib.image import imread
-from scipy.spatial.distance import cdist
+# from scipy.spatial.distance import cdist
+from sklearn.neighbors import BallTree, KDTree
 
 from step.manager import logger
 
@@ -32,36 +33,51 @@ def set_seed(seed):
     dgl.seed(seed)
 
 
-def get_de_genes(
+def cosine_sim(x, y):
+    if len(x.shape) < 2:
+        x = x.reshape(1, -1)
+    if len(y.shape) < 2:
+        y = y.reshape(1, -1)
+    return (
+        (x * y).sum(-1)
+        / (np.linalg.norm(x, axis=-1) * np.linalg.norm(y, axis=-1) + 1e-6)
+    )
+
+
+def neighbors_ranking(
     adata,
-    cell_type_key,
-    de_key="rank_genes_groups_filtered",
-    n_genes=10,
-    log2fc_cutoff=0.5,
-    hvg_intersection=True,
-) -> np.ndarray:
-    cell_type_names = adata.obs[cell_type_key].cat.categories
-    if de_key not in adata.uns:
-        sc.tl.rank_genes_groups(
-            adata,
-            cell_type_key,
-            method="wilcoxon",
-            use_raw=True,
-        )
-        sc.tl.filter_rank_genes_groups(
-            adata,
-            min_fold_change=log2fc_cutoff,
-            min_in_group_fraction=0.25,
-        )
-    de_results = adata.uns[de_key]
-    de_genes = []
-    for cell_type_name in cell_type_names:
-        de_genes.extend(
-            de_results["names"][cell_type_name][:n_genes]
-        )
-    if hvg_intersection:
-        return adata.var_names.isin(de_genes).flatten()
-    return de_genes
+    queries,
+    batch_key,
+    library_id,
+    radius=50,
+    spatial_key='spatial',
+    indvidual_key='X_rep',
+    localized_key='X_smoothed',
+    return_score=True,
+):
+    spots = adata.obsm[spatial_key]
+    qdata = adata[queries]
+    qspots = qdata.obsm[spatial_key]
+    cell_emb = qdata.obsm[indvidual_key]
+    local_emb = qdata.obsm[localized_key]
+    from sklearn.neighbors import KDTree
+    tree = KDTree(spots)
+
+    ind = tree.query_radius(qspots, r=radius)
+    sorted_barcodes = []
+    if return_score:
+        sorted_scores = []
+    for i, neighbors in enumerate(ind):
+        diff_vec = local_emb[i].reshape(1, -1) - cell_emb[neighbors]
+        cosine = cosine_sim(cell_emb[i], diff_vec)
+        ranked_cosine_indicies = np.argsort(cosine,)
+        sorted_barcodes.append(ranked_cosine_indicies)
+        if return_score:
+            sorted_scores.append(cosine[ranked_cosine_indicies])
+
+    if return_score:
+        return sorted_barcodes, sorted_scores
+    return sorted_barcodes
 
 
 def compute_selfattention(
@@ -140,7 +156,7 @@ def extract_selfattention_maps(transformer_encoder, x, mask, src_key_padding_mas
 
 
 def generate_adj(
-    adata, edge_clip: Optional[int] = 2, max_neighbors=6, batch_key=None
+    adata, edge_clip: None | float = 2, max_neighbors=6, batch_key=None
 ) -> dgl.DGLHeteroGraph:
     """
     Generate a graph from spatial coordinates.
@@ -174,7 +190,7 @@ def generate_adj(
 
 
 def _generate_adj(
-    adata, edge_clip: Optional[int] = 2, max_neighbors=6, info=False
+    adata, edge_clip: None | float = 2, max_neighbors=6, info=False
 ) -> dgl.DGLHeteroGraph:
     assert "array_row" in adata.obs.columns
     assert "array_col" in adata.obs.columns
@@ -184,32 +200,67 @@ def _generate_adj(
                 f"Constructing neighbor graph via kNN style: k = {max_neighbors}")
         spots = adata.obs[["array_row", "array_col"]].values
         spots = torch.from_numpy(spots).float()
-        g = dgl.knn_graph(spots, max_neighbors)
-        g = dgl.add_self_loop(g)
+        # from sklearn.neighbors import KDTree
+        tree = KDTree(spots)
+        ind = tree.queries(spots, k=max_neighbors, return_distance=False)
+        g = kdtree_res2adj(ind)
+        g.ndata['xy'] = spots
         return g
     if info:
         logger.info(
             f"Constructing neighboring graph via edge clip: clip = {edge_clip}")
-    grids = adata.obs[["array_row", "array_col"]].values
-    try:
-        m = cdist(grids, grids)
-        m[m <= edge_clip] = 1
-        m[m > edge_clip] = 0
-        m = sp.csr_matrix(m)
-    except Exception:
-        from sklearn.neighbors import KDTree
-        tree = KDTree(grids)
+    grids = adata.obs[["array_row", "array_col"]].values.astype(np.float32)
+    # try:
+    #     m = cdist(grids, grids)
+    #     m[m <= edge_clip] = 1
+    #     m[m > edge_clip] = 0
+    #     m = sp.csr_matrix(m)
+    # except Exception:
+    if edge_clip == 'visium':
+        edge_clip = 2
+        tree = BallTree(grids, metric=visium_grid_distance)
+    else:
+        tree = KDTree(grids,)
 
-        ind = tree.query_radius(grids, r=edge_clip)
-        pair_counts = [len(neighbors) for neighbors in ind]
-        n_points = len(grids)
-        indices = np.repeat(np.arange(n_points), pair_counts)
-        indptr = np.concatenate([[0], np.cumsum(pair_counts)])
-        m = sp.csr_matrix((np.ones(len(indices)), indices, indptr), shape=(n_points, n_points))
+    ind = tree.query_radius(grids, r=edge_clip)
+    g = kdtree_res2adj(ind)
+    g.ndata['xy'] = torch.from_numpy(grids).float()
+    return g
 
+
+def kdtree_res2adj(ind):
+    rows = np.concatenate([np.full(len(neighbors), i) for i, neighbors in enumerate(ind)])
+    cols = np.concatenate(ind)
+    n_points = len(ind)
+
+    m = sp.csr_matrix((np.ones_like(rows), (rows, cols)), shape=(n_points, n_points))
     g = dgl.from_scipy(m)
+    g = g.remove_self_loop()
     g = dgl.add_self_loop(g)
     return g
+
+
+def visium_grid_distance(x, y):
+    if abs(y[1] - x[1]) >= 2:
+        return np.inf
+    return np.linalg.norm(x - y)
+
+
+def z2polar(edges):
+    z = edges.dst["xy"] - edges.src["xy"]
+    rho = torch.norm(z, dim=-1, p=2)
+    x, y = z.unbind(dim=-1)
+    phi = torch.atan2(y, x)
+    return {"polar": torch.cat([rho.unsqueeze(-1), phi.unsqueeze(-1)], -1)}
+
+
+def z2direction(edges):
+    num_directions = 6
+    z = edges.dst["xy"] - edges.src["xy"]
+    x, y = z.unbind(dim=-1)
+    phi = torch.atan2(y, x)
+    directions = torch.floor((phi + math.pi) / (2 * math.pi / num_directions)).long() % num_directions
+    return {"direction": directions}
 
 
 def aver_items_by_ct(

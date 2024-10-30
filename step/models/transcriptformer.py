@@ -355,18 +355,6 @@ class TranscriptFormer(nn.Module):
         self.smoother = GCN(**self.gargs)
         return True
 
-    def init_smoother(
-        self,
-        n_glayers=None,
-    ):
-        self._smooth = True
-
-        if n_glayers is not None:
-            self.gargs["n_layers"] = n_glayers
-        self.smoother = GCN(**self.gargs)
-        self.smoother: GCN
-        return True
-
     def local_smooth(self, h, g: Optional[dgl.DGLGraph] = None):
         """
         Local smoothing function.
@@ -413,7 +401,7 @@ class TranscriptFormer(nn.Module):
             cls_rep = self.local_smooth(cls_rep)
         return self.readout(cls_rep)
 
-    def encode(self, x, bacth_rep=None) -> torch.Tensor:
+    def encode(self, x, batch_rep=None) -> torch.Tensor:
         """
         Encode the input tensor with the transformer and the readout function.
 
@@ -477,6 +465,10 @@ class TranscriptFormer(nn.Module):
             decoder_type=self.decoder_type,
             x=x_gd,
         )
+
+    def blocks_forward(self, blocks, h):
+        h = self.smoother.batch_forward(blocks, h)
+        return self.readout(h)
 
     def forward(self, x):
         h = self.encode(x)
