@@ -202,7 +202,7 @@ def _generate_adj(
         spots = torch.from_numpy(spots).float()
         # from sklearn.neighbors import KDTree
         tree = KDTree(spots)
-        ind = tree.queries(spots, k=max_neighbors, return_distance=False)
+        ind = tree.query(spots, k=max_neighbors, return_distance=False)
         g = kdtree_res2adj(ind)
         g.ndata['xy'] = spots
         return g
