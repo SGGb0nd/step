@@ -923,7 +923,6 @@ def _process_adata(
             adata.raw = adata
         adata = adata[:, interc]
     else:
-        count_data = _get_adata_count_data(adata, layer_key)
         if hvg_method == "seurat_v3":
             try:
                 logger.info("Trying seurat_v3 for hvgs")
@@ -942,6 +941,9 @@ def _process_adata(
                     batch_key=batch_key,
                     layer=layer_key,
                 )
+            if layer_key is None:
+                layer_key = "counts"
+                adata.layers[layer_key] = adata.X.copy()
         else:
             logger.info("Trying pearson residuals for hvgs")
             sc.experimental.pp.highly_variable_genes(
@@ -955,17 +957,12 @@ def _process_adata(
             sc.pp.log1p(adata)
         if adata.raw is None:
             adata.raw = adata
-        count_data = count_data[:, adata.var.highly_variable]
         adata = adata[:, adata.var.highly_variable]
+        count_data = _get_adata_count_data(adata, layer_key)
 
     if logarithm_after_hvgs:
         logger.info("Log-transform count data")
         count_data = np.log1p(count_data)
-
-    sc.pp.filter_cells(adata, min_genes=0)
-    cells = adata.obs["n_genes"] > 10
-    adata = adata[cells]
-    count_data = count_data[cells]
 
     count_data = torch.from_numpy(count_data).to(torch.float32)
     batch_label = torch.ones(adata.n_obs)
@@ -1001,6 +998,7 @@ def _process_adata(
     )
 
 
+# @profile
 def _get_adata_count_data(adata: AnnData, layer_key=None, interc=None) -> np.ndarray:
     """
     Get the count data from the AnnData object.
@@ -1022,7 +1020,7 @@ def _get_adata_count_data(adata: AnnData, layer_key=None, interc=None) -> np.nda
         count_data = adata.X.copy()  # type:ignore
 
     if not isinstance(count_data, np.ndarray):
-        count_data = count_data.toarray().copy()
+        count_data = count_data.toarray()
     else:
         if (count_data < 0).any():
             try:
