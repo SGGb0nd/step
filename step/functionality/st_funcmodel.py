@@ -157,7 +157,7 @@ class stSmoother(FunctionalBase):
                 index = indcies[adata.obs[batch_key] == batch]
                 _adata = adata[index]
                 g = self._gener_graph(_adata)
-                g.ndata["node_ids"] = torch.from_numpy(dataset.get(batch, attr=None))
+                g.ndata["node_ids"] = torch.from_numpy(dataset.get(batch, attr=None)).long()
                 graphs.append(g)
             batched_graph = dgl.batch(graphs)
         else:

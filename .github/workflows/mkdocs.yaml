@@ -19,9 +19,7 @@ jobs:
           ssh-private-key: ${{ secrets.SUB_MODULE_KEY }}
 
       - name: Pull submodules
-        run: |
-          git submodule update --init --recursive
-          git submodule update --remote
+        run: git submodule update --init --recursive docs/notebooks
 
       - name: Set up Poetry
         run: |

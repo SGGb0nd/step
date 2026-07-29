@@ -1,5 +1,4 @@
 import inspect
-from pathlib import Path
 from typing import Literal, Optional, Sequence, Tuple
 
 import scanpy as sc
@@ -307,7 +306,7 @@ class stModel:
             fig.savefig(f"{obsm_key}_single_domain_summary.pdf",
                         bbox_inches="tight")
 
-    def save(self, path: str | Path = "."):
+    def save(self, path: Optional[str] = None):
         from step.manager.save import Saver
         saver = Saver.get_instance(self.__class__.__name__)
         """Save the model and the data.
@@ -354,17 +353,23 @@ class stModel:
         config["model_config"].pop("input_dim")
         config["model_config"].pop("num_batches", None)
         config["model_config"].pop("num_classes", None)
-        config["dataset_config"]["geneset_to_use"] = config["dataset_config"].pop("geneset")
+        config["dataset_config"]["geneset_to_use"] = config["dataset_config"].pop("geneset", None)
 
         if adata is not None or filepath is not None:
             if adata_saved and saved_adata:
                 logger.warning("Using passed adata, but detected saved adata.")
             config["dataset_config"]["layer_key"] = config["dataset_config"].pop("received_layer_key", None)
+            ds_config = config["dataset_config"]
+            ds_config["log_transformed"] = True
+            ds_config["logarithm_first"] = False
+            ds_config["n_top_genes"] = None
+            ds_config["filtered"] = True
+            ds_config.pop("received_layer_key", None)
             return cls(
                 adata=adata,
                 file_path=filepath,
                 **config["model_config"],
-                **config["dataset_config"],
+                **ds_config,
                 model_checkpoint=os.path.join(path, model_name),
             )
         else:

@@ -1,3 +1,6 @@
 [submodule "docs/notebooks"]
 	path = docs/notebooks
 	url = git@github.com:SGGb0nd/step-tutorial.git
+[submodule "analysis"]
+	path = analysis
+	url = https://github.com/SGGb0nd/STEP-analysis.git

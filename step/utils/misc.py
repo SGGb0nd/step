@@ -4,6 +4,7 @@ import os
 from pathlib import Path
 # import random
 from typing import Optional
+from einops import repeat
 
 import dgl
 import numpy as np
@@ -14,10 +15,10 @@ import torch
 import torch.nn.functional as F
 from anndata import AnnData
 from matplotlib.image import imread
-# from scipy.spatial.distance import cdist
 from sklearn.neighbors import BallTree, KDTree
 
 from step.manager import logger
+from step.models.transcriptformer import TranscriptFormer
 
 
 def set_seed(seed):
@@ -44,60 +45,20 @@ def cosine_sim(x, y):
     )
 
 
-def neighbors_ranking(
-    adata,
-    queries,
-    batch_key,
-    library_id,
-    radius=50,
-    spatial_key='spatial',
-    indvidual_key='X_rep',
-    localized_key='X_smoothed',
-    return_score=True,
-):
-    spots = adata.obsm[spatial_key]
-    qdata = adata[queries]
-    qspots = qdata.obsm[spatial_key]
-    cell_emb = qdata.obsm[indvidual_key]
-    local_emb = qdata.obsm[localized_key]
-    from sklearn.neighbors import KDTree
-    tree = KDTree(spots)
-
-    ind = tree.query_radius(qspots, r=radius)
-    sorted_barcodes = []
-    if return_score:
-        sorted_scores = []
-    for i, neighbors in enumerate(ind):
-        diff_vec = local_emb[i].reshape(1, -1) - cell_emb[neighbors]
-        cosine = cosine_sim(cell_emb[i], diff_vec)
-        ranked_cosine_indicies = np.argsort(cosine,)
-        sorted_barcodes.append(ranked_cosine_indicies)
-        if return_score:
-            sorted_scores.append(cosine[ranked_cosine_indicies])
-
-    if return_score:
-        return sorted_barcodes, sorted_scores
-    return sorted_barcodes
-
-
 def compute_selfattention(
-    transformer_encoder, x, mask, src_key_padding_mask, i_layer, d_model, num_heads
+    transformer_encoder, x, mask=None, src_key_padding_mask=None, i_layer=0, d_model=64, num_heads=8
 ):
     h = F.linear(
         x,
         transformer_encoder.layers[i_layer].self_attn.in_proj_weight,
         bias=transformer_encoder.layers[i_layer].self_attn.in_proj_bias,
     )
-    qkv = h.reshape(x.shape[0], x.shape[1], num_heads,
-                    3 * d_model // num_heads)
-    qkv = qkv.permute(0, 2, 1, 3)  # [Batch, Head, SeqLen, Dims]
-    # [Batch, Head, SeqLen, d_head=d_model//num_heads]
-    q, k, v = qkv.chunk(3, dim=-1)
-    # [Batch, Head, SeqLen, SeqLen]
-    attn_logits = torch.matmul(q, k.transpose(-2, -1))
+    qkv = h.reshape(x.shape[0], x.shape[1], 3, num_heads, d_model // num_heads)
+    qkv = qkv.permute(2, 0, 3, 1, 4)  # [3, Batch, Head, SeqLen, Dims]
+    q, k, v = qkv[0], qkv[1], qkv[2]  # [Batch, Head, SeqLen, d_head=d_model//num_heads]
+    attn_logits = torch.matmul(q, k.transpose(-2, -1))  # [Batch, Head, SeqLen, SeqLen]
     d_k = q.size()[-1]
     attn_probs = attn_logits / math.sqrt(d_k)
-    # combining src_mask e.g. upper triangular with src_key_padding_mask e.g. columns over each padding position
     combined_mask = torch.zeros_like(attn_probs)
     if mask is not None:
         combined_mask += mask.float()  # assume mask of shape (seq_len,seq_len)
@@ -108,25 +69,32 @@ def compute_selfattention(
             .unsqueeze(1)
             .repeat(1, num_heads, x.shape[1], 1)
         )
-        # assume shape (batch_size,seq_len), repeating along head and line dimensions == "column" mask
     combined_mask = torch.where(
         combined_mask > 0,
         torch.zeros_like(combined_mask) - float("inf"),
         torch.zeros_like(combined_mask),
     )
-    # setting masked logits to -inf before softmax
     attn_probs += combined_mask
     attn_probs = F.softmax(attn_probs, dim=-1)
     return attn_logits, attn_probs
 
 
-def extract_selfattention_maps(transformer_encoder, x, mask, src_key_padding_mask):
+def extract_selfattention_maps(transcrit_former: TranscriptFormer, x, mask=None, src_key_padding_mask=None):
+    x = transcrit_former.moduler(x)
+    b, _, _ = x.shape
+    cls_tokens = repeat(transcrit_former.cls_token, "() n d -> b n d", b=b)
+    x = torch.cat([cls_tokens, x], dim=1)  # type:ignore
+    x = transcrit_former.pe(x)
+    x = transcrit_former.expand(x)
+    transformer_encoder = transcrit_former.module
+
     attn_logits_maps = []
     attn_probs_maps = []
     num_layers = transformer_encoder.num_layers
     d_model = transformer_encoder.layers[0].self_attn.embed_dim
     num_heads = transformer_encoder.layers[0].self_attn.num_heads
     norm_first = transformer_encoder.layers[0].norm_first
+
     with torch.no_grad():
         for i in range(num_layers):
             # compute attention of layer i
@@ -316,7 +284,7 @@ def read_visium_hd(
     source_image_path: Path | str | None = None,
 ) -> AnnData:
     """\
-    Read 10x-Genomics-formatted visum-hd dataset, **modified from scanpy.read_visium**.
+    Read 10x-Genomics-formatted visum-hd dataset forked from `scanpy.read_visium`
 
     In addition to reading regular 10x output,
     this looks for the `spatial` folder and loads images,

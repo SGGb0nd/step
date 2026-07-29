@@ -38,6 +38,10 @@ This page contains tutorials on how to use the STEP.
    ../../notebooks/scRNA-seq
    ../../notebooks/human_colorectal_cancer
    ../../notebooks/mouse_small_intestine
+   ../../notebooks/crc_visium_hd_representation
+   ../../notebooks/crc_visium_hd_microarchitecture
+   ../../notebooks/prostate_slideseq_v2_representation
+   ../../notebooks/prostate_slideseq_v2_microarchitecture
 
 API Reference
 =============

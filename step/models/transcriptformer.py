@@ -185,6 +185,21 @@ class GeneModuler(nn.Module):
         return x[:, perm]
 
 
+class PositionalEncoding(nn.Module):
+    def __init__(self, d_model, max_len=5000):
+        super(PositionalEncoding, self).__init__()
+        pe = torch.zeros(max_len, d_model)
+        position = torch.arange(0, max_len, dtype=torch.float).unsqueeze(1)
+        div_term = torch.exp(torch.arange(0, d_model, 2).float() * (-torch.log(torch.tensor(10000.0)) / d_model))
+        pe[:, 0::2] = torch.sin(position * div_term)
+        pe[:, 1::2] = torch.cos(position * div_term)
+        pe = pe.unsqueeze(0)
+        self.register_buffer('pe', pe)
+
+    def forward(self, x):
+        return x + self.pe[:, :x.size(1), :]
+
+
 class TranscriptFormer(nn.Module):
     """TranscriptFormer is a gene expression model based on the Transformer architecture.
 
@@ -285,6 +300,7 @@ class TranscriptFormer(nn.Module):
                 encoder_layer=encoder_layer,
                 num_layers=n_enc_layer,
             )
+            self.pe = PositionalEncoding(module_dim)
         else:
             self.module = Transformer(
                 dim=hidden_dim,
@@ -293,6 +309,7 @@ class TranscriptFormer(nn.Module):
                 dim_head=hidden_dim,
                 mlp_dim=4 * hidden_dim,
             )
+            self.pe = nn.Identity()
 
         self.cls_token = nn.Parameter(
             torch.randn(1, 1, module_dim))  # type:ignore
@@ -382,6 +399,7 @@ class TranscriptFormer(nn.Module):
         b, _, _ = auto_fold.shape
         cls_tokens = repeat(self.cls_token, "() n d -> b n d", b=b)
         auto_fold = torch.cat([cls_tokens, auto_fold], dim=1)  # type:ignore
+        auto_fold = self.pe(auto_fold)
         auto_fold = self.expand(auto_fold)
         rep = self.module(auto_fold)
         cls_rep = rep[:, 0]
