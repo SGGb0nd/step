@@ -68,13 +68,12 @@ For more information on installing PyTorch and DGL, visit:
 
 Remember to choose versions compatible with your system configuration and CUDA version (if applicable).
 
-## Tutorials and analysis
+## Tutorials and analyses
 
-- [`docs/notebooks`](docs/notebooks) contains executed, user-facing STEP tutorials.
-- [`analysis`](analysis) contains the notebooks, scripts, and compact workflow
-  outputs supporting the manuscript analyses.
+- Executable [tutorial notebooks](https://github.com/SGGb0nd/STEP-analysis/tree/main/notebooks/tutorials) can be opened and downloaded from the STEP-analysis repository.
+- The [STEP-analysis repository](https://github.com/SGGb0nd/STEP-analysis) contains the notebooks, scripts, and compact workflow outputs supporting the manuscript analyses.
 
-Clone both repositories with:
+Clone STEP together with the analysis repository using:
 
 ```bash
 git clone --recurse-submodules https://github.com/SGGb0nd/step.git
